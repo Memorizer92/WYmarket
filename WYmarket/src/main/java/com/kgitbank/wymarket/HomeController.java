@@ -34,6 +34,7 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+		// 승환이 멋쟁이 짱짱 ㅎㅎㅎ 
 	}
 	
 }
