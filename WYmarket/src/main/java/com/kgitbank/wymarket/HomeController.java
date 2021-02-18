@@ -35,11 +35,17 @@ public class HomeController {
 		
 		return "home";
 
+
 		
 		// MEMO
 
 		
 		// 승환이 멋쟁이 짱짱 ㅎㅎㅎ 
+
+
+		
+		
+		//jh
 
 	}
 	
