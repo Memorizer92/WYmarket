@@ -21,7 +21,7 @@ import com.kgitbank.service.WYmarketService;
 import com.kgitbank.service.certificationService;
 
 @Controller
-@SessionAttributes("certcnt")
+@SessionAttributes({"smscodes","phonenumber","certcnt"})
 public class ShController {
 
 	@Autowired
@@ -32,7 +32,7 @@ public class ShController {
 		return "/login/login";
 	}
 
-	@PostMapping("/usernick")
+	@PostMapping("/login/usernick")
 	public void userNickPage() {
 
 	}
@@ -42,46 +42,46 @@ public class ShController {
 
 	}
 
-	@PostMapping("/getsms/{sms}")
-	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo,
-			RedirectAttributes rttr, Model model) {
-
-		Random rand = new Random();
-		String numStr = "";
-		for (int i = 0; i < 4; i++) {
-			String ran = Integer.toString(rand.nextInt(10));
-			numStr += ran;
-		}
-		
-		System.out.println("수신자 번호 : " + phoneNumber);
-		System.out.println("인증번호 : " + numStr);
-		rttr.addFlashAttribute("smscodes", numStr);
-		rttr.addFlashAttribute("phonenumber", phoneNumber);
-		// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
-
-		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-				+ phoneNumber.substring(7);
-		
-		
-		System.out.println(wyMarketService.getUserInfoByPhone(dashPhoneNumber));
-
-		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
-			wyMarketService.insertSMS(dashPhoneNumber);
-			rttr.addFlashAttribute(phoneNumber, 1);
-		} else {
-			for (Map<String, Object> user : wyMarketService.getUserInfoByPhone(dashPhoneNumber)) {
-				userInfo.setPhoneNumber(dashPhoneNumber);
-				userInfo.setSmsCnt(Integer.parseInt(String.valueOf(user.get("SMSCNT"))));
-				if (Integer.parseInt(String.valueOf(user.get("SMSCNT"))) >= 3) {
-					System.out.println("3회 초과됨");
-				} else {
-					wyMarketService.updateSMS(userInfo);
-					rttr.addFlashAttribute(phoneNumber, user.get("SMSCNT"));
-				}
-			}
-		}
-		return "redirect:/login"; // uri 반환 !!!
-	}
+//	@PostMapping("/wymarket/getsms/{sms}")
+//	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo,
+//			RedirectAttributes rttr, Model model) {
+//
+//		Random rand = new Random();
+//		String numStr = "";
+//		for (int i = 0; i < 4; i++) {
+//			String ran = Integer.toString(rand.nextInt(10));
+//			numStr += ran;
+//		}
+//		
+//		System.out.println("수신자 번호 : " + phoneNumber);
+//		System.out.println("인증번호 : " + numStr);
+//		rttr.addFlashAttribute("smscodes", numStr);
+//		rttr.addFlashAttribute("phonenumber", phoneNumber);
+//		// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+//
+//		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
+//				+ phoneNumber.substring(7);
+//		
+//		
+//		System.out.println(wyMarketService.getUserInfoByPhone(dashPhoneNumber));
+//
+//		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
+//			wyMarketService.insertSMS(dashPhoneNumber);
+//			rttr.addFlashAttribute(phoneNumber, 1);
+//		} else {
+//			for (Map<String, Object> user : wyMarketService.getUserInfoByPhone(dashPhoneNumber)) {
+//				userInfo.setPhoneNumber(dashPhoneNumber);
+//				userInfo.setSmsCnt(Integer.parseInt(String.valueOf(user.get("SMSCNT"))));
+//				if (Integer.parseInt(String.valueOf(user.get("SMSCNT"))) >= 3) {
+//					System.out.println("3회 초과됨");
+//				} else {
+//					wyMarketService.updateSMS(userInfo);
+//					rttr.addFlashAttribute(phoneNumber, user.get("SMSCNT"));
+//				}
+//			}
+//		}
+//		return "redirect:/login"; // uri 반환 !!!
+//	}
 
 	@GetMapping(value = { "/NewFile3/{lat}/{lon:.+}" })
 	public String gpsGet(@PathVariable("lat") String lat, @PathVariable("lon") String lon) {
