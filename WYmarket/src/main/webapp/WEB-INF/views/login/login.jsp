@@ -17,7 +17,7 @@
 		<input type="text" placeholder="휴대폰 번호를 입력해주세요" maxlength="11" 
 			onkeypress="onlyNumber();" style="ime-mode: disabled;" id="phonenumber" 
 			onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" value="${phonenumber }"> 
-<!-- 		<button id="checkphone" data-btn-type="getsms" onclick="btnAction(this);">인증문자 받기</button> -->
+
 				<button id="checkphone">인증문자 받기</button>
 		
 		<input type="text" placeholder="인증 번호를 입력해주세요" maxlength="6"

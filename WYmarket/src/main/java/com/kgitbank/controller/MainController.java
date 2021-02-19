@@ -15,5 +15,7 @@ public class MainController {
 	public void mainPageGET() {
 		log.info("메인 페이지");
 	}
+	
+
 
 }
