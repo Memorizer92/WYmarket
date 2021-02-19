@@ -5,7 +5,7 @@
 <mapper namespace="com.kgitbank.mapper.UserMapper">
 
 	<!-- 회원가입  -->
-	<insert id="insertUser">
+	<insert id="insertUser" parameterType="map">
 		INSERT INTO
 		sh_userInfo(userID,kakaoMail,userNick)
 		VALUES(

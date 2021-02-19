@@ -1,30 +1,43 @@
 package com.kgitbank.controller;
  
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kgitbank.model.KakaoProfile;
-import com.kgitbank.model.OAuthToken; 
+import com.kgitbank.model.OAuthToken;
+ 
 import com.kgitbank.service.UserService;
  
 
 
 @Controller
+@SessionAttributes(names = {"user"})
 public class LoginFormController {
+	
+	OAuthToken oauthToken = null;
+	String mail ="";
 	
 	@Autowired
 	private UserService service;
+	
+	  
 	
 	@GetMapping("/location")
 	public String location() { 
@@ -59,7 +72,7 @@ public class LoginFormController {
 	 return "loginForm";
 	}
 	
-	OAuthToken oauthToken = null;
+	 
 	  
 	//로그아웃
 	@GetMapping("/auth/kakao/logout") 
@@ -107,7 +120,7 @@ public class LoginFormController {
  
 	//로그인
 	@GetMapping(value="/auth/kakao/login")
-	public String kakaoLogin(String code) {
+	public String kakaoLogin(String code,Model model) {
 		
 		//post방식으로 key=value 데이터를 요청(카카오쪽으로)
 		
@@ -183,10 +196,13 @@ public class LoginFormController {
 			e.printStackTrace();
 		}
 		
-		String mail = kakaoprofile.getKakao_account().getEmail();
+		mail = kakaoprofile.getKakao_account().getEmail();
 		
 		int result = service.selectKakaoMail(mail);
 		System.out.println("가입 유무 : "+result);
+		
+		model.addAttribute("confirm",result);
+		
 		
 		//User 오브젝트 : username, password, email
 		System.out.println("카카오 아이디(번호): "+kakaoprofile.getId());
@@ -196,6 +212,30 @@ public class LoginFormController {
 		return "kakaoSuccess";
 	}
 	
-	 
+	@GetMapping("/auth/kakao/join")
+	public String join(HttpServletRequest rq, Model model) {
+		
+		HttpSession session = rq.getSession(true);
+		
+		String nick = rq.getParameter("userNick");
+		
+		System.out.println("db에 넣을 메일: "+mail);
+		System.out.println("db에 넣을 닉네임: "+nick);
+		
+//		model.addAttribute("mail",mail);
+//		model.addAttribute("nick",nick);
+		
+		session.setAttribute("nick", nick);
+		
+		
+		
+		int rs = service.insertUser(mail,nick);
+		System.out.println("자동가입 확인 유무: "+rs);
+		
+		
+		
+		return "joinSuccess";
+	}
+	
 	 
 }

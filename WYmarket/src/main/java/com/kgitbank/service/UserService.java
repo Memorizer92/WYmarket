@@ -1,10 +1,13 @@
 package com.kgitbank.service;
 
-import com.kgitbank.model.User;
+ 
+ 
+
 
 public interface UserService {
 
-	public int insertUser(User user);
+	
+	public int insertUser(String mail, String nick);
 	
 	public int selectKakaoMail(String mail);
 	
