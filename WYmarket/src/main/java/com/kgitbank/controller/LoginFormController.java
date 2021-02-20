@@ -15,6 +15,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kgitbank.model.KakaoProfile;
 import com.kgitbank.model.OAuthToken;
- 
+import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
  
@@ -220,33 +221,32 @@ public class LoginFormController {
 		System.out.println("이름 : "+kakaoprofile.getKakao_account().getProfile().getNickname());
 		System.out.println("카카오 이메일: "+mail);
    
-		return "kakaoSuccess";
+		//가입유무 : 1이면 바로 메인페이지로 리턴
+        if(result==1) {
+            return "redirect:/main";
+        }else {
+            return "kakaousernick";
+        }
+
+        //가입유무 : 0이면 메모님이 만든 첫login페이지로 이동하고 닉네임설정모달띄우기 페이지 연결
 	}
 	
-	@GetMapping("/auth/kakao/join")
-	public String join(HttpServletRequest rq, Model model) {
-		
-		HttpSession session = rq.getSession(true);
-		
-		String nick = rq.getParameter("userNick");
-		
-		System.out.println("db에 넣을 메일: "+mail);
-		System.out.println("db에 넣을 닉네임: "+nick);
-		
-//		model.addAttribute("mail",mail);
-//		model.addAttribute("nick",nick);
-		
-		session.setAttribute("nick", nick);
-		
-		
-		
-		int rs = service.insertUser(mail,nick);
-		System.out.println("자동가입 확인 유무: "+rs);
-		
-		
-		
-		return "joinSuccess";
-	}
+	 @PostMapping(value ="auth/kakao/kakaonick", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	   public String join(@RequestBody UserInfo userInfo) {
+	      
+	       
+	      
+	      System.out.println("db에 넣을 메일: "+mail);
+	      System.out.println("db에 넣을 닉네임: "+userInfo.getUserNick());
+	      
+	 
+	      int rs = service.insertUser(mail,userInfo.getUserNick());
+	      System.out.println("자동가입 확인 유무: "+rs);
+	      
+	      
+	      
+	      return "redirect:/main";
+	   }
 	
 	 
 }
