@@ -34,13 +34,13 @@ function onlyNumber(){
 	<input type="text" placeholder="휴대폰 번호를 입력해주세요" maxlength="11"
 		onkeypress="onlyNumber();" style="ime-mode: disabled;"
 		id="phonenumber"
-		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" >
 
 	<button id="checkphone">인증문자 받기</button>
 
 	<input type="text" placeholder="인증 번호를 입력해주세요" maxlength="4"
 		onkeypress="onlyNumber();" style="ime-mode: disabled;" id="sms"
-		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+		onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" >
 
 	<button id="checksms">동의하고 시작하기</button>
 	<input type="text" id="getsmscode" style="display: none" />
@@ -114,7 +114,11 @@ function onlyNumber(){
 		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
 
 	<script>
-
+	window.onpageshow = function(event){
+		if(event.persisted || window.performance.navigation.type == 2){
+			window.location.href = '/wymarket/login';
+		}
+	}
 
 			const confirm = document.getElementById('getConfirm');
 

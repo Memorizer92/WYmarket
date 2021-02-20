@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.UserMapper;
 import com.kgitbank.model.User;
+import com.kgitbank.model.UserInfo;
 
 import lombok.AllArgsConstructor;
 
@@ -14,9 +15,8 @@ public class UserServiceImpl implements UserService {
 	private UserMapper user_mapper;
 	
 	@Override
-	public int insertUser(String mail, String nick) {
-	 
-		return user_mapper.insertUser(mail, nick);
+	public int insertUser(UserInfo userInfo) {
+		return user_mapper.insertUser(userInfo);
 	}
 
 	@Override
@@ -24,5 +24,8 @@ public class UserServiceImpl implements UserService {
 		 
 		return user_mapper.selectKakaoMail(mail);
 	}
+
+
+
 
 }

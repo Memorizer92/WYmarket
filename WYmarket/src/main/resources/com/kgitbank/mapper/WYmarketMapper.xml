@@ -23,8 +23,8 @@
 	</select>
 
 	<insert id="insertUserPhNk">
-		INSERT INTO sh_userInfo(userID, phoneNumber, userNick)
-		VALUES (userID_seq.nextval, #{phoneNumber}, #{userNick})
+		INSERT INTO sh_userInfo(userID, phoneNumber, userNick, latitude, longitude, address)
+		VALUES (userID_seq.nextval, #{phoneNumber}, #{userNick}, #{latitude}, #{longitude}, #{address})
 	</insert>
 
 	<insert id="insertSMS">
@@ -77,4 +77,5 @@
 	</update>
 
 </mapper>
+
 

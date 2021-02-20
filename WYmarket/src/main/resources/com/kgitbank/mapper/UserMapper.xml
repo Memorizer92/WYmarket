@@ -7,11 +7,9 @@
 	<!-- 회원가입  -->
 	<insert id="insertUser" parameterType="map">
 		INSERT INTO
-		sh_userInfo(userID,kakaoMail,userNick)
+		sh_userInfo(userID,kakaoMail,userNick,latitude,longitude,address)
 		VALUES(
-		userID_seq.nextval,
-		#{kakaoMail},
-		#{userNick}
+		userID_seq.nextval, #{kakaoMail}, #{userNick}, #{latitude}, #{longitude}, #{address}
 		) 
 	</insert>
 	
@@ -20,5 +18,4 @@
 			select count(*) from sh_userInfo where kakaoMail=#{kakaoMail} 
 	</select>
 
- 
 </mapper>
