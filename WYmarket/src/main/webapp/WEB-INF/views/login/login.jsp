@@ -191,11 +191,13 @@ function toMain() {
 			alert("이미 존재하는 닉네임입니다.")
 		} else {
  			ajaxNickUpdate();
-			var form = document.createElement("form");
-			form.setAttribute("method", "get");
-			form.setAttribute("action", "./main");
-			document.body.appendChild(form);
-			form.submit();
+			setTimeout(function(){
+				var form = document.createElement("form");
+				form.setAttribute("method", "get");
+				form.setAttribute("action", "./main");
+				document.body.appendChild(form);
+				form.submit();
+	        }, 1000);
 		}
 
 	}

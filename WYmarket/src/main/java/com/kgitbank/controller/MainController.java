@@ -19,7 +19,6 @@ public class MainController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainPageGET(HttpSession session, Model model) {
 		log.info("메인 페이지");
-		session.setAttribute((String) model.getAttribute("usernick"), model.getAttribute("usernick"));
 		System.out.println("메인페이지 세션 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
 	
 		return "/main";

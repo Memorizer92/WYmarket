@@ -125,7 +125,7 @@ public class LoginFormController {
 
 	// 로그인
 	@GetMapping(value = "/auth/kakao/login")
-	public String kakaoLogin(String code, Model model) {
+	public String kakaoLogin(String code, Model model, HttpSession session) {
 		System.out.println("카카오 로그인" + model.getAttribute("lat"));
 		System.out.println("카카오 로그인" + model.getAttribute("lon"));
 		System.out.println("카카오 로그인" + model.getAttribute("address"));
@@ -201,9 +201,10 @@ public class LoginFormController {
 
 		String userNick = wyMarketService.getUserNickByMail(mail);
 		System.out.println("카카오 닉 : " + userNick);
-		//if(userNick != null) {
+		if(userNick != null) {
 			model.addAttribute("usernick", userNick);
-		//}
+			session.setAttribute(userNick, userNick);
+		}
 		
 		int result = service.selectKakaoMail(mail);
 		System.out.println("가입 유무 : " + result);
@@ -226,7 +227,7 @@ public class LoginFormController {
 	}
 
 	@PostMapping(value = "auth/kakao/kakaonick", consumes = "application/json", produces = "text/html; charset=UTF-8")
-	public String join(@RequestBody UserInfo userInfo, Model model) {
+	public String join(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
@@ -235,6 +236,7 @@ public class LoginFormController {
 		userInfo.setUserNick(userInfo.getUserNick());
 		
 		model.addAttribute("usernick", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo.getUserNick());
 		
 		System.out.println("db에 넣을 메일: " + mail);
 		System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());
