@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsToAddress;
@@ -21,13 +22,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 //@RequestMapping("/rest")
-@SessionAttributes({"smscodes","phonenumber"})
+@SessionAttributes({"smscodes","phonenumber", "check"})
 public class RestControllerMain {
 
 	@Autowired
 	private WYmarketService wyMarketService;
 	
 	private String newAddress = null;
+	
+	int result = 0;
 	
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
@@ -47,8 +50,6 @@ public class RestControllerMain {
 					}
 				}
 			}
-			System.out.println(Arrays.toString(addressPart));
-			System.out.println(newAddress);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +61,7 @@ public class RestControllerMain {
 	@PostMapping(value = { "wymarket/getsms/{sms}"} , produces = "text/html; charset=UTF-8")
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo,
 			 Model model) {
-
+		
 		Random rand = new Random();
 		String numStr = "";
 		for (int i = 0; i < 4; i++) {
@@ -73,28 +74,26 @@ public class RestControllerMain {
 		model.addAttribute("smscodes", numStr);
 		model.addAttribute("phonenumber", phoneNumber);
 		// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" 
+				+ phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
+		result = wyMarketService.selectphonenumber(dashPhoneNumber);
 
-		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-				+ phoneNumber.substring(7);
-		
-		
-		System.out.println(wyMarketService.getUserInfoByPhone(dashPhoneNumber));
 
-		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
-			wyMarketService.insertSMS(dashPhoneNumber);
-			model.addAttribute(phoneNumber, 1);
-		} else {
-			for (Map<String, Object> user : wyMarketService.getUserInfoByPhone(dashPhoneNumber)) {
-				userInfo.setPhoneNumber(dashPhoneNumber);
-				userInfo.setSmsCnt(Integer.parseInt(String.valueOf(user.get("SMSCNT"))));
-				if (Integer.parseInt(String.valueOf(user.get("SMSCNT"))) >= 3) {
-					System.out.println("3회 초과됨");
-				} else {
-					wyMarketService.updateSMS(userInfo);
-					model.addAttribute(phoneNumber, user.get("SMSCNT"));
-				}
-			}
-		}
+//		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
+//			wyMarketService.insertSMS(dashPhoneNumber);
+//			model.addAttribute(phoneNumber, 1);
+//		} else {
+//			for (Map<String, Object> user : wyMarketService.getUserInfoByPhone(dashPhoneNumber)) {
+//				userInfo.setPhoneNumber(dashPhoneNumber);
+//				userInfo.setSmsCnt(Integer.parseInt(String.valueOf(user.get("SMSCNT"))));
+//				if (Integer.parseInt(String.valueOf(user.get("SMSCNT"))) >= 3) {
+//					System.out.println("3회 초과됨");
+//				} else {
+//					wyMarketService.updateSMS(userInfo);
+//					model.addAttribute(phoneNumber, user.get("SMSCNT"));
+//				}
+//			}
+//		}
 		return numStr; // uri 반환 !!!
 	}
 	
@@ -105,4 +104,39 @@ public class RestControllerMain {
 		return phoneNumber; // uri 반환 !!!
 	}
 	
+	@PostMapping(value = { "wymarket/toNick"} , produces = "text/html; charset=UTF-8")
+	public String toNick() {
+		String check = String.valueOf(result);
+
+		return check; // uri 반환 !!!
+	}
+	
+	@PostMapping(value = "/selectNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String selectNick(@RequestBody UserInfo userInfo, Model model) {
+		
+		int nickCnt = wyMarketService.selectusernick(userInfo.getUserNick());
+		String cntStr = String.valueOf(nickCnt);
+		System.out.println(cntStr);
+		model.addAttribute("check", cntStr);
+		
+		return cntStr;
+	}
+	
+	@PostMapping(value = "/updateNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String updateNick(@RequestBody UserInfo userInfo) {
+		System.out.println(userInfo);
+		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-" 
+		+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
+		userInfo.setPhoneNumber(dashPhoneNumber);
+		
+		int result = wyMarketService.insertUserPhNk(userInfo);
+		System.out.println(result);
+		return null;
+	}
+	
 }
+
+
+
+
+

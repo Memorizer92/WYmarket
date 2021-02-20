@@ -15,4 +15,9 @@ public interface WYmarketMapper {
 	int insertSMS(String phoneNumber);
 	int updateSMS(UserInfo userInfo);
 	
+	int selectphonenumber(String phoneNumber);
+	
+	int selectusernick(String userNick);
+	int insertUserPhNk(UserInfo userInfo);
+	
 }

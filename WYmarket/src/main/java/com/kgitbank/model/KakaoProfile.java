@@ -1,8 +1,11 @@
 package com.kgitbank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
+
 public class KakaoProfile {
 
 	public Integer id;

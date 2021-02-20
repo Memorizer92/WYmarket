@@ -40,5 +40,30 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.updateSMS(userInfo);
 	}
 
+	@Override
+	public int selectphonenumber(String phoneNumber) {
+		return wyMarketMapper.selectphonenumber(phoneNumber);
+	}
+
+	@Override
+	public int selectusernick(String userNick) {
+		return wyMarketMapper.selectusernick(userNick);
+	}
+
+	@Override
+	public int insertUserPhNk(UserInfo userInfo) {
+		return wyMarketMapper.insertUserPhNk(userInfo);
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 }

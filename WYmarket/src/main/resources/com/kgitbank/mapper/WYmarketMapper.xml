@@ -4,39 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.WYmarketMapper">
 
-	<select id="getUserInfoByPhone" resultType="hashMap">
-		SELECT * FROM sh_userInfo WHERE phoneNumber = #{phoneNumber}
-	</select>
-	
-	<select id="getSmsCnt" resultType="int">
-		SELECT smsCnt FROM sh_userInfo WHERE phoneNumber = #{phoneNumber}
+	<select id="selectusernick" resultType="Integer">
+		select count(*) from sh_userInfo where userNick=#{userNick}
 	</select>
 
+	<select id="selectphonenumber" resultType="Integer">
+		select count(*) from sh_userInfo where phoneNumber=#{phoneNumber}
+	</select>
+
+	<select id="getUserInfoByPhone" resultType="hashMap">
+		SELECT * FROM
+		sh_userInfo WHERE phoneNumber = #{phoneNumber}
+	</select>
+
+	<select id="getSmsCnt" resultType="int">
+		SELECT smsCnt FROM sh_userInfo
+		WHERE phoneNumber = #{phoneNumber}
+	</select>
+
+	<insert id="insertUserPhNk">
+		INSERT INTO sh_userInfo(userID, phoneNumber, userNick)
+		VALUES (userID_seq.nextval, #{phoneNumber}, #{userNick})
+	</insert>
+
 	<insert id="insertSMS">
-		INSERT INTO sh_userInfo(userID, phoneNumber) 
+		INSERT INTO sh_userInfo(userID, phoneNumber)
 		VALUES (userID_seq.nextval, #{phoneNumber})
 	</insert>
 
 	<update id="updateSMS">
-		UPDATE sh_userInfo SET smsCnt = #{smsCnt, jdbcType=NUMERIC} + 1
-		WHERE phoneNumber = #{phoneNumber, jdbcType=VARCHAR}
-		 
+		UPDATE sh_userInfo SET smsCnt = #{smsCnt,
+		jdbcType=NUMERIC} + 1
+		WHERE phoneNumber = #{phoneNumber,
+		jdbcType=VARCHAR}
+
 	</update>
 
 	<insert id="insertUserInfo">
 		INSERT INTO employees2
 		VALUES (
-		employees2_seq.nextval, 
-		#{first_name}, 
-		#{last_name}, 
+		employees2_seq.nextval,
+		#{first_name},
+		#{last_name},
 		#{email},
 		#{phone_number},
-		sysdate, 
-		#{job_id}, 
-		#{salary}, 
+		sysdate,
+		#{job_id},
+		#{salary},
 		#{commission_pct,
 		jdbcType=DOUBLE},
-		#{manager_id, jdbcType=NUMERIC}, 
+		#{manager_id, jdbcType=NUMERIC},
 		#{department_id,
 		jdbcType=NUMERIC}
 		)
@@ -46,14 +63,17 @@
 		UPDATE employees2 SET first_name = #{first_name},
 		last_name = #{last_name},
 		email = #{email},
-		phone_number = #{phone_number},
+		phone_number =
+		#{phone_number},
 		job_id = #{job_id},
-		salary = #{salary, jdbcType=DOUBLE},
+		salary = #{salary,
+		jdbcType=DOUBLE},
 		commission_pct = #{commission_pct, jdbcType=DOUBLE},
 		manager_id = #{manager_id, jdbcType=NUMERIC},
-		department_id = #{department_id, jdbcType=NUMERIC}
+		department_id =
+		#{department_id, jdbcType=NUMERIC}
 		WHERE employee_id = #{employee_id}
-		 
+
 	</update>
 
 </mapper>

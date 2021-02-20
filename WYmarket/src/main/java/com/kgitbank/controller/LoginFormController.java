@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +25,7 @@ import com.kgitbank.model.KakaoProfile;
 import com.kgitbank.model.OAuthToken;
  
 import com.kgitbank.service.UserService;
+import com.kgitbank.service.WYmarketService;
  
 
 
@@ -37,7 +39,8 @@ public class LoginFormController {
 	@Autowired
 	private UserService service;
 	
-	  
+	@Autowired
+	private WYmarketService wyMarketService;
 	
 	@GetMapping("/location")
 	public String location() { 
@@ -72,7 +75,12 @@ public class LoginFormController {
 	 return "loginForm";
 	}
 	
-	 
+	//로그인
+	@GetMapping("/login")
+	public String loginPage() {
+		return "/login/login";
+	}
+
 	  
 	//로그아웃
 	@GetMapping("/auth/kakao/logout") 
@@ -186,10 +194,13 @@ public class LoginFormController {
 				); 
 		
 		ObjectMapper objectMapper2 = new ObjectMapper();
+		
 		KakaoProfile kakaoprofile = null;
 		
 		try {
+			System.out.println("값 뜨나" + response2.getBody());
 			kakaoprofile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+			System.out.println("카카오 프로파일" + kakaoprofile);
 		} catch (JsonMappingException e) { 
 			e.printStackTrace();
 		} catch (JsonProcessingException e) { 
