@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<script src="<c:url value="/resources/js/jquery-3.3.1.min.js" />"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <style>
 .inputArea {
@@ -58,10 +58,10 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 등록</h2>
 
-				<form action="./add" role="form" method="POST" autocomplete="off">
+				<form action="./add" role="form" method="POST" autocomplete="off"  enctype="multipart/form-data">
 					
 					<div class="inputArea">
-						<label for="iimagepath">이미지</label>
+						<label for="iimagepath">상품 이미지</label>
 						<input type="file" id="iimagepath" name="file" />
 						<div class="select_img"><img src=""/></div>
 						
@@ -76,6 +76,7 @@ textarea#icontent {
 							   }
 							  });
 						</script>
+						<p>아래 주소는 각 컴퓨터 마다 다르기 때문에 각자 값을 Value에 추가해주세요!</p>
 						<%=request.getRealPath("/") %>
 					</div>
 					
