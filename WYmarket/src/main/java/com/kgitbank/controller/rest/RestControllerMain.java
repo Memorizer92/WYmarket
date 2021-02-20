@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 //@RequestMapping("/rest")
-@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address" })
+@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address","usernick" })
 public class RestControllerMain {
 
 	@Autowired
@@ -43,9 +43,6 @@ public class RestControllerMain {
 		System.out.println(lon);
 		model.addAttribute("lat", lat);
 		model.addAttribute("lon", lon);
-		
-		session.setAttribute("세션에 담긴 것" + String.valueOf(lat), lat);
-		System.out.println(session.getAttribute(String.valueOf(lat)));
 		
         double distanceKiloMeter =
                 GpsDistance.distance(lat, lon, 37.338936, 127.111150, "kilometer");
@@ -90,6 +87,12 @@ public class RestControllerMain {
 				+ phoneNumber.substring(7);
 		result = wyMarketService.selectphonenumber(dashPhoneNumber);
 
+		String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
+		System.out.println(userNick);
+		//if(userNick != null) {
+			model.addAttribute("usernick", userNick);
+		//}
+		
 //		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
 //			wyMarketService.insertSMS(dashPhoneNumber);
 //			model.addAttribute(phoneNumber, 1);
@@ -137,7 +140,10 @@ public class RestControllerMain {
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
-
+		
+		System.out.println(userInfo.getUserNick());
+		model.addAttribute("usernick", userInfo.getUserNick());
+		
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
 		userInfo.setPhoneNumber(dashPhoneNumber);

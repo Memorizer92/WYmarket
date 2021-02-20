@@ -29,7 +29,7 @@ import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes(names = { "user","lat","lon","address", "member"})
+@SessionAttributes(names = { "user","lat","lon","address", "usernick"})
 public class LoginFormController {
 
 	OAuthToken oauthToken = null;
@@ -78,9 +78,9 @@ public class LoginFormController {
 
 	// 로그인
 	@GetMapping("/login")
-	public String loginPage(Model model) {
-		model.addAttribute("member", false);
-		System.out.println(model.getAttribute("member"));
+	public String loginPage(Model model, HttpSession session) {
+		session.removeAttribute((String) model.getAttribute("usernick"));
+		System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
 		return "/login/login";
 	}
 
@@ -129,7 +129,7 @@ public class LoginFormController {
 		System.out.println("카카오 로그인" + model.getAttribute("lat"));
 		System.out.println("카카오 로그인" + model.getAttribute("lon"));
 		System.out.println("카카오 로그인" + model.getAttribute("address"));
-
+		
 		// post방식으로 key=value 데이터를 요청(카카오쪽으로)
 
 		RestTemplate rt = new RestTemplate();
@@ -199,6 +199,12 @@ public class LoginFormController {
 
 		mail = kakaoprofile.getKakao_account().getEmail();
 
+		String userNick = wyMarketService.getUserNickByMail(mail);
+		System.out.println("카카오 닉 : " + userNick);
+		//if(userNick != null) {
+			model.addAttribute("usernick", userNick);
+		//}
+		
 		int result = service.selectKakaoMail(mail);
 		System.out.println("가입 유무 : " + result);
 
@@ -227,6 +233,8 @@ public class LoginFormController {
 		userInfo.setAddress((String) model.getAttribute("address"));
 		userInfo.setKakaoMail(mail);
 		userInfo.setUserNick(userInfo.getUserNick());
+		
+		model.addAttribute("usernick", userInfo.getUserNick());
 		
 		System.out.println("db에 넣을 메일: " + mail);
 		System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());

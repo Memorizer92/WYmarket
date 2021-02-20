@@ -27,7 +27,8 @@
 
 카카오 로그아웃 후 메인페이지로 redirect 
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+onclick="initialize()">
   닉네임 설정 및 시작
 </button>
 
@@ -68,6 +69,11 @@
 		src="<%=application.getContextPath()%>/resources/assets/js/kakaousernick.js"></script>
 
 	<script>
+	
+	function initialize(){
+		document.getElementById('userNick').value = '';
+	}
+	
 function toMain() {
 	const nickInput = document.getElementById("userNick");
 	if (nickInput.value.length <= 1) {

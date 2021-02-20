@@ -55,6 +55,16 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.insertUserPhNk(userInfo);
 	}
 
+	@Override
+	public String getUserNickByPh(String phoneNumber) {
+		return wyMarketMapper.getUserNickByPh(phoneNumber);
+	}
+
+	@Override
+	public String getUserNickByMail(String mail) {
+		return wyMarketMapper.getUserNickByMail(mail);
+	}
+
 
 
 
