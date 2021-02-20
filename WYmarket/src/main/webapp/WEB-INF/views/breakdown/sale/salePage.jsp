@@ -63,33 +63,36 @@
  	<c:when test="${not empty vo}">
  	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button>숨김</button>
  	
- 	<form action="<%=application.getContextPath() %>/param/salecomplete" method="post" id = "form1">
- 													
- 	<c:forEach var ="test" items="${vo }">
- 		
- 		<c:if test="${test.istate eq 'Onsale'}">		 <!--  판매중 내역 -->	
+ 	
+ 										 <!-- <button class= "openModal" onclick="openModal()">11</button> -->
+ 			
+ 		<c:forEach var ="userItem_list" items="${vo }"> 		
+ 		<c:if test="${userItem_list.istate eq 'Onsale'}">		 <!--  판매중 내역 -->	
+ 		<c:if test="${empty userItem_list.ititle }">
+ 			
+ 		</c:if>
 		<div class ="completed" id ="test"style="background-color: green; ">
-		<input type="radio" class= "openBtn" name="ititle" value="${test.ititle }" style="display: none" />${test.ititle }	<br>
-		${test.address }<br>
-		${test.price }	<br>
-		${test.istate} <br>			
+		<input type="radio" onclick="openModal()" class= "openBtn" name="ititle" value="${userItem_list.ititle }" style="display: none" />${userItem_list.ititle }	<br>		
+		${userItem_list.address }<br>
+		${userItem_list.price }	<br>
+		${userItem_list.istate} <br>			
 		</div>	
 		</c:if> <br> <!-- 판매중 내역 end -->			
 		</c:forEach>	
-		</form>
-	
+		
+		
 		<div class="modal hidden">
-	  	<div class="bg"></div>
+	  	<div class="bg" id ="bg"></div>
 	  	<div class="modalBox">
-	    구매자 닉네임: <input type="text" />
-	    <button class="check">확인</button>
-	    <button class="closeBtn">✖</button>
+	    구매자 닉네임: <input type="text" id = "nickCheck" name = "nickCheck" />
+	    <button id ="modalCheck" onclick="closeModal()">확인</button>
+	    <button id ="modalClose" onclick="closeModal()">✖</button>
 	  	</div>
 		</div>
 		
 		
 		<button onclick="openRadio()" id = "productChoice">상품선택</button>	
-		<button onclick="radio_chk()" style="display: none;" id = "TransactionCompleted">거래완료</button>
+		<button onclick="radio_chk()" class = "" style="display: none;" id = "TransactionCompleted">거래완료</button>
 		<button style="display: none;" id = "Reservation">예약중으로 변경</button >		
 		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>
  	</c:when>
@@ -99,24 +102,24 @@
 const pro = document.getElementById("productChoice");
 const tran = document.getElementById("TransactionCompleted");
 const res = document.getElementById("Reservation");
+const nickCheck = document.getElementById("nickCheck");
+
 
 
 	/* 라디오 버튼 생성 */
-    function openRadio() {
-		if(pro.name == null || pro.name == ""){
-			console.log("야");
-		}
+    function openRadio() {		
 		
-    	for(a of document.getElementsByTagName('input')){
-    		if(a.name == 'ititle'){
-    			  console.log(a);
-    			 a.style.display = 'block';  			 
-    			 tran.style.display = 'block';
-    			 res.style.display = 'block';
-    			 pro.style.display = 'none';   			 
-    		}    
-    	}
+    	 for(a of document.getElementsByTagName('input')){
+             console.log(a);
+             a.style.display = 'block';
+         }
+		/* document.querySelector('.openBtn').style.display = 'block'; */
+		tran.style.display = 'block';
+		res.style.display = 'block';
+		pro.style.display = 'none'; 
+			
 	}
+	
     /*	라디오 버튼 체크 확인	*/
     function radio_chk() {
         //라디오 버튼 Name 가져오기
@@ -126,35 +129,36 @@ const res = document.getElementById("Reservation");
         for(var i = 0; i<radio_btn.length; i++){
             //만약 라디오 버튼이 체크가 되어있다면 true
             if(radio_btn[i].checked==true){
-                //라디오 버튼 값
-                
+            	           	     		
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "<%=application.getContextPath() %>/param/salecomplete/" + radio_btn[i].value);
-    document.body.appendChild(form);
-    radio_btn_check++;
+    form.setAttribute("action", "<%=application.getContextPath() %>/param/salecomplete/" + radio_btn[i].value +"/" + nickCheck.value);
+    document.body.appendChild(form);  
+    radio_btn_check++;    
     form.submit();
      alert("정상적으로 거래완료 처리가 되었습니다.");
+		
             }
         }      
         if(radio_btn_check==0){
             alert("상품을 선택해주세요");
             return;
         }
-    }
-
-    const open = () => {
-        document.querySelector(".modal").classList.remove("hidden");
-      }
-
-      const close = () => {
-        document.querySelector(".modal").classList.add("hidden");
-      }
-
-      document.querySelector(".openBtn").addEventListener("click", open);
-      document.querySelector(".check").addEventListener("click", close);
-      document.querySelector(".closeBtn").addEventListener("click", close);
-      document.querySelector(".bg").addEventListener("click", close);
+    }  
+     
+    	function closeModal() {
+    		console.log(nickCheck.value);
+    		document.querySelector(".modal").classList.add("hidden");
+    	
+		}
+    	function openModal() {
+    		document.querySelector(".modal").classList.remove("hidden");
+		}
+       
+    	
+ 
+      
+      
 </script>
 
 </body>
