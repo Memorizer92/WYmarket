@@ -2,9 +2,11 @@ package com.kgitbank.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kgitbank.model.UserInfo;
+
 public interface UserMapper {
 	
-	public int insertUser(@Param("kakaoMail") String mail, @Param("userNick")  String nick);
+	public int insertUser(UserInfo userInfo);
 	
 	public int selectKakaoMail(String mail);
 

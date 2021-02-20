@@ -49,6 +49,27 @@
 	<script
 		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
 
+<script>
+
+if(window.performance.navigation.type == 1){
+	window.location.href = '/wymarket/login';
+}
+
+
+
+/* F5, Ctrl+r, Ctrl+F5 */
+/* document.onkeydown = function(e){
+    if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){
+        e.cancelBubble = true; 
+        e.returnValue = false; 
+        setTimeout(function(){
+            window.location.href = '/wymarket/login';
+        }, 1000);
+        return false;
+    }
+} */
+
+</script>
 
 </body>
 </html>

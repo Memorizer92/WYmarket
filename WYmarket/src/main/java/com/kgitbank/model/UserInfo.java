@@ -13,6 +13,8 @@ public class UserInfo {
 	private String phoneNumber;
 	private String kakaoMail;
 	private String userNick;
+	private double latitude;
+	private double longitude;
 	private String address;
 	private Integer manner;
 	private Integer varifyCnt;
