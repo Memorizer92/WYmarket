@@ -8,7 +8,7 @@
 <title>카카오 로그인 성공</title>
 </head>
 <body>
-<h3>카카오 로그인 성공 페이지</h3>
+<h3>카카오 로그인 성공 후 닉네임 설정</h3>
  
  
 <script>
@@ -21,7 +21,7 @@ if( ${confirm}==0){
 <c:when test="${confirm eq 0 }">
 
 <form action="join" method="get"> 
-<input type="text" name="userNick" id="UserNick"/>
+<input type="text" name="userNick" id="userNick"/>
 <input type="submit" value="확인" />
 </form>
 

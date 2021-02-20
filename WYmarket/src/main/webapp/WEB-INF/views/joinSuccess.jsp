@@ -12,7 +12,7 @@
  
 
 <a href="https://kauth.kakao.com/oauth/logout?client_id=f5c99e47d61ce4b7e521d120e1f04199
-&logout_redirect_uri=http://localhost:8080/wymarket/auth/kakao/logout">로그아웃 하기</a>
+&logout_redirect_uri=http://localhost:8080/wymarket/login">카카오톡 로그아웃 하기</a>
 
 
 </body>
