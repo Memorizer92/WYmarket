@@ -1,14 +1,21 @@
 package com.kgitbank.controller;
 
+import java.io.File;
+import java.io.IOException;
+
+//import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kgitbank.model.GoodsVO;
 import com.kgitbank.service.GoodsService;
+import com.kgitbank.util.UploadFileUtils;
 
 //import com.kgitbank.secondhandmarket.service.GoodsService;
 
@@ -23,6 +30,7 @@ public class GoodsController {
 	GoodsService gservice;
 	
 	//@Resource(name = "uploadPath")
+	@Autowired
 	private String uploadPath;
 	
 	// 상품등록페이지
@@ -34,7 +42,19 @@ public class GoodsController {
 	
 	// 상품 등록
 	@PostMapping("add")
-	public String success(Model model, GoodsVO goods) {
+	public String success(Model model, GoodsVO goods, MultipartFile file) throws IOException, Exception {
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if(file != null) {
+		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		//goods.setIthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		int result = gservice.createGoods(goods);
 		

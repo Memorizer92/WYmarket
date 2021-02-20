@@ -7,9 +7,11 @@
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
 	 INSERT INTO sh_item (
-	 itemid, ititle, icategory, refreshTime, icontent, price)
+	  itemid, iimagepath, ititle, icategory, refreshtime, icontent, price)
 	     VALUES (
-	     itemID_seq.nextval, 
+	     itemID_seq.nextval,
+	     #{iimagepath},
+	     <!-- #{ithumbimg}, --> 
 	     #{ititle}, 
 	     #{icategory}, 
 	     sysdate, 

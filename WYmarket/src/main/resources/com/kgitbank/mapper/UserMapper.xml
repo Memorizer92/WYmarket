@@ -18,5 +18,4 @@
 			select count(*) from sh_userInfo where kakaoMail=#{kakaoMail} 
 	</select>
 
- 
 </mapper>

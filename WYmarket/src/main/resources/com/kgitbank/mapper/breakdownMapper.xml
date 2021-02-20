@@ -32,8 +32,4 @@ INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) val
 	  		 
 </insert>
 
-
- 
- 
- 
 </mapper>
