@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
 import com.kgitbank.service.BreakdownService;
 
@@ -44,28 +45,24 @@ public class BreakdownController {
 	  model.addAttribute("vo", bservice.getShitemVO()); 
 	  return "/breakdown/sale/saleCompletedPage"; 
 	  }
-	 
 	
-//	@PostMapping("/salecompletes")  // 거래 완료 버튼
-//	public String pSalecomplete(Model model, @RequestParam("ititle") String ititle) {		
-//	
-//		bservice.completedIstate(ititle);
-//		model.addAttribute("vo", bservice.getShitemVO());
-//		return "/breakdown/sale/saleCompletedPage";
-//	}
+	  @PostMapping("/salecomplete/{ititle}/{usernick}")  // 거래 완료 버튼
+		public String pSalecomplete(Model model,PurchasedetailsVO puvo , @PathVariable("ititle") String ititle, @PathVariable("usernick") String usernick) {			
+			bservice.completedIstate(ititle);
+			bservice.insertPurchase(puvo, usernick, ititle);
+			model.addAttribute("vo", bservice.getShitemVO());
+			
+			return "/breakdown/sale/salePage";
+		}
 	
-	@PostMapping("/salecomplete/{ititle}")  // 거래 완료 버튼
-	public String pSalecomplete(Model model,@PathVariable("ititle") String ititle) {			
-		bservice.completedIstate(ititle);
+	@GetMapping("/purchase")
+	public String purchase(Model model) {	
 		model.addAttribute("vo", bservice.getShitemVO());
-		return "/breakdown/sale/salePage";
-	}
-	
-	@GetMapping("purchase")
-	public String purchase(@RequestParam("istate") String param1) {	
-		log.info(param1);
+		model.addAttribute("phvo", bservice.getPhVO());
 		return "/breakdown/purchasePage";
 	}
+	
+	
 	
 	
 //	@GetMapping("TransactionCompleted")

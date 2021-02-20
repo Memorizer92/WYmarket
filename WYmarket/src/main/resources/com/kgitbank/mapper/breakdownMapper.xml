@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.breakdownMapper">
 
+
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
 SELECT * from sh_item where usernick = #{usernick}
 </select>
@@ -11,5 +12,28 @@ SELECT * from sh_item where usernick = #{usernick}
 <update id="completedIstate">
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
 </update>
+ 
+ 
+ 
+ <select id="getPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
+SELECT * from purchasedetails where purchaser = #{purchaser}
+</select>
+ 
+ 
+<insert id="insertPurchase">
+INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) values(
+	  		pitemID_seq.nextval,
+	  		#{purchaser},
+(select usernick from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
+(select address from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
+(select ititle from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
+(select price from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick})
+)
+	  		 
+</insert>
+
+
+ 
+ 
  
 </mapper>
