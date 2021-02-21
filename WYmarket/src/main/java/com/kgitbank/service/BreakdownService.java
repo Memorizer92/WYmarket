@@ -2,6 +2,7 @@ package com.kgitbank.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -15,7 +16,9 @@ import com.kgitbank.model.ShUserInfoVO;
 @Service
 public class BreakdownService implements IBreakdownService {
 	
-	String istate = "completed";
+	String completed = "Completed";
+	String hideen = "Hidden";
+	String onsale = "Onsale";
 	
 	
 	@Autowired
@@ -28,7 +31,17 @@ public class BreakdownService implements IBreakdownService {
 
 	@Override
 	public int completedIstate(String ititle, String usernick) {	
-	return break_mapper.completedIstate(istate, ititle, usernick);
+		return break_mapper.completedIstate(completed, ititle, usernick);
+	}
+	
+	@Override
+	public int hiddenIstate(String ititle, String usernick) {
+		return break_mapper.hiddenIstate(hideen, ititle, usernick);
+	}
+
+	@Override
+	public int reservationStateChange(String iReservationState, String ititle, String usernick) {
+		return break_mapper.reservationStateChange(iReservationState, ititle, onsale, usernick);
 	}
 	
 	@Override
@@ -38,13 +51,21 @@ public class BreakdownService implements IBreakdownService {
 
 	@Override
 	public int insertPurchase(PurchasedetailsVO pvo, String purchaser , String usernick,  String ititle) {	
-		return break_mapper.insertPurchase(pvo, purchaser, usernick, ititle, istate);
+		return break_mapper.insertPurchase(pvo, purchaser, usernick, ititle, completed);
 	}
 
 	@Override
 	public List<ShUserInfoVO> getShuserInfo() {
 		return break_mapper.getShuserInfo();
 	}
+
+	
+
+
+
+	
+
+
 
 
 

@@ -22,6 +22,7 @@ import com.kgitbank.service.BreakdownService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/param/")
@@ -57,15 +58,46 @@ public class BreakdownController {
 	  }
 	
 	  @PostMapping("/salecomplete/{ititle}/{usernick}")  // 거래 완료 버튼
-		public String pSalecomplete(Model model,PurchasedetailsVO puvo , @PathVariable("ititle") String ititle, @PathVariable("usernick") String purchaser, HttpSession session) {			
+		public String pSalecomplete(Model model,PurchasedetailsVO puvo ,
+				@PathVariable("ititle") String ititle,
+				@PathVariable("usernick") String purchaser,
+				HttpSession session) {			
 		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		  bservice.completedIstate(ititle, userNick);
+		    bservice.completedIstate(ititle, userNick);
 			bservice.insertPurchase(puvo, purchaser, userNick, ititle);
-			model.addAttribute("itemvo", bservice.getShitemVO(userNick));
-			
+			model.addAttribute("itemvo", bservice.getShitemVO(userNick));			
 			return "/breakdown/sale/salePage";
 		}
-	
+	  
+	  
+	  @GetMapping("/salehidden") // 숨김 화면
+	  public String gSalehidden (Model model, HttpSession session) {
+		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  model.addAttribute("usernick", userNick);
+			model.addAttribute("itemvo", bservice.getShitemVO(userNick));
+			model.addAttribute("userinfo", bservice.getShuserInfo());
+		  return "/breakdown/sale/hiddenPage";
+	  }
+	  
+	  @PostMapping("/salehidden/{ititle}") // 숨기기 버튼 클릭 시
+	  public String pSalehidden (Model model,@PathVariable("ititle") String ititle, HttpSession session) {
+		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  bservice.hiddenIstate(ititle, userNick);
+		  model.addAttribute("usernick", userNick);
+		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));
+		  
+		  return "/breakdown/sale/hiddenPage";
+	  }
+	  
+	  @PostMapping("/reservation/{iReservationState}/{ititle}")
+	  public String reservation(Model model, @PathVariable("iReservationState") String iReservationState, @PathVariable("ititle") String ititle, HttpSession session) {
+		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  bservice.reservationStateChange(iReservationState, ititle, userNick);
+		  model.addAttribute("usernick", userNick);
+		  
+		  return "/breakdown/sale/salePage";
+	  }
+	  
 	@GetMapping("/purchase")
 	public String purchase(Model model, HttpSession session) {	
 		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
@@ -76,11 +108,7 @@ public class BreakdownController {
 	
 	
 	
-	
-//	@GetMapping("TransactionCompleted")
-//	public String TransactionCompleted() {
-//		return null;
-//	}
+
 	
 	
 	

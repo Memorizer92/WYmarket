@@ -14,7 +14,10 @@ public interface IBreakdownService {
 	
 	int completedIstate(String ititle, String usernick);
 	
+	int hiddenIstate(String ititle, String usernick);
 	
+	int reservationStateChange(String iReservationState, String ititle, String usernick);
+		
 	List<PurchasedetailsVO> getPhVO(String usernick);
 	
 	int insertPurchase(PurchasedetailsVO pvo,String purchaser, String usernick , String ititle);

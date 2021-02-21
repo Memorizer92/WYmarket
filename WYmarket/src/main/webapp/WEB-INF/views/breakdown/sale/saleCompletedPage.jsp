@@ -12,14 +12,11 @@
 
 </head>
 <body>
- 거래완료 화면 <br>
- <c:choose>
- 
- 	<c:when test="${empty itemvo }">거래완료 물품이 없습니다.</c:when>
- 	<c:when test="${not empty itemvo}">
+
  	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button>숨김</button> 
+ 	거래완료 화면
  	<c:forEach var ="userItem_list" items="${itemvo }">
- 		<c:if test="${userItem_list.istate eq 'completed'}">		 <!--  거래완료 내역 -->	
+ 		<c:if test="${userItem_list.istate eq 'Completed'}">		 <!--  거래완료 내역 -->	
 		<div class ="completed" id ="test"style="background-color: green; ">
 		${userItem_list.ititle }	<br>
 		${userItem_list.address }<br>
@@ -29,8 +26,6 @@
 		</div>	
 		</c:if> <!-- 거래완료 내역 end -->			
 		</c:forEach>
- 	</c:when>
- </c:choose>
 		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>		
 
 
