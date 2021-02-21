@@ -79,9 +79,16 @@ public class LoginFormController {
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
-		session.removeAttribute((String) model.getAttribute("usernick"));
-		System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
-		return "/login/login";
+		if(model.getAttribute("usernick") != null) {
+//			session.removeAttribute((String) model.getAttribute("usernick"));
+			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
+			return "/main";
+		} else {
+			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
+			return "/login/login";
+		}
+		
+		
 	}
 
 	// 로그아웃

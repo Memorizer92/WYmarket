@@ -18,6 +18,7 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
+import com.kgitbank.service.certificationService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -64,7 +65,7 @@ public class RestControllerMain {
 			e.printStackTrace();
 		}
 
-		return "<h5>가입하고 " + newAddress + " 중고 상품을 구경하세요!<h5/>";
+		return "<p>가입하고 " + newAddress + "<br>중고 상품을 구경하세요!<p/>";
 	}
 
 	@PostMapping(value = { "wymarket/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
@@ -82,7 +83,7 @@ public class RestControllerMain {
 		System.out.println("인증번호 : " + numStr);
 		model.addAttribute("smscodes", numStr);
 		model.addAttribute("phonenumber", phoneNumber);
-		// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+		//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 				+ phoneNumber.substring(7);
 		result = wyMarketService.selectphonenumber(dashPhoneNumber);
