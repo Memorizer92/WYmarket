@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 //@RequestMapping("/rest")
-@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address" })
+@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick" })
 public class RestControllerMain {
 
 	@Autowired
@@ -43,14 +43,10 @@ public class RestControllerMain {
 		System.out.println(lon);
 		model.addAttribute("lat", lat);
 		model.addAttribute("lon", lon);
-		
-		session.setAttribute("세션에 담긴 것" + String.valueOf(lat), lat);
-		System.out.println(session.getAttribute(String.valueOf(lat)));
-		
-        double distanceKiloMeter =
-                GpsDistance.distance(lat, lon, 37.338936, 127.111150, "kilometer");
-        System.out.println("두 위치 간 km" + distanceKiloMeter);
-		
+
+		double distanceKiloMeter = GpsDistance.distance(lat, lon, 37.338936, 127.111150, "kilometer");
+		System.out.println("두 위치 간 km" + distanceKiloMeter);
+
 		try {
 			String address = new GpsToAddress(lat, lon).getAddress();
 			System.out.println(address);
@@ -72,7 +68,8 @@ public class RestControllerMain {
 	}
 
 	@PostMapping(value = { "wymarket/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
-	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model) {
+	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model,
+			HttpSession session) {
 
 		Random rand = new Random();
 		String numStr = "";
@@ -89,6 +86,13 @@ public class RestControllerMain {
 		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 				+ phoneNumber.substring(7);
 		result = wyMarketService.selectphonenumber(dashPhoneNumber);
+
+		String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
+		System.out.println(userNick);
+		if (userNick != null) {
+			model.addAttribute("usernick", userNick);
+			session.setAttribute(userNick, userNick);
+		}
 
 //		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
 //			wyMarketService.insertSMS(dashPhoneNumber);
@@ -132,11 +136,16 @@ public class RestControllerMain {
 	}
 
 	@PostMapping(value = "/updateNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
-	public String updateNick(@RequestBody UserInfo userInfo, Model model) {
+	public String updateNick(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
+
+		
+		model.addAttribute("usernick", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo.getUserNick());
+		System.out.println(session.getAttribute(userInfo.getUserNick()));
 
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);

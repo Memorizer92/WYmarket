@@ -20,4 +20,6 @@ public interface WYmarketMapper {
 	int selectusernick(String userNick);
 	int insertUserPhNk(UserInfo userInfo);
 	
+	String getUserNickByPh(String phoneNumber);
+	String getUserNickByMail(String mail);
 }

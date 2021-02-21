@@ -120,6 +120,8 @@ function onlyNumber(){
 		}
 	}
 
+	
+	
 			const confirm = document.getElementById('getConfirm');
 
 			const prefix = "<%=application.getContextPath()%>/rest/";
@@ -159,6 +161,7 @@ function onlyNumber(){
 					if(document.getElementById('getConfirm').value == "0"){
 						var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'));
 						myModal.show()
+						document.getElementById('nickname').value = '';
 					} else {
 	 					var form = document.createElement("form");
 					    form.setAttribute("method", "get");
@@ -188,11 +191,13 @@ function toMain() {
 			alert("이미 존재하는 닉네임입니다.")
 		} else {
  			ajaxNickUpdate();
-			var form = document.createElement("form");
-			form.setAttribute("method", "get");
-			form.setAttribute("action", "./main");
-			document.body.appendChild(form);
-			form.submit();
+			setTimeout(function(){
+				var form = document.createElement("form");
+				form.setAttribute("method", "get");
+				form.setAttribute("action", "./main");
+				document.body.appendChild(form);
+				form.submit();
+	        }, 1000);
 		}
 
 	}
