@@ -5,6 +5,12 @@
 <mapper namespace="com.kgitbank.mapper.breakdownMapper">
 
 
+
+
+<select id="getShuserInfo" resultType="com.kgitbank.model.ShUserInfoVO">
+SELECT usernick from sh_userInfo 
+</select>
+
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
 SELECT * from sh_item where usernick = #{usernick}
 </select>

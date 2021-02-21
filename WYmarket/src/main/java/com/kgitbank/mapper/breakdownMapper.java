@@ -6,9 +6,14 @@ import org.apache.ibatis.annotations.Param;
 
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
+import com.kgitbank.model.ShUserInfoVO;
 
 public interface breakdownMapper {
 
+	
+	List<ShUserInfoVO> getShuserInfo();
+	
+	
 	List<ShItemVO>  getShitemVO(String usernick); 
 		
 	int completedIstate(

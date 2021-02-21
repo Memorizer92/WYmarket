@@ -13,26 +13,27 @@
  구매내역 화면 <br>
 
 <c:choose>
- 	<c:when test="${empty vo }">닉네임 식별 불가</c:when>
- 	<c:when test="${not empty vo}">	 	
- 			
+ 
+ 	<c:when test="${not empty vo}"> <!-- 로그인 정보 세션 -->			
  		<c:forEach var ="phvo_list" items="${phvo }"> 		
  		 <!--  판매중 내역 -->	
  		<c:if test="${empty phvo_list.ititle }">
- 			
+ 			구매하신 상품이 없습니다.
  		</c:if>
-		<div class ="Purchasedetails" id ="test"style="background-color: green; ">
+ 		
+		<div class ="Purchasedetails" id ="test"style="background-color: green; border: solid black 1px; ">
 		${phvo_list.address }<br>	
 		구매자: ${phvo_list.purchaser} <br>
 		판매자: ${phvo_list.usernick} <br>	
 		<span style="background-color: red;">거래완료</span> ${phvo_list.price }	<br>
+		<button><span>작성한 후기 보기</span></button>
 		</div>	
 		<!-- 판매중 내역 end -->			
 		</c:forEach>
 		
-				<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>
 		</c:when>		
 </c:choose>
+				<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>
 
 
 
