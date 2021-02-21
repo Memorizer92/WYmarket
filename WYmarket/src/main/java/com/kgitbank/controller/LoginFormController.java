@@ -79,7 +79,7 @@ public class LoginFormController {
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
-		if(model.getAttribute("usernick") != null) {
+		if(session.getAttribute((String) model.getAttribute("usernick")) != null) {
 //			session.removeAttribute((String) model.getAttribute("usernick"));
 			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
 			return "/main";
@@ -91,10 +91,19 @@ public class LoginFormController {
 		
 	}
 
-	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		
+		session.removeAttribute((String) model.getAttribute("usernick"));
+		System.out.println("왜 안 읽혀"+session.getAttribute((String) model.getAttribute("usernick")));
+		
+		return null;
+	}
+	
+	 //로그아웃
 	@GetMapping("/auth/kakao/logout")
-	public String logout(String code) {
-
+	public String logout(String code,HttpSession session, Model model) {
+		System.out.println("제발 들어와주세요");
 		RestTemplate rt3 = new RestTemplate();
 
 		// HttpHeaders 오브젝트 생성
@@ -127,6 +136,9 @@ public class LoginFormController {
 			e.printStackTrace();
 		}
 
+		session.removeAttribute((String) model.getAttribute("usernick"));
+		System.out.println(session.getAttribute((String) model.getAttribute("usernick")));
+		
 		return "logout";
 	}
 

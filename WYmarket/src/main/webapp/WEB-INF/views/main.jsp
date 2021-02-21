@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>main</title>
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -16,7 +17,33 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/assets/css/main.css">
+<style type="text/css">
+#kakaoLogout {
+	text-decoration: none;
+	text-align: center;
+	padding-top: 14px;
+	background-color: #fef01b;
+	color: #3A1D1D;
+	border-radius: 5px;
+	font-weight: bold;
+	display: block;
+	margin-left: auto;
+	margin-right: 5%;
+	width: 20%;
+	margin-top: 25px;
+	height: 50px;
+	cursor: pointer;
+}
+
+#logoutheader {
+	display: flex;
+	justify-content: flex-end;
+}
+</style>
 </head>
+<header id='logoutheader'>
+	<a id='kakaoLogout'>로그아웃</a>
+</header>
 <body>
 
 	<div id="root">
@@ -43,33 +70,37 @@
 	</div>
 
 
-	
+
 
 
 	<script
 		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
 
-<script>
+	<script>
+		if (window.performance.navigation.type == 1) {
+			window.location.href = '/wymarket/login';
+		}
 
-if(window.performance.navigation.type == 1){
-	window.location.href = '/wymarket/login';
-}
-
-
-
-/* F5, Ctrl+r, Ctrl+F5 */
-/* document.onkeydown = function(e){
-    if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){
-        e.cancelBubble = true; 
-        e.returnValue = false; 
-        setTimeout(function(){
-            window.location.href = '/wymarket/login';
-        }, 1000);
-        return false;
-    }
-} */
-
-</script>
+		/* F5, Ctrl+r, Ctrl+F5 */
+		/* document.onkeydown = function(e){
+		 if(e.keyCode == 116 || e.ctrlKey == true && (e.keyCode == 82)){
+		 e.cancelBubble = true; 
+		 e.returnValue = false; 
+		 setTimeout(function(){
+		 window.location.href = '/wymarket/login';
+		 }, 1000);
+		 return false;
+		 }
+		 } */
+		 
+		 document.getElementById('kakaoLogout').addEventListener('click',()=>{
+				ajaxLogOut();
+ 				setTimeout(function(){
+					window.location.href = "https://kauth.kakao.com/oauth/logout?client_id=f5c99e47d61ce4b7e521d120e1f04199&logout_redirect_uri=http://localhost:8080/wymarket/login";
+		        }, 1000); 
+			});
+		 
+	</script>
 
 </body>
 </html>

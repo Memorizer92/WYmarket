@@ -49,7 +49,7 @@
 	height: 50px;
 }
 
-#setNick, #kakaoLogout {
+#setNick{
 	background-color: rgba(70, 70, 85, 1);
 	border-color: rgba(70, 70, 85, 1);
 }
@@ -57,7 +57,7 @@
 #kakaoLogout {
 	text-decoration: none;
 	text-align: center;
-	padding-top: 13px;
+	padding-top: 14px;
 	background-color: #fef01b;
 	color: #3A1D1D;
 	border-radius: 5px;

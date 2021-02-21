@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>login</title>
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -55,11 +57,11 @@
 	width: 50%;
 }
 
-#gpsContent{
-text-align: center;
-line-height: 40px;
-font-weight: bold;
-font-size: 20px;
+#gpsContent {
+	text-align: center;
+	line-height: 40px;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 #modalkakao {
@@ -270,8 +272,8 @@ function onlyNumber(){
 			</div>
 		</div>
 	</div>
-	
-		<div class="modal fade" id="notPh" data-bs-backdrop="static"
+
+	<div class="modal fade" id="notPh" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -292,8 +294,8 @@ function onlyNumber(){
 			</div>
 		</div>
 	</div>
-	
-		<div class="modal fade" id="timeExceed" data-bs-backdrop="static"
+
+	<div class="modal fade" id="timeExceed" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -329,8 +331,6 @@ function onlyNumber(){
 	
 			const confirm = document.getElementById('getConfirm');
 
-			const prefix = "<%=application.getContextPath()%>/rest/";
-
 			const phonetext = document.getElementById('phonenumber');
 			const phonebtn = document.getElementById('checkphone');
 
@@ -342,11 +342,15 @@ function onlyNumber(){
 				if(phonetext.value.length == 11){
 					if(timeLimit == 60 || timeLimit == 0){
 						timeLimit = 60;
+						startTime();
+						
 						ajaxGetSMS(phonetext.value);
 						ajaxGetph(phonetext.value);
+						
+						setTimeout(function(){		
+							ajaxToNick();
+				        }, 1000);
 
-					    startTime();
-					    ajaxToNick();
 						var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
 						myModal.show()	
 					} else{
@@ -368,6 +372,7 @@ function onlyNumber(){
 				if(smstext.value == document.getElementById('getsmscode').value 
 						&& phonetext.value == document.getElementById('getph').value && smstext.value != ""
 						&& phonetext.value != ""){
+					console.log(document.getElementById('getConfirm').value);
 					if(document.getElementById('getConfirm').value == "0"){
 						var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'));
 						myModal.show()
