@@ -14,15 +14,26 @@
 		sh_userInfo where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
 	</select>
 
-	<select id="getUserInfoByPhone" resultType="hashMap">
-		SELECT * FROM
-		sh_userInfo WHERE phoneNumber = #{phoneNumber}
+	<select id="getIpCnt" resultType="Integer">
+		select count(*) from
+		sh_userIP
+		where IP=#{IP}
 	</select>
 
 	<select id="getSmsCnt" resultType="int">
-		SELECT smsCnt FROM sh_userInfo
-		WHERE phoneNumber = #{phoneNumber}
+		SELECT smsCnt FROM sh_userIP
+		WHERE IP = #{IP}
 	</select>
+
+	<insert id="insertIp">
+		INSERT INTO sh_userIP(IP)
+		VALUES (#{IP})
+	</insert>
+
+	<update id="updateIpCnt">
+		UPDATE sh_userIP SET smsCnt = smsCnt + 1
+		WHERE IP = #{IP}
+	</update>
 
 	<insert id="insertUserPhNk">
 		INSERT INTO sh_userInfo(userID, phoneNumber,
@@ -41,55 +52,6 @@
 		sh_userInfo where kakaomail=#{kakaomail}
 	</select>
 
-	<insert id="insertSMS">
-		INSERT INTO sh_userInfo(userID, phoneNumber)
-		VALUES
-		(userID_seq.nextval, #{phoneNumber})
-	</insert>
-
-	<update id="updateSMS">
-		UPDATE sh_userInfo SET smsCnt = #{smsCnt,
-		jdbcType=NUMERIC} + 1
-		WHERE phoneNumber = #{phoneNumber,
-		jdbcType=VARCHAR}
-
-	</update>
-
-	<insert id="insertUserInfo">
-		INSERT INTO employees2
-		VALUES (
-		employees2_seq.nextval,
-		#{first_name},
-		#{last_name},
-		#{email},
-		#{phone_number},
-		sysdate,
-		#{job_id},
-		#{salary},
-		#{commission_pct,
-		jdbcType=DOUBLE},
-		#{manager_id, jdbcType=NUMERIC},
-		#{department_id,
-		jdbcType=NUMERIC}
-		)
-	</insert>
-
-	<update id="updateUserInfo">
-		UPDATE employees2 SET first_name = #{first_name},
-		last_name = #{last_name},
-		email = #{email},
-		phone_number =
-		#{phone_number},
-		job_id = #{job_id},
-		salary = #{salary,
-		jdbcType=DOUBLE},
-		commission_pct = #{commission_pct, jdbcType=DOUBLE},
-		manager_id = #{manager_id, jdbcType=NUMERIC},
-		department_id =
-		#{department_id, jdbcType=NUMERIC}
-		WHERE employee_id = #{employee_id}
-
-	</update>
 
 </mapper>
 

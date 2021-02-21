@@ -1,5 +1,7 @@
 package com.kgitbank.controller.rest;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick","findph" })
+@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick", "findph" })
 public class RestControllerMain {
 
 	@Autowired
@@ -34,7 +36,7 @@ public class RestControllerMain {
 	private String newAddress = null;
 
 	private int result = 0;
-	
+
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -71,46 +73,61 @@ public class RestControllerMain {
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model,
 			HttpSession session) {
 
-		Random rand = new Random();
-		String numStr = "";
-		for (int i = 0; i < 4; i++) {
-			String ran = Integer.toString(rand.nextInt(10));
-			numStr += ran;
-		}
-
-		System.out.println("수신자 번호 : " + phoneNumber);
-		System.out.println("인증번호 : " + numStr);
-		model.addAttribute("smscodes", numStr);
-		model.addAttribute("phonenumber", phoneNumber);
-		//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
-		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-				+ phoneNumber.substring(7);
-		int result = wyMarketService.selectphonenumber(dashPhoneNumber);
-		System.out.println("이게 널이 뜬다고?" + result);
-		this.result = result;
+		String ip = null;
 		
-		String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
-		System.out.println(userNick);
-		if (userNick != null) {
-			model.addAttribute("usernick", userNick);
-			session.setAttribute(userNick, userNick);
+		try {
+			ip = Inet4Address.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		String numStr = "";
+		
+		if (wyMarketService.getIpCnt(ip) == 0) {
+			int insertIp = wyMarketService.insertIp(ip);
+			System.out.println("insertIp : " + insertIp);
+			session.setAttribute("smsCnt", insertIp);
+		} else {
+			int smsCnt = wyMarketService.getSmsCnt(ip);
+			System.out.println("smsCnt : " + smsCnt);
+			if (smsCnt >= 3) {
+				session.setAttribute("smsCnt", smsCnt);
+			} else {
+				int updateIpCnt = wyMarketService.updateIpCnt(ip);
+				System.out.println("updateIp : " + updateIpCnt);
+				
+				session.setAttribute("smsCnt", smsCnt);
+				
+				Random rand = new Random();
+				
+				for (int i = 0; i < 4; i++) {
+					String ran = Integer.toString(rand.nextInt(10));
+					numStr += ran;
+				}
 
-//		if (wyMarketService.getUserInfoByPhone(dashPhoneNumber).size() == 0) {
-//			wyMarketService.insertSMS(dashPhoneNumber);
-//			model.addAttribute(phoneNumber, 1);
-//		} else {
-//			for (Map<String, Object> user : wyMarketService.getUserInfoByPhone(dashPhoneNumber)) {
-//				userInfo.setPhoneNumber(dashPhoneNumber);
-//				userInfo.setSmsCnt(Integer.parseInt(String.valueOf(user.get("SMSCNT"))));
-//				if (Integer.parseInt(String.valueOf(user.get("SMSCNT"))) >= 3) {
-//					System.out.println("3회 초과됨");
-//				} else {
-//					wyMarketService.updateSMS(userInfo);
-//					model.addAttribute(phoneNumber, user.get("SMSCNT"));
-//				}
-//			}
-//		}
+				System.out.println("수신자 번호 : " + phoneNumber);
+				System.out.println("인증번호 : " + numStr);
+				model.addAttribute("smscodes", numStr);
+				model.addAttribute("phonenumber", phoneNumber);
+				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
+						+ phoneNumber.substring(7);
+				int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+				System.out.println("이게 널이 뜬다고?" + result);
+				this.result = result;
+
+				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
+				System.out.println(userNick);
+				if (userNick != null) {
+					model.addAttribute("usernick", userNick);
+					session.setAttribute(userNick, userNick);
+				}
+			}
+		}
+		
+
+
 		return numStr; // uri 반환 !!!
 	}
 
@@ -146,7 +163,6 @@ public class RestControllerMain {
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
 
-		
 		model.addAttribute("usernick", userInfo.getUserNick());
 		session.setAttribute(userInfo.getUserNick(), userInfo.getUserNick());
 		System.out.println(session.getAttribute(userInfo.getUserNick()));

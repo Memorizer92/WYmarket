@@ -316,6 +316,28 @@ function onlyNumber(){
 			</div>
 		</div>
 	</div>
+	
+		<div class="modal fade" id="cntExceed" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">인증 횟수 초과</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">인증 횟수 3회 초과로 인하여 더 이상 인증하실 수 없습니다.</div>
+
+
+				<div class="modal-footer" id="modalfooter">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script
 		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
@@ -341,18 +363,24 @@ function onlyNumber(){
 			phonebtn.addEventListener('click',()=>{
 				if(phonetext.value.length == 11){
 					if(timeLimit == 60 || timeLimit == 0){
-						timeLimit = 60;
-						startTime();
 						
 						ajaxGetSMS(phonetext.value);
 						ajaxGetph(phonetext.value);
 						
-						setTimeout(function(){		
-							ajaxToNick();
+						setTimeout(function(){
+							console.log("카운트 : " + "${smsCnt}");
+							if("${smsCnt}" >= 2){
+								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
+								myModal.show()	
+							} else{
+								timeLimit = 60;
+								startTime();
+								ajaxToNick();
+								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
+								myModal.show()	
+							}
 				        }, 1000);
-
-						var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
-						myModal.show()	
+								
 					} else{
 						var myModal = new bootstrap.Modal(document.getElementById('smsRetry'));
 						myModal.show()		

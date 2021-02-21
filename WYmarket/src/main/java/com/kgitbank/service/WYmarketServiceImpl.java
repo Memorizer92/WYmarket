@@ -14,31 +14,6 @@ public class WYmarketServiceImpl implements WYmarketService{
 
 	@Autowired
 	private WYmarketMapper wyMarketMapper;
-	
-	@Override
-	public List<Map<String, Object>> getUserInfoByPhone(String phoneNumber) {
-		return wyMarketMapper.getUserInfoByPhone(phoneNumber);
-	}
-
-	@Override
-	public int insertUserInfo(UserInfo userInfo) {
-		return wyMarketMapper.insertUserInfo(userInfo);
-	}
-
-	@Override
-	public int updateUserInfo(UserInfo userInfo) {
-		return wyMarketMapper.updateUserInfo(userInfo);
-	}
-
-	@Override
-	public int insertSMS(String phoneNumber) {
-		return wyMarketMapper.insertSMS(phoneNumber);
-	}
-
-	@Override
-	public int updateSMS(UserInfo userInfo) {
-		return wyMarketMapper.updateSMS(userInfo);
-	}
 
 	@Override
 	public int selectphonenumber(String phoneNumber) {
@@ -63,6 +38,26 @@ public class WYmarketServiceImpl implements WYmarketService{
 	@Override
 	public String getUserNickByMail(String mail) {
 		return wyMarketMapper.getUserNickByMail(mail);
+	}
+
+	@Override
+	public int getIpCnt(String ip) {
+		return wyMarketMapper.getIpCnt(ip);
+	}
+
+	@Override
+	public int insertIp(String ip) {
+		return wyMarketMapper.insertIp(ip);
+	}
+
+	@Override
+	public int updateIpCnt(String ip) {
+		return wyMarketMapper.updateIpCnt(ip);
+	}
+
+	@Override
+	public int getSmsCnt(String ip) {
+		return wyMarketMapper.getSmsCnt(ip);
 	}
 
 
