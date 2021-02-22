@@ -2,7 +2,10 @@ package com.kgitbank.controller.rest;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kgitbank.controller.LoginFormController;
+import com.kgitbank.model.UserIP;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
@@ -36,7 +40,11 @@ public class RestControllerMain {
 	private String newAddress = null;
 
 	private int result = 0;
+	
+	private int smsCnt = 0;
 
+	private int smsLeftCnt = 3;
+	
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -69,9 +77,9 @@ public class RestControllerMain {
 		return "<p>가입하고 " + newAddress + "<br>중고 상품을 구경하세요!<p/>";
 	}
 
-	@PostMapping(value = { "wymarket/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
+	@PostMapping(value = { "/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model,
-			HttpSession session) {
+			HttpSession session, UserIP userIp) {
 
 		String ip = null;
 		
@@ -84,20 +92,97 @@ public class RestControllerMain {
 		
 		String numStr = "";
 		
+		smsLeftCnt--;
+		session.setAttribute("smsLeftCnt", smsLeftCnt);
+		if(smsLeftCnt == 0) {
+			smsLeftCnt = 3;
+		}
+		
 		if (wyMarketService.getIpCnt(ip) == 0) {
 			int insertIp = wyMarketService.insertIp(ip);
-			System.out.println("insertIp : " + insertIp);
-			session.setAttribute("smsCnt", insertIp);
+			Random rand = new Random();
+			
+			for (int i = 0; i < 4; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr += ran;
+			}
+
+			System.out.println("수신자 번호 : " + phoneNumber);
+			System.out.println("인증번호 : " + numStr);
+			model.addAttribute("smscodes", numStr);
+			model.addAttribute("phonenumber", phoneNumber);
+			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+			String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
+					+ phoneNumber.substring(7);
+			int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+
+			this.result = result;
+
+			String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
+
+			if (userNick != null) {
+				model.addAttribute("usernick", userNick);
+				session.setAttribute(userNick, userNick);
+			}
 		} else {
-			int smsCnt = wyMarketService.getSmsCnt(ip);
+			smsCnt = wyMarketService.getSmsCnt(ip);
 			System.out.println("smsCnt : " + smsCnt);
 			if (smsCnt >= 3) {
-				session.setAttribute("smsCnt", smsCnt);
+				
+				userIp.setSmsExceedDate(new Date());
+				
+				Date getSmsExceedDate = wyMarketService.getSmsExceedDate(ip);
+
+				Calendar getToday = Calendar.getInstance();
+				getToday.setTime(userIp.getSmsExceedDate()); // 현재 날짜
+		
+				
+				Calendar cmpDate = Calendar.getInstance();
+				System.out.println(cmpDate + "/" + getSmsExceedDate);
+				cmpDate.setTime(wyMarketService.getSmsExceedDate(ip)); //특정 일자
+				
+				
+				long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+				long diffDays = diffSec / (24*60*60); //일자수 차이
+				
+				System.out.println(diffSec + "초 차이");
+				System.out.println(diffDays + "일 차이");
+				
+				if(diffSec >= 30) {
+					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
+					smsCnt = 0;
+					Random rand = new Random();
+					
+					for (int i = 0; i < 4; i++) {
+						String ran = Integer.toString(rand.nextInt(10));
+						numStr += ran;
+					}
+
+					System.out.println("수신자 번호 : " + phoneNumber);
+					System.out.println("인증번호 : " + numStr);
+					model.addAttribute("smscodes", numStr);
+					model.addAttribute("phonenumber", phoneNumber);
+					// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+					String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
+							+ phoneNumber.substring(7);
+					int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+
+					this.result = result;
+
+					String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
+
+					if (userNick != null) {
+						model.addAttribute("usernick", userNick);
+						session.setAttribute(userNick, userNick);
+					}
+				}
+
 			} else {
 				int updateIpCnt = wyMarketService.updateIpCnt(ip);
-				System.out.println("updateIp : " + updateIpCnt);
-				
-				session.setAttribute("smsCnt", smsCnt);
+				if(wyMarketService.getSmsCnt(ip) == 3) {
+					wyMarketService.insertSmsExceedDate(ip);
+				}
+			
 				
 				Random rand = new Random();
 				
@@ -114,11 +199,11 @@ public class RestControllerMain {
 				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 						+ phoneNumber.substring(7);
 				int result = wyMarketService.selectphonenumber(dashPhoneNumber);
-				System.out.println("이게 널이 뜬다고?" + result);
+
 				this.result = result;
 
 				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
-				System.out.println(userNick);
+
 				if (userNick != null) {
 					model.addAttribute("usernick", userNick);
 					session.setAttribute(userNick, userNick);
@@ -131,12 +216,31 @@ public class RestControllerMain {
 		return numStr; // uri 반환 !!!
 	}
 
-	@PostMapping(value = { "wymarket/getph/{sms}" }, produces = "text/html; charset=UTF-8")
+	@PostMapping(value = { "/getph/{sms}" }, produces = "text/html; charset=UTF-8")
 	public String sendph(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model) {
 
 		return phoneNumber; // uri 반환 !!!
 	}
 
+	@PostMapping(value = { "/smsReqCnt" }, produces = "text/html; charset=UTF-8")
+	public String SmsReqCnt(Model model) {
+
+		System.out.println("인증횟수 : " + smsCnt);
+		String check = String.valueOf(smsCnt);
+
+		return check; // uri 반환 !!!
+	}
+	
+	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")
+	public String smsCntInc(Model model) {
+
+		smsCnt += 1;
+		System.out.println("인증횟수는 몇일까 : " + smsCnt);
+		String check = String.valueOf(smsCnt);
+
+		return check; // uri 반환 !!!
+	}
+	
 	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
 	public String toNick(Model model) {
 

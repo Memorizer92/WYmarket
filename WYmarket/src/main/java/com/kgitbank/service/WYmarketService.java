@@ -1,6 +1,7 @@
 package com.kgitbank.service;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,5 +21,9 @@ public interface WYmarketService {
 	int insertIp(String ip);
 	int updateIpCnt(String ip);
 	int getSmsCnt(String ip);
+	int insertSmsExceedDate(String ip);
+	Date getSmsExceedDate(String ip);
+	
+	int updateSmsExceedDate(String ip);
 	
 }

@@ -3,7 +3,7 @@ function getLocation() {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		lat = position.coords.latitude;
 		lon = position.coords.longitude;
-		
+
 		ajaxGetAddress(lat, lon);
 	}, function(error) {
 		console.error(error);
@@ -53,14 +53,14 @@ var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop1'));
 myModal.show()
 
 function ajaxGetSMS(phoneNumber) {
-	const prefix = "wymarket/getsms";
+	const prefix = "/wymarket/getsms";
 
 	let uri = prefix + "/" + phoneNumber;
 
 
 	xhttp = new XMLHttpRequest();
 
-	xhttp.onreadystatechange = function() { 
+	xhttp.onreadystatechange = function() {
 		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
 			document.getElementById("getsmscode").value = `${this.responseText}`;
 		}
@@ -74,7 +74,7 @@ function ajaxGetSMS(phoneNumber) {
 }
 
 function ajaxGetph(phoneNumber) {
-	const prefix = "wymarket/getph";
+	const prefix = "/wymarket/getph";
 
 	let uri = prefix + "/" + phoneNumber;
 
@@ -107,19 +107,19 @@ function ajaxToNick() {
 		}
 	}
 
-	xhttp.open('POST', uri, true); 
+	xhttp.open('POST', uri, true);
 
 	xhttp.send(); //2
 
 }
 
-function ajaxNickCheck(){
+function ajaxNickCheck() {
 	var data = {
 		userNick: document.querySelector('[name="nick_name"]').value
-	}		
-	
+	}
+
 	var xhttp = new XMLHttpRequest();
-	
+
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
@@ -127,9 +127,9 @@ function ajaxNickCheck(){
 			} else {
 
 			}
-		} 
+		}
 	}
-	
+
 	xhttp.open('POST', '/wymarket/selectNick', true);
 	xhttp.setRequestHeader('content-type', 'application/json');
 	xhttp.send(JSON.stringify(data));
@@ -137,14 +137,14 @@ function ajaxNickCheck(){
 
 
 
-function ajaxNickUpdate(){
-		var data = {
+function ajaxNickUpdate() {
+	var data = {
 		userNick: document.querySelector('[name="nick_name"]').value,
 		phoneNumber: document.getElementById('getph').value
-	}		
-	
+	}
+
 	var xhttp = new XMLHttpRequest();
-	
+
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
@@ -152,12 +152,51 @@ function ajaxNickUpdate(){
 			} else {
 
 			}
-		} 
+		}
 	}
-	
+
 	xhttp.open('POST', '/wymarket/updateNick', true);
 	xhttp.setRequestHeader('content-type', 'application/json');
 	xhttp.send(JSON.stringify(data));
+}
+
+function ajaxSmsReqCnt() {
+	const prefix = "/wymarket/smsReqCnt";
+
+	let uri = prefix;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
+			document.getElementById("smsReqCnt").value = `${this.responseText}`;
+			console.log(document.getElementById("smsReqCnt").value);
+		}
+	}
+
+	xhttp.open('POST', uri, true);
+
+	xhttp.send(); //2
+}
+
+
+function smsCntInc() {
+	const prefix = "/wymarket/smsCntInc";
+
+	let uri = prefix;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
+			document.getElementById("smsReqCnt").value = `${this.responseText}`;
+			console.log(document.getElementById("smsReqCnt").value);
+		}
+	}
+
+	xhttp.open('POST', uri, true);
+
+	xhttp.send(); //2
 }
 
 

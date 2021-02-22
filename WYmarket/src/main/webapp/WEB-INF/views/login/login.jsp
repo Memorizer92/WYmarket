@@ -150,6 +150,7 @@ function onlyNumber(){
 				id='modalkakao' src="/wymarket/image/kakao_login_medium_narrow.png"
 				alt="abc" /></a> <input type="text" id="getConfirm"
 				style="display: none" /> <input type="text" id="userNickCheck"
+				style="display: none" /> <input type="text" id="smsReqCnt"
 				style="display: none" />
 		</div>
 	</div>
@@ -218,7 +219,7 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">SMS 인증번호가 발송되었습니다.</div>
+				<div class="modal-body">SMS 인증번호가 발송되었습니다. </div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -316,8 +317,8 @@ function onlyNumber(){
 			</div>
 		</div>
 	</div>
-	
-		<div class="modal fade" id="cntExceed" data-bs-backdrop="static"
+
+	<div class="modal fade" id="cntExceed" data-bs-backdrop="static"
 		data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -362,23 +363,28 @@ function onlyNumber(){
 
 			phonebtn.addEventListener('click',()=>{
 				if(phonetext.value.length == 11){
-					if(timeLimit == 60 || timeLimit == 0){
+					if(timeLimit == 10 || timeLimit == 0){
 						
 						ajaxGetSMS(phonetext.value);
 						ajaxGetph(phonetext.value);
 						
 						setTimeout(function(){
-							console.log("카운트 : " + "${smsCnt}");
-							if("${smsCnt}" >= 2){
+							ajaxSmsReqCnt();
+							console.log("카운트 : " + document.getElementById("smsReqCnt").value);
+							setTimeout(function(){
+							if(document.getElementById("smsReqCnt").value >= 3){
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 								myModal.show()	
 							} else{
-								timeLimit = 60;
+								timeLimit = 10;
 								startTime();
 								ajaxToNick();
+								setTimeout(function(){
 								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
 								myModal.show()	
+								}, 1000);
 							}
+							}, 1000);
 				        }, 1000);
 								
 					} else{
@@ -432,7 +438,6 @@ function toMain() {
 	} else {
 		
 		console.log("toMain console" + document.getElementById("userNickCheck").value);
-		var checkvalue = <%=session.getAttribute("check")%>
 
 		if (document.getElementById("userNickCheck").value == "1") {
 			document.getElementById('nick2Char').style.display = 'none';
@@ -458,7 +463,9 @@ function toMain() {
 	});
 	
 			
-			var timeLimit = 60;
+
+	
+			var timeLimit = 10;
 			function startTime(){
 
 

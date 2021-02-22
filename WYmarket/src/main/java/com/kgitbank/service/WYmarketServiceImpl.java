@@ -1,5 +1,6 @@
 package com.kgitbank.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,21 @@ public class WYmarketServiceImpl implements WYmarketService{
 	@Override
 	public int getSmsCnt(String ip) {
 		return wyMarketMapper.getSmsCnt(ip);
+	}
+
+	@Override
+	public int insertSmsExceedDate(String ip) {
+		return wyMarketMapper.insertSmsExceedDate(ip);
+	}
+
+	@Override
+	public Date getSmsExceedDate(String ip) {
+		return wyMarketMapper.getSmsExceedDate(ip);
+	}
+
+	@Override
+	public int updateSmsExceedDate(String ip) {
+		return wyMarketMapper.updateSmsExceedDate(ip);
 	}
 
 

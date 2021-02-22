@@ -32,7 +32,26 @@
 
 	<update id="updateIpCnt">
 		UPDATE sh_userIP SET smsCnt = smsCnt + 1
-		WHERE IP = #{IP}
+		WHERE IP =
+		#{IP}
+	</update>
+
+	<update id="insertSmsExceedDate">
+		UPDATE sh_userIP SET smsExceedDate = sysdate
+		WHERE IP
+		= #{IP}
+	</update>
+
+	<select id="getSmsExceedDate" resultType="Date">
+		select smsExceedDate
+		from
+		sh_userIP where IP=#{IP}
+	</select>
+
+	<update id="updateSmsExceedDate">
+		UPDATE sh_userIP SET smsCnt = 0, smsExceedDate = null
+		WHERE IP =
+		#{IP}
 	</update>
 
 	<insert id="insertUserPhNk">
