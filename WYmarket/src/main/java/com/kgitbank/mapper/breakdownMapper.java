@@ -41,7 +41,8 @@ public interface breakdownMapper {
 			@Param("purchaser") String purchaser,
 			@Param("usernick") String usernick,
 			@Param("ititle") String ititle,
-			@Param("istate") String istate);
+			@Param("istate") String istate
+			);
 	
 	
 		

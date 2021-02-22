@@ -15,23 +15,57 @@
  숨김 화면 <br>
 
 
- 	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button>숨김</button> 
+ 	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>	 
  	<c:forEach var ="userItem_list" items="${itemvo }">
  		<c:if test="${userItem_list.istate eq 'Hidden'}">		 <!--  거래완료 내역 -->	
 		<div class ="completed" id ="test"style="background-color: green; ">
+		<input type="radio" class= "openBtn" name="ititle" value="${userItem_list.ititle }" style="display: none" />
 		${userItem_list.ititle }	<br>
 		${userItem_list.address }<br>
 		${userItem_list.price }	<br>
-		${userItem_list.istate} <br>
-		<button onclick="location.href='<%=application.getContextPath() %>/param/purchase'">후기 작성 하기</button >		
-		</div>	
-		</c:if> <!-- 거래완료 내역 end -->			
+		${userItem_list.istate} <br>	
+		</div>	<br>
+		</c:if> <!-- 거래완료 내역 end -->	 
 		</c:forEach>
+		
+		<button onclick="hiddenCancellations()" id = "HiddenCancellation">숨기기 취소</button>		
 		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>		
 
 
 
+<script type="text/javascript">
+var radio_btn = document.getElementsByName("ititle");
+var hiddenCancellation = document.getElementsByName("HiddenCancellation").value;
+var radio_btn_check = 0;
+var istate;
 
+if(radio_btn.length == 0){
+	document.getElementById("HiddenCancellation").style.display = 'none';	
+}
+for( var i = 0; i < radio_btn.length; i++ ){  		
+	radio_btn[i].style.display = 'block';
+}	
+
+function hiddenCancellations() {
+	istate = 'Onsale';
+    for(var i = 0; i<radio_btn.length; i++){
+        if(radio_btn[i].checked==true){           	           	     		
+var form = document.createElement("form");
+form.setAttribute("method", "post");
+form.setAttribute("action", "<%=application.getContextPath() %>/param/salehidden/" + istate + "/" + radio_btn[i].value);
+document.body.appendChild(form);  
+radio_btn_check++;    
+form.submit();
+ alert("정상적으로 상품 숨기기 취소 처리되었습니다.");		
+        }
+    }
+    if(radio_btn_check==0){
+        alert("상품을 선택해주세요");
+        return;
+    }
+}
+
+</script>
 
 </body>
 </html>

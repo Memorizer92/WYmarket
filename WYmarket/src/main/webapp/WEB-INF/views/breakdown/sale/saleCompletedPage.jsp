@@ -13,7 +13,7 @@
 </head>
 <body>
 
- 	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button>숨김</button> 
+ 	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>	 
  	거래완료 화면
  	<c:forEach var ="userItem_list" items="${itemvo }">
  		<c:if test="${userItem_list.istate eq 'Completed'}">		 <!--  거래완료 내역 -->	

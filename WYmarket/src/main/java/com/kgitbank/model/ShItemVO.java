@@ -28,6 +28,6 @@ public class ShItemVO {
 	private Integer likecnt;
 	private Integer viewcnt;
 	private String istate;
-	
+	private String ireservationstate;
 	
 }

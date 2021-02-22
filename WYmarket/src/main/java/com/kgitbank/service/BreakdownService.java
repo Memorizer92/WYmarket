@@ -16,8 +16,8 @@ import com.kgitbank.model.ShUserInfoVO;
 @Service
 public class BreakdownService implements IBreakdownService {
 	
-	String completed = "Completed";
-	String hideen = "Hidden";
+	
+	
 	String onsale = "Onsale";
 	
 	
@@ -30,13 +30,13 @@ public class BreakdownService implements IBreakdownService {
 	}
 
 	@Override
-	public int completedIstate(String ititle, String usernick) {	
-		return break_mapper.completedIstate(completed, ititle, usernick);
+	public int completedIstate(String istate, String ititle, String usernick) {	
+		return break_mapper.completedIstate(istate, ititle, usernick);
 	}
 	
 	@Override
-	public int hiddenIstate(String ititle, String usernick) {
-		return break_mapper.hiddenIstate(hideen, ititle, usernick);
+	public int hiddenIstate(String istate, String ititle, String usernick) {
+		return break_mapper.hiddenIstate(istate, ititle, usernick);
 	}
 
 	@Override
@@ -50,8 +50,8 @@ public class BreakdownService implements IBreakdownService {
 	}
 
 	@Override
-	public int insertPurchase(PurchasedetailsVO pvo, String purchaser , String usernick,  String ititle) {	
-		return break_mapper.insertPurchase(pvo, purchaser, usernick, ititle, completed);
+	public int insertPurchase(PurchasedetailsVO pvo, String purchaser , String usernick,  String ititle, String istate) {	
+		return break_mapper.insertPurchase(pvo, purchaser, usernick, ititle, istate);
 	}
 
 	@Override
