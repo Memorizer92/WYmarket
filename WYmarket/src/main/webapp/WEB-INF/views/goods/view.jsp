@@ -1,0 +1,104 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<style>
+.inputArea {
+	margin: 10px 0;
+}
+
+select {
+	width: 100px;
+}
+
+label {
+	display: inline-block;
+	width: 70px;
+	padding: 5px;
+}
+
+label[for='icontent'] {
+	display: block;
+}
+
+input {
+	width: 150px;
+}
+
+textarea#icontent {
+	width: 400px;
+	height: 180px;
+}
+
+.select_img img { margin:20px 0; }
+
+</style>
+
+<title>상품조회</title>
+</head>
+<body>
+	<div id="root">
+		<header id="header">
+			<div id="header_box">
+				<%@ include file="../include/header.jsp"%>
+			</div>
+		</header>
+		<nav id="nav">
+			<div id="nav_box">
+				<%@ include file="../include/nav.jsp"%>
+			</div>
+		</nav>
+		<section id="container">
+			<div id="container_box">
+				<h2>상품 목록</h2>
+
+				<form role="form" method="POST" autocomplete="off">
+					
+					<div class="inputArea">
+						<label for="iimagepath">상품 이미지</label>
+						<img src="${goods.iimagepath }" />
+					</div>
+					
+					<div class="inputArea">
+						<label for="ititle">상품명</label>
+						<span>${goods.ititle}</span>
+					</div>
+					<div class="inputArea">
+						<label for="icategory">카테고리</label>
+						<span>${goods.icategory}</span>
+					</div>
+					
+					<div class="inputArea">
+						<label for="price">상품가격</label>
+						<span><fmt:formatNumber value="${goods.price}" pattern="###,###,###"/></span>
+					</div>
+					
+					<div class="inputArea">
+						<label for="icontent">상품소개</label>
+						<span>${goods.icontent}</span>
+					</div>
+
+					<div class="inputArea">
+						<button type="button" id="register_Btn" class="btn btn-warning">수정</button>
+						<button type="button" id="register_Btn" class="btn btn-danger">삭제</button>
+					</div>
+
+				</form>
+			</div>
+		</section>
+		<footer id="footer">
+			<div id="footer_box">
+				<%@ include file="../include/footer.jsp"%>
+			</div>
+		</footer>
+	</div>
+
+</body>
+</html>

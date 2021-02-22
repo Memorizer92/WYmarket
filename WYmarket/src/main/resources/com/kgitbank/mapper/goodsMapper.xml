@@ -4,6 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.goodsMapper">
 
+	<!-- 상품 목록 -->
+	<select id="getGoodsList" resultType="com.kgitbank.model.GoodsVO">
+		SELECT
+			iimagepath, ititle, icategory, price, refreshtime
+		FROM
+			sh_item
+	</select>
+
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
 	 INSERT INTO sh_item (
@@ -19,5 +27,10 @@
 	     #{price}
 	     )
 	</insert>
+	
+	<!-- 등록 상품 조회 -->
+	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
+		SELECT * FROM sh_item WHERE itemid = #{itemid}
+	</select>
  
 </mapper>

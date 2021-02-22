@@ -29,7 +29,6 @@ public class GoodsController {
 	@Autowired
 	GoodsService gservice;
 	
-	//@Resource(name = "uploadPath")
 	@Autowired
 	private String uploadPath;
 	
@@ -63,5 +62,9 @@ public class GoodsController {
 		
 		return "goods/success";
 	}
+	
+//	// 상품 등록 및 조회
+//	@PostMapping("add")
+//	public 
 
 }
