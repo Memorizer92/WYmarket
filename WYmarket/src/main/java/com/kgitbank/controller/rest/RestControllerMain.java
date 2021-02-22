@@ -24,7 +24,7 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
-import com.kgitbank.service.certificationService;
+import com.kgitbank.service.CertificationService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
