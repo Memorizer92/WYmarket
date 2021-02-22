@@ -5,6 +5,12 @@
 <mapper namespace="com.kgitbank.mapper.breakdownMapper">
 
 
+
+
+<select id="getShuserInfo" resultType="com.kgitbank.model.ShUserInfoVO">
+SELECT usernick from sh_userInfo 
+</select>
+
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
 SELECT * from sh_item where usernick = #{usernick}
 </select>
@@ -13,7 +19,13 @@ SELECT * from sh_item where usernick = #{usernick}
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
 </update>
  
- 
+ <update id="hiddenIstate">
+UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
+</update>
+
+ <update id="reservationStateChange">
+UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick}
+</update>
  
  <select id="getPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
 SELECT * from purchasedetails where purchaser = #{purchaser}
@@ -31,5 +43,8 @@ INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) val
 )
 	  		 
 </insert>
+
+
+
 
 </mapper>
