@@ -11,7 +11,7 @@
 
 	<select id="selectphonenumber" resultType="Integer">
 		select count(*) from
-		sh_userInfo where phoneNumber=#{phoneNumber}
+		sh_userInfo where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
 	</select>
 
 	<select id="getUserInfoByPhone" resultType="hashMap">

@@ -94,7 +94,7 @@ function ajaxGetph(phoneNumber) {
 
 
 function ajaxToNick() {
-	const prefix = "wymarket/toNick";
+	const prefix = "/wymarket/toNick";
 
 	let uri = prefix;
 

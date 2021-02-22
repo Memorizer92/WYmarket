@@ -18,14 +18,14 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
+import com.kgitbank.service.certificationService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-//@RequestMapping("/rest")
-@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick" })
+@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick","findph" })
 public class RestControllerMain {
 
 	@Autowired
@@ -33,8 +33,8 @@ public class RestControllerMain {
 
 	private String newAddress = null;
 
-	int result = 0;
-
+	private int result = 0;
+	
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -64,7 +64,7 @@ public class RestControllerMain {
 			e.printStackTrace();
 		}
 
-		return "<h5>가입하고 " + newAddress + " 중고 상품을 구경하세요!<h5/>";
+		return "<p>가입하고 " + newAddress + "<br>중고 상품을 구경하세요!<p/>";
 	}
 
 	@PostMapping(value = { "wymarket/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
@@ -82,11 +82,13 @@ public class RestControllerMain {
 		System.out.println("인증번호 : " + numStr);
 		model.addAttribute("smscodes", numStr);
 		model.addAttribute("phonenumber", phoneNumber);
-		// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+		//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 				+ phoneNumber.substring(7);
-		result = wyMarketService.selectphonenumber(dashPhoneNumber);
-
+		int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+		System.out.println("이게 널이 뜬다고?" + result);
+		this.result = result;
+		
 		String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 		System.out.println(userNick);
 		if (userNick != null) {
@@ -118,8 +120,10 @@ public class RestControllerMain {
 		return phoneNumber; // uri 반환 !!!
 	}
 
-	@PostMapping(value = { "wymarket/toNick" }, produces = "text/html; charset=UTF-8")
-	public String toNick() {
+	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
+	public String toNick(Model model) {
+
+		System.out.println(result);
 		String check = String.valueOf(result);
 
 		return check; // uri 반환 !!!
