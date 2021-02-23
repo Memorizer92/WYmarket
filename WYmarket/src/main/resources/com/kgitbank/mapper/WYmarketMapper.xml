@@ -4,6 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.WYmarketMapper">
 
+	<select id="getAdminPhCount" resultType="Integer">
+		select count(*) from
+		sh_adminInfo where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
+	</select>
+
+	<select id="getAdminInfo" resultType="Map">
+		select * from
+		sh_adminInfo
+		where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateAdminMemo">
+		UPDATE sh_adminInfo SET adminMemo =
+		#{adminMemo,
+		jdbcType=VARCHAR}
+		WHERE adminGrade =
+		#{adminGrade}
+	</update>
+
+	<select id="selectAdminMemo" resultType="String">
+		select adminMemo from
+		sh_adminInfo where adminGrade=#{adminGrade}
+	</select>
+
+
+	<select id="selectUserBy" resultType="List">
+		select *
+		from
+		sh_userInfo where #{list} LIKE '%' ||  #{search} || '%'
+	</select>
+
+
+	<select id="selectUserCount" resultType="Integer">
+		select count(*) from
+		sh_userInfo
+	</select>
+
+	<select id="selectUserList"
+		resultType="com.kgitbank.model.UserInfo">
+	 <![CDATA[ 
+	 	SELECT * FROM 
+	 	(SELECT rownum rn, userID, phoneNumber, 
+		kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
+		buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
+		WHERE rownum <= #{pageNum} * #{amount}) 
+		WHERE rn > (#{pageNum} - 1) * #{amount} ORDER BY userId 
+		]]>
+	</select>
+
+
 	<select id="selectusernick" resultType="Integer">
 		select count(*) from
 		sh_userInfo where userNick=#{userNick}
@@ -49,16 +99,18 @@
 	</select>
 
 	<update id="updateSmsExceedDate">
-		UPDATE sh_userIP SET smsCnt = 0, smsExceedDate = null
+		UPDATE sh_userIP SET smsCnt = 1, smsExceedDate = null
 		WHERE IP =
 		#{IP}
 	</update>
 
 	<insert id="insertUserPhNk">
 		INSERT INTO sh_userInfo(userID, phoneNumber,
-		userNick, latitude, longitude, address)
-		VALUES (userID_seq.nextval,
-		#{phoneNumber}, #{userNick}, #{latitude}, #{longitude}, #{address})
+		userNick, latitude, longitude, address, userCreateDate)
+		VALUES
+		(userID_seq.nextval,
+		#{phoneNumber}, #{userNick}, #{latitude},
+		#{longitude}, #{address}, sysdate)
 	</insert>
 
 	<select id="getUserNickByPh" resultType="String">
@@ -70,6 +122,8 @@
 		select userNick from
 		sh_userInfo where kakaomail=#{kakaomail}
 	</select>
+
+
 
 
 </mapper>

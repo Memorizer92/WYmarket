@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
+import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
 @Service
@@ -75,6 +77,44 @@ public class WYmarketServiceImpl implements WYmarketService{
 	public int updateSmsExceedDate(String ip) {
 		return wyMarketMapper.updateSmsExceedDate(ip);
 	}
+
+	@Override
+	public int getAdminPhCount(String phoneNumber) {
+		return wyMarketMapper.getAdminPhCount(phoneNumber);
+	}
+
+	@Override
+	public Map<String, Object> getAdminInfo(String phoneNumber) {
+		return wyMarketMapper.getAdminInfo(phoneNumber);
+	}
+
+	@Override
+	public int updateAdminMemo(AdminInfo adminInfo) {
+		return wyMarketMapper.updateAdminMemo(adminInfo);
+	}
+
+	@Override
+	public String selectAdminMemo(AdminInfo adminInfo) {
+		return wyMarketMapper.selectAdminMemo(adminInfo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectUserList(Pagination pagination) {
+		return wyMarketMapper.selectUserList(pagination);
+	}
+
+	@Override
+	public int selectUserCount() {
+		return wyMarketMapper.selectUserCount();
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectUserBy(String list, String search) {
+		System.out.println(list + "," + search);
+		return wyMarketMapper.selectUserBy(list, search);
+	}
+
 
 
 

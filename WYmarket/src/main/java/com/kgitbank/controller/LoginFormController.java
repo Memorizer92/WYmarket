@@ -76,11 +76,14 @@ public class LoginFormController {
 		return "loginForm";
 	}
 
+	
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
+		if(session.getAttribute("Admin") != null) {
+			return "/admin/admin";
+		} 
 		if(session.getAttribute((String) model.getAttribute("usernick")) != null) {
-//			session.removeAttribute((String) model.getAttribute("usernick"));
 			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
 			return "/main";
 		} else {
@@ -94,8 +97,10 @@ public class LoginFormController {
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
 		
+		session.removeAttribute("Admin");
 		session.removeAttribute((String) model.getAttribute("usernick"));
 		System.out.println("왜 안 읽혀"+session.getAttribute((String) model.getAttribute("usernick")));
+		System.out.println("adminInfo in loginformcontroller" + session.getAttribute("Admin"));
 		
 		return null;
 	}

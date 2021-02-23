@@ -17,14 +17,12 @@ public class UserInfo {
 	private double longitude;
 	private String address;
 	private Integer manner;
-	private Integer varifyCnt;
 	@DateTimeFormat(pattern = "yy/mm/dd")
 	private Date userCreateDate;
+	private Integer buyItemCnt;
 	private Integer saleItemCnt;
 	private Integer reviewCnt;
 	private String keyWord;
-	private Integer smsCnt;
-	
-	private Date smsExceedDate;
+	private String ban;
 	
 }

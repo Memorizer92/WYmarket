@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -19,12 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kgitbank.controller.LoginFormController;
+import com.kgitbank.model.AdminInfo;
 import com.kgitbank.model.UserIP;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
-import com.kgitbank.service.certificationService;
+import com.kgitbank.service.CertificationService;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -114,7 +116,21 @@ public class RestControllerMain {
 			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 			String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 					+ phoneNumber.substring(7);
-			int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+			
+			int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
+			
+			if(result == 0) {
+				result = wyMarketService.selectphonenumber(dashPhoneNumber);
+			} else {
+				AdminInfo adminInfo = new AdminInfo();
+				Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+				adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
+				adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
+				adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
+				adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
+				adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+				session.setAttribute("Admin", adminInfo);
+			}
 
 			this.result = result;
 
@@ -165,7 +181,21 @@ public class RestControllerMain {
 					// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 					String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 							+ phoneNumber.substring(7);
-					int result = wyMarketService.selectphonenumber(dashPhoneNumber);
+					
+					int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
+					
+					if(result == 0) {
+						result = wyMarketService.selectphonenumber(dashPhoneNumber);
+					} else {
+						AdminInfo adminInfo = new AdminInfo();
+						Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+						adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
+						adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
+						adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
+						adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
+						adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+						session.setAttribute("Admin", adminInfo);
+					}
 
 					this.result = result;
 
@@ -198,8 +228,22 @@ public class RestControllerMain {
 				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 						+ phoneNumber.substring(7);
-				int result = wyMarketService.selectphonenumber(dashPhoneNumber);
-
+				
+				int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
+				
+				if(result == 0) {
+					result = wyMarketService.selectphonenumber(dashPhoneNumber);
+				} else {
+					AdminInfo adminInfo = new AdminInfo();
+					Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+					adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
+					adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
+					adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
+					adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
+					adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+					session.setAttribute("Admin", adminInfo);
+				}
+				
 				this.result = result;
 
 				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
@@ -283,4 +327,24 @@ public class RestControllerMain {
 		return null;
 	}
 
+	
+	@PostMapping(value = "/saveMemo", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String saveMemo(@RequestBody AdminInfo adminInfo, Model model, HttpSession session) {
+		System.out.println(adminInfo.getAdminMemo());
+		System.out.println(adminInfo.getAdminGrade());
+		int updateRow = wyMarketService.updateAdminMemo(adminInfo);
+		//String selectAdminMemo = wyMarketService.selectAdminMemo(adminInfo);
+		System.out.println(updateRow);
+		session.setAttribute("memo", adminInfo.getAdminMemo());
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
+

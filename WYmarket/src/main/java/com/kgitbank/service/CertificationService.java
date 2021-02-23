@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-public class certificationService {
+public class CertificationService {
 	
 	 public static void certifiedPhoneNumber(String phoneNumber, String cerNum) {
 

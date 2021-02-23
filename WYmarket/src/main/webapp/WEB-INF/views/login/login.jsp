@@ -363,7 +363,7 @@ function onlyNumber(){
 
 			phonebtn.addEventListener('click',()=>{
 				if(phonetext.value.length == 11){
-					if(timeLimit == 10 || timeLimit == 0){
+					if(timeLimit == 30 || timeLimit == 0){
 						
 						ajaxGetSMS(phonetext.value);
 						ajaxGetph(phonetext.value);
@@ -376,7 +376,7 @@ function onlyNumber(){
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 								myModal.show()	
 							} else{
-								timeLimit = 10;
+								timeLimit = 30;
 								startTime();
 								ajaxToNick();
 								setTimeout(function(){
@@ -465,7 +465,7 @@ function toMain() {
 			
 
 	
-			var timeLimit = 10;
+			var timeLimit = 30;
 			function startTime(){
 
 
