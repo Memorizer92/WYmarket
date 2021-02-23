@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@include file="/WEB-INF/views/include/taglib.jspf"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,33 +12,54 @@
 <link rel="stylesheet" href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
 </head>
 <body>
-<c:if test=""></c:if> <!-- 로그인 세션이 null일떄 표현해주는 곳 -->
 
+판매중 화면 <br>
  <button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>					
  
-
- <br>판매중 화면 <br>
+	
+ 
  <c:choose>
- <c:when test="${empty usernick }">
- 로그인
- </c:when>
- 	<c:when test="${not empty usernick}">
- 	
+ 	<c:when test="${not empty usernick}"> 	
  		<c:forEach var ="userItem_list" items="${itemvo }"> 
  		
  		<c:if test="${userItem_list.istate eq 'Onsale'}">		 <!--  판매중 내역 -->	
-		<div class ="completed" id ="test"style="background-color: green;">
-		
-		
+		<div class ="completed" id ="test"style="background-color: green;">		
+
+		현재날짜와 등록된 날짜 차 값(초):${userItem_list.refreshTime} <br>
+		<c:choose>
+			<c:when test="${userItem_list.refreshTime < 60}">
+				${userItem_list.refreshTime}초 전 <br>
+			</c:when>
+			<c:when test="${userItem_list.refreshTime >= 60 && userItem_list.refreshTime < 3600}">				
+				<fmt:parseNumber var="percent" value="${((userItem_list.refreshTime) / 60)}" integerOnly="true" />
+				${percent}분 전 <br>
+			</c:when>
+			<c:when test="${userItem_list.refreshTime >= 3600 && userItem_list.refreshTime < 86400}">
+			<fmt:parseNumber var="percent" value="${((userItem_list.refreshTime) / 3600)}" integerOnly="true" />
+			${percent }시간 전 <br>
+			</c:when>
+			<c:when test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800} ">
+			<fmt:parseNumber var="percent" value="${((userItem_list.refreshTime) / 86400)}" integerOnly="true" />
+			${percent }일 전 <br>
+			</c:when>
+			<c:when test="${userItem_list.refreshTime >= 2678400 && userItem_list.refreshTime < 32140800}">
+			<fmt:parseNumber var="percent" value="${((userItem_list.refreshTime) / 2678400)}" integerOnly="true" />
+			${percent }달 전 <br>
+			</c:when>
+			<c:when test="${userItem_list.refreshTime >= 32140800}">
+			<fmt:parseNumber var="percent" value="${((userItem_list.refreshTime) / 32140800)}" integerOnly="true" />
+			${percent }년 전 <br>
+			</c:when>	
+		</c:choose>
 		<input type="radio" onclick="openModal()" class= "openBtn" name="ititle" value="${userItem_list.ititle }" style="display: none" />
-		${userItem_list.ititle } 
 		<c:if test="${userItem_list.ireservationstate eq 'Yreservation'}">
 		예약중
-		</c:if>
+		</c:if>제목: ${userItem_list.ititle } 
+		
 		<br>			
-		${userItem_list.address } <br>
-		${userItem_list.price }	<br>
-		${userItem_list.istate} <br>			
+		지역: ${userItem_list.address } <br>
+		가격: ${userItem_list.price }	<br>
+		
 		</div>	<br>
 		</c:if>
 		 <!-- 판매중 내역 end -->			
@@ -61,7 +81,7 @@
 			
  	</c:when>
  </c:choose>
-	    
+	    <br>
 	<button onclick="TransactionCompleted()"  style="display: none;" id = "TransactionCompleted">거래완료</button>				
 	<button onclick="ProductHideen()"  style="display: none;" id = "ProductHideen">상품 숨기기</button>			
 	<button onclick="ProductReservationY()"  style="display: none;" id = "ProductReservationY" value="Yreservation">예약중으로 변경</button>	  

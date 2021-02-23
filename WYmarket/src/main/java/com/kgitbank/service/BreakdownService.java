@@ -1,5 +1,6 @@
 package com.kgitbank.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -45,8 +46,8 @@ public class BreakdownService implements IBreakdownService {
 	}
 	
 	@Override
-	public List<PurchasedetailsVO> getPhVO(String usernick) {
-		return break_mapper.getPhVO(usernick);
+	public List<PurchasedetailsVO> getPurchaserPhVO(String usernick) {
+		return break_mapper.getPurchaserPhVO(usernick);
 	}
 
 	@Override
@@ -57,6 +58,11 @@ public class BreakdownService implements IBreakdownService {
 	@Override
 	public List<ShUserInfoVO> getShuserInfo() {
 		return break_mapper.getShuserInfo();
+	}
+
+	@Override
+	public List<PurchasedetailsVO> getSellerPhVO(String usernick) {
+		return break_mapper.getSellerPhVO(usernick);
 	}
 
 	

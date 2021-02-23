@@ -1,6 +1,7 @@
 package com.kgitbank.controller;
 
 import java.net.http.HttpRequest;
+import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ import com.kgitbank.service.BreakdownService;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import oracle.jdbc.proxy.annotation.Post;
+import oracle.net.aso.m;
 
 @Controller
 @RequestMapping("/param/")
@@ -43,18 +45,20 @@ public class BreakdownController {
 	@GetMapping("/sale") // 판매중 화면
 	public String sale(Model model, HttpSession session) {
 		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		model.addAttribute("usernick", userNick);
-		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
-		model.addAttribute("userinfo", bservice.getShuserInfo());
+		model.addAttribute("usernick", userNick);		
+		model.addAttribute("itemvo", bservice.getShitemVO(userNick));	
+		model.addAttribute("userinfo", bservice.getShuserInfo());	
 		return "/breakdown/sale/salePage";
-	}
+	} // 판매중 화면 구매내역 테이블에서 판매자 닉네임이 로그인 닉네임인것을 찾아서 출력
 	
 	
 	  @GetMapping("/salecomplete") // 거래 완료 화면
 	  public String gSalecomplete(Model model, HttpSession session) { 
-	 String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-	  model.addAttribute("itemvo", bservice.getShitemVO(userNick)); 
-	  return "/breakdown/sale/saleCompletedPage"; 
+	  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+	  model.addAttribute("usernick", userNick);	
+	  
+	  model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));
+	  return "/breakdown/sale/saleCompletedPage";
 	  }
 	
 	  @PostMapping("/salecomplete/{ititle}/{usernick}/{istate}")  // 거래 완료 버튼
@@ -67,7 +71,7 @@ public class BreakdownController {
 		  
 		  String usernick = (String) session.getAttribute((String) model.getAttribute("usernick"));
 		  	model.addAttribute("usernick", usernick);
-		  	 bservice.completedIstate(istate, ititle, usernick);
+		  	bservice.completedIstate(istate, ititle, usernick);
 		    model.addAttribute("itemvo", bservice.getShitemVO(usernick));
 		    bservice.insertPurchase(puvo, purchaser, usernick, ititle, istate);
 			return "/breakdown/sale/salePage";
@@ -77,7 +81,7 @@ public class BreakdownController {
 	  @GetMapping("/salehidden") // 숨김 화면
 	  public String gSalehidden (Model model, HttpSession session) {
 		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		  model.addAttribute("usernick", userNick);
+		    model.addAttribute("usernick", userNick);
 			model.addAttribute("itemvo", bservice.getShitemVO(userNick));
 			model.addAttribute("userinfo", bservice.getShuserInfo());
 		  return "/breakdown/sale/hiddenPage";
@@ -111,8 +115,7 @@ public class BreakdownController {
 	@GetMapping("/purchase")
 	public String purchase(Model model, HttpSession session) {	
 		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
-		model.addAttribute("phvo", bservice.getPhVO(userNick));
+		model.addAttribute("PurchaserPhVO", bservice.getPurchaserPhVO(userNick));
 		return "/breakdown/purchasePage";
 	}
 	

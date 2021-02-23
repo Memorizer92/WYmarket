@@ -13,8 +13,8 @@ public class PurchasedetailsVO {
 	private String usernick; 
 	private String address; 
 	private String ititle;	
-	// 데이터 포맷 으로 변호ㅓㅏㄴ
-//	private Date stam;
+	
+	private Integer refreshTime;
 	private Integer price;
 	private Integer chatcnt;
 	private Integer likecnt;

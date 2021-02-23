@@ -20,14 +20,13 @@
  		<c:if test="${userItem_list.istate eq 'Hidden'}">		 <!--  거래완료 내역 -->	
 		<div class ="completed" id ="test"style="background-color: green; ">
 		<input type="radio" class= "openBtn" name="ititle" value="${userItem_list.ititle }" style="display: none" />
-		${userItem_list.ititle }	<br>
-		${userItem_list.address }<br>
-		${userItem_list.price }	<br>
-		${userItem_list.istate} <br>	
+		제목: ${userItem_list.ititle }	<br>
+		지역: ${userItem_list.address }<br>
+		가격: ${userItem_list.price }
 		</div>	<br>
 		</c:if> <!-- 거래완료 내역 end -->	 
 		</c:forEach>
-		
+		<br>
 		<button onclick="hiddenCancellations()" id = "HiddenCancellation">숨기기 취소</button>		
 		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>		
 

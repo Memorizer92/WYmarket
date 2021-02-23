@@ -15,6 +15,8 @@ public interface breakdownMapper {
 	
 	
 	List<ShItemVO>  getShitemVO(String usernick); 
+	
+	
 		
 	int completedIstate(
 			@Param("istate") String istate, 
@@ -34,7 +36,8 @@ public interface breakdownMapper {
 			
 	
 	
-	List<PurchasedetailsVO> getPhVO(String purchaser);
+	List<PurchasedetailsVO> getPurchaserPhVO(String purchaser);
+	List<PurchasedetailsVO> getSellerPhVO(String usernick);
 	
 	int insertPurchase(
 			PurchasedetailsVO pvo,

@@ -11,10 +11,34 @@
 SELECT usernick from sh_userInfo 
 </select>
 
+<!-- <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
+SELECT  itemID, iImagePath, userNick, 
+	 	address, manner, iTitle,
+		iCategory, refreshTime, iContent,
+		price, chatCnt, likeCnt,
+		viewCnt, iState, iReservationState
+		from sh_item where usernick = #{usernick}
+</select> -->
+
+
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
-SELECT * from sh_item where usernick = #{usernick}
+<![CDATA[
+SELECT  itemID, iImagePath, userNick, 
+	 	address, manner, iTitle,
+		iCategory, (SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime, iContent,
+		price, chatCnt, likeCnt,
+		viewCnt, iState, iReservationState
+		from sh_item where usernick = #{usernick}
+			]]>	
 </select>
- 
+
+
+
+
 <update id="completedIstate">
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
 </update>
@@ -27,11 +51,35 @@ UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{
 UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick}
 </update>
  
- <select id="getPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
-SELECT * from purchasedetails where purchaser = #{purchaser}
+<select id="getPurchaserPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
+
+SELECT itemID, iImagePath, Purchaser, 
+	<![CDATA[
+	   usernick, address, iTitle,
+	   (SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+  		 price, chatCnt, likeCnt, viewCnt 
+	   from purchasedetails where purchaser = #{purchaser}
+]]>	
 </select>
- 
- 
+
+<select id="getSellerPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
+SELECT itemID, iImagePath, Purchaser, 
+	<![CDATA[
+	   usernick, address, iTitle,
+	   (SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+  		 price, chatCnt, likeCnt, viewCnt 
+	   from purchasedetails where usernick = #{usernick}
+]]>	
+</select>
+
 <insert id="insertPurchase">
 INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) values(
 	  		pitemID_seq.nextval,
@@ -40,8 +88,7 @@ INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) val
 (select address from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
 (select ititle from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
 (select price from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick})
-)
-	  		 
+)	  	 
 </insert>
 
 
