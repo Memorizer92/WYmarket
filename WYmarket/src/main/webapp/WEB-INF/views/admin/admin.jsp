@@ -247,9 +247,9 @@ th {
 			<div class="container">
 				<form action="/wymarket/admin/board">
 				<select name="list">
-				<option value="userId">회원번호</option>
-				<option value="userNick">닉네임</option>
-				<option value="address">주소</option>
+				<option value="userId" <c:if test="${list eq 'userId'}">selected</c:if>>회원번호</option>
+				<option value="userNick" <c:if test="${list eq 'userNick'}">selected</c:if>>닉네임</option>
+				<option value="address" <c:if test="${list eq 'address'}">selected</c:if>>주소</option>
 				<input type="text" name="search"/>
 				</select> <input type="submit" />
 				</form>
