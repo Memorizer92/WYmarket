@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
 public interface WYmarketService {
@@ -25,5 +27,17 @@ public interface WYmarketService {
 	Date getSmsExceedDate(String ip);
 	
 	int updateSmsExceedDate(String ip);
+	
+	int getAdminPhCount(String phoneNumber);
+	Map<String, Object> getAdminInfo(String phoneNumber);
+	int updateAdminMemo(AdminInfo adminInfo);
+	String selectAdminMemo(AdminInfo adminInfo);
+	
+	List<Map<String, Object>> selectUserList(Pagination pagination);
+	int selectUserCount();
+	
+
+	List<Map<String, Object>> selectUserBy(String list, String search);
+
 	
 }

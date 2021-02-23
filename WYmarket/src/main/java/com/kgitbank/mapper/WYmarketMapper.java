@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
 public interface WYmarketMapper {
@@ -25,4 +29,14 @@ public interface WYmarketMapper {
 	Date getSmsExceedDate(String ip);
 	
 	int updateSmsExceedDate(String ip);
+	
+	int getAdminPhCount(String phoneNumber);
+	Map<String, Object> getAdminInfo(String phoneNumber);
+	int updateAdminMemo(AdminInfo adminInfo);
+	String selectAdminMemo(AdminInfo adminInfo);
+	
+	int selectUserCount();
+	List<Map<String, Object>> selectUserList(Pagination pagination);
+	
+	List<Map<String, Object>> selectUserBy(@Param("list") String list,@Param("search") String search);
 }

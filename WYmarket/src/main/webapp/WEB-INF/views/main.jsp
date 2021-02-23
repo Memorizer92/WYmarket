@@ -18,6 +18,9 @@
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/assets/css/main.css">
 <style type="text/css">
+* {
+	box-sizing: border-box;
+}
 #kakaoLogout {
 	text-decoration: none;
 	text-align: center;
@@ -77,9 +80,19 @@
 		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
 
 	<script>
-		if (window.performance.navigation.type == 1) {
+	
+	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");
+	if("${Admin.adminNick}" != ""){
+			var form = document.createElement("form");
+		    form.setAttribute("method", "get");
+		    form.setAttribute("action", "/wymarket/admin");
+			document.body.appendChild(form);
+		    form.submit();
+	}
+	
+/* 		if (window.performance.navigation.type == 1) {
 			window.location.href = '/wymarket/login';
-		}
+		} */
 
 		/* F5, Ctrl+r, Ctrl+F5 */
 		/* document.onkeydown = function(e){
