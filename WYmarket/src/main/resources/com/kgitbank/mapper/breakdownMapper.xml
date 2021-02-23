@@ -10,7 +10,6 @@
 <select id="getShuserInfo" resultType="com.kgitbank.model.ShUserInfoVO">
 SELECT usernick from sh_userInfo 
 </select>
-
 <!-- <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
 SELECT  itemID, iImagePath, userNick, 
 	 	address, manner, iTitle,
