@@ -18,6 +18,11 @@ function ajaxLogOut() {
 
 }
 
+	
+	function ban(userNick){
+		window.location.href = '/wymarket/admin/ban/' + userNick;
+	}
+
 
 
 

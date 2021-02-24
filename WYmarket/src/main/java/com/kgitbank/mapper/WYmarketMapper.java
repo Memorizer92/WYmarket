@@ -37,9 +37,10 @@ public interface WYmarketMapper {
 	
 	int selectUserCount();
 	List<Map<String, Object>> selectUserList(Pagination pagination);
-	
-//	List<Map<String, Object>> selectUserBy(@Param("list") String list,@Param("search") String search);
+
 	List<UserInfo> selectUserById(@Param("search") String search);
 	List<UserInfo> selectUserByNick(@Param("search") String search);
 	List<UserInfo> selectUserByAddress(@Param("search") String search);
+	
+	int updateUserBan(String userNick);
 }

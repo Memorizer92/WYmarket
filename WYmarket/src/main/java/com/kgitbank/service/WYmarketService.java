@@ -36,11 +36,11 @@ public interface WYmarketService {
 	List<Map<String, Object>> selectUserList(Pagination pagination);
 	int selectUserCount();
 	
-
-	//List<Map<String, Object>> selectUserBy(String list, String search);
 	List<UserInfo> selectUserById(String search);
 	List<UserInfo> selectUserByNick(String search);
 	List<UserInfo> selectUserByAddress(String search);
+	
+	int updateUserBan(String userNick);
 
 	
 }
