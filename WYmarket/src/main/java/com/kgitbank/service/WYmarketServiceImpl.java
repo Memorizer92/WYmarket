@@ -109,24 +109,28 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 
+//	@Override
+//	public List<Map<String, Object>> selectUserBy(String list, String search) {
+//		System.out.println(list + "," + search);
+//		return wyMarketMapper.selectUserBy(list, search);
+//	}
+
 	@Override
 	public List<UserInfo> selectUserById(String search) {
+		// TODO Auto-generated method stub
 		return wyMarketMapper.selectUserById(search);
 	}
 
 	@Override
 	public List<UserInfo> selectUserByNick(String search) {
+		// TODO Auto-generated method stub
 		return wyMarketMapper.selectUserByNick(search);
 	}
 
 	@Override
 	public List<UserInfo> selectUserByAddress(String search) {
+		// TODO Auto-generated method stub
 		return wyMarketMapper.selectUserByAddress(search);
-	}
-
-	@Override
-	public int updateUserBan(String userNick) {
-		return wyMarketMapper.updateUserBan(userNick);
 	}
 
 

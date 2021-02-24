@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
@@ -19,14 +17,11 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({"users"})
 public class AdminController {
 
 	@Autowired
 	WYmarketService wyMarketService;
 
-	boolean flag = false;
-	
 	// 관리자 로그인
 
 	// http://localhost:8080/practice_mvc/empQuiz/main?pageNum=2&amount=15
@@ -36,10 +31,8 @@ public class AdminController {
 		pagination.setTotal(wyMarketService.selectUserCount());
 		PageService pageService = new PageService(pagination);
 
-		if(!flag) {
-			model.addAttribute("users", wyMarketService.selectUserList(pagination));
-		}
-		
+		model.addAttribute("users", wyMarketService.selectUserList(pagination));
+
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageService", pageService);
 
@@ -66,23 +59,14 @@ public class AdminController {
 			List<UserInfo> selectUserByAddress = wyMarketService.selectUserByAddress(search);
 			model.addAttribute("users", selectUserByAddress);
 		}
-		flag = true;	
 		
-		return "redirect:/admin";
-	}
-	
-	@GetMapping("/admin/ban/{userNick}")
-	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
-		int updateBan = wyMarketService.updateUserBan(userNick);
-		System.out.println("updateBan : " + updateBan);
+			
+
+
+			
+		
 		
 		return "/admin/admin";
 	}
 
 }
-
-
-
-
-
-
