@@ -45,7 +45,7 @@ textarea#icontent {
 
 </head>
 <body>
-	
+	<div>
 		<section id="container">
 			<div id="container_box">
 				<table>
@@ -61,7 +61,10 @@ textarea#icontent {
 					<tbody>
 						<c:forEach items="${goods}" var="goods">
 							<tr>
-								<td><img src="${pageContext.request.contextPath}${goods.iimagepath}" /></td>		
+								<td>
+								<a href="goods/view?n=${goods.itemid}">
+								<img src="${pageContext.request.contextPath}${goods.iimagepath}" width="194" height="194"/>
+								</a></td>		
 								<td>${goods.ititle}</td>
 								<td>${goods.icategory}</td>
 								<td>

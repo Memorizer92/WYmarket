@@ -63,7 +63,7 @@ textarea#icontent {
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
-						<img src="${goods.iimagepath }" />
+						<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
 					</div>
 					
 					<div class="inputArea">

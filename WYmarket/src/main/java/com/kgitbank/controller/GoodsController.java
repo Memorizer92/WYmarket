@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kgitbank.model.GoodsVO;
@@ -53,18 +55,21 @@ public class GoodsController {
 		}
 
 		goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
-		//goods.setIthumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		int result = gservice.createGoods(goods);
 		
-		String msg = result > 0 ? "상품이 정상적으로 등록되었습니다" : "등록 실패하셨습니다";
-		model.addAttribute("msg",msg);
-		
-		return "goods/success";
+		return "redirect:/main";
 	}
 	
-//	// 상품 등록 및 조회
-//	@PostMapping("add")
-//	public 
+	//상품 조회
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String getList(@RequestParam("n") int itemid, Model model) {
+		GoodsVO goods = gservice.getGoods(itemid);
+		model.addAttribute("goods",goods);
+		
+		return "goods/view";
+	}
+	
+	 
 
 }

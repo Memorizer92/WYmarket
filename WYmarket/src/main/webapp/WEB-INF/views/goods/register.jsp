@@ -7,7 +7,29 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-
+<script>
+function formCheck() {
+    var iimagepath = document.forms[0].iimagepath.value;
+    var title = document.forms[0].title.value;
+    var writer = document.forms[0].writer.value;
+    var content = document.forms[0].content.value;
+ 
+    if (title == null || title == "") {
+        alert('제목을 입력하세요');
+        document.forms[0].title.focus();
+    }
+    if(regdate.match(/^\d\d\d\d\d\d+$/ig) == null){
+        alert('숫자 형식(6자리)으로 입력하세요');  
+        document.forms[0].regdate.focus();                       
+        return false;  
+    }
+    if (content == null || content == "") {
+        alert('내용을 입력하세요');
+        document.forms[0].content.focus();
+        return false;
+    }
+}
+</script>
 <style>
 .inputArea {
 	margin: 10px 0;
@@ -100,7 +122,7 @@ textarea#icontent {
 					</div>
 					
 					<div class="inputArea">
-						<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+						<button type="submit" id="register_Btn" class="btn btn-primary" onclick="check()">등록</button>
 					</div>
 					
 				</form>
