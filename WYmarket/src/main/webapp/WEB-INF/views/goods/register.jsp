@@ -128,8 +128,26 @@ textarea#icontent {
 							name="ititle" />
 					</div>
 					<div class="inputArea">
-						<label for="icategory">카테고리</label> <input type="text"
-							id="icategory" name="icategory" />
+						<label for="icategory">카테고리</label> 
+						<!-- <input type="text" id="icategory" name="icategory" /> -->
+						<select id="icategory" name="icategory" >
+							<option selected>전체</option>
+							<option>여성의류</option>
+							<option>패션잡화</option>
+							<option>남성의류</option>
+							<option>디지털/가전</option>
+							<option>도서/티켓/취미/애완</option>
+							<option>스타굿즈</option>
+							<option>생활/문구/가구/식품</option>
+							<option>스포츠/레저</option>
+							<option>뷰티/미용</option>
+							<option>유아동/출산</option>
+							<option>차량/오토바이</option>
+							<option>구인구직</option>
+							<option>재능</option>
+							<option>번개나눔</option>
+							<option>기타</option>
+						</select>
 					</div>
 					
 					<div class="inputArea">
