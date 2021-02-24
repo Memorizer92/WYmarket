@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class GoodsVO {
-
+	
 	private Integer itemid;
 	private String iimagepath;
 	private String usernick;

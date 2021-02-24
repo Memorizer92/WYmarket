@@ -7,29 +7,49 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script>
-function formCheck() {
-    var iimagepath = document.forms[0].iimagepath.value;
-    var title = document.forms[0].title.value;
-    var writer = document.forms[0].writer.value;
-    var content = document.forms[0].content.value;
- 
-    if (title == null || title == "") {
-        alert('제목을 입력하세요');
-        document.forms[0].title.focus();
+<script type="text/javascript">
+function inputCheck() {
+    var iimagepath = document.regForm.iimagepath.value;
+    var ititle = document.regForm.ititle.value;
+    var icategory = document.regForm.icategory.value;
+    var price = document.regForm.price.value;
+    var icontent = document.regForm.icontent.value;
+    //var length = document.regForm.length - 1;
+
+    if (iimagepath == null || iimagepath == "") {
+        alert('상품 이미지를 선택해주세요');
+        document.regForm.title.focus();
+        return;
     }
-    if(regdate.match(/^\d\d\d\d\d\d+$/ig) == null){
-        alert('숫자 형식(6자리)으로 입력하세요');  
-        document.forms[0].regdate.focus();                       
-        return false;  
+    if (ititle == null || ititle == "") {
+        alert('제목을 입력해주세요');
+        document.regForm.ititle.focus();
+        return;
     }
-    if (content == null || content == "") {
-        alert('내용을 입력하세요');
-        document.forms[0].content.focus();
-        return false;
+    if (icategory == null || icategory == "") {
+        alert('카테고리를 선택해주세요');
+        document.regForm.icategory.focus();
+        return;
     }
+    if(price == null || price == ""){
+        alert('가격을 입력해주세요');  
+        document.regForm.price.focus();                       
+        return;  
+    }
+    if(price.match(/^[0-9]*$/ig) == null){
+        alert('숫자만 입력해주세요');  
+        document.regForm.price.focus();                       
+        return;  
+    }
+    if (icontent == null || icontent == "") {
+        alert('내용을 입력해주세요');
+        document.regForm.content.focus();
+        return;
+    }
+    document.regForm.submit();
 }
 </script>
+
 <style>
 .inputArea {
 	margin: 10px 0;
@@ -80,7 +100,8 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 등록</h2>
 
-				<form action="./add" role="form" method="POST" autocomplete="off"  enctype="multipart/form-data">
+				<form action="./add" role="form" method="POST" name="regForm"
+				 autocomplete="off"  enctype="multipart/form-data">
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
@@ -122,9 +143,9 @@ textarea#icontent {
 					</div>
 					
 					<div class="inputArea">
-						<button type="submit" id="register_Btn" class="btn btn-primary" onclick="check()">등록</button>
+						<!-- <button type="submit" id="register_Btn">등록</button> -->
+						<input type="button" value="등록" onclick="inputCheck()"/>
 					</div>
-					
 				</form>
 			</div>
 		</section>

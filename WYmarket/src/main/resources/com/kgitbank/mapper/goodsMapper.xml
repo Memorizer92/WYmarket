@@ -17,7 +17,7 @@
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
 	 INSERT INTO sh_item (
-	  itemid, iimagepath, ititle, icategory, refreshtime, icontent, price)
+	  itemid, iimagepath, ititle, icategory, refreshtime, icontent, price, istate)
 	     VALUES (
 	     itemID_seq.nextval,
 	     #{iimagepath},
@@ -25,7 +25,8 @@
 	     #{icategory}, 
 	     sysdate, 
 	     #{icontent}, 
-	     #{price}
+	     #{price},
+	     'Onsale'
 	     )
 	</insert>
 	
