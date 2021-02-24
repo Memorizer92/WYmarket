@@ -28,9 +28,11 @@
 		sh_adminInfo where adminGrade=#{adminGrade}
 	</select>
 
-
-	<!-- <select id="selectUserBy" resultType="List"> select * from sh_userInfo 
-		where #{list} LIKE '%' || #{search} || '%' </select> -->
+	<update id="updateUserBan">
+		UPDATE sh_userInfo SET ban = 'Y'
+		WHERE userNick = #{userNick}
+	</update>
+	
 	<select id="selectUserById" resultType="com.kgitbank.model.UserInfo">
 		select *
 		from
@@ -140,5 +142,4 @@
 
 
 </mapper>
-
 

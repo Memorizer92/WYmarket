@@ -104,6 +104,9 @@ public class RestControllerMain {
 			int insertIp = wyMarketService.insertIp(ip);
 			Random rand = new Random();
 			
+			smsCnt = 1;
+			session.setAttribute("smsCnt", smsCnt);
+			
 			for (int i = 0; i < 4; i++) {
 				String ran = Integer.toString(rand.nextInt(10));
 				numStr += ran;
@@ -129,19 +132,20 @@ public class RestControllerMain {
 				adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
 				adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
 				adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-				session.setAttribute("Admin", adminInfo);
+				//session.setAttribute("Admin", adminInfo);
 			}
 
 			this.result = result;
 
 			String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-			if (userNick != null) {
-				model.addAttribute("usernick", userNick);
-				session.setAttribute(userNick, userNick);
-			}
+//			if (userNick != null) {
+//				model.addAttribute("usernick", userNick);
+//				session.setAttribute(userNick, userNick);
+//			}
 		} else {
 			smsCnt = wyMarketService.getSmsCnt(ip);
+			session.setAttribute("smsCnt", smsCnt);
 			System.out.println("smsCnt : " + smsCnt);
 			if (smsCnt >= 3) {
 				
@@ -164,9 +168,10 @@ public class RestControllerMain {
 				System.out.println(diffSec + "초 차이");
 				System.out.println(diffDays + "일 차이");
 				
-				if(diffSec >= 30) {
+				if(diffSec >= 60) {
 					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
-					smsCnt = 0;
+					smsCnt = 1;
+					session.setAttribute("smsCnt", smsCnt);
 					Random rand = new Random();
 					
 					for (int i = 0; i < 4; i++) {
@@ -194,17 +199,17 @@ public class RestControllerMain {
 						adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
 						adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
 						adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-						session.setAttribute("Admin", adminInfo);
+						//session.setAttribute("Admin", adminInfo);
 					}
 
 					this.result = result;
 
 					String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-					if (userNick != null) {
-						model.addAttribute("usernick", userNick);
-						session.setAttribute(userNick, userNick);
-					}
+//					if (userNick != null) {
+//						model.addAttribute("usernick", userNick);
+//						session.setAttribute(userNick, userNick);
+//					}
 				}
 
 			} else {
@@ -213,7 +218,7 @@ public class RestControllerMain {
 					wyMarketService.insertSmsExceedDate(ip);
 				}
 			
-				
+				session.setAttribute("smsCnt", wyMarketService.getSmsCnt(ip));
 				Random rand = new Random();
 				
 				for (int i = 0; i < 4; i++) {
@@ -241,17 +246,17 @@ public class RestControllerMain {
 					adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
 					adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
 					adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-					session.setAttribute("Admin", adminInfo);
+					//session.setAttribute("Admin", adminInfo);
 				}
 				
 				this.result = result;
 
 				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-				if (userNick != null) {
-					model.addAttribute("usernick", userNick);
-					session.setAttribute(userNick, userNick);
-				}
+//				if (userNick != null) {
+//					model.addAttribute("usernick", userNick);
+//					session.setAttribute(userNick, userNick);
+//				}
 			}
 		}
 		
@@ -339,7 +344,6 @@ public class RestControllerMain {
 		return null;
 	}
 }
-
 
 
 
