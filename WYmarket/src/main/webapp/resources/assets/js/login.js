@@ -199,6 +199,27 @@ function smsCntInc() {
 	xhttp.send(); //2
 }
 
+function ajaxToMain() {
+	var data = {
+		phoneNumber: document.getElementById('phonenumber').value
+	}
+
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == XMLHttpRequest.DONE) {
+			if (xhttp.status == 200) {
+
+			} else {
+
+			}
+		}
+	}
+
+	xhttp.open('POST', '/wymarket/ajaxToMain', true);
+	xhttp.setRequestHeader('content-type', 'application/json');
+	xhttp.send(JSON.stringify(data));
+}
 
 
 

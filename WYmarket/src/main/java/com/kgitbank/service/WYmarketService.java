@@ -30,17 +30,20 @@ public interface WYmarketService {
 	
 	int getAdminPhCount(String phoneNumber);
 	Map<String, Object> getAdminInfo(String phoneNumber);
+	AdminInfo getAdminInfo2(String phoneNumber);
 	int updateAdminMemo(AdminInfo adminInfo);
 	String selectAdminMemo(AdminInfo adminInfo);
 	
 	List<Map<String, Object>> selectUserList(Pagination pagination);
 	int selectUserCount();
 	
-	List<UserInfo> selectUserById(String search);
-	List<UserInfo> selectUserByNick(String search);
-	List<UserInfo> selectUserByAddress(String search);
+	List<UserInfo> selectUserById(Pagination page);
+	List<UserInfo> selectUserByNick(Pagination page);
+	List<UserInfo> selectUserByAddress(Pagination page);
 	
 	int updateUserBan(String userNick);
+	
+	UserInfo selectUserInfo(String phoneNumber);
 
 	
 }

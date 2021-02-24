@@ -110,23 +110,33 @@ public class WYmarketServiceImpl implements WYmarketService{
 
 
 	@Override
-	public List<UserInfo> selectUserById(String search) {
-		return wyMarketMapper.selectUserById(search);
+	public List<UserInfo> selectUserById(Pagination page) {
+		return wyMarketMapper.selectUserById(page);
 	}
 
 	@Override
-	public List<UserInfo> selectUserByNick(String search) {
-		return wyMarketMapper.selectUserByNick(search);
+	public List<UserInfo> selectUserByNick(Pagination page) {
+		return wyMarketMapper.selectUserByNick(page);
 	}
 
 	@Override
-	public List<UserInfo> selectUserByAddress(String search) {
-		return wyMarketMapper.selectUserByAddress(search);
+	public List<UserInfo> selectUserByAddress(Pagination page) {
+		return wyMarketMapper.selectUserByAddress(page);
 	}
 
 	@Override
 	public int updateUserBan(String userNick) {
 		return wyMarketMapper.updateUserBan(userNick);
+	}
+
+	@Override
+	public UserInfo selectUserInfo(String phoneNumber) {
+		return wyMarketMapper.selectUserInfo(phoneNumber);
+	}
+
+	@Override
+	public AdminInfo getAdminInfo2(String phoneNumber) {
+		return wyMarketMapper.getAdminInfo2(phoneNumber);
 	}
 
 

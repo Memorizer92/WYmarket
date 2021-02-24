@@ -1,5 +1,6 @@
 package com.kgitbank.controller.rest;
 
+import java.io.Serializable;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Random;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "usernick", "findph" })
-public class RestControllerMain {
+@Scope("session")
+@SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "user", "findph" })
+public class RestControllerMain implements Serializable{
 
 	@Autowired
 	private WYmarketService wyMarketService;
@@ -42,11 +45,11 @@ public class RestControllerMain {
 	private String newAddress = null;
 
 	private int result = 0;
-	
+
 	private int smsCnt = 0;
 
 	private int smsLeftCnt = 3;
-	
+
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -80,33 +83,33 @@ public class RestControllerMain {
 	}
 
 	@PostMapping(value = { "/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
-	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model,
-			HttpSession session, UserIP userIp) {
+	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model, HttpSession session,
+			UserIP userIp) {
 
 		String ip = null;
-		
+
 		try {
 			ip = Inet4Address.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		String numStr = "";
-		
+
 		smsLeftCnt--;
 		session.setAttribute("smsLeftCnt", smsLeftCnt);
-		if(smsLeftCnt == 0) {
+		if (smsLeftCnt == 0) {
 			smsLeftCnt = 3;
 		}
-		
+
 		if (wyMarketService.getIpCnt(ip) == 0) {
 			int insertIp = wyMarketService.insertIp(ip);
 			Random rand = new Random();
-			
+
 			smsCnt = 1;
 			session.setAttribute("smsCnt", smsCnt);
-			
+
 			for (int i = 0; i < 4; i++) {
 				String ran = Integer.toString(rand.nextInt(10));
 				numStr += ran;
@@ -119,61 +122,46 @@ public class RestControllerMain {
 			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 			String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 					+ phoneNumber.substring(7);
-			
+
 			int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
-			
-			if(result == 0) {
+
+			if (result == 0) {
 				result = wyMarketService.selectphonenumber(dashPhoneNumber);
-			} else {
-				AdminInfo adminInfo = new AdminInfo();
-				Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
-				adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
-				adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
-				adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
-				adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
-				adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-				//session.setAttribute("Admin", adminInfo);
 			}
 
 			this.result = result;
 
 			String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-//			if (userNick != null) {
-//				model.addAttribute("usernick", userNick);
-//				session.setAttribute(userNick, userNick);
-//			}
 		} else {
 			smsCnt = wyMarketService.getSmsCnt(ip);
 			session.setAttribute("smsCnt", smsCnt);
 			System.out.println("smsCnt : " + smsCnt);
 			if (smsCnt >= 3) {
-				
+
 				userIp.setSmsExceedDate(new Date());
-				
+
 				Date getSmsExceedDate = wyMarketService.getSmsExceedDate(ip);
 
 				Calendar getToday = Calendar.getInstance();
 				getToday.setTime(userIp.getSmsExceedDate()); // 현재 날짜
-		
-				
+
 				Calendar cmpDate = Calendar.getInstance();
 				System.out.println(cmpDate + "/" + getSmsExceedDate);
-				cmpDate.setTime(wyMarketService.getSmsExceedDate(ip)); //특정 일자
-				
-				
+				cmpDate.setTime(wyMarketService.getSmsExceedDate(ip)); // 특정 일자
+
 				long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
-				long diffDays = diffSec / (24*60*60); //일자수 차이
-				
+				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+
 				System.out.println(diffSec + "초 차이");
 				System.out.println(diffDays + "일 차이");
-				
-				if(diffSec >= 60) {
+
+				if (diffSec >= 60) {
 					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
 					smsCnt = 1;
 					session.setAttribute("smsCnt", smsCnt);
 					Random rand = new Random();
-					
+
 					for (int i = 0; i < 4; i++) {
 						String ran = Integer.toString(rand.nextInt(10));
 						numStr += ran;
@@ -186,41 +174,28 @@ public class RestControllerMain {
 					// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 					String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 							+ phoneNumber.substring(7);
-					
+
 					int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
-					
-					if(result == 0) {
+
+					if (result == 0) {
 						result = wyMarketService.selectphonenumber(dashPhoneNumber);
-					} else {
-						AdminInfo adminInfo = new AdminInfo();
-						Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
-						adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
-						adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
-						adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
-						adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
-						adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-						//session.setAttribute("Admin", adminInfo);
 					}
 
 					this.result = result;
 
 					String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-//					if (userNick != null) {
-//						model.addAttribute("usernick", userNick);
-//						session.setAttribute(userNick, userNick);
-//					}
 				}
 
 			} else {
 				int updateIpCnt = wyMarketService.updateIpCnt(ip);
-				if(wyMarketService.getSmsCnt(ip) == 3) {
+				if (wyMarketService.getSmsCnt(ip) == 3) {
 					wyMarketService.insertSmsExceedDate(ip);
 				}
-			
+
 				session.setAttribute("smsCnt", wyMarketService.getSmsCnt(ip));
 				Random rand = new Random();
-				
+
 				for (int i = 0; i < 4; i++) {
 					String ran = Integer.toString(rand.nextInt(10));
 					numStr += ran;
@@ -233,34 +208,19 @@ public class RestControllerMain {
 				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 						+ phoneNumber.substring(7);
-				
+
 				int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
-				
-				if(result == 0) {
+
+				if (result == 0) {
 					result = wyMarketService.selectphonenumber(dashPhoneNumber);
-				} else {
-					AdminInfo adminInfo = new AdminInfo();
-					Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
-					adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
-					adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
-					adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
-					adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
-					adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
-					//session.setAttribute("Admin", adminInfo);
 				}
-				
+
 				this.result = result;
 
 				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
-//				if (userNick != null) {
-//					model.addAttribute("usernick", userNick);
-//					session.setAttribute(userNick, userNick);
-//				}
 			}
 		}
-		
-
 
 		return numStr; // uri 반환 !!!
 	}
@@ -279,7 +239,7 @@ public class RestControllerMain {
 
 		return check; // uri 반환 !!!
 	}
-	
+
 	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")
 	public String smsCntInc(Model model) {
 
@@ -289,7 +249,7 @@ public class RestControllerMain {
 
 		return check; // uri 반환 !!!
 	}
-	
+
 	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
 	public String toNick(Model model) {
 
@@ -316,8 +276,8 @@ public class RestControllerMain {
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
 
-		model.addAttribute("usernick", userInfo.getUserNick());
-		session.setAttribute(userInfo.getUserNick(), userInfo.getUserNick());
+		model.addAttribute("user", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
 		System.out.println(session.getAttribute(userInfo.getUserNick()));
 
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
@@ -332,23 +292,42 @@ public class RestControllerMain {
 		return null;
 	}
 
-	
+	@PostMapping(value = { "/ajaxToMain" }, consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String ajaxToMain(@RequestBody UserInfo userInfo, AdminInfo adminInfo, Model model, HttpSession session) {
+
+		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
+				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
+
+		if (wyMarketService.getAdminPhCount(dashPhoneNumber) == 1) {
+			adminInfo = new AdminInfo();
+			Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+			adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
+			adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
+			adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
+			adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
+			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+			session.setAttribute("Admin", adminInfo);
+		} else {
+			userInfo.setPhoneNumber(dashPhoneNumber);
+			UserInfo info = wyMarketService.selectUserInfo(userInfo.getPhoneNumber());
+
+			model.addAttribute("user", info.getUserNick());
+			session.setAttribute((String) model.getAttribute("user"), info);
+
+			System.out.println(session.getAttribute((String) model.getAttribute("user")));
+		}
+
+		return null;
+	}
+
 	@PostMapping(value = "/saveMemo", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String saveMemo(@RequestBody AdminInfo adminInfo, Model model, HttpSession session) {
-		System.out.println(adminInfo.getAdminMemo());
-		System.out.println(adminInfo.getAdminGrade());
 		int updateRow = wyMarketService.updateAdminMemo(adminInfo);
-		//String selectAdminMemo = wyMarketService.selectAdminMemo(adminInfo);
-		System.out.println(updateRow);
-		session.setAttribute("memo", adminInfo.getAdminMemo());
+		adminInfo = (AdminInfo) session.getAttribute("Admin");
+		adminInfo = (AdminInfo) wyMarketService.getAdminInfo2(adminInfo.getPhoneNumber());
+
+		session.setAttribute("Admin", adminInfo);
+		System.out.println(session.getAttribute("Admin"));
 		return null;
 	}
 }
-
-
-
-
-
-
-
-

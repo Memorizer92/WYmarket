@@ -15,6 +15,12 @@
 		where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
 	</select>
 
+	<select id="getAdminInfo2" resultType="com.kgitbank.model.AdminInfo">
+		select * from
+		sh_adminInfo
+		where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
+	</select>
+
 	<update id="updateAdminMemo">
 		UPDATE sh_adminInfo SET adminMemo =
 		#{adminMemo,
@@ -30,24 +36,49 @@
 
 	<update id="updateUserBan">
 		UPDATE sh_userInfo SET ban = 'Y'
-		WHERE userNick = #{userNick}
+		WHERE userNick =
+		#{userNick}
 	</update>
-	
-	<select id="selectUserById" resultType="com.kgitbank.model.UserInfo">
-		select *
-		from
-		sh_userInfo
-		where userId LIKE '%' || #{search} || '%'
+
+	<select id="selectUserById"
+		resultType="com.kgitbank.model.UserInfo">
+		<![CDATA[ 
+			 SELECT * FROM 
+	 		(SELECT rownum rn, userID, phoneNumber, 
+			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
+			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
+			WHERE rownum <= #{pageNum } * #{amount }) 
+			WHERE rn > (#{pageNum } - 1) * #{amount }
+			 and userId LIKE '%' || #{search} || '%' 
+			ORDER BY userId 
+		]]>
 	</select>
-	<select id="selectUserByNick" resultType="com.kgitbank.model.UserInfo">
-		select *
-		from
-		sh_userInfo where userNick LIKE '%' || #{search} || '%'
+	<select id="selectUserByNick"
+		resultType="com.kgitbank.model.UserInfo">
+		<![CDATA[ 
+			 SELECT * FROM 
+	 		(SELECT rownum rn, userID, phoneNumber, 
+			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
+			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
+			WHERE rownum <= #{pageNum } * #{amount }) 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 
+			and userNick LIKE '%' || #{search} || '%' 
+			ORDER BY userId 
+		]]>
+
 	</select>
-	<select id="selectUserByAddress" resultType="com.kgitbank.model.UserInfo">
-		select *
-		from
-		sh_userInfo where address LIKE '%' || #{search} || '%'
+	<select id="selectUserByAddress"
+		resultType="com.kgitbank.model.UserInfo">
+		<![CDATA[ 
+			 SELECT * FROM 
+	 		(SELECT rownum rn, userID, phoneNumber, 
+			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
+			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
+			WHERE rownum <= #{pageNum } * #{amount }) 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 
+			and address LIKE '%' || #{search} || '%'
+			ORDER BY userId
+		]]>
 	</select>
 
 
@@ -127,6 +158,12 @@
 		#{phoneNumber}, #{userNick}, #{latitude},
 		#{longitude}, #{address}, sysdate)
 	</insert>
+
+	<select id="selectUserInfo"
+		resultType="com.kgitbank.model.UserInfo">
+		select * from
+		sh_userInfo where phoneNumber =#{phoneNumber}
+	</select>
 
 	<select id="getUserNickByPh" resultType="String">
 		select userNick from

@@ -300,7 +300,7 @@ th {
 
 	<script>
 	
-	document.getElementById('memo').innerHTML = "${memo}";
+	document.getElementById('memo').innerHTML = "${Admin.adminMemo}";
 	
 	console.log("${Admin.phoneNumber}");
 	console.log("${Admin.adminNick}");

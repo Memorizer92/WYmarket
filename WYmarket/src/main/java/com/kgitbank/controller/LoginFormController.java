@@ -29,7 +29,7 @@ import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes(names = { "user","lat","lon","address", "usernick"})
+@SessionAttributes(names = { "user","lat","lon","address", "user"})
 public class LoginFormController {
 
 	OAuthToken oauthToken = null;
@@ -81,13 +81,14 @@ public class LoginFormController {
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
 		if(session.getAttribute("Admin") != null) {
-			return "/admin/admin";
+			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+			return "redirect:/admin";
 		} 
-		if(session.getAttribute((String) model.getAttribute("usernick")) != null) {
-			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
-			return "/main";
+		if(session.getAttribute((String) model.getAttribute("user")) != null) {
+			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+			return "redirect:/main";
 		} else {
-			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("usernick")));
+			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
 			return "/login/login";
 		}
 		
@@ -98,8 +99,8 @@ public class LoginFormController {
 	public String logout(Model model, HttpSession session) {
 		
 		session.removeAttribute("Admin");
-		session.removeAttribute((String) model.getAttribute("usernick"));
-		System.out.println("왜 안 읽혀"+session.getAttribute((String) model.getAttribute("usernick")));
+		session.removeAttribute((String) model.getAttribute("user"));
+		System.out.println("왜 안 읽혀"+session.getAttribute((String) model.getAttribute("user")));
 		System.out.println("adminInfo in loginformcontroller" + session.getAttribute("Admin"));
 		
 		return null;
@@ -141,8 +142,8 @@ public class LoginFormController {
 			e.printStackTrace();
 		}
 
-		session.removeAttribute((String) model.getAttribute("usernick"));
-		System.out.println(session.getAttribute((String) model.getAttribute("usernick")));
+		session.removeAttribute((String) model.getAttribute("user"));
+		System.out.println(session.getAttribute((String) model.getAttribute("user")));
 		
 		return "logout";
 	}
@@ -226,9 +227,9 @@ public class LoginFormController {
 		String userNick = wyMarketService.getUserNickByMail(mail);
 		System.out.println("카카오 닉 : " + userNick);
 		if(userNick != null) {
-			model.addAttribute("usernick", userNick);
+			model.addAttribute("user", userNick);
 			session.setAttribute(userNick, userNick);
-		}
+		} // 수정 필요하면 고쳐야 됨..
 		
 		int result = service.selectKakaoMail(mail);
 		System.out.println("가입 유무 : " + result);
@@ -259,8 +260,8 @@ public class LoginFormController {
 		userInfo.setKakaoMail(mail);
 		userInfo.setUserNick(userInfo.getUserNick());
 		
-		model.addAttribute("usernick", userInfo.getUserNick());
-		session.setAttribute(userInfo.getUserNick(), userInfo.getUserNick());
+		model.addAttribute("user", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo);
 		
 		System.out.println("db에 넣을 메일: " + mail);
 		System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());

@@ -419,11 +419,14 @@ function onlyNumber(){
 						document.getElementById('nickOverrap').style.display = 'none';
 						document.getElementById('nick2Char').style.display = 'none';
 					} else {
+						ajaxToMain();
+						setTimeout(function(){
 	 					var form = document.createElement("form");
 					    form.setAttribute("method", "get");
 					    form.setAttribute("action", "./main");
 						document.body.appendChild(form);
 					    form.submit();
+						}, 1000);
 					}
 
 				} else{
@@ -433,7 +436,6 @@ function onlyNumber(){
 				}
 			});
 
-			/* document.getElementById(phonetext.getAttribute('form')).submit(); */
 
 function toMain() {
 	const nickInput = document.getElementById("nickname");
