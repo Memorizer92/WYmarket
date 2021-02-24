@@ -45,6 +45,8 @@
     <beans:constructor-arg value="C:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WYmarket\resources" />
    </beans:bean>
    
+   
+   
    <!-- 일반 파일 업로드 경로 -->
    <resources mapping="/imgUpload/**" location="/resources/imgUpload/" />
    
