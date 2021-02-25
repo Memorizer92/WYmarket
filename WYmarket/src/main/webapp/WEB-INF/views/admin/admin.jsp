@@ -195,7 +195,7 @@ th {
 								<th scope="col">${user.keyWord}</th>
 								<th scope="col">${user.ban}</th>
 								<th scope="col">
-									<button onclick="ban(${user.userNick })">정지</button>
+									<button onclick="ban('${user.userNick }')">정지</button>
 								</th>
 								<th scope="col">
 									<button onclick="unban(${user.userNick })">정지 해제</button>
@@ -267,6 +267,7 @@ th {
 
 					</select> <input type="submit" />
 				</form>
+				<button class="btn btn-primary" type="submit" onclick="searchAll()">전체 리스트 보기</button>
 			</div>
 
 		</div>
@@ -344,11 +345,6 @@ th {
 			xhttp.send(JSON.stringify(data));
 
 			console.log('여기오나?')
-/* 			var form = document.createElement("form");
-			form.setAttribute("method", "post");
-			form.setAttribute("action", "/wymarket/admin");
-			document.body.appendChild(form);
-			form.submit(); */
 
 		} else {
 			alert("'정' 관리자만 사용할 수 있는 기능입니다.")

@@ -151,6 +151,7 @@ function onlyNumber(){
 				alt="abc" /></a> <input type="text" id="getConfirm"
 				style="display: none" /> <input type="text" id="userNickCheck"
 				style="display: none" /> <input type="text" id="smsReqCnt"
+				style="display: none" /> <input type="text" id="ajaxToMain"
 				style="display: none" />
 		</div>
 	</div>
@@ -356,6 +357,7 @@ function onlyNumber(){
 		}
 	}
 	
+	
 			const confirm = document.getElementById('getConfirm');
 
 			const phonetext = document.getElementById('phonenumber');
@@ -421,11 +423,21 @@ function onlyNumber(){
 					} else {
 						ajaxToMain();
 						setTimeout(function(){
-	 					var form = document.createElement("form");
-					    form.setAttribute("method", "get");
-					    form.setAttribute("action", "./main");
-						document.body.appendChild(form);
-					    form.submit();
+							console.log('jsp에서의 값' + document.getElementById("ajaxToMain").value);
+							if(document.getElementById("ajaxToMain").value == '1'){
+			 					var form = document.createElement("form");
+							    form.setAttribute("method", "get");
+							    form.setAttribute("action", "./admin");
+								document.body.appendChild(form);
+							    form.submit();
+							} else{
+			 	 				var form = document.createElement("form");
+							    form.setAttribute("method", "get");
+							    form.setAttribute("action", "./main");
+								document.body.appendChild(form);
+							    form.submit();
+							}
+
 						}, 1000);
 					}
 

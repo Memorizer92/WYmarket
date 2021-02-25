@@ -82,14 +82,14 @@
 
 	<script>
 	
-	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");
+/* 	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");
 	if("${Admin.adminNick}" != ""){
 			var form = document.createElement("form");
 		    form.setAttribute("method", "get");
 		    form.setAttribute("action", "/wymarket/admin");
 			document.body.appendChild(form);
 		    form.submit();
-	}
+	} */
 	
 /* 		if (window.performance.navigation.type == 1) {
 			window.location.href = '/wymarket/login';

@@ -22,68 +22,71 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({ "users", "list", "search", "page"})
-@Scope("session")
+@SessionAttributes({ "users", "list", "search", "page", "pBan"})
 public class AdminController implements Serializable {
 
 	@Autowired
 	WYmarketService wyMarketService;
 
-	boolean flag = false;
-
 	String listKind = "all";
 
+	boolean sustainFlag = false;
+	
 	// 관리자 로그인
 
-	// http://localhost:8080/practice_mvc/empQuiz/main?pageNum=2&amount=15
 	@GetMapping(value = "/admin")
 	public String adminLoginPage(Model model, Pagination pagination, HttpSession session) {
+		
+	
+		
+		Pagination page = new Pagination();
 
-		System.out.println(listKind);
+		if(sustainFlag) {
+			page.setPageNum((int) model.getAttribute("pBan"));
+			pagination.setPageNum((int) model.getAttribute("pBan"));
+		}
+		
+		// 카테고리를 뭘 눌렀냐에 따라 검색 controller의 pagination에 "page" 어트리뷰트 할당, 전체 행 수 set
 		if (listKind.equals("all")) {
 			pagination.setTotal(wyMarketService.selectUserCount());
 		} else if (listKind.equals("id")) {
-			Pagination page = (Pagination) model.getAttribute("page");
+			page = (Pagination) model.getAttribute("page");
 			page.setTotal(wyMarketService.selectUserCountId((String) model.getAttribute("search")));
 		} else if (listKind.equals("nick")) {
-			Pagination page = (Pagination) model.getAttribute("page");
+			page = (Pagination) model.getAttribute("page");
 			page.setTotal(wyMarketService.selectUserCountNick((String) model.getAttribute("search")));
 		} else if (listKind.equals("address")) {
-			Pagination page = (Pagination) model.getAttribute("page");
+			page = (Pagination) model.getAttribute("page");
 			page.setTotal(wyMarketService.selectUserCountAddress((String) model.getAttribute("search")));
 		}
 
 		
 		PageService pageService;
-		System.out.println(flag);
-		if (!flag) {
+		
+		// 전체 리스트 보기일 경우 해당 pagination 정보 사용
+		if (listKind.equals("all")) {
 			model.addAttribute("users", wyMarketService.selectUserList(pagination));
 		    pageService = new PageService(pagination);
 		    model.addAttribute("pagination", pagination);
-			model.addAttribute("delPageIndicator", pagination.getPageNum());
-			model.addAttribute("delAmountIndicator", pagination.getAmount());
-		} else {
+			model.addAttribute("pBan", pagination.getPageNum());
+		} 
+		// 그 외 (id, nick, address) 일때 해당 pagination 정보 사용
+		else {
 			System.out.println(model.getAttribute("page"));
-			Pagination searchPageNation = (Pagination) model.getAttribute("page");
+			Pagination searchPageNation = page;
 			pageService = new PageService(searchPageNation);
 			model.addAttribute("pagination", searchPageNation);
-			model.addAttribute("delPageIndicator", searchPageNation.getPageNum());
-			model.addAttribute("delAmountIndicator", searchPageNation.getAmount());
+			model.addAttribute("pBan", searchPageNation.getPageNum());
 		}
-		
-		
-		
-		List<UserInfo> li = (List<UserInfo>) model.getAttribute("users");
-		
-		System.out.println(li.size());
-
 		
 		model.addAttribute("pageService", pageService);
 
-
-
 		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
 
+
+		
+		sustainFlag = false;
+		
 		return "/admin/admin";
 	}
 
@@ -94,10 +97,9 @@ public class AdminController implements Serializable {
 		model.addAttribute("search", search);
 		page.setSearch(search);
 		model.addAttribute("list", list);
-		System.out.println(list);
-		System.out.println(search);
-		System.out.println(page);
+		// admin controller로 들고 갈 어트리뷰트
 		model.addAttribute("page", page);
+		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
 		if (list.equals("userId")) {
 			List<UserInfo> selectUserById = wyMarketService.selectUserById(page);
 			model.addAttribute("users", selectUserById);
@@ -111,17 +113,33 @@ public class AdminController implements Serializable {
 			model.addAttribute("users", selectUserByAddress);
 			listKind = "address";
 		}
-		flag = true;
 
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/admin/all")
+	public String adminUserSearchAll() {
+		listKind = "all";
+		
 		return "redirect:/admin";
 	}
 
 	@GetMapping("/admin/ban/{userNick}")
 	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
 		int updateBan = wyMarketService.updateUserBan(userNick);
-		System.out.println("updateBan : " + updateBan);
+		model.addAttribute("pBan", model.getAttribute("pBan"));
 
-		return "/admin/admin";
+		sustainFlag = true;
+		
+		return "redirect:/admin";
 	}
 
 }
+	
+
+
+		//model.addAttribute("delPageIndicator", searchPageNation.getPageNum());
+			//model.addAttribute("delAmountIndicator", searchPageNation.getAmount());
+
+			//model.addAttribute("delPageIndicator", pagination.getPageNum());
+			//model.addAttribute("delAmountIndicator", pagination.getAmount());

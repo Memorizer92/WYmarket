@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@Scope("session")
 @SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "user", "findph" })
 public class RestControllerMain implements Serializable{
 
@@ -317,7 +316,7 @@ public class RestControllerMain implements Serializable{
 			System.out.println(session.getAttribute((String) model.getAttribute("user")));
 		}
 
-		return null;
+		return String.valueOf(wyMarketService.getAdminPhCount(dashPhoneNumber));
 	}
 
 	@PostMapping(value = "/saveMemo", consumes = "application/json", produces = "text/html; charset=UTF-8")

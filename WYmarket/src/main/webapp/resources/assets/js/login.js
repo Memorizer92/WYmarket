@@ -209,7 +209,8 @@ function ajaxToMain() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
-
+				document.getElementById("ajaxToMain").value = `${this.responseText}`;
+				console.log('js에서의 값' + document.getElementById("ajaxToMain").value);
 			} else {
 
 			}

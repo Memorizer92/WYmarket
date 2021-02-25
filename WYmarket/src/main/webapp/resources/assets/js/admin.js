@@ -18,6 +18,17 @@ function ajaxLogOut() {
 
 }
 
+function searchAll() {
+	var form = document.createElement("form");
+	form.setAttribute("method", "get");
+	form.setAttribute("action", "/wymarket/admin/all");
+	document.body.appendChild(form);
+	form.submit();
+}
+
+function ban(userNick){
+	window.location.href = '/wymarket/admin/ban/' + userNick;
+}
 
 
 

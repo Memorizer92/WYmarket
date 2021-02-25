@@ -47,9 +47,8 @@
 	 		(SELECT rownum rn, userID, phoneNumber, 
 			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount }) 
+			WHERE rownum <= #{pageNum } * #{amount }  and userId LIKE '%' || #{search} || '%' ) 
 			WHERE rn > (#{pageNum } - 1) * #{amount }
-			 and userId LIKE '%' || #{search} || '%' 
 			ORDER BY userId 
 		]]>
 	</select>
@@ -60,9 +59,8 @@
 	 		(SELECT rownum rn, userID, phoneNumber, 
 			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount }) 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 
-			and userNick LIKE '%' || #{search} || '%' 
+			WHERE rownum <= #{pageNum } * #{amount } and userNick LIKE '%' || #{search} || '%' ) 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 	
 			ORDER BY userId 
 		]]>
 
@@ -74,9 +72,8 @@
 	 		(SELECT rownum rn, userID, phoneNumber, 
 			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount }) 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 
-			and address LIKE '%' || #{search} || '%'
+			WHERE rownum <= #{pageNum } * #{amount } and address LIKE '%' || #{search} || '%') 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 	
 			ORDER BY userId
 		]]>
 	</select>
