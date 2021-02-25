@@ -238,7 +238,8 @@ th {
 						<li
 							class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
 							aria-current="page"><a class="page-link"
-							href="./admin?pageNum=${i }&amount=${pagination.amount }">${i }</a></li>
+							href="./admin?pageNum=${i }&amount=${pagination.amount }
+							">${i }</a></li>
 					</c:forEach>
 					<li
 						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">

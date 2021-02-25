@@ -22,7 +22,7 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({ "users", "list", "search"})
+@SessionAttributes({ "users", "list", "search", "page"})
 @Scope("session")
 public class AdminController implements Serializable {
 
@@ -43,25 +43,44 @@ public class AdminController implements Serializable {
 		if (listKind.equals("all")) {
 			pagination.setTotal(wyMarketService.selectUserCount());
 		} else if (listKind.equals("id")) {
-			pagination.setTotal(wyMarketService.selectUserCountId((String) model.getAttribute("search")));
+			Pagination page = (Pagination) model.getAttribute("page");
+			page.setTotal(wyMarketService.selectUserCountId((String) model.getAttribute("search")));
 		} else if (listKind.equals("nick")) {
-			pagination.setTotal(wyMarketService.selectUserCountNick((String) model.getAttribute("search")));
+			Pagination page = (Pagination) model.getAttribute("page");
+			page.setTotal(wyMarketService.selectUserCountNick((String) model.getAttribute("search")));
 		} else if (listKind.equals("address")) {
-			pagination.setTotal(wyMarketService.selectUserCountAddress((String) model.getAttribute("search")));
+			Pagination page = (Pagination) model.getAttribute("page");
+			page.setTotal(wyMarketService.selectUserCountAddress((String) model.getAttribute("search")));
 		}
 
-		PageService pageService = new PageService(pagination);
-
+		
+		PageService pageService;
 		System.out.println(flag);
 		if (!flag) {
 			model.addAttribute("users", wyMarketService.selectUserList(pagination));
+		    pageService = new PageService(pagination);
+		    model.addAttribute("pagination", pagination);
+			model.addAttribute("delPageIndicator", pagination.getPageNum());
+			model.addAttribute("delAmountIndicator", pagination.getAmount());
+		} else {
+			System.out.println(model.getAttribute("page"));
+			Pagination searchPageNation = (Pagination) model.getAttribute("page");
+			pageService = new PageService(searchPageNation);
+			model.addAttribute("pagination", searchPageNation);
+			model.addAttribute("delPageIndicator", searchPageNation.getPageNum());
+			model.addAttribute("delAmountIndicator", searchPageNation.getAmount());
 		}
+		
+		
+		
+		List<UserInfo> li = (List<UserInfo>) model.getAttribute("users");
+		
+		System.out.println(li.size());
 
-		model.addAttribute("pagination", pagination);
+		
 		model.addAttribute("pageService", pageService);
 
-		model.addAttribute("delPageIndicator", pagination.getPageNum());
-		model.addAttribute("delAmountIndicator", pagination.getAmount());
+
 
 		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
 
@@ -77,6 +96,8 @@ public class AdminController implements Serializable {
 		model.addAttribute("list", list);
 		System.out.println(list);
 		System.out.println(search);
+		System.out.println(page);
+		model.addAttribute("page", page);
 		if (list.equals("userId")) {
 			List<UserInfo> selectUserById = wyMarketService.selectUserById(page);
 			model.addAttribute("users", selectUserById);
