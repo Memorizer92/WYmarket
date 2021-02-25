@@ -1,6 +1,7 @@
 package com.kgitbank.controller;
 
-import javax.servlet.http.HttpServletRequest;
+
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -31,9 +33,9 @@ import com.kgitbank.service.WYmarketService;
 @Controller
 @SessionAttributes(names = { "user","lat","lon","address", "user"})
 public class LoginFormController {
-
+ 
 	OAuthToken oauthToken = null;
-	String mail = "";
+ 	String mail = "";
 	
 	@Autowired
 	private UserService service;
@@ -51,21 +53,20 @@ public class LoginFormController {
 		return "echo";
 	}
 
-	@GetMapping("/echo2")
-	public String echo2() {
-		return "echo2";
-	}
-
 	@GetMapping("/echo3")
 	public String echo3() {
 		return "echo3";
 	}
-
-	@GetMapping("/chat")
-	public String chat() {
-		return "echo2";
+	
+	
+	@RequestMapping("/chat")
+	public ModelAndView chat() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("chat");
+		return mv;
 	}
-
+	 
+ 
 	@GetMapping("/address")
 	public String address() {
 		return "address";
@@ -110,6 +111,7 @@ public class LoginFormController {
 	@GetMapping("/auth/kakao/logout")
 	public String logout(String code,HttpSession session, Model model) {
 		System.out.println("제발 들어와주세요");
+
 		RestTemplate rt3 = new RestTemplate();
 
 		// HttpHeaders 오브젝트 생성
