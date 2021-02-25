@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -175,7 +177,7 @@ th {
 					</thead>
 					<tbody>
 						<c:forEach var="user" items="${users}">
-							<%-- 	<c:url var="deleteLink" value="./delete/${employee.employee_id }" />  --%>
+							
 							<tr>
 								<th scope="col">${user.userID }</th>
 								<th scope="col">${user.phoneNumber}</th>
@@ -192,8 +194,14 @@ th {
 								<th scope="col">${user.reviewCnt}</th>
 								<th scope="col">${user.keyWord}</th>
 								<th scope="col">${user.ban}</th>
-								<th scope="col"><a href="${modifyLink }">수정</a> <%-- <a href="${deleteLink }">삭제</a> --%>
-									<button onclick="deleteinfo(${employee.employee_id })">삭제</button>
+								<th scope="col">
+									<button onclick="ban(${user.userNick })">정지</button>
+								</th>
+								<th scope="col">
+									<button onclick="unban(${user.userNick })">정지 해제</button>
+								</th>
+								<th scope="col">
+								
 								</th>
 							</tr>
 						</c:forEach>
@@ -221,7 +229,7 @@ th {
 						aria-disabled="true">&lt;&lt;</a>
 					</li>
 					<li
-						class="page-item<c:if test="${pagination.pageNum eq 1 }"> disabled</c:if>">
+						class="page-item<c:if test="${pagination.pageNum eq 1 or pagination.pageNum eq 0 }"> disabled</c:if>">
 						<a class="page-link" href="${previousHref1 }" tabindex="-1"
 						aria-disabled="true">&lt;</a>
 					</li>
@@ -230,7 +238,7 @@ th {
 						<li
 							class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
 							aria-current="page"><a class="page-link"
-							href="./main?pageNum=${i }&amount=${pagination.amount }">${i }</a></li>
+							href="./admin?pageNum=${i }&amount=${pagination.amount }">${i }</a></li>
 					</c:forEach>
 					<li
 						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
@@ -246,12 +254,17 @@ th {
 			</nav>
 			<div class="container">
 				<form action="/wymarket/admin/board">
-				<select name="list">
-				<option value="userId">회원번호</option>
-				<option value="userNick">닉네임</option>
-				<option value="address">주소</option>
-				<input type="text" name="search"/>
-				</select> <input type="submit" />
+					<select name="list">
+						<option value="userId"
+							<c:if test="${list eq 'userId'}">selected</c:if>>회원번호</option>
+						<option value="userNick"
+							<c:if test="${list eq 'userNick'}">selected</c:if>>닉네임</option>
+						<option value="address"
+							<c:if test="${list eq 'address'}">selected</c:if>>주소</option>
+						<input type="text" name="search" />
+						<%-- <input name="text" value="${fn:escapeXml(user.userId)}"> --%>
+
+					</select> <input type="submit" />
 				</form>
 			</div>
 
@@ -287,13 +300,14 @@ th {
 
 	<script>
 	
-	document.getElementById('memo').innerHTML = "${memo}";
+	document.getElementById('memo').innerHTML = "${Admin.adminMemo}";
 	
 	console.log("${Admin.phoneNumber}");
 	console.log("${Admin.adminNick}");
 	console.log("${Admin.adminCreateDate}");
 	console.log("${Admin.adminGrade }");
 	console.log("${Admin.adminMemo }");
+
 	
 	document.getElementById('kakaoLogout').addEventListener('click',()=>{
 			ajaxLogOut();
@@ -341,6 +355,7 @@ th {
 
 	}
 	
+
 </script>
 
 </body>

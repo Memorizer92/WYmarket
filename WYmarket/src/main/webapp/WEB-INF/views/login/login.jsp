@@ -219,7 +219,7 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">SMS 인증번호가 발송되었습니다. </div>
+				<div class="modal-body">SMS 인증번호가 발송되었습니다.</div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -350,7 +350,11 @@ function onlyNumber(){
 		}
 	}
 
-	
+	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
+		if(timeLimit != 0){
+			document.getElementById("smsReqCnt").value += 1;
+		}
+	}
 	
 			const confirm = document.getElementById('getConfirm');
 
@@ -371,6 +375,7 @@ function onlyNumber(){
 						setTimeout(function(){
 							ajaxSmsReqCnt();
 							console.log("카운트 : " + document.getElementById("smsReqCnt").value);
+							console.log("원하는 카운트 : " + "${smsCnt}");
 							setTimeout(function(){
 							if(document.getElementById("smsReqCnt").value >= 3){
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
@@ -414,11 +419,14 @@ function onlyNumber(){
 						document.getElementById('nickOverrap').style.display = 'none';
 						document.getElementById('nick2Char').style.display = 'none';
 					} else {
+						ajaxToMain();
+						setTimeout(function(){
 	 					var form = document.createElement("form");
 					    form.setAttribute("method", "get");
 					    form.setAttribute("action", "./main");
 						document.body.appendChild(form);
 					    form.submit();
+						}, 1000);
 					}
 
 				} else{
@@ -428,7 +436,6 @@ function onlyNumber(){
 				}
 			});
 
-			/* document.getElementById(phonetext.getAttribute('form')).submit(); */
 
 function toMain() {
 	const nickInput = document.getElementById("nickname");

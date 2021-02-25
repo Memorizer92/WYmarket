@@ -14,6 +14,7 @@ public class Pagination {
 	private int amount;
     private final int PAGINATION_SIZE = 5;
     private int total;
+    private String search;
     
 	public Pagination() {
 		this(1, 10);

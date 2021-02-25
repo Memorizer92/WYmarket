@@ -30,6 +30,10 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+<!-- 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean> -->
+
 	<context:component-scan
 		base-package="com.kgitbank.model" /> <!-- graph 탭에 해당 패키지의 컴포넌트 관계 표시됨 -->
 

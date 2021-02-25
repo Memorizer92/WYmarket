@@ -32,11 +32,22 @@ public interface WYmarketMapper {
 	
 	int getAdminPhCount(String phoneNumber);
 	Map<String, Object> getAdminInfo(String phoneNumber);
+	AdminInfo getAdminInfo2(String phoneNumber);
 	int updateAdminMemo(AdminInfo adminInfo);
 	String selectAdminMemo(AdminInfo adminInfo);
 	
 	int selectUserCount();
 	List<Map<String, Object>> selectUserList(Pagination pagination);
+
+	int selectUserCountId(String search);
+	int selectUserCountNick(String search);
+	int selectUserCountAddress(String search);
 	
-	List<Map<String, Object>> selectUserBy(@Param("list") String list,@Param("search") String search);
+	List<UserInfo> selectUserById(Pagination page);
+	List<UserInfo> selectUserByNick(Pagination page);
+	List<UserInfo> selectUserByAddress(Pagination page);
+	
+	int updateUserBan(String userNick);
+	
+	UserInfo selectUserInfo(String phoneNumber);
 }

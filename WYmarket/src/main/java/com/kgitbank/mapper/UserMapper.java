@@ -1,7 +1,5 @@
 package com.kgitbank.mapper;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.kgitbank.model.UserInfo;
 
 public interface UserMapper {
