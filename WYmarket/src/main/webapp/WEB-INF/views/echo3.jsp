@@ -6,18 +6,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="one">
-		닉네임:<input type="text" id="nickname" /> <input type="button"
-			id="enter" value="입장" />
+
+	<div id="one">닉네임:<input type="text" id="nickname" /> 
+		<input type="button" id="enter" value="입장" />
 	</div>
-	<div id="two" style="display: none">
+	
+	<div id="two" >
 		<input type="button" id="exit" value="퇴장" /><br />
-		<div id="chatarea"
-			style="width: 400px; height: 600px; border: 1px solid;"></div>
-		<input type="text" id="message" /> <input type="button" id="send"
-			value="보내기" />
+		<div id="chatarea" style="width: 400px; height: 600px; border: 1px solid;"></div>
+		<input type="text" id="message" /> <input type="button" id="send" value="보내기" />
 	</div>
+	
 </body>
+
 <script type="text/javascript">
 	one = document.getElementById("one");
 	two = document.getElementById("two");
