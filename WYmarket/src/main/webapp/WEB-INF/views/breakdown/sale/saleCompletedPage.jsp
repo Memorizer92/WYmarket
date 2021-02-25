@@ -12,14 +12,15 @@
 
 </head>
 <body>
-
+	
  	거래완료 화면 <br>
  	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>	 
  	<c:choose>
  	<c:when test="${not empty usernick}"> 
  	
- 		
- 		<c:forEach var ="SellerPhVO_list" items="${SellerPhVO }">				
+ 		<input type="text" value="${success}" id = "success" style="display: none;">
+ 		<c:forEach var ="SellerPhVO_list" items="${SellerPhVO }">
+ 		ID: ${SellerPhVO_list.itemid } <br>
 		<div class ="completed" id ="test"style="background-color: green;">
 		현재날짜와 등록된 날짜 차 값(초):${SellerPhVO_list.refreshTime} <br>
 		<c:choose>
@@ -68,6 +69,15 @@
 		if(ititle.length == 0){
 			document.getElementById("reviewBtn").style.display = 'none';	
 		}
+		
+		var success = document.getElementById("success");
+		console.log(success.value + "확인");
+		
+		if(success.value == 'success'){
+			location.href = '<%=application.getContextPath() %>/param/salecomplete';
+		}
+		
+		
 		</script>
 </body>
 </html>

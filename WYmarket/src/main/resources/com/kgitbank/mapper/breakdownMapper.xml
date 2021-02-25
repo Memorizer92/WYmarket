@@ -4,25 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.breakdownMapper">
 
-
-
-
 <select id="getShuserInfo" resultType="com.kgitbank.model.ShUserInfoVO">
 SELECT usernick from sh_userInfo 
 </select>
-<!-- <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
-SELECT  itemID, iImagePath, userNick, 
-	 	address, manner, iTitle,
-		iCategory, refreshTime, iContent,
-		price, chatCnt, likeCnt,
-		viewCnt, iState, iReservationState
-		from sh_item where usernick = #{usernick}
-</select> -->
-
 
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
-<![CDATA[
 SELECT  itemID, iImagePath, userNick, 
+<![CDATA[
 	 	address, manner, iTitle,
 		iCategory, (SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
      + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
@@ -35,23 +23,7 @@ SELECT  itemID, iImagePath, userNick,
 			]]>	
 </select>
 
-
-
-
-<update id="completedIstate">
-UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
-</update>
- 
- <update id="hiddenIstate">
-UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick}
-</update>
-
- <update id="reservationStateChange">
-UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick}
-</update>
- 
 <select id="getPurchaserPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
-
 SELECT itemID, iImagePath, Purchaser, 
 	<![CDATA[
 	   usernick, address, iTitle,
@@ -79,17 +51,48 @@ SELECT itemID, iImagePath, Purchaser,
 ]]>	
 </select>
 
+
+
+
+
+
+
+
+<update id="completedIstate">
+UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick} AND itemid = #{itemid}
+</update>
+ 
+ <update id="hiddenIstate">
+UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick} AND itemid = #{itemid}
+</update>
+
+ <update id="reservationStateChange">
+UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}
+</update>
+ 
+<update id="productPullUp">
+UPDATE sh_item SET refreshtime = sysdate where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
+</update>
+
+
+
+
+
 <insert id="insertPurchase">
 INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) values(
 	  		pitemID_seq.nextval,
 	  		#{purchaser},
-(select usernick from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
-(select address from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
-(select ititle from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick}),
-(select price from sh_item where ititle = #{ititle} and istate = #{istate} and usernick = #{usernick})
+(select usernick from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
+(select address from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
+(select ititle from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
+(select price from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid})
 )	  	 
 </insert>
 
+
+<delete id="completedProductDelete">
+DELETE FROM sh_item where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
+</delete>
 
 
 

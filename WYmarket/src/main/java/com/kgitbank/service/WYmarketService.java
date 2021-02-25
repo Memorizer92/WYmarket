@@ -37,7 +37,7 @@ public interface WYmarketService {
 	int selectUserCount();
 	
 
-	List<Map<String, Object>> selectUserBy(String list, String search);
+	List<UserInfo> selectUserBy(String num);
 
 	
 }

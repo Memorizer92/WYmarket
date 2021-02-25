@@ -247,7 +247,7 @@ th {
 			<div class="container">
 				<form action="/wymarket/admin/board">
 				<select name="list">
-				<option value="userId">회원번호</option>
+				<option value="userid">회원번호</option>
 				<option value="userNick">닉네임</option>
 				<option value="address">주소</option>
 				<input type="text" name="search"/>

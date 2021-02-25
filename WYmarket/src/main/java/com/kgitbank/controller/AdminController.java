@@ -46,11 +46,9 @@ public class AdminController {
 		String list = request.getParameter("list");
 		String search = request.getParameter("search");
 
-			List<Map<String, Object>> selectUserBy = wyMarketService.selectUserBy(list, search);
 			System.out.println(list);
-			System.out.println(search);
-			System.out.println(selectUserBy);
-			model.addAttribute("users", selectUserBy);
+			System.out.println(search);			
+			model.addAttribute("users", wyMarketService.selectUserBy(search));
 		
 		
 		return "/admin/admin";

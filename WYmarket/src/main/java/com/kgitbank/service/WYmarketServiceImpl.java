@@ -110,9 +110,8 @@ public class WYmarketServiceImpl implements WYmarketService{
 
 
 	@Override
-	public List<Map<String, Object>> selectUserBy(String list, String search) {
-		System.out.println(list + "," + search);
-		return wyMarketMapper.selectUserBy(list, search);
+	public List<UserInfo> selectUserBy(String num) {
+		return wyMarketMapper.selectUserBy(num);
 	}
 
 

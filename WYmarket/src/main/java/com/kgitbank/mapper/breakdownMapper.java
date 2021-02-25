@@ -12,41 +12,51 @@ public interface breakdownMapper {
 
 	
 	List<ShUserInfoVO> getShuserInfo();
-	
-	
-	List<ShItemVO>  getShitemVO(String usernick); 
-	
-	
 		
+	List<ShItemVO>  getShitemVO(String usernick); 
+			
+	List<PurchasedetailsVO> getPurchaserPhVO(String purchaser);
+	
+	List<PurchasedetailsVO> getSellerPhVO(String usernick);
+	
+	
 	int completedIstate(
 			@Param("istate") String istate, 
 			@Param("ititle") String ititle,
-			@Param("usernick") String usernick);
+			@Param("usernick") String usernick,
+			@Param("itemid") String itemid
+			);
 	
 	int hiddenIstate(
 			@Param("istate") String istate, 
 			@Param("ititle") String ititle,
-			@Param("usernick") String usernick);
+			@Param("usernick") String usernick,
+			@Param("itemid") String itemid
+			);
 	
 	int reservationStateChange(
 			@Param("iReservationState") String iReservationState, 
 			@Param("ititle") String ititle,
 			@Param("istate") String istate, 
-			@Param("usernick") String usernick);
+			@Param("usernick") String usernick,
+			@Param("itemid") String itemid);
 			
-	
-	
-	List<PurchasedetailsVO> getPurchaserPhVO(String purchaser);
-	List<PurchasedetailsVO> getSellerPhVO(String usernick);
-	
 	int insertPurchase(
 			PurchasedetailsVO pvo,
 			@Param("purchaser") String purchaser,
 			@Param("usernick") String usernick,
 			@Param("ititle") String ititle,
-			@Param("istate") String istate
+			@Param("istate") String istate,
+			@Param("itemid") String itemid
 			);
 	
+	int productPullUp(
+			@Param("ititle") String ititle, 
+			@Param("usernick") String usernick,
+			@Param("istate") String istate,
+			@Param("itemid") String itemid
+			);
+
 	
 		
 	

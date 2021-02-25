@@ -29,11 +29,19 @@
 	</select>
 
 
-	<select id="selectUserBy" resultType="List">
+	<!-- <select id="selectUserBy" resultType="com.kgitbank.model.UserInfo">
 		select *
 		from
-		sh_userInfo where #{list} LIKE '%' ||  #{search} || '%'
+		sh_userInfo where #{list}  LIKE '%' ||  #{search} || '%'
+	</select> -->
+	
+	<select id="selectUserBy" resultType="com.kgitbank.model.UserInfo">
+		select *
+		from
+		sh_userInfo where  userid LIKE '%' ||  #{num} || '%'
 	</select>
+	
+	
 
 
 	<select id="selectUserCount" resultType="Integer">
