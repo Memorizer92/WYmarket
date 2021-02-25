@@ -63,6 +63,7 @@
 		<section id="container">
 			<div id="container_box">
 				<li><a href="goods/register">상품등록</a></li>
+				<%@ include file="goods/list.jsp"%>
 			</div>
 		</section>
 		<footer id="footer">

@@ -4,20 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kgitbank.mapper.goodsMapper">
 
+	<!-- 상품 목록 -->
+	<select id="getGoodsList" resultType="com.kgitbank.model.GoodsVO">
+		SELECT
+			itemid, iimagepath, ititle, icategory, price, refreshtime
+		FROM
+			sh_item
+		ORDER BY 
+			refreshtime desc
+	</select>
+
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
 	 INSERT INTO sh_item (
-	  itemid, iimagepath, ititle, icategory, refreshtime, icontent, price)
+	  itemid, iimagepath, ititle, icategory, refreshtime, icontent, price, istate)
 	     VALUES (
 	     itemID_seq.nextval,
 	     #{iimagepath},
-	     <!-- #{ithumbimg}, --> 
 	     #{ititle}, 
 	     #{icategory}, 
 	     sysdate, 
 	     #{icontent}, 
-	     #{price}
+	     #{price},
+	     'Onsale'
 	     )
 	</insert>
+	
+	<!-- 등록 상품 조회 -->
+	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
+		SELECT itemid, iimagepath, ititle, icategory, refreshtime, icontent, price FROM sh_item WHERE itemid = #{itemid}
+	</select>
  
 </mapper>

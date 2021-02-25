@@ -7,6 +7,48 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript">
+function inputCheck() {
+    var iimagepath = document.regForm.iimagepath.value;
+    var ititle = document.regForm.ititle.value;
+    var icategory = document.regForm.icategory.value;
+    var price = document.regForm.price.value;
+    var icontent = document.regForm.icontent.value;
+    //var length = document.regForm.length - 1;
+
+    if (iimagepath == null || iimagepath == "") {
+        alert('상품 이미지를 선택해주세요');
+        document.regForm.title.focus();
+        return;
+    }
+    if (ititle == null || ititle == "") {
+        alert('제목을 입력해주세요');
+        document.regForm.ititle.focus();
+        return;
+    }
+    if (icategory == null || icategory == "") {
+        alert('카테고리를 선택해주세요');
+        document.regForm.icategory.focus();
+        return;
+    }
+    if(price == null || price == ""){
+        alert('가격을 입력해주세요');  
+        document.regForm.price.focus();                       
+        return;  
+    }
+    if(price.match(/^[0-9]*$/ig) == null){
+        alert('숫자만 입력해주세요');  
+        document.regForm.price.focus();                       
+        return;  
+    }
+    if (icontent == null || icontent == "") {
+        alert('내용을 입력해주세요');
+        document.regForm.content.focus();
+        return;
+    }
+    document.regForm.submit();
+}
+</script>
 
 <style>
 .inputArea {
@@ -58,7 +100,8 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 등록</h2>
 
-				<form action="./add" role="form" method="POST" autocomplete="off"  enctype="multipart/form-data">
+				<form action="./add" role="form" method="POST" name="regForm"
+				 autocomplete="off"  enctype="multipart/form-data">
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
@@ -85,8 +128,26 @@ textarea#icontent {
 							name="ititle" />
 					</div>
 					<div class="inputArea">
-						<label for="icategory">카테고리</label> <input type="text"
-							id="icategory" name="icategory" />
+						<label for="icategory">카테고리</label> 
+						<!-- <input type="text" id="icategory" name="icategory" /> -->
+						<select id="icategory" name="icategory" >
+							<option selected>전체</option>
+							<option>여성의류</option>
+							<option>패션잡화</option>
+							<option>남성의류</option>
+							<option>디지털/가전</option>
+							<option>도서/티켓/취미/애완</option>
+							<option>스타굿즈</option>
+							<option>생활/문구/가구/식품</option>
+							<option>스포츠/레저</option>
+							<option>뷰티/미용</option>
+							<option>유아동/출산</option>
+							<option>차량/오토바이</option>
+							<option>구인구직</option>
+							<option>재능</option>
+							<option>번개나눔</option>
+							<option>기타</option>
+						</select>
 					</div>
 					
 					<div class="inputArea">
@@ -100,9 +161,9 @@ textarea#icontent {
 					</div>
 					
 					<div class="inputArea">
-						<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+						<!-- <button type="submit" id="register_Btn">등록</button> -->
+						<input type="button" value="등록" onclick="inputCheck()"/>
 					</div>
-					
 				</form>
 			</div>
 		</section>

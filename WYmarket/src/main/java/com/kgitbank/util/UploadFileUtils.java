@@ -6,16 +6,12 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import org.springframework.util.FileCopyUtils;
-import net.coobird.thumbnailator.Thumbnails;
 
 // 날짜(연/월/일)로 구성된 폴더를 생성하고, 
 // 같은 파일명이라도 중복되지 않도록 랜덤문자와 파일명을 조합한 뒤 생성된 폴더에 저장하며, 
 // 썸네일을 생성하여 별도의 폴더에 저장
 
 public class UploadFileUtils {
-
-	static final int THUMB_WIDTH = 300;  // 썸네일의 가로 크기
-	static final int THUMB_HEIGHT = 300;  // 썸네일의 세로 크기
 
 	public static String fileUpload(String uploadPath,
 			String fileName, 
@@ -31,20 +27,8 @@ public class UploadFileUtils {
 		File target = new File(imgPath, newFileName);
 		FileCopyUtils.copy(fileData, target);
 
-		String thumbFileName = "s_" + newFileName;  // 썸네일 파일명 = "s_파일명"
-		File image = new File(imgPath + File.separator + newFileName);
+		//File image = new File(imgPath + File.separator + newFileName);
 
-		// 원본 파일과 같은 경로의 하위에 "s" 폴더를 생성하여 썸네일을 저장
-		File thumbnail = new File(imgPath + File.separator + "s" + File.separator + thumbFileName);
-
-		if (image.exists()) {
-
-			// 썸네일이 저장될 폴더를 생성
-			thumbnail.getParentFile().mkdirs();
-
-			// 썸네일 생성
-			Thumbnails.of(image).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
-		}
 		return newFileName;
 	}
 
@@ -65,9 +49,6 @@ public class UploadFileUtils {
 
 		// 원본 이미지가 저장될 경로 생성
 		makeDir(uploadPath, yearPath, monthPath, datePath);
-
-		// 썸네일 이미지가 저장될 경로 생성
-		makeDir(uploadPath, yearPath, monthPath, datePath + "\\s");
 
 		return datePath;
 	}
