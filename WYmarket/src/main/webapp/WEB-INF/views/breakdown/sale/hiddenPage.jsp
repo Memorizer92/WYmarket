@@ -14,12 +14,15 @@
 <body>
  숨김 화면 <br>
 
-
+<input type="text" value="${success}" id = "success" style="display: none;">
  	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>	 
  	<c:forEach var ="userItem_list" items="${itemvo }">
  		<c:if test="${userItem_list.istate eq 'Hidden'}">		 <!--  거래완료 내역 -->	
 		<div class ="completed" id ="test"style="background-color: green; ">
-		<input type="radio" class= "openBtn" name="ititle" value="${userItem_list.ititle }" style="display: none" />
+		<input type="radio" class= "" name="itemid" value="${userItem_list.itemid }" style="display: none" />
+		${userItem_list.itemid } <br>
+		<input type="radio" class= "" name="ititle" value="${userItem_list.ititle }" style="display: none" />
+		
 		제목: ${userItem_list.ititle }	<br>
 		지역: ${userItem_list.address }<br>
 		가격: ${userItem_list.price }
@@ -34,6 +37,7 @@
 
 <script type="text/javascript">
 var radio_btn = document.getElementsByName("ititle");
+var idradio_btn = document.getElementsByName("itemid");
 var hiddenCancellation = document.getElementsByName("HiddenCancellation").value;
 var radio_btn_check = 0;
 var istate;
@@ -48,10 +52,11 @@ for( var i = 0; i < radio_btn.length; i++ ){
 function hiddenCancellations() {
 	istate = 'Onsale';
     for(var i = 0; i<radio_btn.length; i++){
-        if(radio_btn[i].checked==true){           	           	     		
+        if(radio_btn[i].checked==true){
+        idradio_btn[i].checked=true;
 var form = document.createElement("form");
 form.setAttribute("method", "post");
-form.setAttribute("action", "<%=application.getContextPath() %>/param/salehidden/" + istate + "/" + radio_btn[i].value);
+form.setAttribute("action", "<%=application.getContextPath() %>/param/salehidden/" + istate + "/" + radio_btn[i].value + "/" + idradio_btn[i].value);
 document.body.appendChild(form);  
 radio_btn_check++;    
 form.submit();
@@ -62,6 +67,13 @@ form.submit();
         alert("상품을 선택해주세요");
         return;
     }
+}
+
+var success = document.getElementById("success");
+console.log(success.value + "확인");
+
+if(success.value == 'success'){
+	location.href = '<%=application.getContextPath() %>/param/sale';
 }
 
 </script>

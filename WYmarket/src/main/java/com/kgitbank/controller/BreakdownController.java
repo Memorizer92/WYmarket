@@ -49,36 +49,38 @@ public class BreakdownController {
 		model.addAttribute("itemvo", bservice.getShitemVO(userNick));	
 		model.addAttribute("userinfo", bservice.getShuserInfo());	
 		return "/breakdown/sale/salePage";
-	} // 판매중 화면 구매내역 테이블에서 판매자 닉네임이 로그인 닉네임인것을 찾아서 출력
+	} 
 	
-	
-	  @GetMapping("/salecomplete") // 거래 완료 화면
+		// 거래 완료 화면
+	  @GetMapping("/salecomplete") 
 	  public String gSalecomplete(Model model, HttpSession session) { 
 	  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-	  model.addAttribute("usernick", userNick);	
-	  
+	  model.addAttribute("usernick", userNick);	  
 	  model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));
 	  return "/breakdown/sale/saleCompletedPage";
 	  }
-	
-	  @PostMapping("/salecomplete/{ititle}/{usernick}/{istate}")  // 거래 완료 버튼
+	  
+	 // 거래 완료 버튼
+	  @PostMapping("/salecomplete/{ititle}/{usernick}/{istate}/{itemid}")  
 		public String pSalecomplete(Model model,
 				PurchasedetailsVO puvo ,
 				@PathVariable("ititle") String ititle,
 				@PathVariable("usernick") String purchaser,
 				@PathVariable("istate") String istate,
+				@PathVariable("itemid") String itemid,
 				HttpSession session) {	
 		  
-		  String usernick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		  	model.addAttribute("usernick", usernick);
-		  	bservice.completedIstate(istate, ititle, usernick);
-		    model.addAttribute("itemvo", bservice.getShitemVO(usernick));
-		    bservice.insertPurchase(puvo, purchaser, usernick, ititle, istate);
-			return "/breakdown/sale/salePage";
+		  		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  		model.addAttribute("usernick", userNick);
+		  		model.addAttribute("success", "success");
+		  		bservice.completedIstate(istate, ititle, userNick, itemid);
+		  		bservice.insertPurchase(puvo, purchaser, userNick, ititle, istate,itemid);		  			  		
+		  		model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));		
+		  		return "/breakdown/sale/saleCompletedPage";
 		}
 	  
-	  
-	  @GetMapping("/salehidden") // 숨김 화면
+	 // 숨김 화면
+	  @GetMapping("/salehidden") 
 	  public String gSalehidden (Model model, HttpSession session) {
 		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
 		    model.addAttribute("usernick", userNick);
@@ -87,22 +89,33 @@ public class BreakdownController {
 		  return "/breakdown/sale/hiddenPage";
 	  }
 	  
-	  @PostMapping("/salehidden/{istate}/{ititle}") // 숨기기 버튼 클릭 시
+	 // 숨기기 버튼 클릭 시
+	  @PostMapping("/salehidden/{istate}/{ititle}/{itemid}") 
 	  public String pSalehidden (Model model,
 			  @PathVariable("istate") String istate,
 			  @PathVariable("ititle") String ititle,
+			  @PathVariable("itemid") String itemid,
 			  HttpSession session) {
 		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		  bservice.hiddenIstate(istate, ititle, userNick);
+		  bservice.hiddenIstate(istate, ititle, userNick, itemid);
+		  if(istate.equals("Onsale")) {
+		  bservice.productPullUp(ititle, userNick, istate, itemid); // 숨김에서 판매중으로 바꿨을떄 등록시간 최신화
+		  model.addAttribute("success", "success");
+		  }
 		  model.addAttribute("usernick", userNick);
 		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));	  
 		  return "/breakdown/sale/hiddenPage";
 	  }
-
-	  @PostMapping("/reservation/{iReservationState}/{ititle}") // 예약
-	  public String reservation(Model model, @PathVariable("iReservationState") String iReservationState, @PathVariable("ititle") String ititle, HttpSession session) {
+	  
+	// 예약 하기 / 취소
+	  @PostMapping("/reservation/{iReservationState}/{ititle}/{itemid}") 
+	  public String reservation(Model model,
+			  @PathVariable("iReservationState") String iReservationState, 
+			  @PathVariable("ititle") String ititle,
+			  @PathVariable("itemid") String itemid,
+			  HttpSession session) {
 		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		  bservice.reservationStateChange(iReservationState, ititle, userNick);
+		  bservice.reservationStateChange(iReservationState, ititle, userNick, itemid);
 		  model.addAttribute("usernick", userNick);
 		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));
 		  model.addAttribute("userinfo", bservice.getShuserInfo());
@@ -111,7 +124,7 @@ public class BreakdownController {
 	  
 	  
 	  
-	  
+	 // 구매내역 화면
 	@GetMapping("/purchase")
 	public String purchase(Model model, HttpSession session) {	
 		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
@@ -119,7 +132,19 @@ public class BreakdownController {
 		return "/breakdown/purchasePage";
 	}
 	
-	
+	// 상품 끌어올리기
+	@PostMapping("/pullup/{ititle}/{itemid}/{istate}")
+	public String productPullUp(Model model, HttpSession session,
+			@PathVariable("ititle") String ititle,
+			@PathVariable("itemid") String itemid,
+			@PathVariable("istate") String istate
+			){
+		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		bservice.productPullUp(ititle, userNick,istate, itemid);
+		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
+		model.addAttribute("pup", "pup");
+		return "/breakdown/sale/salePage";
+	}
 
 			
 	
