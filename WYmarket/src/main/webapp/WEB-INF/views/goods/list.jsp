@@ -8,7 +8,7 @@
 	<title>kubg</title>
 
 <style>
-	section#content ul li { display:inline-block; margin:10px; }
+	section#content ul li { display:inline-block; margin:30px; }
 	section#content div.iimagepath img { width:200px; height:200px; }
 	section#content div.ititle { padding:10px 0; text-align:center; }
 	section#content div.ititle a { color:#000; }
