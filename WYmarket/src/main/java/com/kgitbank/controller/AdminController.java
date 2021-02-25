@@ -22,28 +22,41 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({"users", "list"})
+@SessionAttributes({ "users", "list", "search"})
 @Scope("session")
-public class AdminController implements Serializable{
+public class AdminController implements Serializable {
 
 	@Autowired
 	WYmarketService wyMarketService;
 
 	boolean flag = false;
-	
+
+	String listKind = "all";
+
 	// 관리자 로그인
 
 	// http://localhost:8080/practice_mvc/empQuiz/main?pageNum=2&amount=15
 	@GetMapping(value = "/admin")
 	public String adminLoginPage(Model model, Pagination pagination, HttpSession session) {
 
-		pagination.setTotal(wyMarketService.selectUserCount());
+		System.out.println(listKind);
+		if (listKind.equals("all")) {
+			pagination.setTotal(wyMarketService.selectUserCount());
+		} else if (listKind.equals("id")) {
+			pagination.setTotal(wyMarketService.selectUserCountId((String) model.getAttribute("search")));
+		} else if (listKind.equals("nick")) {
+			pagination.setTotal(wyMarketService.selectUserCountNick((String) model.getAttribute("search")));
+		} else if (listKind.equals("address")) {
+			pagination.setTotal(wyMarketService.selectUserCountAddress((String) model.getAttribute("search")));
+		}
+
 		PageService pageService = new PageService(pagination);
 
-		if(!flag) {
+		System.out.println(flag);
+		if (!flag) {
 			model.addAttribute("users", wyMarketService.selectUserList(pagination));
 		}
-		
+
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageService", pageService);
 
@@ -51,7 +64,7 @@ public class AdminController implements Serializable{
 		model.addAttribute("delAmountIndicator", pagination.getAmount());
 
 		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-		
+
 		return "/admin/admin";
 	}
 
@@ -59,36 +72,35 @@ public class AdminController implements Serializable{
 	public String adminUserSearch(HttpServletRequest request, Model model, Pagination page) {
 		String list = request.getParameter("list");
 		String search = request.getParameter("search");
+		model.addAttribute("search", search);
 		page.setSearch(search);
-		model.addAttribute("list",list);
+		model.addAttribute("list", list);
 		System.out.println(list);
 		System.out.println(search);
-		if(list.equals("userId")) {
+		if (list.equals("userId")) {
 			List<UserInfo> selectUserById = wyMarketService.selectUserById(page);
 			model.addAttribute("users", selectUserById);
-		} else if(list.equals("userNick")) {
+			listKind = "id";
+		} else if (list.equals("userNick")) {
 			List<UserInfo> selectUserByNick = wyMarketService.selectUserByNick(page);
 			model.addAttribute("users", selectUserByNick);
-		} else if(list.equals("address")) {
+			listKind = "nick";
+		} else if (list.equals("address")) {
 			List<UserInfo> selectUserByAddress = wyMarketService.selectUserByAddress(page);
 			model.addAttribute("users", selectUserByAddress);
+			listKind = "address";
 		}
 		flag = true;
-		
+
 		return "redirect:/admin";
 	}
-	
+
 	@GetMapping("/admin/ban/{userNick}")
 	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
 		int updateBan = wyMarketService.updateUserBan(userNick);
 		System.out.println("updateBan : " + updateBan);
-		
+
 		return "/admin/admin";
 	}
 
 }
-
-
-
-
-

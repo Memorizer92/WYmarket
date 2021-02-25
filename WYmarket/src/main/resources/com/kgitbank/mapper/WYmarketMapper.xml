@@ -86,6 +86,21 @@
 		select count(*) from
 		sh_userInfo
 	</select>
+	
+		<select id="selectUserCountId" resultType="Integer">
+		select count(*) from
+		sh_userInfo WHERE userId LIKE '%' || #{search} || '%'
+	</select>
+	
+		<select id="selectUserCountNick" resultType="Integer">
+		select count(*) from
+		sh_userInfo WHERE userNick LIKE '%' || #{search} || '%'
+	</select>
+	
+		<select id="selectUserCountAddress" resultType="Integer">
+		select count(*) from
+		sh_userInfo WHERE address LIKE '%' || #{search} || '%'
+	</select>
 
 	<select id="selectUserList"
 		resultType="com.kgitbank.model.UserInfo">

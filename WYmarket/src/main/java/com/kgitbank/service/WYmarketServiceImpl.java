@@ -139,6 +139,24 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.getAdminInfo2(phoneNumber);
 	}
 
+	@Override
+	public int selectUserCountId(String search) {
+		
+		return wyMarketMapper.selectUserCountId(search);
+	}
+
+	@Override
+	public int selectUserCountNick(String search) {
+
+		return wyMarketMapper.selectUserCountNick(search);
+	}
+
+	@Override
+	public int selectUserCountAddress(String search) {
+
+		return wyMarketMapper.selectUserCountAddress(search);
+	}
+
 
 
 
