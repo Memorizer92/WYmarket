@@ -265,7 +265,7 @@ th {
 						<input type="text" name="search" />
 						<%-- <input name="text" value="${fn:escapeXml(user.userId)}"> --%>
 
-					</select> <input type="submit" />
+					</select> <input type="submit" value="검색"/>
 				</form>
 				<button class="btn btn-primary" type="submit" onclick="searchAll()">전체 리스트 보기</button>
 			</div>

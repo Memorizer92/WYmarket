@@ -37,8 +37,8 @@ public class AdminController implements Serializable {
 	@GetMapping(value = "/admin")
 	public String adminLoginPage(Model model, Pagination pagination, HttpSession session) {
 		
-	
 		
+		System.out.println("전체 리스트 통과 후 : " + listKind);
 		Pagination page = new Pagination();
 
 		if(sustainFlag) {
@@ -60,6 +60,8 @@ public class AdminController implements Serializable {
 			page.setTotal(wyMarketService.selectUserCountAddress((String) model.getAttribute("search")));
 		}
 
+		System.out.println("전체를 눌렀을 때의 pageNum : " + pagination.getPageNum());
+		System.out.println("검색을 했을 때의 pageNum : " + page.getPageNum());
 		
 		PageService pageService;
 		
@@ -120,7 +122,7 @@ public class AdminController implements Serializable {
 	@GetMapping("/admin/all")
 	public String adminUserSearchAll() {
 		listKind = "all";
-		
+		System.out.println("전체리스트 통과");
 		return "redirect:/admin";
 	}
 
