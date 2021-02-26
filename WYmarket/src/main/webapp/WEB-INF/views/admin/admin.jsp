@@ -254,20 +254,20 @@ th {
 				</ul>
 			</nav>
 			<div class="container">
-				<form action="/wymarket/admin/board">
+				<form action="/wymarket/admin">
 					<select name="list">
 						<option value="userId"
-							<c:if test="${list eq 'userId'}">selected</c:if>>회원번호</option>
+							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
 						<option value="userNick"
-							<c:if test="${list eq 'userNick'}">selected</c:if>>닉네임</option>
+							<c:if test="${lists eq 'userNick'}">selected</c:if>>닉네임</option>
 						<option value="address"
-							<c:if test="${list eq 'address'}">selected</c:if>>주소</option>
-						<input type="text" name="search" />
+							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
+						<input type="text" name="search" value="${searchs }"/>
 						<%-- <input name="text" value="${fn:escapeXml(user.userId)}"> --%>
 
 					</select> <input type="submit" value="검색"/>
 				</form>
-				<button class="btn btn-primary" type="submit" onclick="searchAll()">전체 리스트 보기</button>
+				<button class="btn btn-primary" onclick="searchAll()">전체 리스트 보기</button>
 			</div>
 
 		</div>
