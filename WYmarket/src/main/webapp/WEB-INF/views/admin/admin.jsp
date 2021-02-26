@@ -177,7 +177,7 @@ th {
 					</thead>
 					<tbody>
 						<c:forEach var="user" items="${users}">
-							<c:set var="i" value="${i+30}" />
+							<c:set var="i" value="${i+1}" />
 							<tr>
 								<th scope="col">${user.userID }</th>
 								<th scope="col">${user.phoneNumber}</th>
@@ -195,10 +195,12 @@ th {
 								<th scope="col">${user.keyWord}</th>
 								<th scope="col" id='banTF${i }'>${user.ban}</th>
 								<th scope="col">
-									<button onclick="ban('${user.userNick }')">정지</button>
+									<button onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="ban">정지</button>
 								</th>
 								<th scope="col">
-									<button onclick="unban('${user.userNick }')">정지 해제</button>
+									<button onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="unban">정지 해제</button>
 								</th>
 								<th scope="col"></th>
 							</tr>

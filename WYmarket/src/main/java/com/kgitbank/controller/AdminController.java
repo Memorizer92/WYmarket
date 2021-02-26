@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
+import com.kgitbank.service.DateCalc;
 import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
@@ -29,12 +30,12 @@ public class AdminController implements Serializable {
 	@Autowired
 	WYmarketService wyMarketService;
 
-	boolean sustainFlag = false;
+	@Autowired
+	DateCalc dateCalc;
 
 	String category = null;
 	String categorySearch = null;
 
-	
 	// 관리자 로그인
 
 	@GetMapping(value = "/admin")
@@ -42,24 +43,20 @@ public class AdminController implements Serializable {
 
 		String list = request.getParameter("list");
 		String search = request.getParameter("search");
-		
+
 		// 검색을 눌렀을 때 세션에 정보 저장
-		if(list != null) {
+		if (list != null) {
 			session.setAttribute("listSession", list);
 			category = (String) session.getAttribute("listSession");
 			session.setAttribute("searchSession", search);
 			categorySearch = (String) session.getAttribute("searchSession");
-		} 
+		}
 
 		// select tag 및 input 유지
 		model.addAttribute("searchs", search);
 		pagination.setSearch(categorySearch);
 		model.addAttribute("lists", list);
 
-		// 정지 버튼 눌렀을 때 해당 pagination  page 유지
-		if (sustainFlag) {
-			pagination.setPageNum((int) model.getAttribute("pBan"));
-		}
 
 		// 카테고리를 뭘 눌렀냐에 따라 검색
 		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
@@ -81,7 +78,7 @@ public class AdminController implements Serializable {
 		}
 
 		session.setAttribute("rowCount", pagination.getTotal());
-		
+
 		PageService pageService;
 
 		// 위 정보로 pagination 생성
@@ -93,39 +90,42 @@ public class AdminController implements Serializable {
 
 		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
 
-		sustainFlag = false;
-
 		return "/admin/admin";
 	}
 
 	@GetMapping("/admin/all")
 	public String adminSearchAll(HttpSession session, Model model) {
-			session.removeAttribute("listSession");
-			session.removeAttribute("searchSession");
-			model.addAttribute("lists","");
-			model.addAttribute("searchs","");
-			category = null;
-			categorySearch = null;
-		
-		return "redirect:/admin";
-	}
-	
-	@GetMapping("/admin/ban/{userNick}")
-	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
-		int updateBan = wyMarketService.updateUserBan(userNick);
-		model.addAttribute("pBan", model.getAttribute("pBan"));
-
-		sustainFlag = true;
+		session.removeAttribute("listSession");
+		session.removeAttribute("searchSession");
+		model.addAttribute("lists", "");
+		model.addAttribute("searchs", "");
+		category = null;
+		categorySearch = null;
 
 		return "redirect:/admin";
 	}
-	
+
+
 	@GetMapping("/admin/usercount")
-	public String adminUserCount(HttpSession session) {
+	public String adminUserCount(HttpSession session, HttpServletRequest req) {
 		// 누적 접속자 수를 view에 띄움
 		int userCountTotal = wyMarketService.selectUserCountTotal();
 		session.setAttribute("userCountTotal", userCountTotal);
-		
+
+		// 현재 연도
+		session.setAttribute("currentYear", dateCalc.getYear());
+
+		return "/admin/usercount";
+	}
+
+	@GetMapping("/admin/dayCheck/{year}/{month}")
+	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
+			HttpServletRequest req, Model model) {
+		// 해당 일
+		session.setAttribute("dayOfMonth", new DateCalc(year, month).getDay());
+		model.addAttribute("selectedYear", year);
+		model.addAttribute("selectedMonth", month);
+
 		return "/admin/usercount";
 	}
 

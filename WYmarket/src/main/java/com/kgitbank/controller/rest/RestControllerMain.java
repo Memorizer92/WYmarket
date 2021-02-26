@@ -342,6 +342,14 @@ public class RestControllerMain implements Serializable{
 		return null;
 	}
 	
+	@GetMapping("/admin/ban/{userNick}")
+	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
+		int updateBan = wyMarketService.updateUserBan(userNick);
+		String selectBanResult = wyMarketService.selectUserBan(userNick);
+
+		return selectBanResult;
+	}
+	
 	@GetMapping(value = "/admin/unban/{userNick}", 
 			produces = "text/html; charset=UTF-8")
 	public String adminUserUnBan(@PathVariable("userNick") String userNick, Model model) {

@@ -32,18 +32,31 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm">연</div>
-			<div class="col-sm">월</div>
 			<div class="col-sm">
-				<select class="form-select" aria-label="Default select example" name="daySelect">
-					<option selected>Open this select menu</option>
-					<c:forEach var="day" items="${days}">
-						<option value=${day. }>${day. }</option>
+				<select class="form-select" aria-label="Default select example"
+					name="yearSelect" id='year' onchange="yearChange()">
+					<option selected>연도 선택</option>
+					<c:forEach var="i" begin="2018" end="${currentYear }">
+						<option value=${i }>${i }</option>
 					</c:forEach>
-
-
-					<option value="2">Two</option>
-					<option value="3">Three</option>
+				</select>
+			</div>
+			<div class="col-sm">
+				<select class="form-select" aria-label="Default select example"
+					name="monthSelect" onchange="monthChange()" id='month'>
+					<option selected>월 선택</option>
+					<c:forEach var="i" begin="1" end="12">
+						<option value=${i }>${i }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm">
+				<select class="form-select" aria-label="Default select example"
+					name="daySelect" id='day'>
+					<option selected>일 선택</option>
+					<c:forEach var="i" begin="1" end="${dayOfMonth}">
+						<option value="${i }">${i }</option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="col-sm">
@@ -56,6 +69,58 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+
+	
+		const yearCon = document.getElementById('year');
+		const monthCon = document.getElementById('month');
+		const dayCon = document.getElementById('day');
+
+		yearCon.value = "${selectedYear}";
+		monthCon.value = "${selectedMonth}";
+
+		if(window.performance.navigation.type == 1){
+			yearCon.value = '연도 선택';
+			monthCon.value = '월 선택';
+			dayCon.value = '일 선택';
+		}
+		
+		if (yearCon.value != '연도 선택') {
+			monthCon.disabled = false;
+		} else {
+			monthCon.disabled = true;
+			dayCon.disabled = true;
+		}
+		if (monthCon.value != '월 선택') {
+
+		}
+
+		function yearChange() {
+			if (yearCon.value != '연도 선택') {
+				monthCon.disabled = false;
+			} else {
+				monthCon.disabled = true;
+				dayCon.disabled = true;
+			}
+			monthCon.value = '월 선택';
+			dayCon.value = '일 선택';
+		}
+		function monthChange() {
+			if (monthCon.value != '월 선택') {
+				dayCon.disabled = false;
+
+				const prefix = "/wymarket";
+				let uri = prefix + "/admin/dayCheck/" + yearCon.value + "/"
+						+ monthCon.value;
+				location.href = uri;
+			} else {
+				dayCon.disabled = true;
+			}
+			dayCon.value = '일 선택';
+
+		}
+	</script>
 
 </body>
 </html>
