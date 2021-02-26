@@ -140,21 +140,38 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 	@Override
-	public int selectUserCountId(String search) {
-		
+	public int selectUserCountId(String search) {		
 		return wyMarketMapper.selectUserCountId(search);
 	}
 
 	@Override
 	public int selectUserCountNick(String search) {
-
 		return wyMarketMapper.selectUserCountNick(search);
 	}
 
 	@Override
 	public int selectUserCountAddress(String search) {
-
 		return wyMarketMapper.selectUserCountAddress(search);
+	}
+
+	@Override
+	public int updateUserUnBan(String userNick) {
+		return wyMarketMapper.updateUserUnBan(userNick);
+	}
+
+	@Override
+	public String selectUserBan(String userNick) {
+		return wyMarketMapper.selectUserBan(userNick);
+	}
+
+	@Override
+	public int updateUserCountTotal() {
+		return wyMarketMapper.updateUserCountTotal();
+	}
+
+	@Override
+	public int selectUserCountTotal() {
+		return wyMarketMapper.selectUserCountTotal();
 	}
 
 

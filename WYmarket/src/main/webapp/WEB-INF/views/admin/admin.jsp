@@ -131,7 +131,7 @@ img {
 }
 
 .textarea[contenteditable]:empty::before {
-	content: "Placeholder still possible";
+	content: "메모를 입력하십시요";
 	color: gray;
 }
 
@@ -177,7 +177,7 @@ th {
 					</thead>
 					<tbody>
 						<c:forEach var="user" items="${users}">
-							
+							<c:set var="i" value="${i+30}" />
 							<tr>
 								<th scope="col">${user.userID }</th>
 								<th scope="col">${user.phoneNumber}</th>
@@ -193,16 +193,14 @@ th {
 								<th scope="col">${user.saleItemCnt}</th>
 								<th scope="col">${user.reviewCnt}</th>
 								<th scope="col">${user.keyWord}</th>
-								<th scope="col">${user.ban}</th>
+								<th scope="col" id='banTF${i }'>${user.ban}</th>
 								<th scope="col">
 									<button onclick="ban('${user.userNick }')">정지</button>
 								</th>
 								<th scope="col">
-									<button onclick="unban(${user.userNick })">정지 해제</button>
+									<button onclick="unban('${user.userNick }')">정지 해제</button>
 								</th>
-								<th scope="col">
-								
-								</th>
+								<th scope="col"></th>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -255,7 +253,20 @@ th {
 			</nav>
 			<div class="container">
 				<form action="/wymarket/admin">
-					<select name="list">
+					<select class="form-select" aria-label="Default select example"
+						name="list">
+						<option selected>Open this select menu</option>
+						<option value="userId"
+							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
+						<option value="userNick"
+							<c:if test="${lists eq 'userNick'}">selected</c:if>>닉네임</option>
+						<option value="address"
+							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
+					</select> <input type="text" class="form-control" aria-label="Username"
+						aria-describedby="basic-addon1" name="search" value="${searchs }">
+					<input type="submit" class="form-control" aria-label="Username"
+						aria-describedby="basic-addon1" value="검색">
+					<%-- 					<select name="list">
 						<option value="userId"
 							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
 						<option value="userNick"
@@ -263,13 +274,16 @@ th {
 						<option value="address"
 							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
 						<input type="text" name="search" value="${searchs }"/>
-						<%-- <input name="text" value="${fn:escapeXml(user.userId)}"> --%>
+						<input name="text" value="${fn:escapeXml(user.userId)}">
 
-					</select> <input type="submit" value="검색"/>
+					</select> <input type="submit" value="검색"/> --%>
 				</form>
-				<button class="btn btn-primary" onclick="searchAll()">전체 리스트 보기</button>
+				<button class="btn btn-primary" onclick="searchAll()">전체
+					리스트 보기</button>
 			</div>
-
+			<div class="container">
+				<p>${rowCount }</p>
+			</div>
 		</div>
 		<div class="container" id='rightHandContainer'>
 			<div class="container" id='adminProfile'>
@@ -277,7 +291,11 @@ th {
 					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img1' />
 					<p class='profileP' id='nick'>${Admin.adminNick }</p>
 				</div>
-				<p class='profileP'>생성일 : ${Admin.adminCreateDate }</p>
+				<p class='profileP'>
+					생성일 :
+					<fmt:formatDate value="${Admin.adminCreateDate }"
+						pattern="yy/MM/dd" />
+				</p>
 				<p class='profileP'>관리자 등급 : ${Admin.adminGrade }</p>
 			</div>
 			<button type="button" class="btn btn-primary" id='adminBtn'>공지사항
@@ -288,11 +306,16 @@ th {
 				<p>
 					<span id='memo' class="textarea" role="textbox"
 						<c:if test="${Admin.adminGrade eq '부'}">readonly</c:if>
-						contenteditable></span>
+						contenteditable=></span>
 				</p>
 
 				<button type="button" class="btn btn-primary" id='memoBtn'
 					onclick="ajaxSaveMemo()">메모</button>
+			</div>
+			<div class="container">
+				<button type="button" class="btn btn-primary"
+					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
+					수 보기</button>
 			</div>
 		</div>
 	</div>

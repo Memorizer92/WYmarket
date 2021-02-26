@@ -46,8 +46,13 @@ public interface WYmarketMapper {
 	List<UserInfo> selectUserById(Pagination page);
 	List<UserInfo> selectUserByNick(Pagination page);
 	List<UserInfo> selectUserByAddress(Pagination page);
+	UserInfo selectUserInfo(String phoneNumber);
 	
 	int updateUserBan(String userNick);
+	int updateUserUnBan(String userNick);
+	String selectUserBan(String userNick);
 	
-	UserInfo selectUserInfo(String phoneNumber);
+	int updateUserCountTotal();
+	int selectUserCountTotal();
+
 }

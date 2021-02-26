@@ -15,10 +15,12 @@
 		where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
 	</select>
 
-	<select id="getAdminInfo2" resultType="com.kgitbank.model.AdminInfo">
+	<select id="getAdminInfo2"
+		resultType="com.kgitbank.model.AdminInfo">
 		select * from
 		sh_adminInfo
-		where phoneNumber=#{phoneNumber, jdbcType=VARCHAR}
+		where phoneNumber=#{phoneNumber,
+		jdbcType=VARCHAR}
 	</select>
 
 	<update id="updateAdminMemo">
@@ -39,6 +41,17 @@
 		WHERE userNick =
 		#{userNick}
 	</update>
+
+	<update id="updateUserUnBan">
+		UPDATE sh_userInfo SET ban = 'N'
+		WHERE userNick =
+		#{userNick}
+	</update>
+
+	<select id="selectUserBan" resultType="String">
+		select ban from
+		sh_userInfo where userNick=#{userNick}
+	</select>
 
 	<select id="selectUserById"
 		resultType="com.kgitbank.model.UserInfo">
@@ -78,24 +91,33 @@
 		]]>
 	</select>
 
+	<update id="updateUserCountTotal">
+		UPDATE sh_userCountTotal SET total = total + 1
+	</update>
+
+	<select id="selectUserCountTotal" resultType="Integer">
+		select total from
+		sh_userCountTotal
+	</select>
 
 	<select id="selectUserCount" resultType="Integer">
 		select count(*) from
 		sh_userInfo
 	</select>
-	
-		<select id="selectUserCountId" resultType="Integer">
+
+	<select id="selectUserCountId" resultType="Integer">
 		select count(*) from
 		sh_userInfo WHERE userId LIKE '%' || #{search} || '%'
 	</select>
-	
-		<select id="selectUserCountNick" resultType="Integer">
+
+	<select id="selectUserCountNick" resultType="Integer">
 		select count(*) from
 		sh_userInfo WHERE userNick LIKE '%' || #{search} || '%'
 	</select>
-	
-		<select id="selectUserCountAddress" resultType="Integer">
-		select count(*) from
+
+	<select id="selectUserCountAddress" resultType="Integer">
+		select count(*)
+		from
 		sh_userInfo WHERE address LIKE '%' || #{search} || '%'
 	</select>
 

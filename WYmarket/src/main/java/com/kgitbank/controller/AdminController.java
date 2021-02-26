@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -42,19 +43,20 @@ public class AdminController implements Serializable {
 		String list = request.getParameter("list");
 		String search = request.getParameter("search");
 		
+		// 검색을 눌렀을 때 세션에 정보 저장
 		if(list != null) {
 			session.setAttribute("listSession", list);
 			category = (String) session.getAttribute("listSession");
 			session.setAttribute("searchSession", search);
 			categorySearch = (String) session.getAttribute("searchSession");
 		} 
-		
-		System.out.println(list + search);
 
+		// select tag 및 input 유지
 		model.addAttribute("searchs", search);
 		pagination.setSearch(categorySearch);
 		model.addAttribute("lists", list);
 
+		// 정지 버튼 눌렀을 때 해당 pagination  page 유지
 		if (sustainFlag) {
 			pagination.setPageNum((int) model.getAttribute("pBan"));
 		}
@@ -78,8 +80,8 @@ public class AdminController implements Serializable {
 			model.addAttribute("users", selectUserByAddress);
 		}
 
-		System.out.println("전체를 눌렀을 때의 pageNum : " + pagination.getPageNum());
-
+		session.setAttribute("rowCount", pagination.getTotal());
+		
 		PageService pageService;
 
 		// 위 정보로 pagination 생성
@@ -116,6 +118,15 @@ public class AdminController implements Serializable {
 		sustainFlag = true;
 
 		return "redirect:/admin";
+	}
+	
+	@GetMapping("/admin/usercount")
+	public String adminUserCount(HttpSession session) {
+		// 누적 접속자 수를 view에 띄움
+		int userCountTotal = wyMarketService.selectUserCountTotal();
+		session.setAttribute("userCountTotal", userCountTotal);
+		
+		return "/admin/usercount";
 	}
 
 }

@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kgitbank.controller.LoginFormController;
@@ -271,6 +272,9 @@ public class RestControllerMain implements Serializable{
 	@PostMapping(value = "/updateNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String updateNick(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
+		// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+		wyMarketService.updateUserCountTotal();
+		
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
@@ -291,12 +295,14 @@ public class RestControllerMain implements Serializable{
 		return null;
 	}
 
+	// 관리자 또는 사용자 메인 페이지로 넘어가기 전에 세션에 정보 담음
 	@PostMapping(value = { "/ajaxToMain" }, consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String ajaxToMain(@RequestBody UserInfo userInfo, AdminInfo adminInfo, Model model, HttpSession session) {
 
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
-
+		
+		// 관리자가 로그인하려는 것이라면
 		if (wyMarketService.getAdminPhCount(dashPhoneNumber) == 1) {
 			adminInfo = new AdminInfo();
 			Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
@@ -306,10 +312,16 @@ public class RestControllerMain implements Serializable{
 			adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
 			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
 			session.setAttribute("Admin", adminInfo);
-		} else {
+		} 
+		// 사용자가 로그인하려는 것이라면
+		else {
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal();
+			// 동시 접속자 수 카운트 올리는 DB 쿼리
+			
 			userInfo.setPhoneNumber(dashPhoneNumber);
 			UserInfo info = wyMarketService.selectUserInfo(userInfo.getPhoneNumber());
-
+			
 			model.addAttribute("user", info.getUserNick());
 			session.setAttribute((String) model.getAttribute("user"), info);
 
@@ -329,4 +341,17 @@ public class RestControllerMain implements Serializable{
 		System.out.println(session.getAttribute("Admin"));
 		return null;
 	}
+	
+	@GetMapping(value = "/admin/unban/{userNick}", 
+			produces = "text/html; charset=UTF-8")
+	public String adminUserUnBan(@PathVariable("userNick") String userNick, Model model) {
+		int updateResult = wyMarketService.updateUserUnBan(userNick);
+		String selectBanResult = wyMarketService.selectUserBan(userNick);
+		
+		return selectBanResult;
+	}
+
 }
+
+
+

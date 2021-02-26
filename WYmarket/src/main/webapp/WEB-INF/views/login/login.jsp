@@ -351,11 +351,11 @@ function onlyNumber(){
 		}
 	}
 
-	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
+/* 	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
 		if(timeLimit != 0){
 			document.getElementById("smsReqCnt").value += 1;
 		}
-	}
+	} */
 	
 	
 			const confirm = document.getElementById('getConfirm');
