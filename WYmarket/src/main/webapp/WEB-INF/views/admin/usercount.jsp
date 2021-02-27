@@ -32,33 +32,35 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm">
-				<select class="form-select" aria-label="Default select example"
-					name="yearSelect" id='year' onchange="yearChange()">
-					<option selected>연도 선택</option>
-					<c:forEach var="i" begin="2018" end="${currentYear }">
-						<option value=${i }>${i }</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="col-sm">
-				<select class="form-select" aria-label="Default select example"
-					name="monthSelect" onchange="monthChange()" id='month'>
-					<option selected>월 선택</option>
-					<c:forEach var="i" begin="1" end="12">
-						<option value=${i }>${i }</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="col-sm">
-				<select class="form-select" aria-label="Default select example"
-					name="daySelect" id='day'>
-					<option selected>일 선택</option>
-					<c:forEach var="i" begin="1" end="${dayOfMonth}">
-						<option value="${i }">${i }</option>
-					</c:forEach>
-				</select>
-			</div>
+			<form action="/wymarket/admin/accessUserCount">
+				<div class="col-sm">
+					<select class="form-select" aria-label="Default select example"
+						name="yearSelect" id='year' onchange="yearChange()">
+						<option selected>연도 선택</option>
+						<c:forEach var="i" begin="2018" end="${currentYear }">
+							<option value=${i }>${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-sm">
+					<select class="form-select" aria-label="Default select example"
+						name="monthSelect" onchange="monthChange()" id='month'>
+						<option selected>월 선택</option>
+						<c:forEach var="i" begin="1" end="12">
+							<option value=${i }>${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-sm">
+					<select class="form-select" aria-label="Default select example"
+						name="daySelect" id='day'>
+						<option selected>일 선택</option>
+						<c:forEach var="i" begin="1" end="${dayOfMonth}">
+							<option value="${i }">${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+			</form>
 			<div class="col-sm">
 				<div class="card border-dark mb-3" style="max-width: 18rem;">
 					<div class="card-header">누적 접속자 수</div>
@@ -69,23 +71,26 @@
 			</div>
 		</div>
 	</div>
+	<div class="container">
+		<button id='userAccessCntBtn' class="btn btn-primary" type="button"
+			onclick="userAccessCount()">접속자 수 보기</button>
+	</div>
 
 	<script>
-
-	
 		const yearCon = document.getElementById('year');
 		const monthCon = document.getElementById('month');
 		const dayCon = document.getElementById('day');
 
 		yearCon.value = "${selectedYear}";
 		monthCon.value = "${selectedMonth}";
+		dayCon.value = "${selectedDay}";
 
-		if(window.performance.navigation.type == 1){
+		if (window.performance.navigation.type == 1) {
 			yearCon.value = '연도 선택';
 			monthCon.value = '월 선택';
 			dayCon.value = '일 선택';
 		}
-		
+
 		if (yearCon.value != '연도 선택') {
 			monthCon.disabled = false;
 		} else {
@@ -120,6 +125,15 @@
 			dayCon.value = '일 선택';
 
 		}
+
+		function userAccessCount() {
+			if(yearCon.value == '연도 선택'){
+				alert("연도를 반드시 선택해주세요");
+			} else{
+				document.getElementById('userAccessCntBtn').submit();
+			}
+		}
+		
 	</script>
 
 </body>

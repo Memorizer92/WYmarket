@@ -194,6 +194,11 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectAccessCount();
 	}
 
+	@Override
+	public int selectAccessCountByYear(String year) {
+		return wyMarketMapper.selectAccessCountByYear(year);
+	}
+
 
 
 

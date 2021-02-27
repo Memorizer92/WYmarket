@@ -129,4 +129,41 @@ public class AdminController implements Serializable {
 		return "/admin/usercount";
 	}
 
+	@GetMapping("/admin/accessUserCount")
+	public String accessUserCount(HttpServletRequest request, Model model) {
+		
+		String year = request.getParameter("yearSelect");
+		String month = request.getParameter("monthSelect");
+		String day = request.getParameter("daySelect");
+		
+		dateCalc = new DateCalc(year, month, day);
+		
+
+		
+		int accessCount = 0;
+		
+		if(month.equals("월 선택") && day.equals("일 선택")) {
+			accessCount = wyMarketService.selectAccessCountByYear(year);
+		} else if(!month.equals("월 선택") && day.equals("일 선택")) {
+//			accessCount = wyMarketService.
+		} else {
+			
+		}
+		model.addAttribute("accessCount", accessCount);
+		
+		model.addAttribute("selectedYear", year);
+		model.addAttribute("selectedMonth", month);
+		model.addAttribute("selectedday", day);
+		
+		
+		return "admin/usercount";
+	}
+	
 }
+
+
+
+
+
+
+

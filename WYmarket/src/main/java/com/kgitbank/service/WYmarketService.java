@@ -61,5 +61,13 @@ public interface WYmarketService {
 	Date selectUserAccessDate(String userNick);
 	// 전체 접속자 행 불러오기
 	int selectAccessCount();
+	
+	// 연도로만 접속자 수 검색
+	int selectAccessCountByYear(String year);
 }
+
+
+
+
+
 

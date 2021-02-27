@@ -119,6 +119,12 @@
 		sh_userAccessDate
 	</select>
 
+	<select id="selectAccessCountByYear" resultType="Integer">
+		select count(*)
+		from
+		sh_userAccessDate WHERE accessDate LIKE #{year} || '%'
+	</select>
+
 	<select id="selectUserCountTotal" resultType="Integer">
 		select total from
 		sh_userCountTotal
