@@ -165,13 +165,33 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 	@Override
-	public int updateUserCountTotal() {
-		return wyMarketMapper.updateUserCountTotal();
+	public int updateUserCountTotal(int userAccessCount) {
+		return wyMarketMapper.updateUserCountTotal(userAccessCount);
 	}
 
 	@Override
 	public int selectUserCountTotal() {
 		return wyMarketMapper.selectUserCountTotal();
+	}
+
+	@Override
+	public int insertUserAccessDate(String userNick) {
+		return wyMarketMapper.insertUserAccessDate(userNick);
+	}
+
+	@Override
+	public int selectUserAccessCount(String userNick) {
+		return wyMarketMapper.selectUserAccessCount(userNick);
+	}
+
+	@Override
+	public Date selectUserAccessDate(String userNick) {
+		return wyMarketMapper.selectUserAccessDate(userNick);
+	}
+
+	@Override
+	public int selectAccessCount() {
+		return wyMarketMapper.selectAccessCount();
 	}
 
 

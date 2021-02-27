@@ -37,7 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 @SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "user", "findph" })
-public class RestControllerMain implements Serializable{
+public class RestControllerMain implements Serializable {
 
 	@Autowired
 	private WYmarketService wyMarketService;
@@ -272,9 +272,24 @@ public class RestControllerMain implements Serializable{
 	@PostMapping(value = "/updateNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String updateNick(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
-		// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
-		wyMarketService.updateUserCountTotal();
-		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+		if(wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
+			if (format.format(now) != format.format(userAccessDate)) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+
+		//
+
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
@@ -301,7 +316,7 @@ public class RestControllerMain implements Serializable{
 
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
-		
+
 		// 관리자가 로그인하려는 것이라면
 		if (wyMarketService.getAdminPhCount(dashPhoneNumber) == 1) {
 			adminInfo = new AdminInfo();
@@ -312,16 +327,30 @@ public class RestControllerMain implements Serializable{
 			adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
 			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
 			session.setAttribute("Admin", adminInfo);
-		} 
+		}
 		// 사용자가 로그인하려는 것이라면
 		else {
-			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
-			wyMarketService.updateUserCountTotal();
-			// 동시 접속자 수 카운트 올리는 DB 쿼리
-			
 			userInfo.setPhoneNumber(dashPhoneNumber);
 			UserInfo info = wyMarketService.selectUserInfo(userInfo.getPhoneNumber());
 			
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+			Date now = new Date();
+			Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
+			System.out.println("현재 날짜 " + format.format(now));
+			System.out.println("DB 날짜 " + format.format(userAccessDate));
+			if(wyMarketService.selectUserAccessCount(info.getUserNick()) == 1) {
+				if (!format.format(now).equals(format.format(userAccessDate))) {
+					wyMarketService.insertUserAccessDate(info.getUserNick());
+					// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+					wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+				}
+			} else {
+				wyMarketService.insertUserAccessDate(info.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+
 			model.addAttribute("user", info.getUserNick());
 			session.setAttribute((String) model.getAttribute("user"), info);
 
@@ -341,7 +370,7 @@ public class RestControllerMain implements Serializable{
 		System.out.println(session.getAttribute("Admin"));
 		return null;
 	}
-	
+
 	@GetMapping("/admin/ban/{userNick}")
 	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
 		int updateBan = wyMarketService.updateUserBan(userNick);
@@ -349,17 +378,13 @@ public class RestControllerMain implements Serializable{
 
 		return selectBanResult;
 	}
-	
-	@GetMapping(value = "/admin/unban/{userNick}", 
-			produces = "text/html; charset=UTF-8")
+
+	@GetMapping(value = "/admin/unban/{userNick}", produces = "text/html; charset=UTF-8")
 	public String adminUserUnBan(@PathVariable("userNick") String userNick, Model model) {
 		int updateResult = wyMarketService.updateUserUnBan(userNick);
 		String selectBanResult = wyMarketService.selectUserBan(userNick);
-		
+
 		return selectBanResult;
 	}
 
 }
-
-
-

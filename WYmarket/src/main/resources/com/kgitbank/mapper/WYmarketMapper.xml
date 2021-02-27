@@ -91,9 +91,33 @@
 		]]>
 	</select>
 
+	<insert id="insertUserAccessDate">
+		INSERT INTO sh_userAccessDate
+		VALUES
+		(userAccessDate_seq.nextval, #{userNick}, sysdate)
+	</insert>
+
+	<select id="selectUserAccessCount" resultType="Integer">
+		select count(*)
+		from
+		sh_userAccessDate WHERE userNick = #{userNick}
+	</select>
+
+	<select id="selectUserAccessDate" resultType="Date">
+		select accessDate
+		from
+		sh_userAccessDate WHERE userNick = #{userNick}
+	</select>
+
 	<update id="updateUserCountTotal">
-		UPDATE sh_userCountTotal SET total = total + 1
+		UPDATE sh_userCountTotal SET total =
+		#{userAccessCount}
 	</update>
+
+	<select id="selectAccessCount" resultType="Integer">
+		select count(*) from
+		sh_userAccessDate
+	</select>
 
 	<select id="selectUserCountTotal" resultType="Integer">
 		select total from

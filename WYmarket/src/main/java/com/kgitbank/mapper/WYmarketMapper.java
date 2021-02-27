@@ -52,7 +52,16 @@ public interface WYmarketMapper {
 	int updateUserUnBan(String userNick);
 	String selectUserBan(String userNick);
 	
-	int updateUserCountTotal();
+	int updateUserCountTotal(int userAccessCount);
 	int selectUserCountTotal();
+	
+	// 일자별 접속자 insert
+	int insertUserAccessDate(String userNick);
+	// 닉에 따른 일자별 접속자 행 불러오기
+	int selectUserAccessCount(String userNick);
+	// 닉에 따른 접속 일자 불러오기
+	Date selectUserAccessDate(String userNick);
+	// 전체 접속자 행 불러오기
+	int selectAccessCount();
 
 }
