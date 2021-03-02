@@ -28,11 +28,7 @@
    <context:component-scan base-package="com.kgitbank.controller" />
    
    <!-- Websocket -->
-   <websocket:handlers>
-      <websocket:mapping handler="echoHandler" path="/echo"/>
-      <websocket:sockjs/>
-   </websocket:handlers>
-   <beans:bean id="echoHandler" class="com.kgitbank.util.EchoHandler"/>
+  
    
     <websocket:handlers>
       <websocket:mapping handler="chatHandler" path="/echo3"/>
@@ -46,10 +42,17 @@
    </websocket:handlers>
    <beans:bean id="SocketHandler" class="com.kgitbank.util.SocketHandler"/>
    
-   <!-- 업로드 패스 설정  -->
+        <websocket:handlers>
+      <websocket:mapping handler="WebSocketHandler" path="/socket"/>
+      <websocket:sockjs/>
+   </websocket:handlers> 
+     <beans:bean id="WebSocketHandler" class="com.kgitbank.util.WebSocketHandler"/>
+   
+     <!-- 업로드 패스 설정  -->
    <beans:bean class="java.lang.String" id="uploadPath">
     <beans:constructor-arg value="C:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WYmarket\resources" />
    </beans:bean>
+   
    
    
    

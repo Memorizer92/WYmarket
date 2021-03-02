@@ -46,13 +46,13 @@
 	</div>
 	<div>
 		내용
-		<textarea name="ncontent" id="ncontent" rows="4" cols="80" placeholder="내용을 입력해주세요" ></textarea>
+		<textarea name="ncontent" id="ncontent" rows="20" cols="80" placeholder="내용을 입력해주세요" ></textarea>
 	</div>
 	<div>
 		이름
 		<input name="adminNick" id="adminNick" placeholder="이름을 입력해주세요" />
 	</div>
-	<div style="width:650px; text-align: center;">
+	<div style="width:650px;  text-align: center;">
 	<button type="button" id="btnSave">확인</button>
 	<button type="reset" >취소</button>
 	</div>
