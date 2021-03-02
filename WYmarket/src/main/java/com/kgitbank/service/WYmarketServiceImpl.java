@@ -135,8 +135,8 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 	@Override
-	public AdminInfo getAdminInfo2(String phoneNumber) {
-		return wyMarketMapper.getAdminInfo2(phoneNumber);
+	public AdminInfo getAdminInfo2() {
+		return wyMarketMapper.getAdminInfo2();
 	}
 
 	@Override
@@ -195,8 +195,8 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 	@Override
-	public int selectAccessCountByYear(String year) {
-		return wyMarketMapper.selectAccessCountByYear(year);
+	public int selectAccessCountByDate(String totalDate) {
+		return wyMarketMapper.selectAccessCountByDate(totalDate);
 	}
 
 

@@ -19,8 +19,7 @@
 		resultType="com.kgitbank.model.AdminInfo">
 		select * from
 		sh_adminInfo
-		where phoneNumber=#{phoneNumber,
-		jdbcType=VARCHAR}
+		where adminGrade='정'
 	</select>
 
 	<update id="updateAdminMemo">
@@ -119,10 +118,10 @@
 		sh_userAccessDate
 	</select>
 
-	<select id="selectAccessCountByYear" resultType="Integer">
+	<select id="selectAccessCountByDate" resultType="Integer">
 		select count(*)
 		from
-		sh_userAccessDate WHERE accessDate LIKE #{year} || '%'
+		sh_userAccessDate WHERE accessDate LIKE #{totalDate} || '%'
 	</select>
 
 	<select id="selectUserCountTotal" resultType="Integer">

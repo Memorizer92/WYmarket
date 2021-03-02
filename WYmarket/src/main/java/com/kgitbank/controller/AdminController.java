@@ -57,7 +57,6 @@ public class AdminController implements Serializable {
 		pagination.setSearch(categorySearch);
 		model.addAttribute("lists", list);
 
-
 		// 카테고리를 뭘 눌렀냐에 따라 검색
 		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
 		if (category == null) {
@@ -105,7 +104,6 @@ public class AdminController implements Serializable {
 		return "redirect:/admin";
 	}
 
-
 	@GetMapping("/admin/usercount")
 	public String adminUserCount(HttpSession session, HttpServletRequest req) {
 		// 누적 접속자 수를 view에 띄움
@@ -131,39 +129,26 @@ public class AdminController implements Serializable {
 
 	@GetMapping("/admin/accessUserCount")
 	public String accessUserCount(HttpServletRequest request, Model model) {
-		
+
 		String year = request.getParameter("yearSelect");
 		String month = request.getParameter("monthSelect");
 		String day = request.getParameter("daySelect");
+
+		System.out.println(year + "/" + month + "/" + day);
 		
 		dateCalc = new DateCalc(year, month, day);
-		
 
-		
 		int accessCount = 0;
-		
-		if(month.equals("월 선택") && day.equals("일 선택")) {
-			accessCount = wyMarketService.selectAccessCountByYear(year);
-		} else if(!month.equals("월 선택") && day.equals("일 선택")) {
-//			accessCount = wyMarketService.
-		} else {
-			
-		}
+
+		accessCount = wyMarketService.selectAccessCountByDate(dateCalc.getTotalDate());
+
 		model.addAttribute("accessCount", accessCount);
-		
+
 		model.addAttribute("selectedYear", year);
 		model.addAttribute("selectedMonth", month);
-		model.addAttribute("selectedday", day);
-		
-		
+		model.addAttribute("selectedDay", day);
+
 		return "admin/usercount";
 	}
-	
+
 }
-
-
-
-
-
-
-

@@ -32,10 +32,10 @@
 					</div>
 				</div>
 			</div>
-			<form action="/wymarket/admin/accessUserCount">
+			<form action="/wymarket/admin/accessUserCount" id='accessForm'>
 				<div class="col-sm">
 					<select class="form-select" aria-label="Default select example"
-						name="yearSelect" id='year' onchange="yearChange()">
+						name="yearSelect" id='year' onchange="yearChange()" form='accessForm'>
 						<option selected>연도 선택</option>
 						<c:forEach var="i" begin="2018" end="${currentYear }">
 							<option value=${i }>${i }</option>
@@ -72,6 +72,7 @@
 		</div>
 	</div>
 	<div class="container">
+	<p>${accessCount }</p>
 		<button id='userAccessCntBtn' class="btn btn-primary" type="button"
 			onclick="userAccessCount()">접속자 수 보기</button>
 	</div>
@@ -80,16 +81,32 @@
 		const yearCon = document.getElementById('year');
 		const monthCon = document.getElementById('month');
 		const dayCon = document.getElementById('day');
-
-		yearCon.value = "${selectedYear}";
-		monthCon.value = "${selectedMonth}";
-		dayCon.value = "${selectedDay}";
-
-		if (window.performance.navigation.type == 1) {
+			
+		if("${selectedYear}" == ""){
 			yearCon.value = '연도 선택';
 			monthCon.value = '월 선택';
 			dayCon.value = '일 선택';
+		} else{
+			yearCon.value = "${selectedYear}";
+			monthCon.value = "${selectedMonth}";
+			if("${selectedDay}" == ""){
+				dayCon.value = '일 선택';
+			} else{
+				dayCon.value = "${selectedDay}";
+			}
+
 		}
+
+		if(monthCon.value == '월 선택'){
+			dayCon.disabled = true;
+			dayCon.value = '일 선택';
+		}
+		
+ 		if (window.performance.navigation.type == 1) {
+			yearCon.value = '연도 선택';
+			monthCon.value = '월 선택';
+			dayCon.value = '일 선택';
+		} 
 
 		if (yearCon.value != '연도 선택') {
 			monthCon.disabled = false;
@@ -97,19 +114,18 @@
 			monthCon.disabled = true;
 			dayCon.disabled = true;
 		}
-		if (monthCon.value != '월 선택') {
 
-		}
 
 		function yearChange() {
 			if (yearCon.value != '연도 선택') {
 				monthCon.disabled = false;
 			} else {
 				monthCon.disabled = true;
-				dayCon.disabled = true;
+				
 			}
 			monthCon.value = '월 선택';
 			dayCon.value = '일 선택';
+			dayCon.disabled = true;
 		}
 		function monthChange() {
 			if (monthCon.value != '월 선택') {
@@ -130,7 +146,7 @@
 			if(yearCon.value == '연도 선택'){
 				alert("연도를 반드시 선택해주세요");
 			} else{
-				document.getElementById('userAccessCntBtn').submit();
+				document.getElementById(yearCon.getAttribute('form')).submit();
 			}
 		}
 		

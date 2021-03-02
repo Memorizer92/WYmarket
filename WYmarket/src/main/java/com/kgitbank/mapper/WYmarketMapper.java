@@ -32,7 +32,7 @@ public interface WYmarketMapper {
 	
 	int getAdminPhCount(String phoneNumber);
 	Map<String, Object> getAdminInfo(String phoneNumber);
-	AdminInfo getAdminInfo2(String phoneNumber);
+	AdminInfo getAdminInfo2();
 	int updateAdminMemo(AdminInfo adminInfo);
 	String selectAdminMemo(AdminInfo adminInfo);
 	
@@ -64,7 +64,7 @@ public interface WYmarketMapper {
 	// 전체 접속자 행 불러오기
 	int selectAccessCount();
 	
-	// 연도로만 접속자 수 검색
-	int selectAccessCountByYear(String year);
+	//  접속자 수 검색
+	int selectAccessCountByDate(String totalDate);
 
 }

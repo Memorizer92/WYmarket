@@ -272,24 +272,6 @@ public class RestControllerMain implements Serializable {
 	@PostMapping(value = "/updateNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String updateNick(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
-		Date now = new Date();
-		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
-		if(wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
-			if (format.format(now) != format.format(userAccessDate)) {
-				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
-				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
-				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
-			}
-		} else {
-			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
-			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
-			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
-		}
-
-		//
-
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
@@ -307,6 +289,22 @@ public class RestControllerMain implements Serializable {
 		int result = wyMarketService.insertUserPhNk(userInfo);
 		System.out.println(result);
 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+		if(wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
+			if (format.format(now) != format.format(userAccessDate)) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+		
 		return null;
 	}
 
@@ -364,7 +362,7 @@ public class RestControllerMain implements Serializable {
 	public String saveMemo(@RequestBody AdminInfo adminInfo, Model model, HttpSession session) {
 		int updateRow = wyMarketService.updateAdminMemo(adminInfo);
 		adminInfo = (AdminInfo) session.getAttribute("Admin");
-		adminInfo = (AdminInfo) wyMarketService.getAdminInfo2(adminInfo.getPhoneNumber());
+		adminInfo = (AdminInfo) wyMarketService.getAdminInfo2();
 
 		session.setAttribute("Admin", adminInfo);
 		System.out.println(session.getAttribute("Admin"));

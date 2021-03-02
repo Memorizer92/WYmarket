@@ -310,9 +310,10 @@ th {
 						<c:if test="${Admin.adminGrade eq '부'}">readonly</c:if>
 						contenteditable=></span>
 				</p>
-
+			<c:if test="${Admin.adminGrade eq '정'}">
 				<button type="button" class="btn btn-primary" id='memoBtn'
-					onclick="ajaxSaveMemo()">메모</button>
+					onclick="ajaxSaveMemo()">메모하기</button>
+					</c:if>
 			</div>
 			<div class="container">
 				<button type="button" class="btn btn-primary"

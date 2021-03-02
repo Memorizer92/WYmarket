@@ -14,9 +14,7 @@ public class DateCalc {
 	private int day;
 	private Calendar cal;
 	
-	private String selectedYear;
-	private String selectedMonth;
-	private String selectedDay;
+	private String totalDate;
 	
 	public DateCalc() {
 		cal = Calendar.getInstance();
@@ -34,15 +32,24 @@ public class DateCalc {
 	public DateCalc(String year, String month, String day) {
 		year = year.substring(2, year.length());
 		
-		if(month.equals("월 선택") && day.equals("일 선택")) {
-			selectedYear = year;
-		} else if(!month.equals("월 선택") && day.equals("일 선택")) {
-			
+		if((month == null || month.equals("월 선택")) && (day == null || day.equals("일 선택"))) {
+			totalDate = year;
+		} else if((month != null || !month.equals("월 선택")) && ( day == null || day.equals("일 선택"))) {
+			if(Integer.parseInt(month) < 10) {
+				month = "0" + month;
+			}
+			totalDate = year + "/" + month;
 		} else {
-			
+			if(Integer.parseInt(month) < 10) {
+				month = "0" + month;
+			}
+			if(Integer.parseInt(day) < 10) {
+				day = "0" + day;
+			}
+			totalDate = year + "/" + month + "/" + day;
 		}
 		
-//		String date = year + "/" +
+		
 	}
 	
 	public int getYear() {
@@ -54,4 +61,8 @@ public class DateCalc {
 		return day;
 	}
 
+	public String getTotalDate() {
+		return totalDate;
+	}
+	
 }
