@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
+import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BreakdownService;
 
 import lombok.Setter;
@@ -29,7 +30,7 @@ import oracle.net.aso.m;
 @Controller
 @RequestMapping("/param/")
 @Log4j
-@SessionAttributes("usernick")
+@SessionAttributes("user")
 public class BreakdownController {
 
 	@Setter(onMethod_ = {@Autowired})
@@ -44,9 +45,10 @@ public class BreakdownController {
 
 	@GetMapping("/sale") // 판매중 화면
 	public String sale(Model model, HttpSession session) {
-		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-		model.addAttribute("usernick", userNick);		
-		model.addAttribute("itemvo", bservice.getShitemVO(userNick));	
+		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		
+		model.addAttribute("user", user.getUserNick());		
+		model.addAttribute("itemvo", bservice.getShitemVO(user.getUserNick()));	
 		model.addAttribute("userinfo", bservice.getShuserInfo());	
 		return "/breakdown/sale/salePage";
 	} 
@@ -54,8 +56,8 @@ public class BreakdownController {
 		// 거래 완료 화면
 	  @GetMapping("/salecomplete") 
 	  public String gSalecomplete(Model model, HttpSession session) { 
-	  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
-	  model.addAttribute("usernick", userNick);	  
+	  String userNick = (String) session.getAttribute((String) model.getAttribute("user"));
+	  model.addAttribute("user", userNick);	  
 	  model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));
 	  return "/breakdown/sale/saleCompletedPage";
 	  }

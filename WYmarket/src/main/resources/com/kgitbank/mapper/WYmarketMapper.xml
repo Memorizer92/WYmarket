@@ -124,6 +124,19 @@
 		sh_userAccessDate WHERE accessDate LIKE #{totalDate} || '%'
 	</select>
 
+	<select id="selectUserByAccessDate"
+		resultType="com.kgitbank.model.UserInfo">
+		<![CDATA[ 
+			 SELECT * FROM 
+	 		(SELECT rownum rn, userID, phoneNumber, 
+			kakaoMail, a.userNick, latitude, longitude, address, manner, userCreateDate, 
+			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo a, sh_userAccessDate b 
+			WHERE rownum <= #{pageNum } * #{amount } and a.userNick = b.usernick and b.accessDate LIKE #{search} || '%') 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 	
+			ORDER BY userId
+		]]>
+	</select>
+
 	<select id="selectUserCountTotal" resultType="Integer">
 		select total from
 		sh_userCountTotal
@@ -237,9 +250,30 @@
 		select userNick from
 		sh_userInfo where kakaomail=#{kakaomail}
 	</select>
+	
+	<select id="selectSignupCountByDate" resultType="Integer">
+		select count(*)
+		from
+		sh_userInfo WHERE userCreateDate LIKE #{totalDate} || '%'
+	</select>
 
+	<select id="selectUserInfoByMail" resultType="com.kgitbank.model.UserInfo">
+		select * from
+		sh_userInfo where kakaomail=#{kakaomail}
+	</select>
 
-
+	<select id="selectUserBySignupDate"
+		resultType="com.kgitbank.model.UserInfo">
+		<![CDATA[ 
+			 SELECT * FROM 
+	 		(SELECT rownum rn, userID, phoneNumber, 
+			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
+			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
+			WHERE rownum <= #{pageNum } * #{amount } and userCreateDate LIKE #{search} || '%') 
+			WHERE rn > (#{pageNum } - 1) * #{amount } 	
+			ORDER BY userId
+		]]>
+	</select>
 
 </mapper>
 

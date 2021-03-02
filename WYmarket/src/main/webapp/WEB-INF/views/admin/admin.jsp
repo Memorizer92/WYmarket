@@ -268,17 +268,6 @@ th {
 						aria-describedby="basic-addon1" name="search" value="${searchs }">
 					<input type="submit" class="form-control" aria-label="Username"
 						aria-describedby="basic-addon1" value="검색">
-					<%-- 					<select name="list">
-						<option value="userId"
-							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
-						<option value="userNick"
-							<c:if test="${lists eq 'userNick'}">selected</c:if>>닉네임</option>
-						<option value="address"
-							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
-						<input type="text" name="search" value="${searchs }"/>
-						<input name="text" value="${fn:escapeXml(user.userId)}">
-
-					</select> <input type="submit" value="검색"/> --%>
 				</form>
 				<button class="btn btn-primary" onclick="searchAll()">전체
 					리스트 보기</button>
@@ -307,13 +296,12 @@ th {
 				<p>${Admin.adminNick }</p>
 				<p>
 					<span id='memo' class="textarea" role="textbox"
-						<c:if test="${Admin.adminGrade eq '부'}">readonly</c:if>
-						contenteditable=></span>
+						contenteditable=<c:if test="${Admin.adminGrade eq '부'}">"false"</c:if>></span>
 				</p>
-			<c:if test="${Admin.adminGrade eq '정'}">
-				<button type="button" class="btn btn-primary" id='memoBtn'
-					onclick="ajaxSaveMemo()">메모하기</button>
-					</c:if>
+				<c:if test="${Admin.adminGrade eq '정'}">
+					<button type="button" class="btn btn-primary" id='memoBtn'
+						onclick="ajaxSaveMemo()">메모하기</button>
+				</c:if>
 			</div>
 			<div class="container">
 				<button type="button" class="btn btn-primary"

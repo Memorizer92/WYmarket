@@ -199,6 +199,26 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectAccessCountByDate(totalDate);
 	}
 
+	@Override
+	public List<UserInfo> selectUserByAccessDate(Pagination page) {
+		return wyMarketMapper.selectUserByAccessDate(page);
+	}
+
+	@Override
+	public UserInfo selectUserInfoByMail(String mail) {
+		return wyMarketMapper.selectUserInfoByMail(mail);
+	}
+
+	@Override
+	public int selectSignupCountByDate(String totalDate) {
+		return wyMarketMapper.selectSignupCountByDate(totalDate);
+	}
+
+	@Override
+	public List<UserInfo> selectUserBySignupDate(Pagination page) {
+		return wyMarketMapper.selectUserBySignupDate(page);
+	}
+
 
 
 

@@ -319,11 +319,13 @@ public class RestControllerMain implements Serializable {
 		if (wyMarketService.getAdminPhCount(dashPhoneNumber) == 1) {
 			adminInfo = new AdminInfo();
 			Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+			AdminInfo topAdminInfo = wyMarketService.getAdminInfo2();
+			adminInfo.setAdminMemo(topAdminInfo.getAdminMemo());
 			adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
 			adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
 			adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
 			adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
-			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+//			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
 			session.setAttribute("Admin", adminInfo);
 		}
 		// 사용자가 로그인하려는 것이라면

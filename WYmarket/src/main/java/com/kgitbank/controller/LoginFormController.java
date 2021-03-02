@@ -2,6 +2,9 @@ package com.kgitbank.controller;
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,6 +246,25 @@ public class LoginFormController {
 		System.out.println("이름 : " + kakaoprofile.getKakao_account().getProfile().getNickname());
 		System.out.println("카카오 이메일: " + mail);
 
+		UserInfo userInfo = (UserInfo) wyMarketService.selectUserInfoByMail(mail);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+		if(wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
+			if (!format.format(now).equals(format.format(userAccessDate))) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+		
 		// 가입유무 : 1이면 바로 메인페이지로 리턴
 		if (result == 1) {
 			return "redirect:/main";
@@ -272,6 +294,23 @@ public class LoginFormController {
 		int rs = service.insertUser(userInfo);
 		System.out.println("자동가입 확인 유무: " + rs);
 
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+		if(wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
+			if (!format.format(now).equals(format.format(userAccessDate))) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+		
 		return "redirect:/main";
 	}
 

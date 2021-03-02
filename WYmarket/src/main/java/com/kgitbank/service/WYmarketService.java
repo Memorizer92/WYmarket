@@ -64,6 +64,16 @@ public interface WYmarketService {
 	
 	//  접속자 수 검색
 	int selectAccessCountByDate(String totalDate);
+	
+	// 접속자 정보 검색
+	List<UserInfo> selectUserByAccessDate(Pagination page);
+	
+	// 메일에 따른 사용자 정보 검색
+	UserInfo selectUserInfoByMail(String mail);
+	// 가입자 수 검색
+	int selectSignupCountByDate(String totalDate);
+	
+	List<UserInfo> selectUserBySignupDate(Pagination page);
 }
 
 
