@@ -37,17 +37,12 @@
    <beans:bean id="chatHandler" class="com.kgitbank.util.ChatHandler"/>
    
    <websocket:handlers>
-      <websocket:mapping handler="SocketHandler" path="/chat"/>
+      <websocket:mapping handler="SocketHandler" path="/chat/{roomNumber}"/>
       <websocket:sockjs/>
    </websocket:handlers>
    <beans:bean id="SocketHandler" class="com.kgitbank.util.SocketHandler"/>
    
-        <websocket:handlers>
-      <websocket:mapping handler="WebSocketHandler" path="/socket"/>
-      <websocket:sockjs/>
-   </websocket:handlers> 
-     <beans:bean id="WebSocketHandler" class="com.kgitbank.util.WebSocketHandler"/>
-   
+ 
      <!-- 업로드 패스 설정  -->
    <beans:bean class="java.lang.String" id="uploadPath">
     <beans:constructor-arg value="C:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WYmarket\resources" />

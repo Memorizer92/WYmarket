@@ -51,7 +51,8 @@
 	var ws;
 
 	function wsOpen(){
-		ws = new WebSocket("ws://localhost:8080/wymarket/chat/websocket");
+		//웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
+		ws = new WebSocket("ws://localhost:8080/wymarket/chat/"+$("#roomNumber").val()+"/websocket");
 		wsEvt();
 	}
 		
@@ -63,6 +64,7 @@
 		ws.onmessage = function(data) {
 			//메시지를 받으면 동작
 			var msg = data.data;
+			console.log("메시지를 받으면 동작 : "+msg);
 			if(msg != null && msg.trim() != ''){
 				var d = JSON.parse(msg);
 				if(d.type == "getId"){
@@ -80,6 +82,7 @@
 				}else{
 					console.warn("unknown type!")
 				}
+				
 			}
 		}
 
@@ -107,16 +110,19 @@
 			type: "message",
 			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
-			msg : $("#chatting").val()
+			msg : $("#chatting").val(),
+			roomNumber : $("#roomNumber").val()
 		}
 		ws.send(JSON.stringify(option))
+		console.log("send() : "+JSON.stringify(option));
 		$('#chatting').val("");
 	}
 </script>
 <body>
 	<div id="container" class="container">
-		<h1>채팅방</h1>
+		<h1>${roomName}의 채팅방</h1>
 		<input type="hidden" id="sessionId" value="">
+		<input type="hidden" id="roomNumber" value="${roomNumber}">
 		
 		<div id="chating" class="chating">
 		</div>
@@ -124,9 +130,9 @@
 		<div id="yourName">
 			<table class="inputTable">
 				<tr>
-					<th>닉네임</th>
+					<th>사용자명</th>
 					<th><input type="text" name="userName" id="userName"></th>
-					<th><button onclick="chatName()" id="startBtn">닉네임 설정</button></th>
+					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
 				</tr>
 			</table>
 		</div>

@@ -1,98 +1,190 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>채팅 서비스</title>
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-
-</head>
-<body>
-<input type="text" id="nickname" placeholder="닉네임을 입력해주세요" />
-<button id="name">확인</button>
-
-<div><b>방 이름: </b>${room.name }</div>
-<div><b>방 번호: </b>${room.roomId }</div>
-
-
-<input type="text" id="nickname" class="form-inline" placeholder="닉네임을 입력해주세요" required autofocus>
-<button class = "btn btn-primary" id = "name">확인</button>
-<label for="roomId" class="label label-default">방 번호</label>
-<label th:text="*{room.roomId}" id="roomId" class="form-inline"></label>
-<br>
-<label for="roomName" class="label label-default">방 이름</label>
-<label th:text="*{room.name}" id="roomName" class="form-inline"></label>
-<div id = "chatroom" style = "width:400px; height: 600px; border:1px solid; background-color : gray"></div>
-<input type = "text" id = "message" style = "height : 30px; width : 340px" placeholder="내용을 입력하세요" autofocus>
-<button class = "btn btn-primary" id = "send">전송</button>
-
-
- <input type="button" id="exit" value="퇴장" /><br />
-
-<script>
-
-</script>
-</body>
-<script th:inline = "javascript">
-    var webSocket;
-    var nickname;
-     
-    var roomId = "${room.roomId}";
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript"
+   src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+   <link rel="shortcut icon" href="#">
  
-    
-    document.getElementById("name").addEventListener("click",function(){
-        nickname = document.getElementById("nickname").value;
-        document.getElementById("nickname").style.display = "none";
-        document.getElementById("name").style.display = "none";
-        connect();
-    })
-    document.getElementById("send").addEventListener("click",function(){
-        send();
-    })
-    document.getElementById("exit").addEventListener("click", function() {
+<meta charset="UTF-8">
+	<title>Room</title>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		.container{
+			width: 500px;
+			margin: 0 auto;
+			padding: 25px
+		}
+		.container h1{
+			text-align: left;
+			padding: 5px 5px 5px 15px;
+			color: #FFBB00;
+			border-left: 3px solid #FFBB00;
+			margin-bottom: 20px;
+		}
+		.roomContainer{
+			background-color: #F6F6F6;
+			width: 500px;
+			height: 500px;
+			overflow: auto;
+		}
+		.roomList{
+			border: none;
+		}
+		.roomList th{
+			border: 1px solid #FFBB00;
+			background-color: #fff;
+			color: #FFBB00;
+		}
+		.roomList td{
+			border: 1px solid #FFBB00;
+			background-color: #fff;
+			text-align: left;
+			color: #FFBB00;
+		}
+		.roomList .num{
+			width: 75px;
+			text-align: center;
+		}
+		.roomList .room{
+			width: 350px;
+		}
+		.roomList .go{
+			width: 71px;
+			text-align: center;
+		}
+		button{
+			background-color: #FFBB00;
+			font-size: 14px;
+			color: #000;
+			border: 1px solid #000;
+			border-radius: 5px;
+			padding: 3px;
+			margin: 3px;
+		}
+		.inputTable th{
+			padding: 5px;
+		}
+		.inputTable input{
+			width: 330px;
+			height: 25px;
+		}
+	</style>
+</head>
+
+<script type="text/javascript">
+	var ws;
+	window.onload = function(){
+		createRoom();
+		getRoom();
 		 
-		disconnect();
-	});
-    function connect(){
-        webSocket = new WebSocket("ws://localhost:8080/wymarket/socket/websocket");
-        webSocket.onopen = onOpen; 
-        webSocket.onmessage = onMessage;
-        webSocket.onclose = onClose;
-    }
-    function disconnect(){
-    	//{"chatRoomId":"45513046-41fc-4b38-a707-ab163048e3e1","type":"ENTER","writer":"ㅇㅇ"}
+	}
 
-	    webSocket.send(JSON.stringify({chatRoomId : roomId,type:'LEAVE',writer:nickname})); 
-        webSocket.close();
-    }
-    function send(){
-     
-        msg = document.getElementById("message").value;
-        webSocket.send(JSON.stringify({chatRoomId : roomId,type:'CHAT',writer:nickname,message : msg}));
-        document.getElementById("message").value = "";
-    }
-    function onOpen(){ 
-        webSocket.send(JSON.stringify({chatRoomId : roomId,type:'ENTER',writer:nickname}));
-    }
-    function onMessage(e){
-        data = e.data;
-        chatroom = document.getElementById("chatroom");
-        chatroom.innerHTML = chatroom.innerHTML + "<br>" + data;
-    }
-    function onClose(){
-         
-    }
+	function getRoom(){
+		$.ajax({
+			url: "/wymarket/getRoom",
+			data: "",
+			type: "POST",
+			dataType:"json",
+			success: function (data) {
+				createChatingRoom(data);
+			},
+			error : function(err){
+				console.log('error');
+				 
+			}
+		});
+		 
+	}
+	
+	function createRoom(){
+	 
+		$('#createRoom').click(function(){
+			var msg = {	roomName : $('#roomName').val()	}; 
+	 
+			$.ajax({
+				data: msg,
+				url: "/wymarket/createRoom", 
+				type: "POST",
+				dataType:"json",
+				success: function (res) { 
+					createChatingRoom(res);
+				},
+				error : function(err){
+					console.log('error');
+					 
+				}
+			});
+		});
 
+			 
+			 
+		
+	}
+
+	function goRoom(number, name){
+		location.href="/wymarket/moveChating?roomName="+name+"&"+"roomNumber="+number;
+	}
+
+	function createChatingRoom(res){
+	   
+		if(res != null){
+			var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'> </th></tr>";
+			Array.from(res).forEach(function(element, idx){ 
+				var rName = element.roomName;
+				var rNumber = element.roomNumber;
+				console.log("방 이름: "+rName);
+				tag += "<tr>"+
+							"<td class='num'>"+(idx+1)+"</td>"+
+							"<td class='room'>"+ rName +"</td>"+
+							"<td class='go'><button type='button' onclick='goRoom(\""+rNumber+"\", \""+rName+"\")'>참여</button></td>" +
+						"</tr>";	
+			});
+		 
+			
+			$("#roomList").empty().append(tag);
+		}
+	
+	}
+
+	function commonAjax(url, parameter, type, calbak, contentType){
+		$.ajax({
+			url: url,
+			data: parameter,
+			type: type,
+			contentType : contentType!=null?contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success: function (res) {
+				calbak(res);
+				console.log("calbak"+res);
+				console.log("calbak"+JSON.stringify(res));
+			},
+			error : function(err){
+				console.log('error');
+				calbak(err);
+			}
+		});
+	}
 </script>
+<body>
+	<div class="container">
+		<h1>채팅방</h1>
+		<div id="roomContainer" class="roomContainer">
+			<table id="roomList" class="roomList"></table>
+		</div>
+		<div>
+			<table class="inputTable">
+				<tr>
+					<th>방 제목</th>
+					<th><input type="text" name="roomName" id="roomName"></th>
+					<th><button id="createRoom">방 만들기</button></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
 </html>
