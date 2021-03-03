@@ -9,7 +9,7 @@ public interface GoodsServiceImpl {
 	
 	public List<GoodsVO> getGoodsList(); 
 	
-	public int createGoods(GoodsVO goods);
+	public int createGoods(GoodsVO goods, String usernick);
 	
 	public GoodsVO getGoods(int itemid);
 

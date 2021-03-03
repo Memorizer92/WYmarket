@@ -51,13 +51,6 @@ SELECT itemID, iImagePath, Purchaser,
 ]]>	
 </select>
 
-
-
-
-
-
-
-
 <update id="completedIstate">
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick} AND itemid = #{itemid}
 </update>
@@ -90,9 +83,6 @@ INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) val
 </insert>
 
 
-<delete id="completedProductDelete">
-DELETE FROM sh_item where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
-</delete>
 
 
 
