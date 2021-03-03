@@ -19,6 +19,7 @@ function ajaxLogOut() {
 }
 
 function searchAll() {
+	console.log('여기 오냐고');
 	var form = document.createElement("form");
 	form.setAttribute("method", "get");
 	form.setAttribute("action", "/wymarket/admin/all");
@@ -45,5 +46,7 @@ function banUnban(btn, userNick, id) {
 
 	xhttp.send();
 }
+
+
 
 

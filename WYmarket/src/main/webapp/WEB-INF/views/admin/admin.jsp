@@ -19,6 +19,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Do+Hyeon&family=Indie+Flower&display=swap"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Lobster&display=swap"
+	rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Karma&family=Lobster&family=Nanum+Pen+Script&display=swap"
+	rel="stylesheet">
 
 <style type="text/css">
 * {
@@ -26,7 +39,7 @@
 }
 
 body {
-	background-image: url("/wymarket/image/carrotbg.jpg");
+	
 }
 
 #kakaoLogout {
@@ -38,12 +51,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	display: block;
+	width: 100%;
 	margin-left: auto;
-	margin-right: 5%;
-	width: 20%;
-	margin-top: 25px;
+	margin-right: auto;
+	margin-top: 15px;
 	height: 50px;
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 #logoutheader {
@@ -54,22 +68,40 @@ body {
 #outerContainer {
 	display: flex;
 	flex-direction: row;
+	margin-top: 50px;
+}
+
+#searchcontainer {
+	margin-top: 40px;
+}
+
+#searchcontainer>form {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
 
 #rightHandContainer {
 	display: flex;
 	flex-direction: column;
-	max-width: 30%;
+	margin-left: 10px;
+	margin-top: 40px;
+}
+
+#rightHandContainer>.container {
+	width: 250px;
 }
 
 #adminProfile {
 	display: flex;
 	flex-direction: column;
-	background-color: white;
+	background-color: #f2f3f7;
+	border: 1px solid #ddd;
+	box-shadow: 7px 7px 7px rgba(0, 0, 0, .1);
 }
 
 .profileP {
-	
+	margin-top: 13px;
 }
 
 #adminHeader {
@@ -142,20 +174,118 @@ img {
 
 th {
 	text-align: center;
+	vertical-align: middle;
+}
+
+.page-link {
+	background-color: white;
+	color: #ffb856;
+}
+
+.form-select {
+	width: 120px;
+}
+
+#search {
+	width: 300px;
+	margin-left: 20px;
+}
+
+#searchbtn {
+	width: 60px;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
+	margin-left: 20px;
+}
+
+#searchallbtn {
+	margin-left: auto;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
+}
+
+#adminMemo, #twobtn, #adminBtn {
+	margin-top: 15px;
+}
+
+#memoBtn {
+	margin-bottom: 15px;
+}
+
+#memoNick {
+	margin-bottom: 30px;
+	margin-top: 15px;
+}
+
+#twobtn>* {
+	width: 100%;
+}
+
+[name='btn'] {
+	background-color: rgba(131, 131, 135, 0.3);
+	border-color: rgba(70, 70, 85, 1);
+	color: rgba(70, 70, 85, 1);
+	border: none;
+}
+
+[name='btn']:hover {
+	background-color: #ffb856;
+}
+
+#accessbtn {
+	background-color: #469536;
+	border: none;
+}
+
+#adminBtn {
+	background-color: #ff953e;
+	border: none;
+}
+
+#nick, #memoNick {
+	font-family: 'Do Hyeon', sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#nick {
+	font-size: 20px;
+}
+
+thead>tr>th {
+	font-family: 'Kanit', sans-serif;
+	font-size: 16px;
+}
+
+tbody>tr>th {
+	font-family: sans-serif;
+	font-size: 14px;
+	
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	background-color: #ffb856;
+	color: white;
+	border-color: #ffb856;
+}
+
+.page-link:active {
+	color: #ffb856;
 }
 </style>
 </head>
-<header id='logoutheader'>
-	<a id='kakaoLogout'>로그아웃</a>
-</header>
+<header id='logoutheader'> </header>
 <body>
 
-	<h2>Admin Page</h2>
+
 
 	<div class="container" id='outerContainer'>
 		<div class="container" id='leftHandContainer'>
 			<div class="container" id='tableDiv'>
-				<table class="table">
+				<table class="table table-responsive table-striped">
 					<thead>
 						<tr>
 							<th scope="col">회원 번호</th>
@@ -195,17 +325,17 @@ th {
 								<th scope="col">${user.keyWord}</th>
 								<th scope="col" id='banTF${i }'>${user.ban}</th>
 								<th scope="col">
-									<button class="btn btn-primary"
+									<button class="btn btn-primary" name="btn"
 										onclick="banUnban(this,'${user.userNick }',${i })"
 										data-btn-type="ban">정지</button>
 								</th>
 								<th scope="col">
-									<button class="btn btn-primary"
+									<button class="btn btn-primary" name="btn"
 										onclick="banUnban(this,'${user.userNick }',${i })"
 										data-btn-type="unban">정지 해제</button>
 								</th>
 								<th scope="col">
-									<button class="btn btn-primary"
+									<button class="btn btn-primary" name="btn"
 										onclick="toMyPage('${user.userNick }')">마이 페이지</button>
 								</th>
 							</tr>
@@ -214,13 +344,16 @@ th {
 				</table>
 			</div>
 			<hr>
+			<div class="container">
+				<h5 id='rowCount'>
+					검색 결과 : <b>${rowCount } 개</b>
+				</h5>
+			</div>
 
 			<c:url var="previousHref2"
 				value="./admin?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
-			.
 			<c:url var="nextHref2"
 				value="./admin?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
-
 			<c:url var="previousHref1"
 				value="./admin?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
 			<c:url var="nextHref1"
@@ -258,28 +391,28 @@ th {
 					</li>
 				</ul>
 			</nav>
-			<div class="container">
+			<div class="container" id='searchcontainer'>
 				<form action="/wymarket/admin">
 					<select class="form-select" aria-label="Default select example"
 						name="list">
-						<option selected>Open this select menu</option>
+						<option selected>검색분류</option>
 						<option value="userId"
 							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
 						<option value="userNick"
 							<c:if test="${lists eq 'userNick'}">selected</c:if>>닉네임</option>
 						<option value="address"
 							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
-					</select> <input type="text" class="form-control" aria-label="Username"
-						aria-describedby="basic-addon1" name="search" value="${searchs }">
-					<input type="submit" class="form-control" aria-label="Username"
+					</select> <input id='search' type="text" class="form-control"
+						aria-label="Username" aria-describedby="basic-addon1"
+						name="search" value="${searchs }"> <input id='searchbtn'
+						type="submit" class="form-control" aria-label="Username"
 						aria-describedby="basic-addon1" value="검색">
+
 				</form>
-				<button class="btn btn-primary" onclick="searchAll()">전체
-					리스트 보기</button>
+				<button class="btn btn-primary" onclick="searchAll()"
+					id='searchallbtn'>전체 리스트 보기</button>
 			</div>
-			<div class="container">
-				<p>${rowCount }</p>
-			</div>
+
 		</div>
 		<div class="container" id='rightHandContainer'>
 			<div class="container" id='adminProfile'>
@@ -288,17 +421,20 @@ th {
 					<p class='profileP' id='nick'>${Admin.adminNick }</p>
 				</div>
 				<p class='profileP'>
-					생성일 :
+					<b>생성일 :</b>
 					<fmt:formatDate value="${Admin.adminCreateDate }"
 						pattern="yy/MM/dd" />
 				</p>
-				<p class='profileP'>관리자 등급 : ${Admin.adminGrade }</p>
+				<p class='profileP'>
+					<b>관리자 등급 : </b>${Admin.adminGrade }</p>
 			</div>
-			<button type="button" class="btn btn-primary" id='adminBtn'>공지사항
-				쓰기</button>
+			<a id='kakaoLogout'>로그아웃</a>
+
 			<div class="container" id='adminMemo'>
-				<img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
-				<p>${Admin.adminNick }</p>
+				<div class="container" id='memoP'>
+					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
+					<p id='memoNick'>${Admin.adminNick }</p>
+				</div>
 				<p>
 					<span id='memo' class="textarea" role="textbox"
 						contenteditable=<c:if test="${Admin.adminGrade eq '부'}">"false"</c:if>></span>
@@ -308,10 +444,12 @@ th {
 						onclick="ajaxSaveMemo()">메모하기</button>
 				</c:if>
 			</div>
-			<div class="container">
-				<button type="button" class="btn btn-primary"
+			<div class="container" id='twobtn'>
+				<button type="button" class="btn btn-primary" id='accessbtn'
 					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
 					수 보기</button>
+				<button type="button" class="btn btn-primary" id='adminBtn'>공지사항
+					쓰기</button>
 			</div>
 		</div>
 	</div>
@@ -374,6 +512,9 @@ th {
 	function toMyPage(userNick){
 		location.href='/wymarket/param/test02/' + userNick;
 	}
+
+	
+	
 </script>
 
 </body>

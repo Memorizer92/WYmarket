@@ -24,7 +24,7 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({ "users", "lists", "searchs", "pBan" })
+@SessionAttributes({ "users", "lists", "searchs" })
 public class AdminController implements Serializable {
 
    @Autowired
@@ -52,6 +52,11 @@ public class AdminController implements Serializable {
          categorySearch = (String) session.getAttribute("searchSession");
       }
 
+      System.out.println("list : " + list);
+      System.out.println("search : " + search);
+      System.out.println("category : " + category);
+      System.out.println("categorySearch : " + categorySearch);
+      
       // select tag 및 input 유지
       model.addAttribute("searchs", search);
       pagination.setSearch(categorySearch);
@@ -76,6 +81,8 @@ public class AdminController implements Serializable {
          model.addAttribute("users", selectUserByAddress);
       }
 
+      System.out.println("users 객체 : " + model.getAttribute("users"));
+      
       session.setAttribute("rowCount", pagination.getTotal());
 
       PageService pageService;
@@ -83,7 +90,6 @@ public class AdminController implements Serializable {
       // 위 정보로 pagination 생성
       pageService = new PageService(pagination);
       model.addAttribute("pagination", pagination);
-      model.addAttribute("pBan", pagination.getPageNum());
 
       model.addAttribute("pageService", pageService);
 
@@ -94,6 +100,7 @@ public class AdminController implements Serializable {
 
    @GetMapping("/admin/all")
    public String adminSearchAll(HttpSession session, Model model) {
+	  System.out.println("여기 오나");
       session.removeAttribute("listSession");
       session.removeAttribute("searchSession");
       model.addAttribute("lists", "");
@@ -142,7 +149,6 @@ public class AdminController implements Serializable {
       // 위 정보로 pagination 생성
       pageService = new PageService(pagination);
       model.addAttribute("pagination", pagination);
-      model.addAttribute("pBan", pagination.getPageNum());
 
       model.addAttribute("pageService", pageService);
 
