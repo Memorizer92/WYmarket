@@ -3,21 +3,89 @@ package com.kgitbank.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kgitbank.model.ChatMessage;
 import com.kgitbank.model.Room;
+import com.kgitbank.service.ChatService;
  
 
 @Controller 
 public class ChatController {
 
+	@Autowired
+	ChatService chatservice;
+	
+	//NEW
+	@RequestMapping("/chats/room")
+	public String showRoom(int roomId,Model model) {
+		
+		model.addAttribute("roomId",roomId);
+		
+		return "chats/room";
+	}
+	
+	@RequestMapping("/chats/doClearAllMessages")
+	@ResponseBody
+	public Map doClearAllMessages() {
+		chatservice.clearAllMessages();
+		
+		Map rs = new HashMap<>();
+		 
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "모든 메세지들을 삭제 하였습니다.");
+		
+		return rs;
+	}
+	
+	
+	@RequestMapping("/chats/doAddMessage")
+	@ResponseBody
+	public Map doAddMessage(int roomId, String writer, String body) {
+		Map rs = new HashMap<>();
+		
+		chatservice.addMessage(roomId, writer, body);
+		
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "채팅 메세지가 추가 되었습니다");
+		
+		return rs;
+	}
+	
+	@RequestMapping("/chats/getMessages")
+	@ResponseBody
+	public List getMessages() {
+		
+		return chatservice.getMessages();
+	}
+	
+	@RequestMapping("/chats/getMessagesFrom")
+	@ResponseBody
+	public Map getMessagesFrom(int roomId, int from) {
+		  
+		List<ChatMessage> messages =  chatservice.getMessagesFrom(roomId,from);
+		
+		Map rs = new HashMap<>();
+		
+	 
+		
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "새 메세지들을 가져왔습니다.");
+		rs.put("messages", messages);
+		return rs;
+	}
+	
+	
 	List<Room> roomList = new ArrayList<Room>();
 	static int roomNumber = 0;
 

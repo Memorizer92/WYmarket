@@ -36,11 +36,15 @@
    </websocket:handlers>
    <beans:bean id="chatHandler" class="com.kgitbank.util.ChatHandler"/>
    
-   <websocket:handlers>
+ 
+      <websocket:handlers>
       <websocket:mapping handler="SocketHandler" path="/chat/{roomNumber}"/>
       <websocket:sockjs/>
    </websocket:handlers>
-   <beans:bean id="SocketHandler" class="com.kgitbank.util.SocketHandler"/>
+   <beans:bean id="SocketHandler" class="com.kgitbank.util.SocketHandler"/> 
+   
+      
+    
    
  
      <!-- 업로드 패스 설정  -->
