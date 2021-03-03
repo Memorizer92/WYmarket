@@ -371,7 +371,9 @@ th {
 
 	}
 	
-
+	function toMyPage(userNick){
+		location.href='/wymarket/param/test02/' + userNick;
+	}
 </script>
 
 </body>
