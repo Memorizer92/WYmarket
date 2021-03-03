@@ -195,14 +195,19 @@ th {
 								<th scope="col">${user.keyWord}</th>
 								<th scope="col" id='banTF${i }'>${user.ban}</th>
 								<th scope="col">
-									<button onclick="banUnban(this,'${user.userNick }',${i })"
+									<button class="btn btn-primary"
+										onclick="banUnban(this,'${user.userNick }',${i })"
 										data-btn-type="ban">정지</button>
 								</th>
 								<th scope="col">
-									<button onclick="banUnban(this,'${user.userNick }',${i })"
+									<button class="btn btn-primary"
+										onclick="banUnban(this,'${user.userNick }',${i })"
 										data-btn-type="unban">정지 해제</button>
 								</th>
-								<th scope="col"></th>
+								<th scope="col">
+									<button class="btn btn-primary"
+										onclick="toMyPage('${user.userNick }')">마이 페이지</button>
+								</th>
 							</tr>
 						</c:forEach>
 					</tbody>
