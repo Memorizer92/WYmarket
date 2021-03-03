@@ -62,6 +62,8 @@
 		</nav>
 		<section id="container">
 			<div id="container_box">
+				<span>1:${user}</span>
+				<span>2:${userNick}</span>
 				<li><a href="goods/register">상품등록</a></li>
 				<%@ include file="goods/list.jsp"%>
 			</div>
