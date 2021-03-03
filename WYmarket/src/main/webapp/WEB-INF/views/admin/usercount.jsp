@@ -72,14 +72,17 @@ th {
 							<th scope="col">${user.keyWord}</th>
 							<th scope="col" id='banTF${i }'>${user.ban}</th>
 							<th scope="col">
-								<button onclick="banUnban(this,'${user.userNick }',${i })"
+								<button class="btn btn-primary" onclick="banUnban(this,'${user.userNick }',${i })"
 									data-btn-type="ban">정지</button>
 							</th>
 							<th scope="col">
-								<button onclick="banUnban(this,'${user.userNick }',${i })"
+								<button class="btn btn-primary" onclick="banUnban(this,'${user.userNick }',${i })"
 									data-btn-type="unban">정지 해제</button>
 							</th>
-							<th scope="col"></th>
+							<th scope="col">
+								<button class="btn btn-primary" onclick="toMyPage('${user.userNick}')">마이
+									페이지</button>
+							</th>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -88,15 +91,15 @@ th {
 		<hr>
 
 		<c:url var="previousHref2"
-			value="./admin/usercount?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
+			value="./usercount?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
 		.
 		<c:url var="nextHref2"
-			value="./admin/usercount?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
+			value="./usercount?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
 
 		<c:url var="previousHref1"
-			value="./admin/usercount?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
+			value="./usercount?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
 		<c:url var="nextHref1"
-			value="./admin/usercount?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
+			value="./usercount?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
 
 		<nav aria-label="...">
 			<ul class="pagination justify-content-center">
@@ -115,7 +118,7 @@ th {
 					<li
 						class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
 						aria-current="page"><a class="page-link"
-						href="./admin/usercount?pageNum=${i }&amount=${pagination.amount }
+						href="/wymarket/admin/usercount?pageNum=${i }&amount=${pagination.amount }
 							">${i }</a></li>
 				</c:forEach>
 				<li
@@ -189,7 +192,7 @@ th {
 		<p>${accessCount }</p>
 		<button id='userAccessCntBtn' class="btn btn-primary" type="button"
 			onclick="userAccessCount()">접속자 수 보기</button>
-			<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
+		<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
 			onclick="userSignUpCount()">가입자 수 보기</button>
 	</div>
 
@@ -291,6 +294,10 @@ session.removeAttribute("selectedDay");%>
 			document.getElementById('accessForm').action = '/wymarket/admin/signupUserCount';
 			document.getElementById(yearCon.getAttribute('form')).submit();
 		}
+	}
+	
+	function toMyPage(userNick){
+		location.href='/wymarket/param/test02/' + userNick;
 	}
 	</script>
 
