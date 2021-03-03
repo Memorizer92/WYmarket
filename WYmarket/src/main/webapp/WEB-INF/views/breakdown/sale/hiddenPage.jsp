@@ -8,14 +8,126 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Nanum+Pen+Script&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=IBM+Plex+Sans:wght@600&family=Nanum+Pen+Script&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+
+
+<style type="text/css">
+*{box-sizing: border-box;}
+
+
+@media (max-width: 817px){
+.firstli{
+		display: grid;
+		
+	}
+}
+
+      .modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .modal .bg {
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modalBox {
+          position: absolute;
+          background-color: #fff;
+          width: 400px;
+          height: 200px;
+          padding: 15px;
+        }
+
+        .modalBox button {
+          display: block;
+          width: 80px;
+          margin: 0 auto;
+        }
+
+        .hidden {
+          display: none;   
+        }
+        
+        .div{
+        height: 100%;
+        float: left;
+        }
+     
+    /*     #grid_2{
+       width: 70%;
+       margin: 0 auto;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+        background: white; 
+        } */
+        
+	.firstli{
+	 padding-bottom: 10px; 
+	 padding-top: 10px;
+	 text-align: center; 
+	}
+
+   #grid_2{
+       width: 100%;
+        background: white; 
+        }
+
+	.firstli > li > button{
+		padding-right: 100px;
+		padding-left: 100px;
+		margin : 0;
+		border: 0;
+		font-size: 35px;
+		background-color: white;		
+		font-family: 'Nanum Pen Script', cursive;
+		
+	}		
+	.firstli > li{
+		margin: 0;		
+	}
+	.menutitle{
+		font-size: 20px;		
+	}
+	
+	.titlefont{	
+	font-size: 25px;
+	font-family: 'Akaya Kanadaka', cursive;
+	}
+	.completed > span{
+		margin: 20px;
+	}
+</style>
 
 </head>
 <body>
- 숨김 화면 <br>
-
+<div id ="grid_2" class ="div" style="">
+ 	<header style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; font-size: 40px; padding-left: 40px; background-color: #ECEFF1" class = "titlefont">숨김 상품</header>
+ 	<main>
 <input type="text" value="${success}" id = "success" style="display: none;">
- 	<button id = "salebtn" onclick="location.href = '<%=application.getContextPath() %>/param/sale'">판매중</button> <button id ="completedbtn" onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button> <button onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'">숨김</button>	 
+ 	<ul class="list-inline firstli" style="padding-bottom: 20px; text-align: center; ">
+    <li class="list-inline-item"><button class = "menutitle" id = "salebtn" onclick="salbtn()">판매중</button></li>
+    <li class="list-inline-item"><button class = "menutitle" id ="completedbtn"  onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">거래완료</button></li>
+    <li class="list-inline-item"><button class = "menutitle" onclick="location.href = '<%=application.getContextPath() %>/param/salehidden'" style="border-bottom: 2px solid black;">숨김</button></li>
+	</ul>
  	<c:forEach var ="userItem_list" items="${itemvo }">
  		<c:if test="${userItem_list.istate eq 'Hidden'}">		 <!--  거래완료 내역 -->	
 		<div class ="completed" id ="test"style="background-color: green; ">
@@ -32,7 +144,8 @@
 		<br>
 		<button onclick="hiddenCancellations()" id = "HiddenCancellation">숨기기 취소</button>		
 		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>		
-
+	</main>
+	</div>
 
 
 <script type="text/javascript">
@@ -76,6 +189,9 @@ if(success.value == 'success'){
 	location.href = '<%=application.getContextPath() %>/param/sale';
 }
 
+function salbtn() {		
+	location.href = '<%=application.getContextPath() %>/param/sale';
+}
 </script>
 
 </body>

@@ -20,8 +20,8 @@ public class GoodsService implements GoodsServiceImpl{
 	}
 
 	@Override
-	public int createGoods(GoodsVO goods) {
-		return goods_mapper.createGoods(goods);
+	public int createGoods(GoodsVO goods, String usernick) {
+		return goods_mapper.createGoods(goods, usernick);
 	}
 
 	@Override

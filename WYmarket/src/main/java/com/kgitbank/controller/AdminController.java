@@ -27,198 +27,198 @@ import com.kgitbank.service.WYmarketService;
 @SessionAttributes({ "users", "lists", "searchs", "pBan" })
 public class AdminController implements Serializable {
 
-	@Autowired
-	WYmarketService wyMarketService;
+   @Autowired
+   WYmarketService wyMarketService;
 
-	@Autowired
-	DateCalc dateCalc;
+   @Autowired
+   DateCalc dateCalc;
 
-	String category = null;
-	String categorySearch = null;
+   String category = null;
+   String categorySearch = null;
 
-	// 관리자 로그인
+   // 관리자 로그인
 
-	@GetMapping(value = "/admin")
-	public String adminLoginPage(HttpServletRequest request, Model model, Pagination pagination, HttpSession session) {
+   @GetMapping(value = "/admin")
+   public String adminLoginPage(HttpServletRequest request, Model model, Pagination pagination, HttpSession session) {
 
-		String list = request.getParameter("list");
-		String search = request.getParameter("search");
+      String list = request.getParameter("list");
+      String search = request.getParameter("search");
 
-		// 검색을 눌렀을 때 세션에 정보 저장
-		if (list != null) {
-			session.setAttribute("listSession", list);
-			category = (String) session.getAttribute("listSession");
-			session.setAttribute("searchSession", search);
-			categorySearch = (String) session.getAttribute("searchSession");
-		}
+      // 검색을 눌렀을 때 세션에 정보 저장
+      if (list != null) {
+         session.setAttribute("listSession", list);
+         category = (String) session.getAttribute("listSession");
+         session.setAttribute("searchSession", search);
+         categorySearch = (String) session.getAttribute("searchSession");
+      }
 
-		// select tag 및 input 유지
-		model.addAttribute("searchs", search);
-		pagination.setSearch(categorySearch);
-		model.addAttribute("lists", list);
+      // select tag 및 input 유지
+      model.addAttribute("searchs", search);
+      pagination.setSearch(categorySearch);
+      model.addAttribute("lists", list);
 
-		// 카테고리를 뭘 눌렀냐에 따라 검색
-		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
-		if (category == null) {
-			pagination.setTotal(wyMarketService.selectUserCount());
-			model.addAttribute("users", wyMarketService.selectUserList(pagination));
-		} else if (category.equals("userId")) {
-			pagination.setTotal(wyMarketService.selectUserCountId(categorySearch));
-			List<UserInfo> selectUserById = wyMarketService.selectUserById(pagination);
-			model.addAttribute("users", selectUserById);
-		} else if (category.equals("userNick")) {
-			pagination.setTotal(wyMarketService.selectUserCountNick(categorySearch));
-			List<UserInfo> selectUserByNick = wyMarketService.selectUserByNick(pagination);
-			model.addAttribute("users", selectUserByNick);
-		} else if (category.equals("address")) {
-			pagination.setTotal(wyMarketService.selectUserCountAddress(categorySearch));
-			List<UserInfo> selectUserByAddress = wyMarketService.selectUserByAddress(pagination);
-			model.addAttribute("users", selectUserByAddress);
-		}
+      // 카테고리를 뭘 눌렀냐에 따라 검색
+      // 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
+      if (category == null) {
+         pagination.setTotal(wyMarketService.selectUserCount());
+         model.addAttribute("users", wyMarketService.selectUserList(pagination));
+      } else if (category.equals("userId")) {
+         pagination.setTotal(wyMarketService.selectUserCountId(categorySearch));
+         List<UserInfo> selectUserById = wyMarketService.selectUserById(pagination);
+         model.addAttribute("users", selectUserById);
+      } else if (category.equals("userNick")) {
+         pagination.setTotal(wyMarketService.selectUserCountNick(categorySearch));
+         List<UserInfo> selectUserByNick = wyMarketService.selectUserByNick(pagination);
+         model.addAttribute("users", selectUserByNick);
+      } else if (category.equals("address")) {
+         pagination.setTotal(wyMarketService.selectUserCountAddress(categorySearch));
+         List<UserInfo> selectUserByAddress = wyMarketService.selectUserByAddress(pagination);
+         model.addAttribute("users", selectUserByAddress);
+      }
 
-		session.setAttribute("rowCount", pagination.getTotal());
+      session.setAttribute("rowCount", pagination.getTotal());
 
-		PageService pageService;
+      PageService pageService;
 
-		// 위 정보로 pagination 생성
-		pageService = new PageService(pagination);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("pBan", pagination.getPageNum());
+      // 위 정보로 pagination 생성
+      pageService = new PageService(pagination);
+      model.addAttribute("pagination", pagination);
+      model.addAttribute("pBan", pagination.getPageNum());
 
-		model.addAttribute("pageService", pageService);
+      model.addAttribute("pageService", pageService);
 
-		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+      System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
 
-		return "/admin/admin";
-	}
+      return "/admin/admin";
+   }
 
-	@GetMapping("/admin/all")
-	public String adminSearchAll(HttpSession session, Model model) {
-		session.removeAttribute("listSession");
-		session.removeAttribute("searchSession");
-		model.addAttribute("lists", "");
-		model.addAttribute("searchs", "");
-		category = null;
-		categorySearch = null;
+   @GetMapping("/admin/all")
+   public String adminSearchAll(HttpSession session, Model model) {
+      session.removeAttribute("listSession");
+      session.removeAttribute("searchSession");
+      model.addAttribute("lists", "");
+      model.addAttribute("searchs", "");
+      category = null;
+      categorySearch = null;
 
-		return "redirect:/admin";
-	}
+      return "redirect:/admin";
+   }
 
-	@GetMapping("/admin/usercount")
-	public String adminUserCount(HttpSession session, HttpServletRequest req, Pagination pagination, Model model) {
-		// 누적 접속자 수를 view에 띄움
-		int userCountTotal = wyMarketService.selectUserCountTotal();
-		session.setAttribute("userCountTotal", userCountTotal);
+   @GetMapping("/admin/usercount")
+   public String adminUserCount(HttpSession session, HttpServletRequest req, Pagination pagination, Model model) {
+      // 누적 접속자 수를 view에 띄움
+      int userCountTotal = wyMarketService.selectUserCountTotal();
+      session.setAttribute("userCountTotal", userCountTotal);
 
-		dateCalc = new DateCalc();
-		
-		// 현재 연도
-		session.setAttribute("currentYear", dateCalc.getYear());
-		System.out.println(session.getAttribute("currentYear"));
-		// 카테고리를 뭘 눌렀냐에 따라 검색
-		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
-		System.out.println(session.getAttribute("dateTransfer"));
-		
-		if(session.getAttribute("signupFlag") != null) {
-			pagination.setSearch((String) session.getAttribute("dateTransfer"));
-			pagination.setTotal(wyMarketService.selectSignupCountByDate((String) session.getAttribute("dateTransfer")));
-			List<UserInfo> selectUserByDate = wyMarketService.selectUserBySignupDate(pagination);
-			model.addAttribute("users", selectUserByDate);
-		} else {
-			if (session.getAttribute("dateTransfer") == null) {
-				pagination.setTotal(wyMarketService.selectUserCount());
-				model.addAttribute("users", wyMarketService.selectUserList(pagination));
-			} else {
-				pagination.setSearch((String) session.getAttribute("dateTransfer"));
-				pagination.setTotal(wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer")));
-				List<UserInfo> selectUserByDate = wyMarketService.selectUserByAccessDate(pagination);
-				model.addAttribute("users", selectUserByDate);
-			}
-		}
+      dateCalc = new DateCalc();
+      
+      // 현재 연도
+      session.setAttribute("currentYear", dateCalc.getYear());
+      System.out.println(session.getAttribute("currentYear"));
+      // 카테고리를 뭘 눌렀냐에 따라 검색
+      // 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
+      System.out.println(session.getAttribute("dateTransfer"));
+      
+      if(session.getAttribute("signupFlag") != null) {
+         pagination.setSearch((String) session.getAttribute("dateTransfer"));
+         pagination.setTotal(wyMarketService.selectSignupCountByDate((String) session.getAttribute("dateTransfer")));
+         List<UserInfo> selectUserByDate = wyMarketService.selectUserBySignupDate(pagination);
+         model.addAttribute("users", selectUserByDate);
+      } else {
+         if (session.getAttribute("dateTransfer") == null) {
+            pagination.setTotal(wyMarketService.selectUserCount());
+            model.addAttribute("users", wyMarketService.selectUserList(pagination));
+         } else {
+            pagination.setSearch((String) session.getAttribute("dateTransfer"));
+            pagination.setTotal(wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer")));
+            List<UserInfo> selectUserByDate = wyMarketService.selectUserByAccessDate(pagination);
+            model.addAttribute("users", selectUserByDate);
+         }
+      }
 
 
-		PageService pageService;
+      PageService pageService;
 
-		// 위 정보로 pagination 생성
-		pageService = new PageService(pagination);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("pBan", pagination.getPageNum());
+      // 위 정보로 pagination 생성
+      pageService = new PageService(pagination);
+      model.addAttribute("pagination", pagination);
+      model.addAttribute("pBan", pagination.getPageNum());
 
-		model.addAttribute("pageService", pageService);
+      model.addAttribute("pageService", pageService);
 
-		session.removeAttribute("signupFlag");
-		
-		return "/admin/usercount";
-	}
-	
-	@GetMapping("/admin/usercount/all")
-	public String adminUserCountSearchAll(HttpSession session, Model model) {
-		session.removeAttribute("dateTransfer");
+      session.removeAttribute("signupFlag");
+      
+      return "/admin/usercount";
+   }
+   
+   @GetMapping("/admin/usercount/all")
+   public String adminUserCountSearchAll(HttpSession session, Model model) {
+      session.removeAttribute("dateTransfer");
 
-		return "redirect:/admin/usercount";
-	}
+      return "redirect:/admin/usercount";
+   }
 
-	@GetMapping("/admin/dayCheck/{year}/{month}")
-	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
-			HttpServletRequest req, Model model) {
-		// 해당 일
-		session.setAttribute("dayOfMonth", new DateCalc(year, month).getDay());
-		session.setAttribute("selectedYear", year);
-		session.setAttribute("selectedMonth", month);
+   @GetMapping("/admin/dayCheck/{year}/{month}")
+   public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
+         HttpServletRequest req, Model model) {
+      // 해당 일
+      session.setAttribute("dayOfMonth", new DateCalc(year, month).getDay());
+      session.setAttribute("selectedYear", year);
+      session.setAttribute("selectedMonth", month);
 
-		return "redirect:/admin/usercount";
-	}
+      return "redirect:/admin/usercount";
+   }
 
-	@GetMapping("/admin/accessUserCount")
-	public String accessUserCount(HttpServletRequest request, Model model, HttpSession session) {
+   @GetMapping("/admin/accessUserCount")
+   public String accessUserCount(HttpServletRequest request, Model model, HttpSession session) {
 
-		String year = request.getParameter("yearSelect");
-		String month = request.getParameter("monthSelect");
-		String day = request.getParameter("daySelect");
+      String year = request.getParameter("yearSelect");
+      String month = request.getParameter("monthSelect");
+      String day = request.getParameter("daySelect");
 
-		System.out.println(year + "/" + month + "/" + day);
+      System.out.println(year + "/" + month + "/" + day);
 
-		dateCalc = new DateCalc(year, month, day);
+      dateCalc = new DateCalc(year, month, day);
 
-		int accessCount = 0;
+      int accessCount = 0;
 
-		accessCount = wyMarketService.selectAccessCountByDate(dateCalc.getTotalDate());
-		session.setAttribute("dateTransfer", dateCalc.getTotalDate());
+      accessCount = wyMarketService.selectAccessCountByDate(dateCalc.getTotalDate());
+      session.setAttribute("dateTransfer", dateCalc.getTotalDate());
 
-		session.setAttribute("accessCount", accessCount);
+      session.setAttribute("accessCount", accessCount);
 
-		session.setAttribute("selectedYear", year);
-		session.setAttribute("selectedMonth", month);
-		session.setAttribute("selectedDay", day);
+      session.setAttribute("selectedYear", year);
+      session.setAttribute("selectedMonth", month);
+      session.setAttribute("selectedDay", day);
 
-		return "redirect:/admin/usercount";
-	}
-	
-	@GetMapping("admin/signupUserCount")
-	public String signupUserCount(HttpServletRequest request, Model model, HttpSession session) {
-		
-		String year = request.getParameter("yearSelect");
-		String month = request.getParameter("monthSelect");
-		String day = request.getParameter("daySelect");
+      return "redirect:/admin/usercount";
+   }
+   
+   @GetMapping("admin/signupUserCount")
+   public String signupUserCount(HttpServletRequest request, Model model, HttpSession session) {
+      
+      String year = request.getParameter("yearSelect");
+      String month = request.getParameter("monthSelect");
+      String day = request.getParameter("daySelect");
 
-		System.out.println(year + "/" + month + "/" + day);
+      System.out.println(year + "/" + month + "/" + day);
 
-		dateCalc = new DateCalc(year, month, day);
+      dateCalc = new DateCalc(year, month, day);
 
-		session.setAttribute("signupFlag", true);
-		
-		int signupCount = 0;
+      session.setAttribute("signupFlag", true);
+      
+      int signupCount = 0;
 
-		signupCount = wyMarketService.selectSignupCountByDate(dateCalc.getTotalDate());
-		session.setAttribute("dateTransfer", dateCalc.getTotalDate());
+      signupCount = wyMarketService.selectSignupCountByDate(dateCalc.getTotalDate());
+      session.setAttribute("dateTransfer", dateCalc.getTotalDate());
 
-		session.setAttribute("accessCount", signupCount);
+      session.setAttribute("accessCount", signupCount);
 
-		session.setAttribute("selectedYear", year);
-		session.setAttribute("selectedMonth", month);
-		session.setAttribute("selectedDay", day);
-		
-		return "redirect:/admin/usercount";
-	}
+      session.setAttribute("selectedYear", year);
+      session.setAttribute("selectedMonth", month);
+      session.setAttribute("selectedDay", day);
+      
+      return "redirect:/admin/usercount";
+   }
 
 }

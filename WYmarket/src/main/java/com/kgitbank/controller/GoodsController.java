@@ -3,6 +3,8 @@ package com.kgitbank.controller;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.http.HttpSession;
+
 //import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kgitbank.model.GoodsVO;
@@ -26,6 +29,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/goods/*")
 @Log4j
+@SessionAttributes("usernick")
 public class GoodsController {
 	
 	@Autowired
@@ -43,10 +47,12 @@ public class GoodsController {
 	
 	// 상품 등록
 	@PostMapping("add")
-	public String success(Model model, GoodsVO goods, MultipartFile file) throws IOException, Exception {
+	public String success(Model model, GoodsVO goods, MultipartFile file, HttpSession session) throws IOException, Exception {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
+		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		model.addAttribute("usernick", userNick);		
 
 		if(file != null) {
 		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
@@ -56,7 +62,7 @@ public class GoodsController {
 
 		goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		
-		int result = gservice.createGoods(goods);
+		int result = gservice.createGoods(goods, userNick);
 		
 		return "redirect:/main";
 	}
