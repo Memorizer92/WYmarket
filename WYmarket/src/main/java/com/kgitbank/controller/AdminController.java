@@ -68,6 +68,7 @@ public class AdminController implements Serializable {
 		return "/admin/admin";
 	}
 
+	
 	@GetMapping("/admin/board")
 	public String adminUserSearch(HttpServletRequest request, Model model, Pagination page) {
 		String list = request.getParameter("list");
@@ -91,7 +92,6 @@ public class AdminController implements Serializable {
 			listKind = "address";
 		}
 		flag = true;
-
 		return "redirect:/admin";
 	}
 

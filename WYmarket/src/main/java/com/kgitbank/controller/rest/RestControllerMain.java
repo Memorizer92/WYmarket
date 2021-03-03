@@ -28,6 +28,9 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
+
+import lombok.extern.log4j.Log4j;
+
 import com.kgitbank.service.CertificationService;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RestController
 @Scope("session")
 @SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "user", "findph" })
+@Log4j
 public class RestControllerMain implements Serializable{
 
 	@Autowired
@@ -279,7 +283,8 @@ public class RestControllerMain implements Serializable{
 		model.addAttribute("user", userInfo.getUserNick());
 		session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
 		System.out.println(session.getAttribute(userInfo.getUserNick()));
-
+		
+		
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
 		userInfo.setPhoneNumber(dashPhoneNumber);

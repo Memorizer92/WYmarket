@@ -11,10 +11,10 @@ function ajaxLogOut() {
 
 		}
 	}
-
 	xhttp.open('GET', uri, true);
 
 	xhttp.send();
+	
 
 }
 

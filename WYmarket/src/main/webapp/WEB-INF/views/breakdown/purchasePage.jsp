@@ -8,6 +8,83 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<style type="text/css">
+*{box-sizing: border-box;}
+
+      .modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .modal .bg {
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modalBox {
+          position: absolute;
+          background-color: #fff;
+          width: 400px;
+          height: 200px;
+          padding: 15px;
+        }
+
+        .modalBox button {
+          display: block;
+          width: 80px;
+          margin: 0 auto;
+        }
+
+        .hidden {
+          display: none;   
+        }
+        
+        .div{
+        height: 100%;
+        float: left;
+        }
+     
+    /*     #grid_2{
+       width: 70%;
+       margin: 0 auto;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+        background: white; 
+        } */
+
+   #grid_2{
+       width: 100%;
+       margin: 0 10% 0 10%;
+      
+        background: white; 
+        }
+
+	.firstli > li > button{
+		margin : 0;
+		border: 0;
+		background-color: white;
+		
+	}
+	
+	.firstli > li{
+		margin: 0;
+	}
+	.menutitle{
+		font-size: 20px;
+		
+	}
+</style>
+
+
 </head>
 <body>
  구매내역
@@ -15,7 +92,7 @@
  		<c:forEach var ="PurchaserPhVO_list" items="${PurchaserPhVO }"> 		
  		 <!--  판매중 내역 -->	
  		<c:if test="${empty PurchaserPhVO_list.ititle }">
- 			구매하신 상품이 없습니다.
+ 			구매하신 상품이 없습니다. 
  		</c:if>
  		
 		<div class ="Purchasedetails" id ="test"style="background-color: green; border: solid black 1px; ">

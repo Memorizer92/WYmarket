@@ -1,6 +1,7 @@
 package com.kgitbank.controller;
 
 import java.net.http.HttpRequest;
+
 import java.sql.Timestamp;
 
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
+import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BreakdownService;
 
 import lombok.Setter;
@@ -29,38 +31,42 @@ import oracle.net.aso.m;
 @Controller
 @RequestMapping("/param/")
 @Log4j
-@SessionAttributes("usernick")
+@SessionAttributes("user")
 public class BreakdownController {
 
 	@Setter(onMethod_ = {@Autowired})
 	BreakdownService bservice;
-	
-
-	
+		
 	@GetMapping("/test01")
 	public String test01() {
+		
 		return "/test01";
 	}
 
 	@GetMapping("/sale") // 판매중 화면
 	public String sale(Model model, HttpSession session) {
-		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		String userNick = user.getUserNick();		
+		
 		model.addAttribute("usernick", userNick);		
-		model.addAttribute("itemvo", bservice.getShitemVO(userNick));	
+		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 		model.addAttribute("userinfo", bservice.getShuserInfo());	
 		return "/breakdown/sale/salePage";
+		
 	} 
+	
 	
 		// 거래 완료 화면
 	  @GetMapping("/salecomplete") 
 	  public String gSalecomplete(Model model, HttpSession session) { 
-	  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+	  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+	  String userNick = user.getUserNick();
 	  model.addAttribute("usernick", userNick);	  
 	  model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));
 	  return "/breakdown/sale/saleCompletedPage";
 	  }
 	  
-	 // 거래 완료 버튼
+//	  거래 완료 버튼
 	  @PostMapping("/salecomplete/{ititle}/{usernick}/{istate}/{itemid}")  
 		public String pSalecomplete(Model model,
 				PurchasedetailsVO puvo ,
@@ -70,7 +76,8 @@ public class BreakdownController {
 				@PathVariable("itemid") String itemid,
 				HttpSession session) {	
 		  
-		  		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		 	    UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		 	    String userNick = user.getUserNick();
 		  		model.addAttribute("usernick", userNick);
 		  		model.addAttribute("success", "success");
 		  		bservice.completedIstate(istate, ititle, userNick, itemid);
@@ -82,7 +89,8 @@ public class BreakdownController {
 	 // 숨김 화면
 	  @GetMapping("/salehidden") 
 	  public String gSalehidden (Model model, HttpSession session) {
-		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  String userNick = user.getUserNick();
 		    model.addAttribute("usernick", userNick);
 			model.addAttribute("itemvo", bservice.getShitemVO(userNick));
 			model.addAttribute("userinfo", bservice.getShuserInfo());
@@ -96,7 +104,8 @@ public class BreakdownController {
 			  @PathVariable("ititle") String ititle,
 			  @PathVariable("itemid") String itemid,
 			  HttpSession session) {
-		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  String userNick = user.getUserNick();
 		  bservice.hiddenIstate(istate, ititle, userNick, itemid);
 		  if(istate.equals("Onsale")) {
 		  bservice.productPullUp(ititle, userNick, istate, itemid); // 숨김에서 판매중으로 바꿨을떄 등록시간 최신화
@@ -114,7 +123,8 @@ public class BreakdownController {
 			  @PathVariable("ititle") String ititle,
 			  @PathVariable("itemid") String itemid,
 			  HttpSession session) {
-		  String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  String userNick = user.getUserNick();
 		  bservice.reservationStateChange(iReservationState, ititle, userNick, itemid);
 		  model.addAttribute("usernick", userNick);
 		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));
@@ -127,7 +137,8 @@ public class BreakdownController {
 	 // 구매내역 화면
 	@GetMapping("/purchase")
 	public String purchase(Model model, HttpSession session) {	
-		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		String userNick = user.getUserNick();
 		model.addAttribute("PurchaserPhVO", bservice.getPurchaserPhVO(userNick));
 		return "/breakdown/purchasePage";
 	}
@@ -139,7 +150,8 @@ public class BreakdownController {
 			@PathVariable("itemid") String itemid,
 			@PathVariable("istate") String istate
 			){
-		String userNick = (String) session.getAttribute((String) model.getAttribute("usernick"));
+		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		String userNick = user.getUserNick();
 		bservice.productPullUp(ititle, userNick,istate, itemid);
 		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
 		model.addAttribute("pup", "pup");

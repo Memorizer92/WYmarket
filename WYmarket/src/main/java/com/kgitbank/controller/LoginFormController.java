@@ -30,8 +30,11 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
+import lombok.extern.log4j.Log4j;
+
 @Controller
 @SessionAttributes(names = { "user","lat","lon","address", "user"})
+@Log4j
 public class LoginFormController {
  
 	OAuthToken oauthToken = null;
@@ -86,6 +89,7 @@ public class LoginFormController {
 			return "redirect:/admin";
 		} 
 		if(session.getAttribute((String) model.getAttribute("user")) != null) {
+			
 			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
 			return "redirect:/main";
 		} else {
@@ -271,7 +275,7 @@ public class LoginFormController {
 		
 		int rs = service.insertUser(userInfo);
 		System.out.println("자동가입 확인 유무: " + rs);
-
+		
 		return "redirect:/main";
 	}
 
