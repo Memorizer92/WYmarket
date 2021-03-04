@@ -18,7 +18,23 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Do+Hyeon&family=Indie+Flower&display=swap"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Lobster&display=swap"
+	rel="stylesheet">
 <style>
+* {
+	box-sizing: border-box;
+}
+
+#outerContainer {
+	margin-top: 50px;
+}
+
 #tableDiv {
 	overflow: auto;
 	white-space: nowrap;
@@ -26,176 +42,232 @@
 
 th {
 	text-align: center;
+	vertical-align: middle;
 }
+
+.page-link {
+	background-color: white;
+	color: green;
+	border-radius: 10%;
+}
+
+.page-item {
+	margin-left: 10px;
+}
+
+.table>:not(caption)>*>* {
+	padding: .5rem 25px;
+	background-color: var(- -bs-table-bg);
+	border-bottom-width: 1px;
+	box-shadow: inset 0 0 0 9999px var(- -bs-table-accent-bg);
+}
+
+thead>tr>th {
+	font-family: 'Kanit', sans-serif;
+	font-size: 16px;
+}
+
+tbody>tr>th {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	background-image: radial-gradient(at 10% 80px, white, lightgreen 55%, green);
+	color: white;
+	border-color: lightgreen;
+}
+
+.page-link:active, .page-link:hover {
+	color: green;
+}
+
+.form-select {
+	width: 120px;
+	height: 40px;
+}
+
+#datecontainer {
+	display: flex;
+	flex-direction: row;
+}
+
+#datecontainer>form {
+	display: flex;
+	flex-direction: row;
+}
+
+#totalCount {
+	text-align: center;
+}
+#countPart{height: 40px;}
+.card-text{margin-top: -8px;}
 </style>
 </head>
 <body>
-	<div class="container" id='leftHandContainer'>
-		<div class="container" id='tableDiv'>
-			<table class="table">
-				<thead>
-					<tr>
-						<th scope="col">회원 번호</th>
-						<th scope="col">전화 번호</th>
-						<th scope="col">카카오 이메일</th>
-						<th scope="col">닉네임</th>
-						<th scope="col">위도</th>
-						<th scope="col">경도</th>
-						<th scope="col">주소</th>
-						<th scope="col">매너온도</th>
-						<th scope="col">생성일</th>
-						<th scope="col">구매완료 횟수</th>
-						<th scope="col">판매완료 횟수</th>
-						<th scope="col">받은 리뷰 수</th>
-						<th scope="col">키워드</th>
-						<th scope="col">정지 여부</th>
-
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="user" items="${users}">
-						<c:set var="i" value="${i+1}" />
+	<div class="container" id='outerContainer'>
+		<div class="container" id='leftHandContainer'>
+			<div class="container" id='tableDiv'>
+				<table class="table table-responsive table-striped">
+					<thead>
 						<tr>
-							<th scope="col">${user.userID }</th>
-							<th scope="col">${user.phoneNumber}</th>
-							<th scope="col">${user.kakaoMail}</th>
-							<th scope="col">${user.userNick}</th>
-							<th scope="col">${user.latitude}</th>
-							<th scope="col">${user.longitude}</th>
-							<th scope="col">${user.address}</th>
-							<th scope="col">${user.manner}</th>
-							<th scope="col"><fmt:formatDate
-									value="${user.userCreateDate}" pattern="yy/MM/dd" /></th>
-							<th scope="col">${user.buyItemCnt}</th>
-							<th scope="col">${user.saleItemCnt}</th>
-							<th scope="col">${user.reviewCnt}</th>
-							<th scope="col">${user.keyWord}</th>
-							<th scope="col" id='banTF${i }'>${user.ban}</th>
-							<th scope="col">
-								<button class="btn btn-primary" onclick="banUnban(this,'${user.userNick }',${i })"
-									data-btn-type="ban">정지</button>
-							</th>
-							<th scope="col">
-								<button class="btn btn-primary" onclick="banUnban(this,'${user.userNick }',${i })"
-									data-btn-type="unban">정지 해제</button>
-							</th>
-							<th scope="col">
-								<button class="btn btn-primary" onclick="toMyPage('${user.userNick}')">마이
-									페이지</button>
-							</th>
+							<th scope="col">회원 번호</th>
+							<th scope="col">전화 번호</th>
+							<th scope="col">카카오 이메일</th>
+							<th scope="col">닉네임</th>
+							<th scope="col">위도</th>
+							<th scope="col">경도</th>
+							<th scope="col">주소</th>
+							<th scope="col">매너온도</th>
+							<th scope="col">생성일</th>
+							<th scope="col">구매완료 횟수</th>
+							<th scope="col">판매완료 횟수</th>
+							<th scope="col">받은 리뷰 수</th>
+							<th scope="col">키워드</th>
+							<th scope="col">정지 여부</th>
+							<th scope="col"></th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<hr>
+					</thead>
+					<tbody>
+						<c:forEach var="user" items="${users}">
+							<c:set var="i" value="${i+1}" />
+							<tr>
+								<th scope="col">${user.userID }</th>
+								<th scope="col">${user.phoneNumber}</th>
+								<th scope="col">${user.kakaoMail}</th>
+								<th scope="col">${user.userNick}</th>
+								<th scope="col">${user.latitude}</th>
+								<th scope="col">${user.longitude}</th>
+								<th scope="col">${user.address}</th>
+								<th scope="col">${user.manner}</th>
+								<th scope="col"><fmt:formatDate
+										value="${user.userCreateDate}" pattern="yy/MM/dd" /></th>
+								<th scope="col">${user.buyItemCnt}</th>
+								<th scope="col">${user.saleItemCnt}</th>
+								<th scope="col">${user.reviewCnt}</th>
+								<th scope="col">${user.keyWord}</th>
+								<th scope="col" id='banTF${i }'>${user.ban}</th>
+								<th scope="col">
+									<button class="btn btn-primary"
+										onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="ban">정지</button>
+								</th>
+								<th scope="col">
+									<button class="btn btn-primary"
+										onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="unban">정지 해제</button>
+								</th>
+								<th scope="col">
+									<button class="btn btn-primary"
+										onclick="toMyPage('${user.userNick}')">마이 페이지</button>
+								</th>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+			<hr>
+			<div class="container">
+				<h5 id='rowCount'>
+					검색 결과 : <b>${accessCount } 개</b>
+				</h5>
+			</div>
+			<c:url var="previousHref2"
+				value="./usercount?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
 
-		<c:url var="previousHref2"
-			value="./usercount?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
-		.
-		<c:url var="nextHref2"
-			value="./usercount?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
+			<c:url var="nextHref2"
+				value="./usercount?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
 
-		<c:url var="previousHref1"
-			value="./usercount?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
-		<c:url var="nextHref1"
-			value="./usercount?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
+			<c:url var="previousHref1"
+				value="./usercount?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
+			<c:url var="nextHref1"
+				value="./usercount?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
 
-		<nav aria-label="...">
-			<ul class="pagination justify-content-center">
-				<li
-					class="page-item<c:if test="${not pageService.previous }"> disabled</c:if>">
-					<a class="page-link" href="${previousHref2 }" tabindex="-1"
-					aria-disabled="true">&lt;&lt;</a>
-				</li>
-				<li
-					class="page-item<c:if test="${pagination.pageNum eq 1 or pagination.pageNum eq 0 }"> disabled</c:if>">
-					<a class="page-link" href="${previousHref1 }" tabindex="-1"
-					aria-disabled="true">&lt;</a>
-				</li>
-				<c:forEach var="i" begin="${pageService.startPage }"
-					end="${pageService.endPage }">
+			<nav aria-label="...">
+				<ul class="pagination justify-content-center">
 					<li
-						class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
-						aria-current="page"><a class="page-link"
-						href="/wymarket/admin/usercount?pageNum=${i }&amount=${pagination.amount }
+						class="page-item<c:if test="${not pageService.previous }"> disabled</c:if>">
+						<a class="page-link" href="${previousHref2 }" tabindex="-1"
+						aria-disabled="true">&lt;&lt;</a>
+					</li>
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq 1 or pagination.pageNum eq 0 }"> disabled</c:if>">
+						<a class="page-link" href="${previousHref1 }" tabindex="-1"
+						aria-disabled="true">&lt;</a>
+					</li>
+					<c:forEach var="i" begin="${pageService.startPage }"
+						end="${pageService.endPage }">
+						<li
+							class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
+							aria-current="page"><a class="page-link"
+							href="/wymarket/admin/usercount?pageNum=${i }&amount=${pagination.amount }
 							">${i }</a></li>
-				</c:forEach>
-				<li
-					class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
-					<a class="page-link" href="${nextHref1 }" tabindex="-1"
-					aria-disabled="true">&gt;</a>
-				</li>
-				<li
-					class="page-item<c:if test="${not pageService.next }"> disabled</c:if>">
-					<a class="page-link" href="${nextHref2 }" tabindex="-1"
-					aria-disabled="true">&gt;&gt;</a>
-				</li>
-			</ul>
-		</nav>
-		<div class="container">
-			<button class="btn btn-primary" onclick="searchAll()">전체 리스트
-				보기</button>
+					</c:forEach>
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
+						<a class="page-link" href="${nextHref1 }" tabindex="-1"
+						aria-disabled="true">&gt;</a>
+					</li>
+					<li
+						class="page-item<c:if test="${not pageService.next }"> disabled</c:if>">
+						<a class="page-link" href="${nextHref2 }" tabindex="-1"
+						aria-disabled="true">&gt;&gt;</a>
+					</li>
+				</ul>
+			</nav>
+
 		</div>
-	</div>
-	<div class="container" id='outer'>
-		<div class="row">
-			<div class="col-sm">
-				<div class="card border-dark mb-3" style="max-width: 18rem;">
-					<div class="card-header">현재 접속자 수</div>
-					<div class="card-body text-dark">
-						<p class="card-text">현재</p>
-					</div>
-				</div>
-			</div>
+		<div class="container" id='datecontainer'>
+
 			<form action="/wymarket/admin/accessUserCount" id='accessForm'>
-				<div class="col-sm">
-					<select class="form-select" aria-label="Default select example"
-						name="yearSelect" id='year' onchange="yearChange()"
-						form='accessForm'>
-						<option selected>연도 선택</option>
-						<c:forEach var="i" begin="2018" end="${currentYear }">
-							<option value=${i }>${i }</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="col-sm">
-					<select class="form-select" aria-label="Default select example"
-						name="monthSelect" onchange="monthChange()" id='month'>
-						<option selected>월 선택</option>
-						<c:forEach var="i" begin="1" end="12">
-							<option value=${i }>${i }</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="col-sm">
-					<select class="form-select" aria-label="Default select example"
-						name="daySelect" id='day'>
-						<option selected>일 선택</option>
-						<c:forEach var="i" begin="1" end="${dayOfMonth}">
-							<option value="${i }">${i }</option>
-						</c:forEach>
-					</select>
-				</div>
+
+				<select class="form-select" aria-label="Default select example"
+					name="yearSelect" id='year' onchange="yearChange()"
+					form='accessForm'>
+					<option selected>연도 선택</option>
+					<c:forEach var="i" begin="2018" end="${currentYear }">
+						<option value=${i }>${i }</option>
+					</c:forEach>
+				</select> <select class="form-select" aria-label="Default select example"
+					name="monthSelect" onchange="monthChange()" id='month'>
+					<option selected>월 선택</option>
+					<c:forEach var="i" begin="1" end="12">
+						<option value=${i }>${i }</option>
+					</c:forEach>
+				</select> <select class="form-select" aria-label="Default select example"
+					name="daySelect" id='day'>
+					<option selected>일 선택</option>
+					<c:forEach var="i" begin="1" end="${dayOfMonth}">
+						<option value="${i }">${i }</option>
+					</c:forEach>
+				</select>
+
 			</form>
-			<div class="col-sm">
-				<div class="card border-dark mb-3" style="max-width: 18rem;">
-					<div class="card-header">누적 접속자 수</div>
-					<div class="card-body text-dark">
-						<p class="card-text">${userCountTotal }</p>
-					</div>
+
+			<div class="card border-dark mb-3" style="max-width: 18rem;"
+				id='totalCount'>
+				<div class="card-header">누적 접속자 수</div>
+				<div class="card-body text-dark" id='countPart'>
+					<p class="card-text">${userCountTotal }</p>
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<div class="container">
-		<p>${accessCount }</p>
 		<button id='userAccessCntBtn' class="btn btn-primary" type="button"
 			onclick="userAccessCount()">접속자 수 보기</button>
 		<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
 			onclick="userSignUpCount()">가입자 수 보기</button>
-	</div>
 
+		<button class="btn btn-primary" onclick="searchAll()">전체 리스트
+			보기</button>
+
+	</div>
+	</div>
 	<script
 		src="<%=application.getContextPath()%>/resources/assets/js/usercount.js"></script>
 
