@@ -42,9 +42,9 @@
     </footer>
     <hr>
 
-<script></script>
  
  
+ <%@ include file="./header.jsp" %>
 </body>
 
 </html>

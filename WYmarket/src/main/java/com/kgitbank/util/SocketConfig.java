@@ -10,13 +10,13 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 @Configuration
 @EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer{
+public class SocketConfig implements WebSocketConfigurer{
 
 	@Autowired
 	SocketHandler socketHandler;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(socketHandler, "/chat");
+		registry.addHandler(socketHandler, "/chat/{roomNumber}");
 	}
 }
