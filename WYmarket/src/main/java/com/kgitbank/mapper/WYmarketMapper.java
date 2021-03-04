@@ -101,5 +101,11 @@ public interface WYmarketMapper {
 	List<UserInfo> selectUserBySignupDate(Pagination page);
 
 	int selectIdByUserNick(String userNick);
+	
+	List<String> selectUserNickFromItem();
+	
+	UserInfo selectLatLong(String userNick);
+	
+	int selectCountFromItem();
 
 }

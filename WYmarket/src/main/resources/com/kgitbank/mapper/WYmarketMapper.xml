@@ -103,7 +103,7 @@
 	</select>
 
 	<select id="selectUserAccessDate" resultType="Date">
-		select accessDate
+		select MAX(accessDate)
 		from
 		sh_userAccessDate WHERE userNick = #{userNick}
 	</select>
@@ -276,10 +276,30 @@
 		]]>
 	</select>
 
-	<select id="selectIdByUserNick"
-		resultType="Integer">
+	<select id="selectIdByUserNick" resultType="Integer">
 		select userid from
 		sh_userInfo where usernick=#{userNick}
+	</select>
+
+	<select id="selectUserNickFromItem" resultType="String">
+		SELECT Distinct
+		userNick
+		FROM
+		sh_item
+	</select>
+
+	<select id="selectLatLong"
+		resultType="com.kgitbank.model.UserInfo">
+		select latitude, longitude from
+		sh_userInfo where
+		usernick=#{userNick}
+	</select>
+
+	<select id="selectCountFromItem" resultType="Integer">
+		SELECT
+		count(*)
+		FROM
+		sh_item
 	</select>
 
 </mapper>

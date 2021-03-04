@@ -224,6 +224,21 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectIdByUserNick(userNick);
 	}
 
+	@Override
+	public List<String> selectUserNickFromItem() {
+		return wyMarketMapper.selectUserNickFromItem();
+	}
+
+	@Override
+	public UserInfo selectLatLong(String userNick) {
+		return wyMarketMapper.selectLatLong(userNick);
+	}
+
+	@Override
+	public int selectCountFromItem() {
+		return wyMarketMapper.selectCountFromItem();
+	}
+
 
 
 
