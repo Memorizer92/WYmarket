@@ -93,6 +93,11 @@
 	font-family: 'Akaya Kanadaka', cursive;
 }
 
+.completed{
+	padding: 15px 5px; 
+	border-radius: 1reml;
+}
+
 .completed>span {
 	margin: 20px;
 }
@@ -137,7 +142,12 @@
 .disabled {
       pointer-events: visible;
       opacity: 1;
-
 } 
+#titleRadio{
+	position: relative;
+	top: 20px;
+	background-color: silver;	
+}
+
 
   

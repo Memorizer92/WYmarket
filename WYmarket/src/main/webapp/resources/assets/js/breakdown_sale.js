@@ -1,23 +1,21 @@
 const nickCheck = document.getElementById("nickCheck");
+const titleRadioLabel = document.getElementById("titleRadioLabel");
 const productReservationY = document.getElementById("ProductReservationY").value;
 const productReservationN = document.getElementById("ProductReservationN").value;
 const pullupCheck = document.getElementById("pup");
-
 const closeDiv = document.querySelector(".modalDiv");
 const closeBtn = document.querySelector(".modalCloseBtn");
+
+
 var istate;
 var btntype;		
 var radio_btn = document.getElementsByName("ititle");
 var radio_btn_check = 0;
 var idradio_btn = document.getElementsByName("itemid");
+	
 
 
-if(radio_btn.length == 0){
-	document.getElementById("ReservationChoise").style.display = 'none';	
-	document.getElementById("productChoice").style.display = 'none';      
-	document.getElementById("hideenChoice").style.display = 'none';      
-	document.getElementById("pullUp").style.display = 'none';      
-}
+
 		
 		
 		
@@ -26,11 +24,11 @@ if(radio_btn.length == 0){
     function productChoice() {		         
     	alert("해당 상품을 선택해 주세요.");	
         for( var i = 0; i < radio_btn.length; i++ ){
-        		radio_btn[i].style.display = 'block';
+        		radio_btn[i].style.display = 'inline';
+      			
          }		
-		var dis = document.querySelectorAll(".disabled");		
-		document.getElementById("TransactionCompleted").style.display = 'inline-block'; // 거래상품 클릭시 생성되는 거래완료 버튼
-				
+		document.getElementById("TransactionCompleted").style.display = 'inline-block'; // 거래상품 클릭시 생성되는 거래완료 버튼	
+		var dis = document.querySelectorAll(".disabled");				
 		dis.forEach(function(userItem) {
   		userItem.style.pointerEvents = 'none'; 
 		userItem.style.opacity = '0.6'; 
@@ -42,14 +40,14 @@ if(radio_btn.length == 0){
     	btntype = 'pullup';
     	alert("해당 상품을 선택해 주세요.");	
         for( var i = 0; i < radio_btn.length; i++ ){
-        		radio_btn[i].style.display = 'block';
+        		radio_btn[i].style.display = 'inline';
          }			
-
 		document.getElementById("pullUpChoise").style.display = 'inline-block';	// 판매내역에 보여지는 끌어올리기 버튼 클릭시 생성되는 끌어올리기 버튼
-		document.getElementById("pullUp").style.display = 'none';				// 판매내역에 보여지는 끌러올리기 버튼
-		document.getElementById("ReservationChoise").style.display = 'none';	// 판매내역에 보여지는 상품예약 버튼	
-		document.getElementById("productChoice").style.display = 'none';        // 판매내역에 보여지는 거래상품 선택 버튼  
-		document.getElementById("hideenChoice").style.display = 'none';			// 판매내역에 보여지는 상품 숨기기 버튼      
+		var dis = document.querySelectorAll(".disabled");	
+		dis.forEach(function(userItem) {
+  		userItem.style.pointerEvents = 'none'; 
+		userItem.style.opacity = '0.6'; 
+});     
 	}
 	
 	
@@ -59,13 +57,14 @@ if(radio_btn.length == 0){
     	alert("해당 상품을 선택해 주세요.");	
     	btntype = '숨김';
         for( var i = 0; i < radio_btn.length; i++ ){  		
-        		radio_btn[i].style.display = 'block';
+        		radio_btn[i].style.display = 'inline';
          }		
-		document.getElementById("ProductHideen").style.display = 'inline-block';		     
-		document.getElementById("productChoice").style.display = 'none';		     
-		document.getElementById("hideenChoice").style.display = 'none';		     
-		document.getElementById("ReservationChoise").style.display = 'none';	
-		document.getElementById("pullUp").style.display = 'none';
+		document.getElementById("ProductHideen").style.display = 'inline-block';
+		var dis = document.querySelectorAll(".disabled");			     
+		dis.forEach(function(userItem) {
+  		userItem.style.pointerEvents = 'none'; 
+		userItem.style.opacity = '0.6'; 
+});
 				     
 	} 
 	  
@@ -74,20 +73,37 @@ if(radio_btn.length == 0){
     	alert("해당 상품을 선택해 주세요.");	
     	btntype = '예약';     	
         for( var i = 0; i < radio_btn.length; i++ ){  		
-        		radio_btn[i].style.display = 'block';
+        		radio_btn[i].style.display = 'inline';
          }		        
 		document.getElementById("ProductReservationY").style.display = 'inline-block';		     
 		document.getElementById("ProductReservationN").style.display = 'inline-block';		     
-		document.getElementById("ReservationChoise").style.display = 'none';		     	     
-		document.getElementById("productChoice").style.display = 'none';		     
-		document.getElementById("hideenChoice").style.display = 'none';		
-		document.getElementById("pullUp").style.display = 'none';
-		
+		var dis = document.querySelectorAll(".disabled");			     
+		dis.forEach(function(userItem) {
+  		userItem.style.pointerEvents = 'none'; 
+		userItem.style.opacity = '0.6'; 
+});		
 	} 
+	
+	
+	 // 판매내역에 보여지는 상품삭제하기 버튼 클릭 이벤트 (라디오 버튼 생성)
+	function productDeleteChoise() {	
+    	alert("해당 상품을 선택해 주세요.");	
+		btntype = 'delete'; 	
+        for( var i = 0; i < radio_btn.length; i++ ){  		
+        		radio_btn[i].style.display = 'inline';
+         }		        
+		document.getElementById("ProductDelete").style.display = 'inline-block';		     		     
+		var dis = document.querySelectorAll(".disabled");			     
+		dis.forEach(function(userItem) {
+  		userItem.style.pointerEvents = 'none'; 
+		userItem.style.opacity = '0.6'; 
+});		
+	} 
+	
 	
  	// open modal 이벤트
     function openModal() {
-    	if(btntype == '예약' || btntype == '숨김' || btntype == 'pullup'){
+    	if(btntype == '예약' || btntype == '숨김' || btntype == 'pullup' || btntype == 'delete'){
     		console.log("예약 혹은 숨김");
     		document.querySelector(".modal").classList.add("hidden");   		
     		return;

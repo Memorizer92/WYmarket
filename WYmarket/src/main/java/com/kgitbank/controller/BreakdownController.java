@@ -154,8 +154,20 @@ public class BreakdownController {
 		String userNick = user.getUserNick();
 		bservice.productPullUp(ititle, userNick,istate, itemid);
 		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
-		model.addAttribute("pup", "pup");
-		return "/breakdown/sale/salePage";
+		return "redirect:/param/sale";
+	}
+	
+	@PostMapping("/productDelete/{ititle}/{itemid}/{istate}")
+	public String productDelete(Model model, HttpSession session,
+			@PathVariable("ititle") String ititle,
+			@PathVariable("itemid") String itemid,
+			@PathVariable("istate") String istate
+			){
+		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		String userNick = user.getUserNick();
+		bservice.productDelete(ititle, userNick, istate, itemid);
+		model.addAttribute("itemvo", bservice.getShitemVO(userNick));		
+		return "redirect:/param/sale";
 	}
 
 			

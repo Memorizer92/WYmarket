@@ -67,6 +67,10 @@ UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{iti
 UPDATE sh_item SET refreshtime = sysdate where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
 </update>
 
+<update id="productDelete">
+DELETE from sh_item  where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
+</update>
+
 
 
 

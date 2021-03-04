@@ -56,6 +56,13 @@ public interface breakdownMapper {
 			@Param("istate") String istate,
 			@Param("itemid") String itemid
 			);
+	
+	int productDelete(
+			@Param("ititle") String ititle, 
+			@Param("usernick") String usernick,
+			@Param("istate") String istate,
+			@Param("itemid") String itemid
+			);
 
 	
 		

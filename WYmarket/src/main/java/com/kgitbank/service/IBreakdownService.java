@@ -28,6 +28,8 @@ public interface IBreakdownService {
 
 	int productPullUp(String ititle, String usernick,String istate, String itemid);
 	
+	int productDelete(String ititle, String usernick,String istate, String itemid);
+	
 
 	
 

@@ -18,38 +18,29 @@
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Nanum+Pen+Script&family=Roboto+Slab:wght@500&display=swap"
-	rel="stylesheet">
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Balsamiq+Sans:wght@700&family=IBM+Plex+Sans:wght@600&family=Nanum+Pen+Script&family=Permanent+Marker&family=Roboto+Slab:wght@500&display=swap"
-	rel="stylesheet">
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Balsamiq+Sans:wght@700&family=Cinzel:wght@500&family=IBM+Plex+Sans:wght@600&family=Nanum+Pen+Script&family=Permanent+Marker&family=Roboto+Slab:wght@500&display=swap"
-	rel="stylesheet">
+<%@ include file="/WEB-INF/views/breakdown/incloud/font_css.jspf"%>
 
 <script src="https://kit.fontawesome.com/6421ed9b05.js"
 	crossorigin="anonymous"></script>
-	
+
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
+<link rel="stylesheet"
+	href=" https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
+
+
 
 </head>
 <body>
 
 	<div id="grid_2" class="div">
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"titlefont">판매내역</header>
+			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;" class = "titlefont">판매내역</header>
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">
 					<li class="list-inline-item menutitle "><button id="salebtn"
-							class="shadow--sm " onclick="salbtn()"
+							class="shadow--sm " onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
 							style="border-bottom: 2px solid black;">판매중</button></li>
 					<li class="list-inline-item menutitle"><button
 							id="completedbtn" class="shadow--sm "
@@ -62,40 +53,50 @@
 				<div style="text-align: right; font-size: 22px; margin: 10px;">
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button" class="btn"
-							data-bs-toggle="dropdown" aria-expanded="false" style="box-shadow: 0 0 0 0;">
+							data-bs-toggle="dropdown" aria-expanded="false"
+							style="box-shadow: 0 0 0 0;">
 							<i class="fas fa-ellipsis-h"></i>
-						</button>
+						</button>						
 						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-							<li id="productChoice" class = "disabled"><div class="dropdown-item" onclick="productChoice()" >거래상품 선택</div></li>
-							<li id="ReservationChoise" class = "disabled"><div class="dropdown-item" onclick="ReservationChoise()" >상품예약</div></li>
-							<li id="hideenChoice" value="숨기기" class = "disabled"><div class="dropdown-item" onclick="hideenChoice()" >상품 숨기기</div></li>
-							<li id="pullUp" class = "disabled"><div class="dropdown-item" onclick="pullUp()" >끌어올리기</div></li>
+							<li id="productChoice" class="disabled"><div
+									class="dropdown-item" onclick="productChoice()">거래상품 선택</div></li>
+							<li id="ReservationChoise" class="disabled"><div
+									class="dropdown-item" onclick="ReservationChoise()">상품예약</div></li>
+							<li id="hideenChoice" value="숨기기" class="disabled"><div
+									class="dropdown-item" onclick="hideenChoice()">상품 숨기기</div></li>
+							<li id="pullUp" class="disabled"><div class="dropdown-item"
+									onclick="pullUp()">끌어올리기</div></li>
+							<li id="productDeleteChoise" class="disabled"><div class="dropdown-item"
+									onclick="productDeleteChoise()">상품 삭제하기</div></li>
 						</ul>
 					</div>
 				</div>
 
 
-		<!-- 	<button onclick="productChoice()" id="productChoice">거래상품 선택</button>
-			<button onclick="ReservationChoise()" id="ReservationChoise">상품예약</button>
-			<button onclick="hideenChoice()" id="hideenChoice" value="숨기기">상품
-				숨기기</button>
-			<button onclick="pullUp()" id="pullUp">끌어올리기</button> -->
-			
-			
 				<c:forEach var="userItem_list" items="${itemvo }">
 					<c:if test="${userItem_list.istate eq 'Onsale'}">
 						<!--  판매중 내역 -->
-						
-						<div class="shadow shadow-strong completed" id="test" style="padding: 15px 5px; border-radius: 1rem;">
-							<span>ID: ${userItem_list.itemid }</span> <br> <span>현재날짜와
-								등록된 날짜 차 값(초):${userItem_list.refreshTime}</span> <br>
+ 			
+							<div class="shadow shadow-strong completed"
+							style="padding: 15px 5px; border-radius: 1rem;">
+							
+							<span> 제목: ${userItem_list.ititle } </span>
+							
+ 							<input type="checkbox"
+								onclick="openModal()" name="ititle"
+								value="${userItem_list.ititle }" style="display: none;" id ="titleRadio"/>															   							   
+							
+
+							<span>ID: ${userItem_list.itemid }</span> <br> 
+							<span>현재날짜와 등록된 날짜 차 값(초):${userItem_list.refreshTime}</span> <br>
 							<c:choose>
-								
-								<c:when test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
+					
+								<c:when
+									test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
 									<span>${userItem_list.refreshTime}초 전</span>
 									<br>
 								</c:when>
-								
+
 								<c:when
 									test="${userItem_list.refreshTime >= 60 && userItem_list.refreshTime < 3600}">
 									<fmt:parseNumber var="percent"
@@ -104,7 +105,7 @@
 									<span>${percent}분 전</span>
 									<br>
 								</c:when>
-								
+
 								<c:when
 									test="${userItem_list.refreshTime >= 3600 && userItem_list.refreshTime < 86400}">
 									<fmt:parseNumber var="percent"
@@ -113,8 +114,8 @@
 									<span>${percent}시간 전</span>
 									<br>
 								</c:when>
-																																							
-						<c:when
+
+								<c:when
 									test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800} ">
 									<fmt:parseNumber var="percent"
 										value="${((userItem_list.refreshTime) / 86400)}"
@@ -122,8 +123,8 @@
 									<span>${percent }일 전</span>
 									<br>
 								</c:when>
-											
-											
+
+
 								<c:when
 									test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800}">
 									<fmt:parseNumber var="percent"
@@ -132,8 +133,8 @@
 									<span>${percent}일 전</span>
 									<br>
 								</c:when>
-											
-											
+
+
 								<c:when
 									test="${userItem_list.refreshTime >= 2678400 && userItem_list.refreshTime < 32140800}">
 									<fmt:parseNumber var="percent"
@@ -150,40 +151,44 @@
 									<br>
 								</c:when>
 							</c:choose>
-														
+
 							<input type="radio" value="${userItem_list.itemid }"
-								name="itemid" style="display: none"> <input type="radio"
-								onclick="openModal()" name="ititle"
-								value="${userItem_list.ititle }" style="display: none" />
+								name="itemid" style="display: none"> 
+							
+
+
 
 							<c:if test="${userItem_list.ireservationstate eq 'Yreservation'}">
 								<span>예약중</span>
 							</c:if>
-							<span> 제목: ${userItem_list.ititle } </span> <br> <span>지역:
+							 <span>지역:
 								${userItem_list.address }</span> <br> <span>가격:
 								${userItem_list.price }</span> <br>
-
+						
+								
 						</div>
 						<br>
 					</c:if>
 					<!-- 판매중 내역 end -->
 				</c:forEach>
 
-					<div>
-			<button onclick="TransactionCompleted()" style="display: none;"
-				id="TransactionCompleted">거래완료</button>
-			<button onclick="ProductHideen()" style="display: none;"
-				id="ProductHideen">상품 숨기기</button>
-			<button onclick="pullUpChoise()" id="pullUpChoise"
-				style="display: none">끌어 올리기</button>
-			<button onclick="ProductReservationY()" style="display: none;"
-				id="ProductReservationY" value="Yreservation">예약중으로 변경</button>
-			<button onclick="ProductReservationN()" style="display: none;"
-				id="ProductReservationN" value="Nreservation">예약중으로 취소</button>
-				<button
-				onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
-				Page</button>
-			</div>
+				<div>
+					<button onclick="TransactionCompleted()" style="display: none;"
+						id="TransactionCompleted">거래완료</button>
+					<button onclick="ProductHideen()" style="display: none;"
+						id="ProductHideen">상품 숨기기</button>
+					<button onclick="pullUpChoise()" id="pullUpChoise"
+						style="display: none">끌어 올리기</button>
+					<button onclick="ProductReservationY()" style="display: none;"
+						id="ProductReservationY" value="Yreservation">예약중으로 변경</button>
+					<button onclick="ProductReservationN()" style="display: none;"
+						id="ProductReservationN" value="Nreservation">예약중으로 취소</button>
+					<button onclick="ProductDelete()" style="display: none;"
+						id="ProductDelete">상품 삭제하기</button>
+					<button
+						onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
+						Page</button>
+				</div>
 
 				<c:forEach var="userinfo_list" items="${userinfo }">
 					<input type="hidden" name="userNcik"
@@ -206,14 +211,16 @@
 					</div>
 				</div>
 			</div>
-	
-			${pullup } <input type="text" value="${pup }" id="pup"
-				style="display: none" />
+		
+
+
+
 		</main>
 	</div>
 
-<script type="text/javascript" src = "<%=application.getContextPath()%>/resources/assets/js/breakdown_sale.js"></script>
-<script>
+	<script type="text/javascript"
+		src="<%=application.getContextPath()%>/resources/assets/js/breakdown_sale.js"></script>
+	<script>
   //판매내역에 보여지는 거래상품 버튼 클릭 시 생성되는 거래완료 버튼 이벤트
     function TransactionCompleted() {
     	istate = 'Completed';
@@ -315,6 +322,26 @@
 	            return;
 	        }
 	}
+  
+  function ProductDelete() {
+	  istate = 'Onsale';
+	  for(var i = 0; i<radio_btn.length; i++){
+          if(radio_btn[i].checked==true){  
+          	idradio_btn[i].checked=true;
+  var form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("action", "<%=application.getContextPath() %>/param/productDelete/"+ radio_btn[i].value + "/" + idradio_btn[i].value + "/" + istate);  
+  document.body.appendChild(form);  
+  radio_btn_check++; 	    
+  form.submit();
+   alert("정상적으로 해당 상품이 삭제되었습니다.");		
+          }
+      }      
+      if(radio_btn_check==0){
+          alert("상품을 선택해주세요");
+          return;
+      }
+}
 </script>
 
 </body>
