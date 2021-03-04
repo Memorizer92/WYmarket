@@ -250,14 +250,15 @@
 		select userNick from
 		sh_userInfo where kakaomail=#{kakaomail}
 	</select>
-	
+
 	<select id="selectSignupCountByDate" resultType="Integer">
 		select count(*)
 		from
 		sh_userInfo WHERE userCreateDate LIKE #{totalDate} || '%'
 	</select>
 
-	<select id="selectUserInfoByMail" resultType="com.kgitbank.model.UserInfo">
+	<select id="selectUserInfoByMail"
+		resultType="com.kgitbank.model.UserInfo">
 		select * from
 		sh_userInfo where kakaomail=#{kakaomail}
 	</select>
@@ -273,6 +274,12 @@
 			WHERE rn > (#{pageNum } - 1) * #{amount } 	
 			ORDER BY userId
 		]]>
+	</select>
+
+	<select id="selectIdByUserNick"
+		resultType="Integer">
+		select userid from
+		sh_userInfo where usernick=#{userNick}
 	</select>
 
 </mapper>

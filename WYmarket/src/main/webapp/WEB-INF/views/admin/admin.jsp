@@ -366,6 +366,8 @@ tbody>tr>th {
 				</h5>
 			</div>
 
+			<c:url var="firstHref"
+				value="./admin?pageNum=1&amount=${pagination.amount }" />
 			<c:url var="previousHref2"
 				value="./admin?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
 			<c:url var="nextHref2"
@@ -374,16 +376,23 @@ tbody>tr>th {
 				value="./admin?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
 			<c:url var="nextHref1"
 				value="./admin?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
+			<c:url var="lastHref"
+				value="./admin?pageNum=${pageService.lastPage }&amount=${pagination.amount }" />
 
 			<nav aria-label="...">
 				<ul class="pagination justify-content-center">
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq 1}"> disabled</c:if>">
+						<a class="page-link" href="${firstHref }" tabindex="-1"
+						aria-disabled="true">처음으로</a>
+					</li>
 					<li
 						class="page-item<c:if test="${not pageService.previous }"> disabled</c:if>">
 						<a class="page-link" href="${previousHref2 }" tabindex="-1"
 						aria-disabled="true">&lt;&lt;</a>
 					</li>
 					<li
-						class="page-item<c:if test="${pagination.pageNum eq 1 or pagination.pageNum eq 0 }"> disabled</c:if>">
+						class="page-item<c:if test="${pagination.pageNum eq 1}"> disabled</c:if>">
 						<a class="page-link" href="${previousHref1 }" tabindex="-1"
 						aria-disabled="true">&lt;</a>
 					</li>
@@ -404,6 +413,11 @@ tbody>tr>th {
 						class="page-item<c:if test="${not pageService.next }"> disabled</c:if>">
 						<a class="page-link" href="${nextHref2 }" tabindex="-1"
 						aria-disabled="true">&gt;&gt;</a>
+					</li>
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
+						<a class="page-link" href="${lastHref }" tabindex="-1"
+						aria-disabled="true">끝으로</a>
 					</li>
 				</ul>
 			</nav>

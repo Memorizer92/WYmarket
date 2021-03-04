@@ -219,6 +219,11 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectUserBySignupDate(page);
 	}
 
+	@Override
+	public int selectIdByUserNick(String userNick) {
+		return wyMarketMapper.selectIdByUserNick(userNick);
+	}
+
 
 
 
