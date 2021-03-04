@@ -280,8 +280,6 @@ public class RestControllerMain implements Serializable {
             + userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
       userInfo.setPhoneNumber(dashPhoneNumber);
 
-      System.out.println(userInfo);
-
       int result = wyMarketService.insertUserPhNk(userInfo);
       System.out.println(result);
 
@@ -301,6 +299,8 @@ public class RestControllerMain implements Serializable {
          wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
       }
       
+      userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
       model.addAttribute("user", userInfo.getUserNick());
       session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
       System.out.println(session.getAttribute(userInfo.getUserNick()));
@@ -338,7 +338,6 @@ public class RestControllerMain implements Serializable {
          Date now = new Date();
          Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
          System.out.println("현재 날짜 " + format.format(now));
-         System.out.println("DB 날짜 " + format.format(userAccessDate));
          if(wyMarketService.selectUserAccessCount(info.getUserNick()) == 1) {
             if (!format.format(now).equals(format.format(userAccessDate))) {
                wyMarketService.insertUserAccessDate(info.getUserNick());
@@ -351,6 +350,8 @@ public class RestControllerMain implements Serializable {
             wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
          }
 
+         userInfo.setUserID(wyMarketService.selectIdByUserNick(info.getUserNick()));
+         
          model.addAttribute("user", info.getUserNick());
          session.setAttribute((String) model.getAttribute("user"), info);
 

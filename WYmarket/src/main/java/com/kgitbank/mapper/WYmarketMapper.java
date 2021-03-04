@@ -94,9 +94,12 @@ public interface WYmarketMapper {
 
 	// 메일에 따른 사용자 정보 검색
 	UserInfo selectUserInfoByMail(String mail);
+
 	// 가입자 수 검색
 	int selectSignupCountByDate(String totalDate);
-	
+
 	List<UserInfo> selectUserBySignupDate(Pagination page);
+
+	int selectIdByUserNick(String userNick);
 
 }
