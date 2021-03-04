@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
- 
+
 <title>header</title>
 
 <link
@@ -21,16 +21,21 @@
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
 	crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 
 <style>
+* {
+	box-sizing: border-box;
+}
+
 .content {
 	width: 300px;
 	border: black solid 1px;
 }
 
 .vv {
-	  border-bottom: rgb(237, 239, 246) solid 2px ;
+	border-bottom: rgb(237, 239, 246) solid 2px;
 }
 
 .ma {
@@ -95,10 +100,57 @@ a {
 	float: left;
 	margin-right: 20px;
 }
+
+#inquiryContainer {
+	border: solid 1px white;
+	width: 480px;
+	border-radius: 10%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+#inquiryContainer>#inquiryContainerInner>* {
+	margin-left: auto;
+	margin-right: auto;
+	width: 85%;
+}
+
+#inquiryContainerInner {
+	margin: 10% 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#inquiryContainerInner>p {
+	text-align: left;
+}
+
+#inquiryContainerInner>p:nth-of-type(2) {
+	font-size: 13px;
+	color: gray;
+}
+
+#inquiryContainerInner>[class*='form-'] {
+	margin-bottom: 15px;
+}
+
+#inquiryContainerInner>textarea {
+	height: 180px;
+}
+
+#inquirybtn {
+	background: radial-gradient(at 10% 30px, #FF8A3D, white);
+	border-color: white;
+}
+
+#inquirybtn:hover {
+	background: radial-gradient(at 10% 30px, white, #FF8A3D);
+}
 </style>
- 	 
- 
- 
+
+
+
 </head>
 
 <body>
@@ -129,11 +181,11 @@ a {
 
 
 
-		<div class="tab-content contents"   id="pills-tabContent">
+		<div class="tab-content contents" id="pills-tabContent">
 
-			<div class="tab-pane fade show active" style="padding: 60px" id="pills-home"
-				role="tabpanel" aria-labelledby="pills-home-tab">
-				<div class="accordion" id="accordionExample"  >
+			<div class="tab-pane fade show active" style="padding: 60px"
+				id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+				<div class="accordion" id="accordionExample">
 					<c:forEach var="vo" items="${list}" varStatus="vs" step="1" end="9">
 						<c:set var="i" value="${i+30}" />
 
@@ -182,16 +234,16 @@ a {
 						<div style="float: left; height: 400px; width: 70%;">
 							<ul class="lim">
 								<li><span class="material-icons"> block </span>
-								<div>"금지 품목 거래 시, 제재 받을 수 있어요"</div></li>
+									<div>"금지 품목 거래 시, 제재 받을 수 있어요"</div></li>
 								<li><span class="material-icons"> sell </span>
-								<div>"적절하지 않은 상품명, 이미지, 가격 등록 시에 제재 받을 수 있어요"</div></li>
+									<div>"적절하지 않은 상품명, 이미지, 가격 등록 시에 제재 받을 수 있어요"</div></li>
 								<li><span class="material-icons"> logout </span>
-								<div>"외부 채널로의 연락 유도, 타 사이트로의 결제 유도 시 제재 받을 수 있어요"</div></li>
+									<div>"외부 채널로의 연락 유도, 타 사이트로의 결제 유도 시 제재 받을 수 있어요"</div></li>
 								<li><span class="material-icons">
 										sentiment_very_dissatisfied </span>
-								<div>"욕설, 성희롱 등 비매너 행위는 타인을 불쾌하게 해요"</div></li>
+									<div>"욕설, 성희롱 등 비매너 행위는 타인을 불쾌하게 해요"</div></li>
 								<li><span class="material-icons"> chat </span>
-								<div>"상품, 댓글, 번개톡에 도배는 안돼요"</div></li>
+									<div>"상품, 댓글, 번개톡에 도배는 안돼요"</div></li>
 
 							</ul>
 						</div>
@@ -204,7 +256,8 @@ a {
 							<div style="font-size: 30px;">서비스 이용제한</div>
 						</div>
 						<div style="float: left; width: 70%;">
-							<li style="list-style: none; padding-left: 55px; padding-bottom: 50px">
+							<li
+								style="list-style: none; padding-left: 55px; padding-bottom: 50px">
 								<span class="material-icons"
 								style="float: left; padding-right: 25px;">warning_amber</span>
 								<div style="text-align: left;">위의 약속을 위배하는 경우 3아웃 정책으로 이용을
@@ -244,7 +297,7 @@ a {
 									<div style="padding-bottom: 30px;">물품 삭제 / 30일 이용제한</div>
 								</div>
 								<p
-									style="padding-left: 45px; padding-top:40px; text-align: left; color: orange; font-size: 15px;">
+									style="padding-left: 45px; padding-top: 40px; text-align: left; color: orange; font-size: 15px;">
 									※ 항목에 따라 사전 안내 없이 영구적으로 제한될 수 있습니다.</p>
 							</div>
 
@@ -258,8 +311,8 @@ a {
 
 
 
-			<div class="tab-pane fade" style="padding: 60px" id="pills-contact" role="tabpanel"
-				aria-labelledby="pills-contact-tab">
+			<div class="tab-pane fade" style="padding: 60px" id="pills-contact"
+				role="tabpanel" aria-labelledby="pills-contact-tab">
 				<div class="" style="height: 150px;">
 					<div class="nav nav-tabs cent" id="nav-tab" role="tablist">
 
@@ -420,7 +473,32 @@ a {
 					<div class="tab-pane fade" id="nav-8" role="tabpanel"
 						aria-labelledby="nav-8-tab">888</div>
 					<div class="tab-pane fade" id="nav-9" role="tabpanel"
-						aria-labelledby="nav-9-tab">999</div>
+						aria-labelledby="nav-9-tab">
+						<div class="container" id='inquiryContainer'>
+							<div class="container" id='inquiryContainerInner'>
+								<p>검색과 관련된 궁금한 점이나 불편사항 개선할 점이 있으면 자유롭게 이야기해주세요. 소중한 의견
+									감사합니다. &#128522</p>
+								<p>※ 답변에는 시간이 소요됩니다. 조금만 기다려주세요 :)</p>
+								<select class="form-select" id="inputGroupSelect01"
+									name="inquirySelect">
+									<option selected>문의 카테고리 검색</option>
+									<option value="transaction">거래 환불/분쟁 및 사기 신고</option>
+									<option value="account">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
+									<option value="sale">판매 금지/거래 품목 문의</option>
+									<option value="manner">매너평가, 매너온도, 거래후기 관련 문의</option>
+									<option value="board">게시글 노출, 미노출 문의</option>
+									<option value="chat">채팅, 알림</option>
+									<option value="search">검색 문의</option>
+									<option value="etc">기타 문의</option>
+									<option value="error">오류 제보</option>
+								</select>
+								<textarea class="form-control" aria-label="With textarea"
+									placeholder="문의하실 내용을 여기에 입력해주세요 :)"></textarea>
+								<button class="btn btn-primary" type="submit" id='inquirybtn'>당근마켓팀에게
+									보내기</button>
+							</div>
+						</div>
+					</div>
 				</div>
 
 
