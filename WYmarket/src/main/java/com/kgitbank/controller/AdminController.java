@@ -135,6 +135,7 @@ public class AdminController implements Serializable {
          if (session.getAttribute("dateTransfer") == null) {
             pagination.setTotal(wyMarketService.selectUserCount());
             model.addAttribute("users", wyMarketService.selectUserList(pagination));
+            session.setAttribute("accessCount", pagination.getTotal());
          } else {
             pagination.setSearch((String) session.getAttribute("dateTransfer"));
             pagination.setTotal(wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer")));

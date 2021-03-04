@@ -28,11 +28,6 @@
 	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Lobster&display=swap"
 	rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Karma&family=Lobster&family=Nanum+Pen+Script&display=swap"
-	rel="stylesheet">
-
 <style type="text/css">
 * {
 	box-sizing: border-box;
@@ -69,6 +64,8 @@ body {
 	display: flex;
 	flex-direction: row;
 	margin-top: 50px;
+	position: relative;
+	right: 100px;
 }
 
 #searchcontainer {
@@ -179,7 +176,12 @@ th {
 
 .page-link {
 	background-color: white;
-	color: #ffb856;
+	color: green;
+	border-radius: 10%;
+}
+
+.page-item {
+	margin-left: 10px;
 }
 
 .form-select {
@@ -254,6 +256,19 @@ th {
 	font-size: 20px;
 }
 
+table {
+	/* border-collapse: separate;
+	border-spacing: 10px 0; */
+	
+}
+
+.table>:not(caption)>*>* {
+	padding: .5rem 25px;
+	background-color: var(- -bs-table-bg);
+	border-bottom-width: 1px;
+	box-shadow: inset 0 0 0 9999px var(- -bs-table-accent-bg);
+}
+
 thead>tr>th {
 	font-family: 'Kanit', sans-serif;
 	font-size: 16px;
@@ -262,18 +277,17 @@ thead>tr>th {
 tbody>tr>th {
 	font-family: sans-serif;
 	font-size: 14px;
-	
 }
 
 .page-item.active .page-link {
 	z-index: 3;
-	background-color: #ffb856;
+	background-image: radial-gradient(at 10% 80px, white, lightgreen 55%, green);
 	color: white;
-	border-color: #ffb856;
+	border-color: lightgreen;
 }
 
-.page-link:active {
-	color: #ffb856;
+.page-link:active, .page-link:hover {
+	color: green;
 }
 </style>
 </head>
@@ -302,7 +316,9 @@ tbody>tr>th {
 							<th scope="col">받은 리뷰 수</th>
 							<th scope="col">키워드</th>
 							<th scope="col">정지 여부</th>
-
+							<th scope="col"></th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -448,7 +464,8 @@ tbody>tr>th {
 				<button type="button" class="btn btn-primary" id='accessbtn'
 					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
 					수 보기</button>
-				<button type="button" class="btn btn-primary" id='adminBtn'>공지사항
+				<button type="button" class="btn btn-primary" id='adminBtn'
+					onclick="location.href='<%=application.getContextPath()%>/board/write';">공지사항
 					쓰기</button>
 			</div>
 		</div>
