@@ -66,7 +66,10 @@ textarea#icontent {
 						<label for="iimagepath">상품 이미지</label>
 						<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
 					</div>
-					
+					<div class="inputArea">
+						<label for="usernick">판매자</label>
+						<span>${goods.usernick}</span>
+					</div>
 					<div class="inputArea">
 						<label for="ititle">상품명</label>
 						<span>${goods.ititle}</span>
@@ -90,6 +93,7 @@ textarea#icontent {
 					<%-- <a href="goods/view?n=${goods.itemid}"> --%>
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+						<button type="button" id="chat_Btn">채팅하기</button>
 						
 						<script>
 							var formObj = $("form[role='form']");

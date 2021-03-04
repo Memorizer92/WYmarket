@@ -76,7 +76,7 @@ public class GoodsController {
 		 
 		 
 		
-		int result = gservice.createGoods(goods, "지워니", ititle, icategory, icontent, price);
+		int result = gservice.createGoods(goods, user.getUserNick(), ititle, icategory, icontent, price);
 		
 		return "redirect:/main";
 	}

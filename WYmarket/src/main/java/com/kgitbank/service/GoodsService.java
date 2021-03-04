@@ -20,8 +20,6 @@ public class GoodsService implements GoodsServiceImpl{
 		return goods_mapper.getGoodsList();
 	}
 
-	
-
 	@Override
 	public GoodsVO getGoods(int itemid) {		
 		return goods_mapper.getGoods(itemid);

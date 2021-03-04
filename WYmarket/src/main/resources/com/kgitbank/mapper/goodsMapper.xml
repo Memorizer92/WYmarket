@@ -35,7 +35,7 @@
 	
 	<!-- 등록 상품 조회 -->
 	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
-		SELECT itemid, iimagepath, ititle, icategory, refreshtime, icontent, price FROM sh_item WHERE itemid = #{itemid}
+		SELECT itemid, iimagepath, usernick, ititle, icategory, refreshtime, icontent, price FROM sh_item WHERE itemid = #{itemid}
 	</select>
 	
 	<!-- 상품목록 수정 -->
