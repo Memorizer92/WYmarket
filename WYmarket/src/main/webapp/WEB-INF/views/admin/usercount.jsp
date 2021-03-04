@@ -101,8 +101,14 @@ tbody>tr>th {
 #totalCount {
 	text-align: center;
 }
-#countPart{height: 40px;}
-.card-text{margin-top: -8px;}
+
+#countPart {
+	height: 40px;
+}
+
+.card-text {
+	margin-top: -8px;
+}
 </style>
 </head>
 <body>
@@ -175,7 +181,7 @@ tbody>tr>th {
 					검색 결과 : <b>${accessCount } 개</b>
 				</h5>
 			</div>
-	<c:url var="firstHref"
+			<c:url var="firstHref"
 				value="./admin?pageNum=1&amount=${pagination.amount }" />
 			<c:url var="previousHref2"
 				value="./admin?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />

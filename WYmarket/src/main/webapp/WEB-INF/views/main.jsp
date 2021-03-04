@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
 * {
 	box-sizing: border-box;
 }
+
 #kakaoLogout {
 	text-decoration: none;
 	text-align: center;
@@ -60,14 +62,15 @@
 				<%@ include file="include/nav.jsp"%>
 			</div>
 		</nav>
+		<c:if test="">
 		<section id="container">
 			<div id="container_box">
-				<span>1:${user}</span>
-				<span>2:${userNick}</span>
+				<span>1:${user}</span> <span>2:${userNick}</span>
 				<li><a href="goods/register">상품등록</a></li>
 				<%@ include file="goods/list.jsp"%>
 			</div>
 		</section>
+		</c:if>
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
