@@ -276,10 +276,6 @@ public class RestControllerMain implements Serializable {
       userInfo.setLongitude((double) model.getAttribute("lon"));
       userInfo.setAddress((String) model.getAttribute("address"));
 
-      model.addAttribute("user", userInfo.getUserNick());
-      session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
-      System.out.println(session.getAttribute(userInfo.getUserNick()));
-
       String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
             + userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
       userInfo.setPhoneNumber(dashPhoneNumber);
@@ -304,6 +300,10 @@ public class RestControllerMain implements Serializable {
          // 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
          wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
       }
+      
+      model.addAttribute("user", userInfo.getUserNick());
+      session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
+      System.out.println(session.getAttribute(userInfo.getUserNick()));
       
       return null;
    }

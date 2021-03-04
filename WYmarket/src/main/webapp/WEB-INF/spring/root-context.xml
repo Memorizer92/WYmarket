@@ -14,9 +14,9 @@
 			value="oracle.jdbc.pool.OracleDataSource" /> <!-- datasource가 아닌 driver -->
 		<property name="dataSourceProperties">
 			<props>
-				<prop key="user">c##wymarket</prop>
+				<prop key="user">hr</prop>
 				<prop key="password">1234</prop>
-				<prop key="url">jdbc:oracle:thin:@localhost:1521/XE</prop>
+				<prop key="url">jdbc:oracle:thin:@localhost:1521/XEPDB1</prop>
 			</props>
 		</property>
 	</bean>
