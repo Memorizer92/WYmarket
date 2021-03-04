@@ -51,24 +51,6 @@ public class LoginFormController {
       return "location";
    }
 
-   @GetMapping("/echo")
-   public String echo() {
-      return "echo";
-   }
-
-   @GetMapping("/echo3")
-   public String echo3() {
-      return "echo3";
-   }
-   
-   
-   @RequestMapping("/chat")
-   public ModelAndView chat() {
-      ModelAndView mv = new ModelAndView();
-      mv.setViewName("chat");
-      return mv;
-   }
-    
  
    @GetMapping("/address")
    public String address() {
