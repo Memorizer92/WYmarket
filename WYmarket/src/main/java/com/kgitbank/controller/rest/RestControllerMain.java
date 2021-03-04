@@ -338,7 +338,6 @@ public class RestControllerMain implements Serializable {
          Date now = new Date();
          Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
          System.out.println("현재 날짜 " + format.format(now));
-         System.out.println("DB 날짜 " + format.format(userAccessDate));
          if(wyMarketService.selectUserAccessCount(info.getUserNick()) == 1) {
             if (!format.format(now).equals(format.format(userAccessDate))) {
                wyMarketService.insertUserAccessDate(info.getUserNick());
