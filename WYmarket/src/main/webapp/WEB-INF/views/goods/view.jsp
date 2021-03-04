@@ -59,7 +59,8 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 목록</h2>
 
-				<form role="form" method="POST" autocomplete="off">
+				<form role="form" method="post" autocomplete="off">
+					<input type="hidden" name="n" value="${goods.itemid}" />
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
@@ -86,8 +87,24 @@ textarea#icontent {
 					</div>
 
 					<div class="inputArea">
-						<button type="button" id="register_Btn" class="btn btn-warning">수정</button>
-						<button type="button" id="register_Btn" class="btn btn-danger">삭제</button>
+					<%-- <a href="goods/view?n=${goods.itemid}"> --%>
+						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+						
+						<script>
+							var formObj = $("form[role='form']");
+							
+							$("#modify_Btn").click(function(){
+								formObj.attr("submit", "/goods/modify");//action
+								formObj.attr("method", "get")
+								formObj.submit();
+							});
+							
+							$("#delete_Btn").click(function(){
+								formObj.attr("action", "/goods/delete");
+								formObj.submit();
+							});
+						</script>
 					</div>
 
 				</form>

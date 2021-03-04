@@ -15,27 +15,42 @@
 	</select>
 
 	<!-- 상품 등록 -->
-	<!-- <insert id="createGoods">
-	 INSERT INTO sh_item (
-	  itemid, usernick, iimagepath, ititle, address , manner, icategory, refreshtime, icontent, price, istate)
-	     VALUES (
-	     itemID_seq.nextval,
-	     #{usernick}, 
-	     #{iimagepath},
-	     #{ititle},
-	     (select address from sh_userinfo where usernick = #{usernick}), 
-	     (select manner from sh_userinfo where usernick = #{usernick}), 
-	     #{icategory}, 
-	     sysdate, 
-	     #{icontent}, 
-	     #{price},
-	     'Onsale'
-	     )
-	</insert> -->
+	<insert id="createGoods">
+	INSERT INTO sh_item (itemid, usernick, ititle, address, manner,
+	icategory, refreshtime, icontent, price, istate)
+
+	VALUES (
+	itemID_seq.nextval,
+	#{user},
+	<!-- #{iimagepath}, -->
+	#{ititle},
+	(select address from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
+	(select manner from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
+	#{icategory},
+	sysdate,
+	#{icontent},
+	#{price},
+	'Onsale'
+	)
+	</insert>
 	
 	<!-- 등록 상품 조회 -->
 	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
 		SELECT itemid, iimagepath, ititle, icategory, refreshtime, icontent, price FROM sh_item WHERE itemid = #{itemid}
 	</select>
+	
+	<!-- 상품목록 수정 -->
+	<update id="goodsModify">
+	 update sh_item
+	     set
+	     	 iimagepath = #{iimagepath},
+	         ititle = #{ititle},
+	         icategory = #{icategory},
+	         price = #{price},
+	         icontent = #{icontent},
+	         istate = #{istate}
+	     where itemid = ${itemid}
+	</update>
+	
  
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.goodsMapper;
 import com.kgitbank.model.GoodsVO;
+import com.kgitbank.model.UserInfo;
 
 @Service
 public class GoodsService implements GoodsServiceImpl{
@@ -20,13 +21,19 @@ public class GoodsService implements GoodsServiceImpl{
 	}
 
 	@Override
-	public int createGoods(GoodsVO goods, String usernick) {
-		return goods_mapper.createGoods(goods, usernick);
+	public GoodsVO getGoods(int itemid) {		
+		return goods_mapper.getGoods(itemid);
+	}
+	
+	@Override
+	public void goodsModify(GoodsVO goods) {
+		goods_mapper.goodsModify(goods);
 	}
 
 	@Override
-	public GoodsVO getGoods(int itemid) {		
-		return goods_mapper.getGoods(itemid);
+	public int createGoods(GoodsVO goods, String user, String ititle, String icategory,
+			String icontent, Integer price) {
+		return goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price);
 	}
 
 }
