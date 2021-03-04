@@ -74,6 +74,8 @@ public interface WYmarketService {
 	int selectSignupCountByDate(String totalDate);
 	
 	List<UserInfo> selectUserBySignupDate(Pagination page);
+	
+	int selectIdByUserNick(String userNick);
 }
 
 
