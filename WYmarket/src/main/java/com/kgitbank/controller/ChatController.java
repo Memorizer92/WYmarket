@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+ 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +21,12 @@ import com.kgitbank.model.ChatMessage;
 import com.kgitbank.model.Room;
 import com.kgitbank.service.ChatService;
  
+ 
 
 @Controller 
 public class ChatController {
 
+	
 	@Autowired
 	ChatService chatservice;
 	
@@ -31,7 +35,7 @@ public class ChatController {
 	public String showRoom(int roomId,Model model) {
 		
 		model.addAttribute("roomId",roomId);
-		
+		//로그인된 세션에 시퀀스를 저장.
 		return "chats/room";
 	}
 	
