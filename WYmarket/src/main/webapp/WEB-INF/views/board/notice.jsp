@@ -538,7 +538,7 @@ a {
 
 		if ("${inquiryFlag}" == 1) {
 			inquiry.click();
-			console.log("실행되나");
+			alert("성공적으로 접수되었습니다.");
 			<%session.removeAttribute("inquiryFlag");%>
 		}
 	

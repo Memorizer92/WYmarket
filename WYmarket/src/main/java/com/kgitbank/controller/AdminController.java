@@ -247,7 +247,23 @@ public class AdminController implements Serializable {
 		
 		session.setAttribute("inquiryFlag", 1);
 		
+		wyMarketService.updateInquiryCountTotal();
+		
+		session.setAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
+		
 		return "redirect:/board/notice/c";
 	}
 
+	@GetMapping("admin/seeInquiry")
+	public String seeInquiry(Model model, HttpSession session) {
+		
+		List<Inquiry> inquiries = wyMarketService.selectInquiryInfo();
+		session.setAttribute("inquiries", inquiries);
+		
+		wyMarketService.resetInquiryCountTotal();
+		session.setAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
+		
+		return "/admin/inquiry";
+	}
+	
 }

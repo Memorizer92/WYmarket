@@ -245,6 +245,26 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.insertInquiryInfo(inquiry);
 	}
 
+	@Override
+	public List<Inquiry> selectInquiryInfo() {
+		return wyMarketMapper.selectInquiryInfo();
+	}
+
+	@Override
+	public int updateInquiryCountTotal() {
+		return wyMarketMapper.updateInquiryCountTotal();
+	}
+
+	@Override
+	public int selectInquiryCountTotal() {
+		return wyMarketMapper.selectInquiryCountTotal();
+	}
+
+	@Override
+	public int resetInquiryCountTotal() {
+		return wyMarketMapper.resetInquiryCountTotal();
+	}
+
 
 
 

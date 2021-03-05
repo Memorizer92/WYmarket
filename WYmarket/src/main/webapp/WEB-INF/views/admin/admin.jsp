@@ -208,7 +208,7 @@ th {
 	color: white;
 }
 
-#adminMemo, #twobtn, #adminBtn {
+#adminMemo, #twobtn, #adminBtn, #inquiryBtn {
 	margin-top: 15px;
 }
 
@@ -481,6 +481,13 @@ tbody>tr>th {
 				<button type="button" class="btn btn-primary" id='adminBtn'
 					onclick="location.href='<%=application.getContextPath()%>/board/write';">공지사항
 					쓰기</button>
+				<button type="button" class="btn btn-primary" id='inquiryBtn'
+					onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiry';">
+					문의 보기
+					<c:if test="${inquiryCount ne 0}">
+						<span class="badge bg-secondary">${inquiryCount }</span>
+					</c:if>
+				</button>
 			</div>
 		</div>
 	</div>

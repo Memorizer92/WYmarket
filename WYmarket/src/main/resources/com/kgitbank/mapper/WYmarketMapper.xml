@@ -306,8 +306,29 @@
 	<insert id="insertInquiryInfo">
 		INSERT INTO sh_inquiry
 		VALUES
-		(inquiry_seq.nextval, #{userNick}, #{inquiryCategory}, #{inquiryContent})
+		(inquiry_seq.nextval,
+		#{userNick}, #{inquiryCategory}, #{inquiryContent})
 	</insert>
+
+	<select id="selectInquiryInfo"
+		resultType="com.kgitbank.model.Inquiry">
+		select * from
+		sh_inquiry order by inquiryID desc
+	</select>
+
+	<update id="updateInquiryCountTotal">
+		UPDATE sh_inquiryCountTotal SET total = total + 1
+	</update>
+
+	<select id="selectInquiryCountTotal" resultType="Integer">
+		select total
+		from
+		sh_inquiryCountTotal
+	</select>
+
+	<update id="resetInquiryCountTotal">
+		UPDATE sh_inquiryCountTotal SET total = 0
+	</update>
 
 
 </mapper>

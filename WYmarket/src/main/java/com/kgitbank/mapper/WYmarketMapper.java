@@ -110,5 +110,11 @@ public interface WYmarketMapper {
 	int selectCountFromItem();
 	
 	int insertInquiryInfo(Inquiry inquiry);
-
+	
+	List<Inquiry> selectInquiryInfo();
+	
+	int updateInquiryCountTotal();
+	int selectInquiryCountTotal();
+	int resetInquiryCountTotal();
+	
 }
