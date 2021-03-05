@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.kgitbank.controller.LoginFormController;
 import com.kgitbank.model.AdminInfo;
 import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.UserIP;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
@@ -392,7 +393,7 @@ public class RestControllerMain implements Serializable {
 	@PostMapping(value = "/admin/inquiryModal", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String inquiryModal(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
 
-		System.out.println();
+		session.setAttribute("inqVO", inquiry);
 
 		return "					<div class=\"container\" id='inquiryContainer'>\r\n"
 				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
@@ -402,6 +403,41 @@ public class RestControllerMain implements Serializable {
 				+ "								\" name=\"textArea\"\r\n"
 				+ "								readonly=\"readonly\">" + inquiry.getInquiryContent()
 				+ "</textarea>\r\n" + "						</div>\r\n" + "					</div>";
+	}
+
+	@PostMapping(value = "/admin/adminToUser", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String adminToUser(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
+
+		return "		<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
+				+ "			placeholder=\"답장하실 내용을 여기에 입력해주세요 :)\" name=\"textArea\" id='text'></textarea>\r\n"
+				+ "		<button class=\"btn btn-primary\" id='inquirybtn' data-bs-dismiss=\"modal\" onclick=\"ajaxReply()\">답장\r\n"
+				+ "			보내기</button>";
+	}
+
+	@PostMapping(value = "/admin/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String checkHistory(@RequestBody InquiryAdminToUser inq, Model model, HttpSession session) {
+
+		InquiryAdminToUser iatu = wyMarketService.selectInquiryAdminToUserByID(inq.getInquiryID());
+		Inquiry i = wyMarketService.selectInquiryByID(iatu.getUserInquiryID());
+
+		return "				<div class=\"modal-header\">\r\n"
+				+ "					<h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\r\n"
+				+ "					<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"\r\n"
+				+ "						aria-label=\"Close\"></button>\r\n" + "				</div>\r\n"
+				+ "				<div class=\"modal-body\" id='modalContent'>\r\n"
+				+ "					<div class=\"container\" id='inquiryContainer'>\r\n"
+				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
+				+ "							<p>" + i.getUserNick() + "</p>\r\n" + "							<p>"
+				+ i.getInquiryCategory() + "</p>\r\n"
+				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
+				+ "								name=\"textArea\" readonly=\"readonly\">" + i.getInquiryContent()
+				+ "\r\n" + "				</textarea>\r\n" + "						</div>\r\n"
+				+ "					</div>\r\n" + "				</div>\r\n"
+				+ "				<div class=\"modal-footer\">\r\n"
+				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" aria-label=\"With\r\n"
+				+ "						textarea\"\r\n"
+				+ "						name=\"textArea\" readonly=\"readonly\">" + iatu.getInquiryContent()
+				+ "</textarea>\r\n" + "				</div>";
 	}
 
 }

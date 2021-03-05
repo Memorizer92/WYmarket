@@ -330,6 +330,66 @@
 		UPDATE sh_inquiryCountTotal SET total = 0
 	</update>
 
+	<insert id="insertInquiryAdminToUser">
+		INSERT INTO sh_inquiryAdminToUser
+		VALUES
+		(inquiryAdminToUser_seq.nextval, #{userInquiryID},
+		#{userNick},
+		#{inquiryCategory}, #{inquiryContent})
+	</insert>
+
+	<select id="selectInquiryAdminToUser"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser order by inquiryID desc
+	</select>
+
+	<select id="selectInquiryAdminToUserByID"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser WHERE inquiryID =
+		#{inquiryID}
+	</select>
+
+	<select id="selectInquiryByID"
+		resultType="com.kgitbank.model.Inquiry">
+		select *
+		from
+		sh_inquiry WHERE inquiryID =
+		#{inquiryID}
+	</select>
+
+	<select id="selectInquiryAdminToUserByUserNick"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser WHERE userNick =
+		#{userNick}
+	</select>
+
+	<select id="selectInquiryByUserNick"
+		resultType="com.kgitbank.model.Inquiry">
+		select *
+		from
+		sh_inquiry WHERE userNick =
+		#{userNick}
+	</select>
+
+	<update id="updateInquiryUserCountTotal">
+		UPDATE sh_inquiryUserCountTotal SET total = total + 1
+	</update>
+
+	<select id="selectInquiryUserCountTotal" resultType="Integer">
+		select total
+		from
+		sh_inquiryUserCountTotal
+	</select>
+
+	<update id="resetInquiryUserCountTotal">
+		UPDATE sh_inquiryUserCountTotal SET total = 0
+	</update>
 
 </mapper>
 

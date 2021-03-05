@@ -500,6 +500,13 @@ a {
 								</div>
 							</div>
 						</form>
+						<button type="button" class="btn btn-primary" id='inquiryBtn'
+							onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiryFromAdmin';">
+							답장 보기
+							<c:if test="${adminToUserCount ne 0}">
+								<span class="badge bg-secondary">${adminToUserCount }</span>
+							</c:if>
+						</button>
 					</div>
 				</div>
 
@@ -539,10 +546,8 @@ a {
 		if ("${inquiryFlag}" == 1) {
 			inquiry.click();
 			alert("성공적으로 접수되었습니다.");
-			<%session.removeAttribute("inquiryFlag");%>
+	<%session.removeAttribute("inquiryFlag");%>
 		}
-	
-		
 	</script>
 
 </body>

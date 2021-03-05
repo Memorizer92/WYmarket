@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.kgitbank.model.AdminInfo;
 import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -117,4 +118,21 @@ public interface WYmarketMapper {
 	int selectInquiryCountTotal();
 	int resetInquiryCountTotal();
 	
+	int insertInquiryAdminToUser(InquiryAdminToUser inquiryAdminToUser);
+	
+	List<InquiryAdminToUser> selectInquiryAdminToUser();
+	
+	InquiryAdminToUser selectInquiryAdminToUserByID(int inquiryID);
+	
+	Inquiry selectInquiryByID(int inquiryID);
+	
+	List<InquiryAdminToUser> selectInquiryAdminToUserByUserNick(String userNick);
+	List<Inquiry> selectInquiryByUserNick(String userNick);
+	
+	int updateInquiryUserCountTotal();
+	int selectInquiryUserCountTotal();
+	int resetInquiryUserCountTotal();
+	
 }
+
+

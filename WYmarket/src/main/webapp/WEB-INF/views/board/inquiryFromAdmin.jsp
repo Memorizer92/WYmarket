@@ -36,82 +36,39 @@
 ul {
 	width: 100%;
 	overflow: auto;
-	height: 892px;
-}
-
-li {
-	cursor: pointer;
 }
 </style>
 <body>
 	<div class="container" id='outer'>
 		<div class='container'>
-			<p>받은 문의</p>
-			<ul class="list-group" id='ul1'>
-				<c:forEach var="inquiry" items="${inquiries }">
+			<p>받은 답장</p>
+			<ul class="list-group">
+				<c:forEach var="inquiry" items="${replyFromAdmin }">
 					<li class="list-group-item"
-						onclick="ajaxInquiry('${inquiry.inquiryID }','${inquiry.userNick }',
-			' ${inquiry.inquiryCategory }', '${inquiry.inquiryContent }')">문의
+						onclick="ajaxShowHistory('${inquiry.inquiryID}')">문의
 						번호 : ${inquiry.inquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
 						카테고리 : ${inquiry.inquiryCategory }
 					</li>
 				</c:forEach>
 			</ul>
 		</div>
-		<div class='container'>
-			<p>보낸 답장</p>
-			<ul class="list-group">
-
-				<c:forEach var="inquiry" items="${inqAdminToUser }">
-					<li class="list-group-item"
-						onclick="ajaxshowHistory('${inquiry.inquiryID}')">문의 번호 :
-						${inquiry.userInquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
-						카테고리 : ${inquiry.inquiryCategory }
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
 	</div>
 
-
-
-	<div class="modal fade" id="inquiryModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body" id='modalContent'></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" id='btn1'
-						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" id='btn2'
-						onclick="ajaxAdminToUser('${inqVO.userNick}')">답장하기</button>
-					<div class="container" id='reply'></div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="modal fade" id="inquirySentModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<div class="modal-content" id='inModal'></div>
+			<div class="modal-content" id='inModal'>
+
+			</div>
 		</div>
 	</div>
 
-
-
 	<script
-		src="<%=application.getContextPath()%>/resources/assets/js/inquiry.js"></script>
+		src="<%=application.getContextPath()%>/resources/assets/js/inquiryFromAdmin.js"></script>
 
 </body>
 </html>
-
-
 
 <%-- 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>

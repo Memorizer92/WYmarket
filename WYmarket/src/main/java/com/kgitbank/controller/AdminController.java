@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.DateCalc;
@@ -242,28 +243,67 @@ public class AdminController implements Serializable {
 		inquiry.setUserNick(userNick);
 		inquiry.setInquiryCategory(inquiryCategory);
 		inquiry.setInquiryContent(inquiryContent);
-		
+
 		wyMarketService.insertInquiryInfo(inquiry);
-		
+
 		session.setAttribute("inquiryFlag", 1);
-		
+
 		wyMarketService.updateInquiryCountTotal();
-		
+
 		session.setAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
-		
+
 		return "redirect:/board/notice/c";
 	}
 
 	@GetMapping("admin/seeInquiry")
 	public String seeInquiry(Model model, HttpSession session) {
-		
+
 		List<Inquiry> inquiries = wyMarketService.selectInquiryInfo();
 		session.setAttribute("inquiries", inquiries);
-		
+
 		wyMarketService.resetInquiryCountTotal();
 		session.setAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
-		
+
+		List<InquiryAdminToUser> adUserVO = wyMarketService.selectInquiryAdminToUser();
+
+		session.setAttribute("inqAdminToUser", adUserVO);
+
 		return "/admin/inquiry";
 	}
-	
+
+	// 답장 보내기 확정 버튼 눌렀을 때
+	@GetMapping("admin/sendInquiryAdminToUser/{textarea}")
+	public String sendInquiryAdminToUser(Model model, HttpSession session, @PathVariable String textarea) {
+
+		Inquiry inquiry = (Inquiry) session.getAttribute("inqVO");
+		InquiryAdminToUser inquiryAdminToUser = new InquiryAdminToUser();
+		inquiryAdminToUser.setUserInquiryID(inquiry.getInquiryID());
+		inquiryAdminToUser.setUserNick(inquiry.getUserNick());
+		inquiryAdminToUser.setInquiryCategory(inquiry.getInquiryCategory());
+		inquiryAdminToUser.setInquiryContent(textarea);
+		wyMarketService.insertInquiryAdminToUser(inquiryAdminToUser);
+		
+		wyMarketService.updateInquiryUserCountTotal();
+		
+		session.setAttribute("adminToUserCount", wyMarketService.selectInquiryUserCountTotal());
+
+		return null;
+	}
+
+	// 사용자가 관리자가 보낸 답장 페이지 볼 때
+	@GetMapping("admin/seeInquiryFromAdmin")
+	public String seeInquiryFromAdmin(Model model, HttpSession session) {
+
+		UserInfo userInfo = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+
+		List<Inquiry> i = wyMarketService.selectInquiryByUserNick(userInfo.getUserNick());
+		List<InquiryAdminToUser> iatu = wyMarketService.selectInquiryAdminToUserByUserNick(userInfo.getUserNick());
+		session.setAttribute("myInquiry", i);
+		session.setAttribute("replyFromAdmin", iatu);
+		
+		wyMarketService.resetInquiryUserCountTotal();
+
+		return "/board/inquiryFromAdmin";
+	}
+
 }
