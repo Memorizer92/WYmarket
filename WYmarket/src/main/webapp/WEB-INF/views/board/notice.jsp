@@ -474,30 +474,32 @@ a {
 						aria-labelledby="nav-8-tab">888</div>
 					<div class="tab-pane fade" id="nav-9" role="tabpanel"
 						aria-labelledby="nav-9-tab">
-						<div class="container" id='inquiryContainer'>
-							<div class="container" id='inquiryContainerInner'>
-								<p>검색과 관련된 궁금한 점이나 불편사항 개선할 점이 있으면 자유롭게 이야기해주세요. 소중한 의견
-									감사합니다. &#128522</p>
-								<p>※ 답변에는 시간이 소요됩니다. 조금만 기다려주세요 :)</p>
-								<select class="form-select" id="inputGroupSelect01"
-									name="inquirySelect">
-									<option selected>문의 카테고리 검색</option>
-									<option value="transaction">거래 환불/분쟁 및 사기 신고</option>
-									<option value="account">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
-									<option value="sale">판매 금지/거래 품목 문의</option>
-									<option value="manner">매너평가, 매너온도, 거래후기 관련 문의</option>
-									<option value="board">게시글 노출, 미노출 문의</option>
-									<option value="chat">채팅, 알림</option>
-									<option value="search">검색 문의</option>
-									<option value="etc">기타 문의</option>
-									<option value="error">오류 제보</option>
-								</select>
-								<textarea class="form-control" aria-label="With textarea"
-									placeholder="문의하실 내용을 여기에 입력해주세요 :)"></textarea>
-								<button class="btn btn-primary" type="submit" id='inquirybtn'>당근마켓팀에게
-									보내기</button>
+						<form action="<%=application.getContextPath()%>/admin/sendInquiry">
+							<div class="container" id='inquiryContainer'>
+								<div class="container" id='inquiryContainerInner'>
+									<p>검색과 관련된 궁금한 점이나 불편사항 개선할 점이 있으면 자유롭게 이야기해주세요. 소중한 의견
+										감사합니다. &#128522</p>
+									<p>※ 답변에는 시간이 소요됩니다. 조금만 기다려주세요 :)</p>
+									<select class="form-select" id="inputGroupSelect01"
+										name="inquirySelect">
+										<option selected>문의 카테고리 검색</option>
+										<option value="transaction">거래 환불/분쟁 및 사기 신고</option>
+										<option value="account">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
+										<option value="sale">판매 금지/거래 품목 문의</option>
+										<option value="manner">매너평가, 매너온도, 거래후기 관련 문의</option>
+										<option value="board">게시글 노출, 미노출 문의</option>
+										<option value="chat">채팅, 알림</option>
+										<option value="search">검색 문의</option>
+										<option value="etc">기타 문의</option>
+										<option value="error">오류 제보</option>
+									</select>
+									<textarea class="form-control" aria-label="With textarea"
+										placeholder="문의하실 내용을 여기에 입력해주세요 :)" name="textArea"></textarea>
+									<button class="btn btn-primary" type="submit" id='inquirybtn'>당근마켓팀에게
+										보내기</button>
+								</div>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 
@@ -516,6 +518,7 @@ a {
 		var home = document.getElementById("pills-home-tab");
 		var profile = document.getElementById("pills-profile-tab");
 		var contact = document.getElementById("pills-contact-tab");
+		const inquiry = document.getElementById('nav-9-tab');
 
 		<c:choose>
 
@@ -532,6 +535,14 @@ a {
 		</c:otherwise>
 
 		</c:choose>
+
+		if ("${inquiryFlag}" == 1) {
+			inquiry.click();
+			console.log("실행되나");
+			<%session.removeAttribute("inquiryFlag");%>
+		}
+	
+		
 	</script>
 
 </body>

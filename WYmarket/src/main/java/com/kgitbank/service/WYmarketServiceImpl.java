@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -237,6 +238,11 @@ public class WYmarketServiceImpl implements WYmarketService{
 	@Override
 	public int selectCountFromItem() {
 		return wyMarketMapper.selectCountFromItem();
+	}
+
+	@Override
+	public int insertInquiryInfo(Inquiry inquiry) {
+		return wyMarketMapper.insertInquiryInfo(inquiry);
 	}
 
 

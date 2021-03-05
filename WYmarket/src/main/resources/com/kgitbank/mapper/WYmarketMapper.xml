@@ -103,7 +103,8 @@
 	</select>
 
 	<select id="selectUserAccessDate" resultType="Date">
-		select MAX(accessDate)
+		select
+		MAX(accessDate)
 		from
 		sh_userAccessDate WHERE userNick = #{userNick}
 	</select>
@@ -301,6 +302,13 @@
 		FROM
 		sh_item
 	</select>
+
+	<insert id="insertInquiryInfo">
+		INSERT INTO sh_inquiry
+		VALUES
+		(inquiry_seq.nextval, #{userNick}, #{inquiryCategory}, #{inquiryContent})
+	</insert>
+
 
 </mapper>
 

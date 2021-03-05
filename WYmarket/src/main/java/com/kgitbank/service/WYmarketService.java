@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -82,6 +83,8 @@ public interface WYmarketService {
 	UserInfo selectLatLong(String userNick);
 	
 	int selectCountFromItem();
+	
+	int insertInquiryInfo(Inquiry inquiry);
 }
 
 

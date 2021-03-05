@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -107,5 +108,7 @@ public interface WYmarketMapper {
 	UserInfo selectLatLong(String userNick);
 	
 	int selectCountFromItem();
+	
+	int insertInquiryInfo(Inquiry inquiry);
 
 }
