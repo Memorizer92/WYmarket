@@ -8,7 +8,7 @@ import com.kgitbank.model.UserInfo;
 
 public interface GoodsServiceImpl {
 	
-	public List<GoodsVO> getGoodsList(); 
+	public List<GoodsVO> getGoodsList(String userNick); 
 	
 	public int createGoods(GoodsVO goods, 
 			String user,

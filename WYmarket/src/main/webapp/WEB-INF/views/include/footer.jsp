@@ -34,11 +34,11 @@
     <hr>
     <footer class="foot container-xl "> 
     
-       │<a class="tt" href="./notice/a"><b>공지사항</b></a>
-       │<a class="tt" href="./notice/b"><b>운영정책</b></a>
-       │<a class="tt" href="./notice/c"><b>자주묻는질문</b></a>
-       │<a class="tt" href="./operationTerms"><b>이용약관</b></a>
-       │<a class="tt" href="./privacyPolicy"><b>개인정보처리방침</b></a>│
+       │<a class="tt" href="./board/notice/a"><b>공지사항</b></a>
+       │<a class="tt" href="./board/notice/b"><b>운영정책</b></a>
+       │<a class="tt" href="./board/notice/c"><b>자주묻는질문</b></a>
+       │<a class="tt" href="./board/operationTerms"><b>이용약관</b></a>
+       │<a class="tt" href="./board/privacyPolicy"><b>개인정보처리방침</b></a>│
     </footer>
     <hr>
 

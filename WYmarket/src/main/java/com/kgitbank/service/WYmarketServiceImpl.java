@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -222,6 +224,91 @@ public class WYmarketServiceImpl implements WYmarketService{
 	@Override
 	public int selectIdByUserNick(String userNick) {
 		return wyMarketMapper.selectIdByUserNick(userNick);
+	}
+
+	@Override
+	public List<String> selectUserNickFromItem() {
+		return wyMarketMapper.selectUserNickFromItem();
+	}
+
+	@Override
+	public UserInfo selectLatLong(String userNick) {
+		return wyMarketMapper.selectLatLong(userNick);
+	}
+
+	@Override
+	public int selectCountFromItem() {
+		return wyMarketMapper.selectCountFromItem();
+	}
+
+	@Override
+	public int insertInquiryInfo(Inquiry inquiry) {
+		return wyMarketMapper.insertInquiryInfo(inquiry);
+	}
+
+	@Override
+	public List<Inquiry> selectInquiryInfo() {
+		return wyMarketMapper.selectInquiryInfo();
+	}
+
+	@Override
+	public int updateInquiryCountTotal() {
+		return wyMarketMapper.updateInquiryCountTotal();
+	}
+
+	@Override
+	public int selectInquiryCountTotal() {
+		return wyMarketMapper.selectInquiryCountTotal();
+	}
+
+	@Override
+	public int resetInquiryCountTotal() {
+		return wyMarketMapper.resetInquiryCountTotal();
+	}
+
+	@Override
+	public int insertInquiryAdminToUser(InquiryAdminToUser inquiryAdminToUser) {
+		return wyMarketMapper.insertInquiryAdminToUser(inquiryAdminToUser);
+	}
+
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUser() {
+		return wyMarketMapper.selectInquiryAdminToUser();
+	}
+
+	@Override
+	public InquiryAdminToUser selectInquiryAdminToUserByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryAdminToUserByID(inquiryID);
+	}
+
+	@Override
+	public Inquiry selectInquiryByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryByID(inquiryID);
+	}
+
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUserByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryAdminToUserByUserNick(userNick);
+	}
+
+	@Override
+	public List<Inquiry> selectInquiryByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryByUserNick(userNick);
+	}
+
+	@Override
+	public int updateInquiryUserCountTotal() {
+		return wyMarketMapper.updateInquiryUserCountTotal();
+	}
+
+	@Override
+	public int selectInquiryUserCountTotal() {
+		return wyMarketMapper.selectInquiryUserCountTotal();
+	}
+
+	@Override
+	public int resetInquiryUserCountTotal() {
+		return wyMarketMapper.resetInquiryUserCountTotal();
 	}
 
 

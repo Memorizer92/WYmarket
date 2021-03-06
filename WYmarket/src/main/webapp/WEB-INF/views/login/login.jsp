@@ -331,7 +331,7 @@ function onlyNumber(){
 				</div>
 
 				<div class="modal-body">인증 횟수 3회 초과로 인하여 더 이상 인증하실 수 없습니다.</div>
-
+				<p id='time2'></p>
 
 				<div class="modal-footer" id="modalfooter">
 					<button type="button" class="btn btn-secondary"
@@ -381,7 +381,8 @@ function onlyNumber(){
 							setTimeout(function(){
 							if(document.getElementById("smsReqCnt").value >= 3){
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
-								myModal.show()	
+								myModal.show()
+								startTime2();
 							} else{
 								timeLimit = 30;
 								startTime();
@@ -462,14 +463,20 @@ function toMain() {
 			document.getElementById('nick2Char').style.display = 'none';
 			document.getElementById('nickOverrap').style.display = 'block';
 		} else {
- 			ajaxNickUpdate();
-			setTimeout(function(){
-				var form = document.createElement("form");
-				form.setAttribute("method", "get");
-				form.setAttribute("action", "./main");
-				document.body.appendChild(form);
-				form.submit();
-	        }, 1000);
+			if(timeLimit != 0){
+	 			ajaxNickUpdate();
+				setTimeout(function(){
+					var form = document.createElement("form");
+					form.setAttribute("method", "get");
+					form.setAttribute("action", "./main");
+					document.body.appendChild(form);
+					form.submit();
+		        }, 1000);
+			} else{
+				var myModal = new bootstrap.Modal(document.getElementById('timeExceed'));
+				myModal.show()
+			}
+
 		}
 
 	}
@@ -482,11 +489,8 @@ function toMain() {
 	});
 	
 			
-
-	
 			var timeLimit = 30;
 			function startTime(){
-
 
 			var x = setInterval(function() {
 
@@ -499,6 +503,27 @@ function toMain() {
 			  }
 			}, 1000);
 			};
+			
+			
+			var timeLimit2 = 60;
+			var cnt = 0;
+			var time = 1000;
+			function startTime2(){
+				cnt++;
+				if(cnt > 1){
+					time*=1000;
+				}
+				var x = setInterval(function() {
+
+				  timeLimit2--;
+
+				  document.getElementById("time2").innerHTML = timeLimit2;
+				  
+				  if (timeLimit2 == 0) {
+				    clearInterval(x);
+				  }
+				}, time);
+				};
 	</script>
 
 </body>

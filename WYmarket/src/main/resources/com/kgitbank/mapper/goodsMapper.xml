@@ -7,9 +7,9 @@
 	<!-- 상품 목록 -->
 	<select id="getGoodsList" resultType="com.kgitbank.model.GoodsVO">
 		SELECT
-			itemid, iimagepath, ititle, icategory, price, refreshtime
+			itemid, iimagepath, ititle, userNick ,icategory, price, refreshtime
 		FROM
-			sh_item
+			sh_item WHERE userNick=#{userNick}
 		ORDER BY 
 			refreshtime desc
 	</select>

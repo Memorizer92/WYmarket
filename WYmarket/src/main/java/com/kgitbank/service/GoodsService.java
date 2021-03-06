@@ -16,8 +16,8 @@ public class GoodsService implements GoodsServiceImpl{
 	goodsMapper goods_mapper;
 	
 	@Override
-	public List<GoodsVO> getGoodsList(){
-		return goods_mapper.getGoodsList();
+	public List<GoodsVO> getGoodsList(String userNick){
+		return goods_mapper.getGoodsList(userNick);
 	}
 
 	@Override

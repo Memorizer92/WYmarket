@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserInfo;
 
@@ -76,6 +78,35 @@ public interface WYmarketService {
 	List<UserInfo> selectUserBySignupDate(Pagination page);
 	
 	int selectIdByUserNick(String userNick);
+	
+	List<String> selectUserNickFromItem();
+	
+	UserInfo selectLatLong(String userNick);
+	
+	int selectCountFromItem();
+	
+	int insertInquiryInfo(Inquiry inquiry);
+	
+	List<Inquiry> selectInquiryInfo();
+	
+	int updateInquiryCountTotal();
+	int selectInquiryCountTotal();
+	int resetInquiryCountTotal();
+	
+	int insertInquiryAdminToUser(InquiryAdminToUser inquiryAdminToUser);
+	
+	List<InquiryAdminToUser> selectInquiryAdminToUser();
+	
+	InquiryAdminToUser selectInquiryAdminToUserByID(int inquiryID);
+	
+	Inquiry selectInquiryByID(int inquiryID);
+	
+	List<InquiryAdminToUser> selectInquiryAdminToUserByUserNick(String userNick);
+	List<Inquiry> selectInquiryByUserNick(String userNick);
+	
+	int updateInquiryUserCountTotal();
+	int selectInquiryUserCountTotal();
+	int resetInquiryUserCountTotal();
 }
 
 

@@ -230,6 +230,8 @@ public class LoginFormController {
 
       UserInfo userInfo = (UserInfo) wyMarketService.selectUserInfoByMail(mail);
       
+      userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+      
       SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
       // 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
       Date now = new Date();
@@ -246,6 +248,7 @@ public class LoginFormController {
          // 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
          wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
       }
+     
       
       // 가입유무 : 1이면 바로 메인페이지로 리턴
       if (result == 1) {
@@ -266,8 +269,7 @@ public class LoginFormController {
       userInfo.setKakaoMail(mail);
       userInfo.setUserNick(userInfo.getUserNick());
       
-      model.addAttribute("user", userInfo.getUserNick());
-      session.setAttribute(userInfo.getUserNick(), userInfo);
+
       
       System.out.println("db에 넣을 메일: " + mail);
       System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());
@@ -292,6 +294,11 @@ public class LoginFormController {
          // 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
          wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
       }
+      
+      userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+      
+      model.addAttribute("user", userInfo.getUserNick());
+      session.setAttribute(userInfo.getUserNick(), userInfo);
       
       return "redirect:/main";
    }
