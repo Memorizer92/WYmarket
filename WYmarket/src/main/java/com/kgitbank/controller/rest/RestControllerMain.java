@@ -158,6 +158,8 @@ public class RestControllerMain implements Serializable {
 				System.out.println(diffSec + "초 차이");
 				System.out.println(diffDays + "일 차이");
 
+				session.setAttribute("exceedTime", diffSec);
+
 				if (diffSec >= 60) {
 					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
 					smsCnt = 1;
@@ -224,13 +226,13 @@ public class RestControllerMain implements Serializable {
 			}
 		}
 
-		return numStr; // uri 반환 !!!
+		return numStr;
 	}
 
 	@PostMapping(value = { "/getph/{sms}" }, produces = "text/html; charset=UTF-8")
 	public String sendph(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model) {
 
-		return phoneNumber; // uri 반환 !!!
+		return phoneNumber;
 	}
 
 	@PostMapping(value = { "/smsReqCnt" }, produces = "text/html; charset=UTF-8")
@@ -239,7 +241,14 @@ public class RestControllerMain implements Serializable {
 		System.out.println("인증횟수 : " + smsCnt);
 		String check = String.valueOf(smsCnt);
 
-		return check; // uri 반환 !!!
+		return check;
+	}
+
+	// 3회 초과했을 때 남은 시간 반환
+	@PostMapping(value = { "/exceedTime" }, produces = "text/html; charset=UTF-8")
+	public String exceedTime(Model model, HttpSession session) {
+
+		return (String) session.getAttribute("exceedTime");
 	}
 
 	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")
@@ -249,7 +258,7 @@ public class RestControllerMain implements Serializable {
 		System.out.println("인증횟수는 몇일까 : " + smsCnt);
 		String check = String.valueOf(smsCnt);
 
-		return check; // uri 반환 !!!
+		return check;
 	}
 
 	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
@@ -258,7 +267,7 @@ public class RestControllerMain implements Serializable {
 		System.out.println(result);
 		String check = String.valueOf(result);
 
-		return check; // uri 반환 !!!
+		return check;
 	}
 
 	@PostMapping(value = "/selectNick", consumes = "application/json", produces = "text/html; charset=UTF-8")

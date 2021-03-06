@@ -341,8 +341,9 @@ function onlyNumber(){
 		</div>
 	</div>
 
-	<script
-		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
+	<script type="text/javascript"
+		src="<%=application.getContextPath()%>/resources/assets/js/login.js"
+		></script>
 
 	<script>
 	window.onpageshow = function(event){
@@ -356,7 +357,6 @@ function onlyNumber(){
 			document.getElementById("smsReqCnt").value += 1;
 		}
 	} */
-	
 	
 			const confirm = document.getElementById('getConfirm');
 
@@ -380,6 +380,7 @@ function onlyNumber(){
 							console.log("원하는 카운트 : " + "${smsCnt}");
 							setTimeout(function(){
 							if(document.getElementById("smsReqCnt").value >= 3){
+								ajaxExceedTime();
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 								myModal.show()
 								startTime2();
@@ -505,7 +506,7 @@ function toMain() {
 			};
 			
 			
-			var timeLimit2 = 60;
+			var timeLimit2 = document.getElementById('time2').value;
 			var cnt = 0;
 			var time = 1000;
 			function startTime2(){
@@ -524,6 +525,8 @@ function toMain() {
 				  }
 				}, time);
 				};
+				
+				
 	</script>
 
 </body>
