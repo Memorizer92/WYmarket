@@ -301,7 +301,7 @@ public class RestControllerMain implements Serializable {
 		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
 		Date now = new Date();
 		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
-		if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) == 1) {
+		if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
 			if (format.format(now) != format.format(userAccessDate)) {
 				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
 				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
@@ -352,7 +352,7 @@ public class RestControllerMain implements Serializable {
 			Date now = new Date();
 			Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
 			System.out.println("현재 날짜 " + format.format(now));
-			if (wyMarketService.selectUserAccessCount(info.getUserNick()) == 1) {
+			if (wyMarketService.selectUserAccessCount(info.getUserNick()) >= 1) {
 				if (!format.format(now).equals(format.format(userAccessDate))) {
 					wyMarketService.insertUserAccessDate(info.getUserNick());
 					// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
