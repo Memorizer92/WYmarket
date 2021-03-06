@@ -19,25 +19,24 @@
 ${user}님의 채팅방 목록
 <hr>
 <c:forEach var="vo" items="${sellerList}" >
-			<tr>
-			<a class="btn btn-primary" 
-				href="./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}" role="button">
-					구매자 : ${vo.buyerName}<br>
+		  
+			<button type="button" onclick="location.href='./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}&sellerName=${vo.sellerName}&buyerName=${vo.buyerName}&check=1'" class="btn btn-primary">
+ 					구매자 : ${vo.buyerName}<br>
 					판매상품 : ${vo.item}<br>
-					연락 시간 : ${vo.chatDate}
-			</a><br>
-			</tr> 
+					연락 시간 : ${vo.chatDate} 
+			<span class="badge bg-secondary">${vo.buyerCount}</span>
+			</button>
+			
 		</c:forEach>
+		<br>
 	<hr>
 <c:forEach var="vo" items="${buyerList}" >
-			<tr>
-			<a class="btn btn-primary" 
-				href="./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}" role="button">
-					판매자 : ${vo.sellerName}<br>
+			<button type="button" onclick="location.href='./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}&sellerName=${vo.sellerName}&buyerName=${vo.buyerName}&check=0'" class="btn btn-primary">
+ 					판매자 : ${vo.sellerName}<br>
 					판매상품 : ${vo.item}<br>
-					연락 시간 : ${vo.chatDate}
-			</a><br>
-			</tr> 
+					연락 시간 : ${vo.chatDate} 
+			<span class="badge bg-secondary">${vo.sellerCount}</span>
+			</button>
 		</c:forEach>	
 		
 					 

@@ -13,9 +13,14 @@ public interface ChattingMapper {
 	//구매자 닉네임을 통해 채팅방 정보 조회
 	public List<ChattingVO> selectBuyerName(String sellerName);
 	
-	public int updateChatInfo(int roomId);
+	public int updateSellerCount(int roomId);
+	public int updateBuyerCount(int roomId);
+	public int resetSellerCount(int roomId);
+	public int resetBuyerCount(int roomId);
 	
 	public int selectRoomId(int roomId);
+
+	public int updateChatInfo(int roomId);
 	
 	
 	

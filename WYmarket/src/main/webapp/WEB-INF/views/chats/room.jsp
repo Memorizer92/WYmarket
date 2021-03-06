@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +36,7 @@ function Chat__addMessage(writer,body){
 function Chat__drawMessage(chatMessage){
 	
 	var html = chatMessage.writer + ' : ' + chatMessage.body;
-	 
+	
 	$('.chat-messages').prepend('<div>'+html+'</div>');
 }
 
@@ -50,7 +51,7 @@ function Chat__loadNewMessages(){
 			 },
 			 function(data){
 				for(var i=0; i<data.messages.length; i++){
-					Chat__drawMessage(data.messages[i]); 
+					Chat__drawMessage(data.messages[i]);
 					Chat__lastLoadedMessageId = data.messages[i].id;
 				}
 			 },
@@ -87,37 +88,70 @@ function submitChatMessageForm(form){
 </script>
 <style>
 .cen{
-	text-align: center;
+	text-align-last: center;
+  
 }
 .style{
-	width: 40%;
-	height: 80%;
-	margin: 200px;
+    
+    justify-content: center;
+	
 }
-
+.content{ 
+    height: 600px;
+   
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom:5%;
+     
+    box-shadow: 1px 1px 10px rgb(180, 178, 178);
+    border-radius: 1.0rem;
+    padding: 10px 0;
+    background-color: rgb(251, 250, 250);
+}
+.top{
+	margin-top: 5%;
+	margin-bottom: 20px;
+	font-size: 50px;
+	color: orange;
+}
 </style>
 </head>
 <body>
+	 
 <div class="container-md cen style">
-
+	<div class="top">WY Talk / 
+	<form action="./chatting" method="get"> 
+		<input style="display: none" type="text" name="roomId" value="${vo.roomId }" />
+		<input style="display: none" type="text" name="buyerName" value="${vo.buyerName}" />
+		<input style="display: none" type="text" name="sellerName" value="${vo.sellerName}" />
+		<input style="display: none" type="text" name="user" value="${user}" /> 
+	<button type="submit">
+	나가기
+	</button>
+	</form>
+	</div>
+    <div class="content"> 
 	<div>${vo.item }(${vo.price}원) 거래방</div>
 	<div>구매자 : ${vo.buyerName }</div> 
 	<div>판매자 : ${vo.sellerName }</div> 
+	<br>
 	
 	<form onsubmit="submitChatMessageForm(this); return false;">
 		<div>
-			<input type="text" name="writer" value="${user}" autocomplete="off" readonly/>
+			<input style="display: none"type="text" name="writer" value="${user}" autocomplete="off" readonly/>
 		</div>
 	 	<div>
-			<input type="text" name="body" placeholder="내용" autocomplete="off"/>
+			<input type="text" name="body" placeholder="내용" autocomplete="off"/>&nbsp;
+            <input type="submit" value="▲"/>
 		</div>
-		<div>
-			<input type="submit" value="작성"/>
-		</div>
+		 
+			 
+		 
 	</form>
  
  	<div class="chat-messages"></div>
-
+</div>  
 </div>
 	 
  

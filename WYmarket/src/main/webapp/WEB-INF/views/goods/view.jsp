@@ -94,12 +94,16 @@ textarea#icontent {
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
 						
+						<c:set var="sellerId" value="${sellerId}" />
+						<c:set var="buyerId" value="${buyerId}" />
+					 
+					 <c:if test="${sellerId ne buyerId}"> <%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
 						<button type="button" id="chat_Btn"
 						onclick="location.href=
-						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}';">
+						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}&check=0';">
 							채팅으로 거래하기
 						</button>
-						
+					</c:if>
 						
 						<script>
 							var formObj = $("form[role='form']");

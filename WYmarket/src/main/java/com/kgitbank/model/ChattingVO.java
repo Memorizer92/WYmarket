@@ -14,6 +14,8 @@ public class ChattingVO {
 	private String item;
 	private int price;
 	private Date chatDate;
+	private int buyerCount;
+	private int sellerCount;
  
 
 	 
