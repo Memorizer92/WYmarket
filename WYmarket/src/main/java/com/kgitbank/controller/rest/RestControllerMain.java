@@ -248,7 +248,10 @@ public class RestControllerMain implements Serializable {
 	@PostMapping(value = { "/exceedTime" }, produces = "text/html; charset=UTF-8")
 	public String exceedTime(Model model, HttpSession session) {
 
-		return (String) session.getAttribute("exceedTime");
+		long time = (long) session.getAttribute("exceedTime");
+		String timeStr = String.valueOf(time);
+		
+		return timeStr;
 	}
 
 	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")

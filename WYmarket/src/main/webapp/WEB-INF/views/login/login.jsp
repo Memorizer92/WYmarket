@@ -342,8 +342,7 @@ function onlyNumber(){
 	</div>
 
 	<script type="text/javascript"
-		src="<%=application.getContextPath()%>/resources/assets/js/login.js"
-		></script>
+		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
 
 	<script>
 	window.onpageshow = function(event){
@@ -383,7 +382,9 @@ function onlyNumber(){
 								ajaxExceedTime();
 								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 								myModal.show()
+								setTimeout(function(){
 								startTime2();
+								}, 1000);
 							} else{
 								timeLimit = 30;
 								startTime();
@@ -506,18 +507,20 @@ function toMain() {
 			};
 			
 			
-			var timeLimit2 = document.getElementById('time2').value;
+			var timeLimit2 = 60 - document.getElementById('time2').value;
+			console.log('초기' + timeLimit2);
 			var cnt = 0;
 			var time = 1000;
 			function startTime2(){
+				timeLimit2 = 60 - document.getElementById('time2').value;
 				cnt++;
 				if(cnt > 1){
 					time*=1000;
 				}
 				var x = setInterval(function() {
-
+					console.log('전' + timeLimit2);
 				  timeLimit2--;
-
+					console.log('후' + timeLimit2);
 				  document.getElementById("time2").innerHTML = timeLimit2;
 				  
 				  if (timeLimit2 == 0) {
