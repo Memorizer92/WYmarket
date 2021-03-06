@@ -72,9 +72,9 @@ public class GoodsController {
 				 */
 		
 		 user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
-		 model.addAttribute("user", user.getUserNick());
+		 model.addAttribute("user", user.getUserNick()); 
 		 log.info(user.getUserNick());
-		 
+		
 		 
 		
 		int result = gservice.createGoods(goods, user.getUserNick(), ititle, icategory, icontent, price);
@@ -88,12 +88,14 @@ public class GoodsController {
 		GoodsVO goods = gservice.getGoods(itemid);
 		model.addAttribute("goods",goods);
 		//구매자 시퀀스 필요
-		
+		String nick = gservice.getId(goods.getUsernick());  
 		user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));  
-		session.setAttribute("userId",user.getUserID()); 
-	
-		
+		session.setAttribute("buyerId",user.getUserID()); 
+		session.setAttribute("buyerName", user.getUserNick()); 
+		session.setAttribute("sellerId", nick);
 	}
+	
+	
 	
 	//상품 수정페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)

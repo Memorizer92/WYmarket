@@ -22,4 +22,6 @@ public interface GoodsServiceImpl {
 	
 	public void goodsModify(GoodsVO goods);
 
+	String getId(String userNick);
+
 }

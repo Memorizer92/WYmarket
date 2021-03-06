@@ -8,7 +8,8 @@
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
 <script>
 var Chat__roomId = ${param.roomId};
 </script>
@@ -34,7 +35,7 @@ function Chat__addMessage(writer,body){
 function Chat__drawMessage(chatMessage){
 	
 	var html = chatMessage.writer + ' : ' + chatMessage.body;
-	
+	 
 	$('.chat-messages').prepend('<div>'+html+'</div>');
 }
 
@@ -49,7 +50,7 @@ function Chat__loadNewMessages(){
 			 },
 			 function(data){
 				for(var i=0; i<data.messages.length; i++){
-					Chat__drawMessage(data.messages[i]);
+					Chat__drawMessage(data.messages[i]); 
 					Chat__lastLoadedMessageId = data.messages[i].id;
 				}
 			 },
@@ -84,16 +85,28 @@ function submitChatMessageForm(form){
 }
 
 </script>
+<style>
+.cen{
+	text-align: center;
+}
+.style{
+	width: 40%;
+	height: 80%;
+	margin: 200px;
+}
 
+</style>
 </head>
 <body>
+<div class="container-md cen style">
 
-	<h1>${roomId}번 방</h1>
-	<h1>${param.roomId}번 방</h1>
+	<div>${vo.item }(${vo.price}원) 거래방</div>
+	<div>구매자 : ${vo.buyerName }</div> 
+	<div>판매자 : ${vo.sellerName }</div> 
 	
 	<form onsubmit="submitChatMessageForm(this); return false;">
 		<div>
-			<input type="text" name="writer" placeholder="작성자" autocomplete="off"/>
+			<input type="text" name="writer" value="${user}" autocomplete="off" readonly/>
 		</div>
 	 	<div>
 			<input type="text" name="body" placeholder="내용" autocomplete="off"/>
@@ -104,6 +117,9 @@ function submitChatMessageForm(form){
 	</form>
  
  	<div class="chat-messages"></div>
+
+</div>
+	 
  
 </body>
 </html>

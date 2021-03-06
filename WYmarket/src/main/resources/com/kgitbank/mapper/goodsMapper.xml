@@ -39,6 +39,11 @@
 		SELECT itemid, iimagepath, usernick, ititle, icategory, refreshtime, icontent, price FROM sh_item WHERE itemid = #{itemid}
 	</select>
 	
+	<!-- 유저아이디(시퀀스) 조회 -->
+	<select  id="getId" resultType="java.lang.String">
+		select userID from sh_userInfo  where userNick = #{userNick}
+	</select>
+	
 	<!-- 상품목록 수정 -->
 	<update id="goodsModify">
 	 update sh_item

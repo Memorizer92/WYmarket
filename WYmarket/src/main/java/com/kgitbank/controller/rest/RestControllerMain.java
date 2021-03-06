@@ -275,15 +275,7 @@ public class RestControllerMain implements Serializable {
       userInfo.setLatitude((double) model.getAttribute("lat"));
       userInfo.setLongitude((double) model.getAttribute("lon"));
       userInfo.setAddress((String) model.getAttribute("address"));
-      
-      userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
-      
-      model.addAttribute("user", userInfo.getUserNick());
-      session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
-      System.out.println(session.getAttribute(userInfo.getUserNick()));
-
-
-      
+       
       String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
             + userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
       userInfo.setPhoneNumber(dashPhoneNumber);
@@ -309,6 +301,11 @@ public class RestControllerMain implements Serializable {
          wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
       }
       
+      userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+      
+      model.addAttribute("user", userInfo.getUserNick());
+      session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
+      System.out.println(session.getAttribute(userInfo.getUserNick()));
       return null;
    }
 
