@@ -12,30 +12,69 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.ChatMessage;
+import com.kgitbank.model.ChattingVO;
 import com.kgitbank.model.Room;
+import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.ChatService;
+import com.kgitbank.service.ChattingService;
  
  
 
 @Controller 
+@SessionAttributes("user")
 public class ChatController {
-
+	
+	UserInfo user;
 	
 	@Autowired
 	ChatService chatservice;
 	
-	//NEW
-	@RequestMapping("/chats/room")
-	public String showRoom(int roomId,Model model) {
+	@Autowired
+	ChattingService chattingService;
+	
+	//구매자 채팅방 목록
+	@RequestMapping("/chats/chatting")
+	public String chatting(HttpSession session,Model model) {
+		user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
 		
-		model.addAttribute("roomId",roomId);
-		//로그인된 세션에 시퀀스를 저장.
+		List<ChattingVO> sellerList = chattingService.selectSellerName(user.getUserNick());
+		List<ChattingVO> buyerList = chattingService.selectBuyerName(user.getUserNick());
+		 
+		
+		model.addAttribute("sellerList",sellerList);
+		model.addAttribute("buyerList",buyerList);
+		model.addAttribute("user",user.getUserNick());
+		
+		return "chats/chatting";
+	}
+	
+	//채팅방
+	@RequestMapping("/chats/room")
+	public String showRoom(@ModelAttribute ChattingVO vo, Model model,HttpSession session) {
+		model.addAttribute("vo",vo); 
+		 
+		  
+		user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
+		model.addAttribute("user", user.getUserNick()); 
+		
+		//채팅방 개설 되있는지 확인
+		int check = chattingService.selectRoomId(vo.getRoomId());
+		if(check==0) {
+			//개설 안되있으면 개설
+			chattingService.createChatInfo(vo);
+		}else {
+			//개설 되어있으면 시간만 업데이트
+			chattingService.updateChatInfo(vo.getRoomId());
+		}
+		
 		return "chats/room";
 	}
 	

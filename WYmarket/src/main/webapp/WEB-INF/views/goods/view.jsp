@@ -93,11 +93,13 @@ textarea#icontent {
 					<%-- <a href="goods/view?n=${goods.itemid}"> --%>
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+						
 						<button type="button" id="chat_Btn"
 						onclick="location.href=
-						'<%=application.getContextPath()%>/chats/room?roomId=${goods.itemid }${userId}';">
-							채팅하기 유저아이디:${userId}
+						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}';">
+							채팅으로 거래하기
 						</button>
+						
 						
 						<script>
 							var formObj = $("form[role='form']");
