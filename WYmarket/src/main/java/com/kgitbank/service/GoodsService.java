@@ -35,5 +35,10 @@ public class GoodsService implements GoodsServiceImpl{
 			String icontent, Integer price) {
 		return goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price);
 	}
+	
+	@Override
+	public String getId(String userNick) {
+		return goods_mapper.getId(userNick);
+	}
 
 }

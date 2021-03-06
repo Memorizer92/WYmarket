@@ -23,4 +23,6 @@ public interface goodsMapper {
 	public GoodsVO getGoods(int itemid);
 
 	public void goodsModify(GoodsVO goods);
+	
+	public String getId(String userNick);
 }

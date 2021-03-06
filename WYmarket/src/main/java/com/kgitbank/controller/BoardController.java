@@ -13,15 +13,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
+import com.kgitbank.model.ChattingVO;
+import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BoardService;
+import com.kgitbank.service.ChattingService;
 
 @Controller
 @RequestMapping("/board/*")
+@SessionAttributes("user")
 public class BoardController {
  
+	UserInfo user;
 	
 	//공지사항
 	@RequestMapping("notice/{category}")
@@ -37,9 +43,14 @@ public class BoardController {
 	
 	//헤더
 	@GetMapping("/header")
-	public String header() {
+	public String header( ) {
+		 
 		return "include/header";
 	}
+	
+	 
+	
+	
 	//풋터
 	@GetMapping("/footer")
 	public String footer() {
@@ -59,6 +70,8 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	@Autowired
+	ChattingService chattingService;
 	
 	//게시글 목록
 	@RequestMapping("list")

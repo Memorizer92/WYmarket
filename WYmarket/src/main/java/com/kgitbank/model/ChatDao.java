@@ -20,7 +20,7 @@ public class ChatDao {
 		ChatMessage aChatMessage = new ChatMessage(newId, roomId, writer, body);
 		
 		chatMessages.add(aChatMessage);
-		
+		 
 	}
 
 	public List getMessages() {
@@ -36,6 +36,7 @@ public class ChatDao {
 				 messages.add(chatMessage);
 			 }
 		 }
+		
 		return messages;
 	}
 

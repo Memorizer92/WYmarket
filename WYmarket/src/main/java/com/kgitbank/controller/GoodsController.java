@@ -40,6 +40,8 @@ public class GoodsController {
 	@Autowired
 	private String uploadPath;
 	
+	UserInfo user;
+	
 	// 상품등록페이지
 	@GetMapping("register") 
 	public void getGoodsRegister() throws
@@ -69,10 +71,10 @@ public class GoodsController {
 				 * fileName);
 				 */
 		
-		 UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
-		 model.addAttribute("user", user.getUserNick());
+		 user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
+		 model.addAttribute("user", user.getUserNick()); 
 		 log.info(user.getUserNick());
-		 
+		
 		 
 		
 		int result = gservice.createGoods(goods, user.getUserNick(), ititle, icategory, icontent, price);
@@ -82,11 +84,18 @@ public class GoodsController {
 	
 	//상품 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getList(@RequestParam("n") int itemid, Model model) {
+	public void getList(@RequestParam("n") int itemid, Model model, HttpSession session) {
 		GoodsVO goods = gservice.getGoods(itemid);
 		model.addAttribute("goods",goods);
-		
+		//구매자 시퀀스 필요
+		String nick = gservice.getId(goods.getUsernick());  
+		user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));  
+		session.setAttribute("buyerId",user.getUserID()); 
+		session.setAttribute("buyerName", user.getUserNick()); 
+		session.setAttribute("sellerId", nick);
 	}
+	
+	
 	
 	//상품 수정페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
