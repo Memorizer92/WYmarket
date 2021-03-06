@@ -49,7 +49,7 @@
 	height: 50px;
 }
 
-#setNick{
+#setNick {
 	background-color: rgba(70, 70, 85, 1);
 	border-color: rgba(70, 70, 85, 1);
 }
@@ -67,10 +67,31 @@
 #nick2Char, #nickOverrap {
 	display: none;
 	margin-top: 10px;
+	margin-bottom: -5px;
 }
 
 body {
 	background-image: url("/wymarket/image/carrotbg.jpg");
+}
+
+#img {
+	margin-top: 15px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	object-fit: cover;
+	width: 50%;
+	display: block;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
+}
+
+.btn-primary:active {
+	border-color: #FF8A3D;
 }
 </style>
 </head>
@@ -81,9 +102,8 @@ body {
 		<div class="container" id="loginContainer2">
 
 
-
-			<h3 class='title'>카카오 로그인 성공</h3>
-			<h3 class='title'>닉네임을 설정해주세요</h3>
+			<img id='img' src="/wymarket/image/carrotcharacter.png" alt="" />
+			<h3 class='title'>닉네임 설정</h3>
 
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 				id='setNick' data-bs-target="#staticBackdrop2"
@@ -98,14 +118,14 @@ body {
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+							<h5 class="modal-title" id="staticBackdropLabel">닉네임 설정</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<div class="input-group flex-nowrap">
 								<span class="input-group-text" id="addon-wrapping">닉네임</span> <input
-									type="text" class="form-control" placeholder="Username"
+									type="text" class="form-control" placeholder="닉네임을 입력하세요"
 									aria-label="Username" aria-describedby="addon-wrapping"
 									id="userNick" name="userNick">
 							</div>
@@ -132,6 +152,10 @@ body {
 		src="<%=application.getContextPath()%>/resources/assets/js/kakaousernick.js"></script>
 
 	<script>
+	
+	if(window.performance.navigation.type == 1){
+		location.href = '/wymarket/login';
+	}
 	
 	function initialize(){
 		document.getElementById('userNick').value = '';

@@ -366,7 +366,7 @@
 		select *
 		from
 		sh_inquiryAdminToUser WHERE userNick =
-		#{userNick}
+		#{userNick} order by userInquiryID desc
 	</select>
 
 	<select id="selectInquiryByUserNick"

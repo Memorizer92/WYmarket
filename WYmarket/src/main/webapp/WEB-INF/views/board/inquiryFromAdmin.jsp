@@ -46,7 +46,7 @@ ul {
 				<c:forEach var="inquiry" items="${replyFromAdmin }">
 					<li class="list-group-item"
 						onclick="ajaxShowHistory('${inquiry.inquiryID}')">문의
-						번호 : ${inquiry.inquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
+						번호 : ${inquiry.userInquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
 						카테고리 : ${inquiry.inquiryCategory }
 					</li>
 				</c:forEach>
