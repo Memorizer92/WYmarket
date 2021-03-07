@@ -114,6 +114,8 @@ public interface WYmarketService {
 	int insertSearchInDistance(GoodsVO goodsVo);
 	List<SearchInDistance> selectSearchInDistance();
 	
+	int selectMaxInquiryAdminToUserByID();
+	
 }
 
 

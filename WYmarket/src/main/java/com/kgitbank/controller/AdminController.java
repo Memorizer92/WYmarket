@@ -276,23 +276,6 @@ public class AdminController implements Serializable {
 		return "/admin/inquiry";
 	}
 
-	// 답장 보내기 확정 버튼 눌렀을 때
-	@GetMapping("admin/sendInquiryAdminToUser/{textarea}")
-	public String sendInquiryAdminToUser(Model model, HttpSession session, @PathVariable String textarea) {
-
-		Inquiry inquiry = (Inquiry) session.getAttribute("inqVO");
-		InquiryAdminToUser inquiryAdminToUser = new InquiryAdminToUser();
-		inquiryAdminToUser.setUserInquiryID(inquiry.getInquiryID());
-		inquiryAdminToUser.setUserNick(inquiry.getUserNick());
-		inquiryAdminToUser.setInquiryCategory(inquiry.getInquiryCategory());
-		inquiryAdminToUser.setInquiryContent(textarea);
-		inquiryAdminToUser.setInquiryDate(new Date());
-		wyMarketService.insertInquiryAdminToUser(inquiryAdminToUser);
-
-		wyMarketService.updateInquiryUserCountTotal();
-
-		return null;
-	}
 
 	// 사용자가 관리자가 보낸 답장 페이지 볼 때
 	@GetMapping("admin/seeInquiryFromAdmin")

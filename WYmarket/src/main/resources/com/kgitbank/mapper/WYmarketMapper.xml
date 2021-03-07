@@ -313,7 +313,7 @@
 	<select id="selectInquiryInfo"
 		resultType="com.kgitbank.model.Inquiry">
 		select * from
-		sh_inquiry order by inquiryID desc
+		sh_inquiry order by inquiryDate desc
 	</select>
 
 	<update id="updateInquiryCountTotal">
@@ -342,7 +342,7 @@
 		resultType="com.kgitbank.model.InquiryAdminToUser">
 		select *
 		from
-		sh_inquiryAdminToUser order by inquiryID desc
+		sh_inquiryAdminToUser order by inquiryDate desc
 	</select>
 
 	<select id="selectInquiryAdminToUserByID"
@@ -351,6 +351,13 @@
 		from
 		sh_inquiryAdminToUser WHERE inquiryID =
 		#{inquiryID}
+	</select>
+
+	<select id="selectMaxInquiryAdminToUserByID"
+		resultType="Integer">
+		select MAX(inquiryID)
+		from
+		sh_inquiryAdminToUser 
 	</select>
 
 	<select id="selectInquiryByID"
@@ -366,7 +373,7 @@
 		select *
 		from
 		sh_inquiryAdminToUser WHERE userNick =
-		#{userNick} order by userInquiryID desc
+		#{userNick} order by inquiryDate desc
 	</select>
 
 	<select id="selectInquiryByUserNick"

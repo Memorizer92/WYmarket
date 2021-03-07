@@ -491,15 +491,15 @@ a {
 									<select class="form-select" id="inputGroupSelect01"
 										name="inquirySelect" form='form'>
 										<option selected>문의 카테고리 검색</option>
-										<option value="transaction">거래 환불/분쟁 및 사기 신고</option>
-										<option value="account">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
-										<option value="sale">판매 금지/거래 품목 문의</option>
-										<option value="manner">매너평가, 매너온도, 거래후기 관련 문의</option>
-										<option value="board">게시글 노출, 미노출 문의</option>
-										<option value="chat">채팅, 알림</option>
-										<option value="search">검색 문의</option>
-										<option value="etc">기타 문의</option>
-										<option value="error">오류 제보</option>
+										<option value="거래 환불/분쟁 및 사기 신고">거래 환불/분쟁 및 사기 신고</option>
+										<option value="계정 문의 (로그인, 인증, 제재, 탈퇴 등)">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
+										<option value="판매 금지/거래 품목 문의">판매 금지/거래 품목 문의</option>
+										<option value="매너평가, 매너온도, 거래후기 관련 문의">매너평가, 매너온도, 거래후기 관련 문의</option>
+										<option value="게시글 노출, 미노출 문의">게시글 노출, 미노출 문의</option>
+										<option value="채팅, 알림">채팅, 알림</option>
+										<option value="검색 문의">검색 문의</option>
+										<option value="기타 문의">기타 문의</option>
+										<option value="오류 제보">오류 제보</option>
 									</select>
 									<textarea class="form-control" aria-label="With textarea"
 										placeholder="문의하실 내용을 여기에 입력해주세요 :)" name="textArea"

@@ -10,6 +10,9 @@ function ajaxInquiry(inquiryID) {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
 				document.getElementById("modalContent").innerHTML = `${this.responseText}`;
+				document.getElementById("reply").style.display = 'none';
+				document.getElementById('btn1').style.display = 'block';
+				document.getElementById('btn2').style.display = 'block';
 			} else {
 
 			}
@@ -25,8 +28,9 @@ function ajaxInquiry(inquiryID) {
 
 }
 
-function ajaxAdminToUser(adminToUser) {
+function ajaxAdminToUser(adminToUser, inquiryID) {
 	var data = {
+		inquiryID: inquiryID,
 		userNick: adminToUser
 	}
 
@@ -36,6 +40,7 @@ function ajaxAdminToUser(adminToUser) {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
 				document.getElementById("reply").innerHTML = `${this.responseText}`;
+				document.getElementById("reply").style.display = 'block';
 				document.getElementById('btn1').style.display = 'none';
 				document.getElementById('btn2').style.display = 'none';
 			} else {
@@ -50,6 +55,7 @@ function ajaxAdminToUser(adminToUser) {
 }
 
 function ajaxshowHistory(id) {
+	console.log("id : " + id);
 	var data = {
 		inquiryID: id
 	}
@@ -74,23 +80,30 @@ function ajaxshowHistory(id) {
 	myModal.show()
 }
 
-function ajaxReply() {
+function ajaxReply(inquiryID) {
 	const id = document.getElementById('text');
-	const prefix = "/wymarket/admin/sendInquiryAdminToUser/" + id.value;
+	console.log(id.value);
+	if (id.value == "") {
+		alert('내용을 입력해주세요');
+	} else {
+		const prefix = "/wymarket/admin/sendInquiryAdminToUser/" + id.value + "/" + inquiryID;
 
-	let uri = prefix;
+		let uri = prefix;
 
-	xhttp = new XMLHttpRequest();
+		xhttp = new XMLHttpRequest();
 
-	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
-		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
-
+		xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
+			if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
+				document.getElementById("ajaxli").innerHTML += `${this.responseText}`;
+				document.getElementById("ajaxli").style.display = 'flex';
+			}
 		}
+
+		xhttp.open('GET', uri, true);
+
+		xhttp.send(); //2
+
+		alert("답장이 성공적으로 보내졌습니다.");
 	}
-
-	xhttp.open('GET', uri, true);
-
-	xhttp.send(); //2
-
 }
 

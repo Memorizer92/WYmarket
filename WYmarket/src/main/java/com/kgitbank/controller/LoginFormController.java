@@ -36,16 +36,14 @@ import com.kgitbank.service.WYmarketService;
 @SessionAttributes(names = { "user", "lat", "lon", "address" })
 public class LoginFormController {
 
-
 	OAuthToken oauthToken = null;
 	String mail = "";
 
-   @Autowired
-   private WYmarketService wyMarketService;
-   
+	@Autowired
+	private WYmarketService wyMarketService;
+
 	@Autowired
 	ChattingService chattingService;
-
 
 	@Autowired
 	private UserService service;
@@ -55,40 +53,39 @@ public class LoginFormController {
 		return "location";
 	}
 
-
 	@GetMapping("/address")
 	public String address() {
 		return "address";
 	}
 
-   int ch=0;
-   // 로그인
-   @GetMapping("/login")
-   public String loginPage(Model model, HttpSession session) {
-	   if(ch==0) {
-		   chattingService.resetCountAll();//카운트db 초기화 
-		   ch++;
-	   }
-      if(session.getAttribute("Admin") != null) {
-         System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-         return "redirect:/admin";
-      } 
-      if(session.getAttribute((String) model.getAttribute("user")) != null) {
-         System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-         return "redirect:/main";
-      } else {
-         System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-         return "/login/login";
-      }
-      
-      
-   }
+	int ch = 0;
 
+	// 로그인
+	@GetMapping("/login")
+	public String loginPage(Model model, HttpSession session) {
+		if (ch == 0) {
+			chattingService.resetCountAll();// 카운트db 초기화
+			ch++;
+
+		}
+		if (session.getAttribute("Admin") != null) {
+			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+			return "redirect:/admin";
+		}
+		if (session.getAttribute((String) model.getAttribute("user")) != null) {
+			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+			return "redirect:/main";
+		} else {
+			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+			return "/login/login";
+		}
+
+	}
 
 	@GetMapping("/auth/kakao")
 	public String loginForm() {
 		return "loginForm";
-	} 
+	}
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {

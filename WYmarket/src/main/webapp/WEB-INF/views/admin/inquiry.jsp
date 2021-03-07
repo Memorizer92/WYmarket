@@ -26,52 +26,152 @@
 	box-sizing: border-box;
 }
 
+#outerouter {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 #outer {
+	margin-top: 30px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	width: 1000px;
+	width: 1200px;
+	border: solid 1px white;
+	border-radius: 20px;
+	height: 900px;
+	margin-bottom: 0px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+}
+
+.inner {
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	margin-left: auto;
 }
 
 ul {
 	width: 100%;
 	overflow: auto;
-	height: 892px;
+	height: 750px;
 }
 
 li {
 	cursor: pointer;
+	background: radial-gradient(at 10% 30px, white, #e3e3e3);
+}
+
+li:hover {
+	background: radial-gradient(at 10% 30px, #e3e3e3, white);
+}
+
+.lili {
+	width: 104.5%;
+	margin-left: -12px;
+}
+
+p {
+	font-size: 18px;
+}
+
+.p1 {
+	text-align: center;
+}
+
+.modal-footer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%
+}
+
+.modal-title {
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%
+}
+
+textarea {
+	margin-bottom: 10px;
+	height: 200px;
+}
+
+#reply {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#text, #text1 {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+#text {
+	margin-left: -13px;
+	width: 107%;
+}
+
+#inquirybtn {
+	margin-left: -13px;
+	margin-bottom: 5px;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
+}
+
+#backbtn {
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: -60px;
+}
+
+#ajaxli {
+	flex-direction: column-reverse;
 }
 </style>
 <body>
-	<div class="container" id='outer'>
-		<div class='container'>
-			<p>받은 문의</p>
-			<ul class="list-group" id='ul1'>
-				<c:forEach var="inquiry" items="${inquiries }">
-					<li class="list-group-item"
-						onclick="ajaxInquiry('${inquiry.inquiryID }')">문의
-						번호 : ${inquiry.inquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
-						카테고리 : ${inquiry.inquiryCategory } <br> 날짜 : <fmt:formatDate
-							value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
-					</li>
-				</c:forEach>
-			</ul>
+	<div class="container" id='outerouter'>
+		<div class="container" id='outer'>
+			<div class='container inner'>
+				<p class='p1'>받은 문의</p>
+				<ul class="list-group" id='ul1'>
+					<c:forEach var="inquiry" items="${inquiries }">
+						<li class="list-group-item"
+							onclick="ajaxInquiry('${inquiry.inquiryID }')">문의 번호 :
+							${inquiry.inquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
+							카테고리 : ${inquiry.inquiryCategory } <br> 날짜 : <fmt:formatDate
+								value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class='container inner'>
+				<p class='p1'>보낸 답장</p>
+				<ul class="list-group">
+					<div class='container' id='ajaxli' style="display: none;"></div>
+					<c:forEach var="inquiry" items="${inqAdminToUser }">
+						<li class="list-group-item"
+							onclick="ajaxshowHistory('${inquiry.inquiryID}')">문의 번호 :
+							${inquiry.userInquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
+							카테고리 : ${inquiry.inquiryCategory }<br> 날짜 : <fmt:formatDate
+								value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
-		<div class='container'>
-			<p>보낸 답장</p>
-			<ul class="list-group">
-
-				<c:forEach var="inquiry" items="${inqAdminToUser }">
-					<li class="list-group-item"
-						onclick="ajaxshowHistory('${inquiry.inquiryID}')">문의 번호 :
-						${inquiry.userInquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
-						카테고리 : ${inquiry.inquiryCategory }<br> 날짜 : <fmt:formatDate
-							value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
+		<button type="button" class="btn btn-primary" id='backbtn'
+			onclick="location.href='/wymarket/admin'">이전으로</button>
 	</div>
 
 
@@ -89,7 +189,7 @@ li {
 					<button type="button" class="btn btn-secondary" id='btn1'
 						data-bs-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-primary" id='btn2'
-						onclick="ajaxAdminToUser('${inqVO.userNick}')">답장하기</button>
+						onclick="ajaxAdminToUser('${inqVO.userNick}','${inqVO.inquiryID }')">답장하기</button>
 					<div class="container" id='reply'></div>
 				</div>
 			</div>
