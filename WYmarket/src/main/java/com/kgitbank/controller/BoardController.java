@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
 import com.kgitbank.service.BoardService;
-
-import com.kgitbank.service.ChattingService;
+ 
 
 import com.kgitbank.service.WYmarketService;
 

@@ -37,11 +37,7 @@ public class ChattingServiceImpl implements ChattingService {
 	}
 
 
-	@Override
-	public int updateChatInfo(int roomId) {
-		return chat_mapper.updateChatInfo(roomId);
-		
-	}
+	 
 
 
 	@Override
@@ -55,5 +51,47 @@ public class ChattingServiceImpl implements ChattingService {
 	public List<ChattingVO> selectBuyerName(String sellerName) {
 		return chat_mapper.selectBuyerName(sellerName);
 	}
+
+
+	  
+	 
+	@Override
+	public int updateSellerCount(int roomId) {
+		// TODO Auto-generated method stub
+		return chat_mapper.updateSellerCount(roomId);
+	}
+	 
+	@Override
+	public int updateBuyerCount(int roomId) {
+		// TODO Auto-generated method stub
+		return chat_mapper.updateBuyerCount(roomId);
+	}
+
+
+	@Override
+	public int updateChatInfo(int roomId) {
+		// TODO Auto-generated method stub
+		return chat_mapper.updateChatInfo(roomId);
+	}
+
+
+	@Override
+	public int resetSellerCount(int roomId) {
+		return chat_mapper.resetSellerCount(roomId);
+	}
+
+
+	@Override
+	public int resetBuyerCount(int roomId) {
+		return chat_mapper.resetBuyerCount(roomId);
+	}
+
+
+	@Override
+	public int resetCountAll() {
+		return chat_mapper.resetCountAll();
+	}
+	 
+	 
 
 }

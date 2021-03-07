@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kgitbank.model.KakaoProfile;
 import com.kgitbank.model.OAuthToken;
 import com.kgitbank.model.UserInfo;
+import com.kgitbank.service.ChattingService;
 import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
@@ -35,46 +36,59 @@ import com.kgitbank.service.WYmarketService;
 @SessionAttributes(names = { "user", "lat", "lon", "address" })
 public class LoginFormController {
 
+
 	OAuthToken oauthToken = null;
 	String mail = "";
 
+   @Autowired
+   private WYmarketService wyMarketService;
+   
 	@Autowired
-	private UserService service;
+	ChattingService chattingService;
+
 
 	@Autowired
-	private WYmarketService wyMarketService;
+	private UserService service;
 
 	@GetMapping("/location")
 	public String location() {
 		return "location";
 	}
 
+
 	@GetMapping("/address")
 	public String address() {
 		return "address";
 	}
 
+   int ch=0;
+   // 로그인
+   @GetMapping("/login")
+   public String loginPage(Model model, HttpSession session) {
+	   if(ch==0) {
+		   chattingService.resetCountAll();//카운트db 초기화 
+		   ch++;
+	   }
+      if(session.getAttribute("Admin") != null) {
+         System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+         return "redirect:/admin";
+      } 
+      if(session.getAttribute((String) model.getAttribute("user")) != null) {
+         System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+         return "redirect:/main";
+      } else {
+         System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+         return "/login/login";
+      }
+      
+      
+   }
+
+
 	@GetMapping("/auth/kakao")
 	public String loginForm() {
 		return "loginForm";
-	}
-
-	// 로그인
-	@GetMapping("/login")
-	public String loginPage(Model model, HttpSession session) {
-		if (session.getAttribute("Admin") != null) {
-			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-			return "redirect:/admin";
-		}
-		if (session.getAttribute((String) model.getAttribute("user")) != null) {
-			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "redirect:/main";
-		} else {
-			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "/login/login";
-		}
-
-	}
+	} 
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {

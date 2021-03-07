@@ -11,7 +11,15 @@ public interface ChattingService {
 	public List<ChattingVO> selectSellerName(String sellerName);
 	public List<ChattingVO> selectBuyerName(String sellerName);
 	
-	public int updateChatInfo(int roomId);
+	public int updateChatInfo(int roomId); 
 	
 	public int selectRoomId(int roomId);
+
+	public int updateSellerCount(int roomId);
+
+	public int updateBuyerCount(int roomId);
+	
+	public int resetSellerCount(int roomId);
+	public int resetBuyerCount(int roomId);
+	public int resetCountAll();
 }

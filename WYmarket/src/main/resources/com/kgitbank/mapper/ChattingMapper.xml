@@ -37,6 +37,37 @@
 	<select id="selectRoomId" resultType="Integer">
 		select count(*) from chat_info where roomId=#{roomId}
 	</select>
+	
+	<update id="updateSellerCount">
+		update chat_info 
+		set  
+		sellerCount=sellerCount+1 
+		where roomId = #{roomId} 
+	</update>
+	
+	<update id="updateBuyerCount">
+		update chat_info 
+		set  
+		buyerCount=buyerCount+1 
+		where roomId = #{roomId} 
+	</update>
 
 
+	<update id="resetSellerCount">
+		update chat_info set sellerCount=0 where roomId = #{roomId} 
+	</update>
+	<update id="resetBuyerCount">
+		update chat_info set buyerCount=0 where roomId = #{roomId} 
+	</update>
+	
+	<update id="resetCountAll">
+		update chat_info set buyerCount=0,sellerCount=0
+	</update>
+	
+	
+	
 </mapper>
+
+
+
+
