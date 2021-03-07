@@ -7,9 +7,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.GoodsVO;
 import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 
 public interface WYmarketMapper {
@@ -132,6 +134,10 @@ public interface WYmarketMapper {
 	int updateInquiryUserCountTotal();
 	int selectInquiryUserCountTotal();
 	int resetInquiryUserCountTotal();
+	
+	int deleteSearchInDistance();
+	int insertSearchInDistance(GoodsVO goodsVo);
+	List<SearchInDistance> selectSearchInDistance();
 	
 }
 

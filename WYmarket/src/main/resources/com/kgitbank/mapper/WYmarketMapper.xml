@@ -307,7 +307,7 @@
 		INSERT INTO sh_inquiry
 		VALUES
 		(inquiry_seq.nextval,
-		#{userNick}, #{inquiryCategory}, #{inquiryContent})
+		#{userNick}, #{inquiryCategory}, #{inquiryContent}, sysdate)
 	</insert>
 
 	<select id="selectInquiryInfo"
@@ -335,7 +335,7 @@
 		VALUES
 		(inquiryAdminToUser_seq.nextval, #{userInquiryID},
 		#{userNick},
-		#{inquiryCategory}, #{inquiryContent})
+		#{inquiryCategory}, #{inquiryContent}, sysdate)
 	</insert>
 
 	<select id="selectInquiryAdminToUser"
@@ -391,5 +391,29 @@
 		UPDATE sh_inquiryUserCountTotal SET total = 0
 	</update>
 
+	<delete id='deleteSearchInDistance'>
+		DELETE FROM sh_searchInDistance
+	</delete>
+
+	<insert id="insertSearchInDistance">
+		INSERT INTO sh_searchInDistance
+		VALUES
+		(searchInDistance_seq.nextval, #{iimagepath, jdbcType=VARCHAR},
+		#{usernick}, #{address},
+		#{manner}, #{ititle}, #{icategory},
+		#{refreshtime}, #{icontent},
+		#{price},
+		#{chatcnt}, #{likecnt},
+		#{viewcnt}, #{istate},
+		#{iReservationState})
+	</insert>
+
+	<select id="selectSearchInDistance"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance
+	</select>
+
 </mapper>
+
+
 

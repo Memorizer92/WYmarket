@@ -13,31 +13,38 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
-import com.kgitbank.model.ChattingVO;
-import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BoardService;
+
 import com.kgitbank.service.ChattingService;
+
+import com.kgitbank.service.WYmarketService;
+
 
 @Controller
 @RequestMapping("/board/*")
-@SessionAttributes("user")
 public class BoardController {
  
-	UserInfo user;
+
+	@Autowired
+	WYmarketService wyMarketService;
+
 	
 	//공지사항
 	@RequestMapping("notice/{category}")
-	public ModelAndView notice(@PathVariable("category") String category) {
+	public ModelAndView notice(@PathVariable("category") String category, Model model) {
 		
 		List<BoardVO> list = boardService.listAll();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/notice");//뷰를 list.jsp로 지정
 		mav.addObject("list",list);//데이터 저장 
+		
+		// 관리자로 부터 답변 온 문의 알림 표시
+		model.addAttribute("adminToUserCount", wyMarketService.selectInquiryUserCountTotal());
+		
 		return mav;
 	}
 	

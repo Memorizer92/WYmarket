@@ -1,6 +1,9 @@
 package com.kgitbank.controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -96,6 +99,8 @@ public class AdminController implements Serializable {
 		model.addAttribute("pageService", pageService);
 
 		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+
+		model.addAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
 
 		return "/admin/admin";
 	}
@@ -230,6 +235,7 @@ public class AdminController implements Serializable {
 		return "redirect:/admin/usercount";
 	}
 
+	// 사용자가 관리자에게 문의 보내기 버튼 누를 때
 	@GetMapping("admin/sendInquiry")
 	public String sendInquiry(HttpServletRequest request, Model model, HttpSession session) {
 
@@ -250,11 +256,10 @@ public class AdminController implements Serializable {
 
 		wyMarketService.updateInquiryCountTotal();
 
-		session.setAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
-
 		return "redirect:/board/notice/c";
 	}
 
+	// 관리자가 문의 보기 버튼 누를 때
 	@GetMapping("admin/seeInquiry")
 	public String seeInquiry(Model model, HttpSession session) {
 
@@ -281,11 +286,10 @@ public class AdminController implements Serializable {
 		inquiryAdminToUser.setUserNick(inquiry.getUserNick());
 		inquiryAdminToUser.setInquiryCategory(inquiry.getInquiryCategory());
 		inquiryAdminToUser.setInquiryContent(textarea);
+		inquiryAdminToUser.setInquiryDate(new Date());
 		wyMarketService.insertInquiryAdminToUser(inquiryAdminToUser);
-		
+
 		wyMarketService.updateInquiryUserCountTotal();
-		
-		session.setAttribute("adminToUserCount", wyMarketService.selectInquiryUserCountTotal());
 
 		return null;
 	}
@@ -300,7 +304,7 @@ public class AdminController implements Serializable {
 		List<InquiryAdminToUser> iatu = wyMarketService.selectInquiryAdminToUserByUserNick(userInfo.getUserNick());
 		session.setAttribute("myInquiry", i);
 		session.setAttribute("replyFromAdmin", iatu);
-		
+
 		wyMarketService.resetInquiryUserCountTotal();
 
 		return "/board/inquiryFromAdmin";

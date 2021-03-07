@@ -50,10 +50,10 @@ li {
 			<ul class="list-group" id='ul1'>
 				<c:forEach var="inquiry" items="${inquiries }">
 					<li class="list-group-item"
-						onclick="ajaxInquiry('${inquiry.inquiryID }','${inquiry.userNick }',
-			' ${inquiry.inquiryCategory }', '${inquiry.inquiryContent }')">문의
+						onclick="ajaxInquiry('${inquiry.inquiryID }')">문의
 						번호 : ${inquiry.inquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
-						카테고리 : ${inquiry.inquiryCategory }
+						카테고리 : ${inquiry.inquiryCategory } <br> 날짜 : <fmt:formatDate
+							value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
 					</li>
 				</c:forEach>
 			</ul>
@@ -66,7 +66,8 @@ li {
 					<li class="list-group-item"
 						onclick="ajaxshowHistory('${inquiry.inquiryID}')">문의 번호 :
 						${inquiry.userInquiryID } <br> 닉네임 : ${inquiry.userNick } <br>
-						카테고리 : ${inquiry.inquiryCategory }
+						카테고리 : ${inquiry.inquiryCategory }<br> 날짜 : <fmt:formatDate
+							value="${inquiry.inquiryDate }" pattern="yy/MM/dd HH:mm" />
 					</li>
 				</c:forEach>
 			</ul>
@@ -74,13 +75,12 @@ li {
 	</div>
 
 
-
 	<div class="modal fade" id="inquiryModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<h5 class="modal-title" id="exampleModalLabel">수신함</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
@@ -112,7 +112,6 @@ li {
 </html>
 
 
-
 <%-- 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -123,6 +122,7 @@ li {
 						<div class="container" id='inquiryContainerInner'>
 							<p>${historyInq.userNick }</p>
 							<p>${historyInq.inquiryCategory }</p>
+							<p>${historyInq.inquiryDate }</p>
 							<textarea class="form-control" aria-label="With textarea"
 								name="textArea" readonly="readonly">${historyInq.inquiryContent }
 				</textarea>

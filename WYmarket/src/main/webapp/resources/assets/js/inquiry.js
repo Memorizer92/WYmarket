@@ -1,10 +1,7 @@
 
-function ajaxInquiry(inquiryID, userNick, inquiryCategory, inquiryContent) {
+function ajaxInquiry(inquiryID) {
 	var data = {
-		inquiryID: inquiryID,
-		userNick: userNick,
-		inquiryCategory: inquiryCategory,
-		inquiryContent: inquiryContent
+		inquiryID: inquiryID
 	}
 
 	var xhttp = new XMLHttpRequest();

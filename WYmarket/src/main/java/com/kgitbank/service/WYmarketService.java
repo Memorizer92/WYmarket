@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.GoodsVO;
 import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 
 public interface WYmarketService {
@@ -107,6 +109,11 @@ public interface WYmarketService {
 	int updateInquiryUserCountTotal();
 	int selectInquiryUserCountTotal();
 	int resetInquiryUserCountTotal();
+	
+	int deleteSearchInDistance();
+	int insertSearchInDistance(GoodsVO goodsVo);
+	List<SearchInDistance> selectSearchInDistance();
+	
 }
 
 
