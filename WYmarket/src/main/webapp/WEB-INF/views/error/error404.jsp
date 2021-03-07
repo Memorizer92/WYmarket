@@ -67,7 +67,7 @@ img {
 		</div>
 		
 		<button class="btn btn-primary ss" type="button"
-			onclick="location.href='/wymarket/main'">메인으로</button>
+			onclick="location.href='/wymarket/login'">메인으로</button>
 	</div>
 
 
