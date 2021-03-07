@@ -28,25 +28,25 @@
 	href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
 
 <style type="text/css">
-.cDisabled{
-      pointer-events: none;
-      opacity: 0.6;
-} 
-
+.cDisabled {
+	pointer-events: none;
+	opacity: 0.6;
+}
 </style>
 </head>
 <body>
 
 	<div id="grid_2" class="div">
-				
+
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
-			class="titlefont">거래내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>거래내역</header>
 
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">
-					<li class="list-inline-item menutitle"><button id="salebtn" onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매중</button></li>
+					<li class="list-inline-item menutitle"><button id="salebtn"
+							onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매중</button></li>
 					<li class="list-inline-item menutitle"><button
 							id="completedbtn"
 							onclick="location.href = '<%=application.getContextPath()%>/param/salecomplete'"
@@ -56,7 +56,7 @@
 				</ul>
 
 
-			<div style="text-align: right; font-size: 22px; margin: 10px;">
+				<div style="text-align: right; font-size: 22px; margin: 10px;">
 					<div class="btn-group" role="group">
 						<button id="btnGroupDrop1" type="button" class="btn"
 							data-bs-toggle="dropdown" aria-expanded="false"
@@ -75,100 +75,128 @@
 						</ul>
 					</div>
 				</div>
-			
-					
-				<c:forEach var="SellerPhVO_list" items="${SellerPhVO }">
-					<div class="shadow shadow-strong completed"
-					style="padding: 15px 5px; border-radius: 1rem;">
-						<span> ID: ${SellerPhVO_list.itemid }</span> <br> <span>현재날짜와
-							등록된 날짜 차 값(초):${SellerPhVO_list.refreshTime}</span> <br>
-						<c:choose>
-							<c:when test="${SellerPhVO_list.refreshTime >= 0 && SellerPhVO_list.refreshTime < 60}">
-								<span>${SellerPhVO_list.refreshTime}초 전</span>
-								<br>
-							</c:when>
-							<c:when
-								test="${SellerPhVO_list.refreshTime >= 60 && SellerPhVO_list.refreshTime < 3600}">
-								<fmt:parseNumber var="percent"
-									value="${((SellerPhVO_list.refreshTime) / 60)}"
-									integerOnly="true" />
-								<span>${percent}분 전</span>
-								<br>				
-							</c:when>
-							
-							<c:when
-								test="${SellerPhVO_list.refreshTime >= 3600 && SellerPhVO_list.refreshTime < 86400}">
-								<fmt:parseNumber var="percent"
-									value="${((SellerPhVO_list.refreshTime) / 3600)}"
-									integerOnly="true" />
-								<span>${percent }시간 전</span>
-								<br>
-							</c:when>
-						
-						<c:when
-								test="${SellerPhVO_list.refreshTime >= 86400 && SellerPhVO_list.refreshTime < 2764800}">
-								<fmt:parseNumber var="percent"
-									value="${((SellerPhVO_list.refreshTime) / 86400)}"
-									integerOnly="true" />
-								<span>${percent }일 전</span>
-								<br>
-							</c:when>
-								
-							
-					 		<c:when
-								test="${SellerPhVO_list.refreshTime >= 2678400 && SellerPhVO_list.refreshTime < 32140800}">
-								<fmt:parseNumber var="percent"
-									value="${((SellerPhVO_list.refreshTime) / 2678400)}"
-									integerOnly="true" />
-								<span>${percent }달 전</span>
-								<br>
-							</c:when>
-							<c:when test="${SellerPhVO_list.refreshTime >= 32140800}">
-								<fmt:parseNumber var="percent"
-									value="${((SellerPhVO_list.refreshTime) / 32140800)}"
-									integerOnly="true" />
-								<span>${percent }년 전</span>
-								<br>
-							</c:when> 
-						</c:choose>
-						<span>거래완료</span> 제목: ${SellerPhVO_list.ititle} <br> <span>지역:
-							${SellerPhVO_list.address }</span> <br> <span>가격:
-							${SellerPhVO_list.price }</span> <input type="text"
-							value="${SellerPhVO_list.ititle}" name="ititle"
-							style="display: none" />
-					</div>
-					<br>
 
-					<!-- 판매중 내역 end -->
+				<c:if test="${purchasedetailsCount == 0}">
+					<div id="nonexistent">상품이 존재하지 않습니다.</div>
+				</c:if>
+				<c:forEach var="SellerPhVO_list" items="${SellerPhVO }">
+					<input type="text" value="${SellerPhVO_list.ititle}" name="ititle"
+						style="display: none" />
+
+
+					<div class="shadow shadow-strong completed"
+						style="padding: 15px 15px; border-radius: 1rem;">
+
+						<img alt=""
+							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+							style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+						<div style="width: 100%;">
+							<span style="font-weight: bold; color: darkorange;">[ 거래완료
+								]</span> <br> <span> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"
+									 name="radio_btn"
+									value="${userItem_list.ititle }" style="display: none;"
+									id="titleRadio" /><span>${SellerPhVO_list.address }</span>
+
+							<c:choose>
+								<c:when
+									test="${SellerPhVO_list.refreshTime >= 0 && SellerPhVO_list.refreshTime < 60}">
+									<span>${SellerPhVO_list.refreshTime}초 전</span>
+									<br>
+								</c:when>
+								<c:when
+									test="${SellerPhVO_list.refreshTime >= 60 && SellerPhVO_list.refreshTime < 3600}">
+									<fmt:parseNumber var="percent"
+										value="${((SellerPhVO_list.refreshTime) / 60)}"
+										integerOnly="true" />
+									<span>${percent}분 전</span>
+									<br>
+								</c:when>
+
+								<c:when
+									test="${SellerPhVO_list.refreshTime >= 3600 && SellerPhVO_list.refreshTime < 86400}">
+									<fmt:parseNumber var="percent"
+										value="${((SellerPhVO_list.refreshTime) / 3600)}"
+										integerOnly="true" />
+									<span>${percent }시간 전</span>
+									<br>
+								</c:when>
+
+								<c:when
+									test="${SellerPhVO_list.refreshTime >= 86400 && SellerPhVO_list.refreshTime < 2764800}">
+									<fmt:parseNumber var="percent"
+										value="${((SellerPhVO_list.refreshTime) / 86400)}"
+										integerOnly="true" />
+									<span>${percent }일 전</span>
+									<br>
+								</c:when>
+
+
+								<c:when
+									test="${SellerPhVO_list.refreshTime >= 2678400 && SellerPhVO_list.refreshTime < 32140800}">
+									<fmt:parseNumber var="percent"
+										value="${((SellerPhVO_list.refreshTime) / 2678400)}"
+										integerOnly="true" />
+									<span>${percent }달 전</span>
+									<br>
+								</c:when>
+								<c:when test="${SellerPhVO_list.refreshTime >= 32140800}">
+									<fmt:parseNumber var="percent"
+										value="${((SellerPhVO_list.refreshTime) / 32140800)}"
+										integerOnly="true" />
+									<span>${percent }년 전</span>
+									<br>
+								</c:when>
+							</c:choose>
+
+							<span style="font-weight: bold; font-size: 20px;"> <c:set
+									var="money" value="${SellerPhVO_list.price }" /> <fmt:formatNumber
+									value="${money }" type="number" />원 <br></span>
+						</div>
+						<div style="width: 320px; align-self: flex-end;">
+							<span style="margin: 0;" class="like_view"><i
+								class="far fa-comments" style="color: skyblue;"></i>
+								${SellerPhVO_list.likecnt } </span> <span style="margin: 0;"
+								class="like_view"><i class="far fa-heart"
+								style="color: red;"></i> ${SellerPhVO_list.viewcnt } </span> <br>
+
+
+						</div>
+					</div>
 				</c:forEach>
 
 				<br>
 				<button id="reviewBtn"
-					onclick="location.href='<%=application.getContextPath()%>/param/purchase'">후기
+					onclick="location.href='<%=application.getContextPath()%>/param/purchase'" class= "nonebtn" style="width: 140px;">후기
 					작성 하기</button>
-				<button
-					onclick="location.href = '<%=application.getContextPath()%>/param/test01'">My
-					Page</button>					
-						 <input type="text" value="${success}" id="success" style="display: none;"> 
+			
+				<input type="text" value="${success}" id="success"
+					style="display: none;">
 			</div>
 		</main>
 	</div>
 
 
 	<script type="text/javascript">
+	
+	
+	
 		var ititle = document.getElementsByName("ititle");
+		var radio_btn = document.getElementsByName("radio_btn");
+		
 		if (ititle.length == 0) {
 			document.getElementById("reviewBtn").style.display = 'none';
 		}
 
+		for( var i = 0; i < radio_btn.length; i++ ){  		
+			radio_btn[i].style.display = 'block';
+		}	
 		 var success = document.getElementById("success");
 		
 
 		if (success.value == 'success') {
-			location.href = '<%=application.getContextPath() %>/param/salecomplete';
-			console.log(success.value + "확인"); 
+			location.href = '<%=application.getContextPath()%>/param/salecomplete';
+			console.log(success.value + "확인");
 		}
-
-		</script>
+	</script>
 </body>
 </html>

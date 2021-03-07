@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="/WEB-INF/views/include/taglib.jspf"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +37,7 @@
 				
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; font-size: 40px; padding-left: 40px;"
-			class="titlefont">숨김 상품</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>숨김 상품</header>
 		<main>
 		<div id="mainDiv">								
 				<ul class="list-inline firstli">
@@ -70,28 +70,115 @@
 					</div>
 				</div>
 				
+			
+				<div id = "nonexistent" style="display: none;"></div>				
 				
 			<c:forEach var="userItem_list" items="${itemvo }">
+				
 				<c:if test="${userItem_list.istate eq 'Hidden'}">
-					<!--  거래완료 내역 -->
-					<div class="shadow shadow-strong completed" style="padding: 15px 5px; border-radius: 1rem;">
-						<input type="radio" class="" name="itemid"
-							value="${userItem_list.itemid }" style="display: none" />
-						${userItem_list.itemid } <br> <input type="radio" class=""
-							name="ititle" value="${userItem_list.ititle }"
-							style="display: none" /> 제목: ${userItem_list.ititle } <br>
-						지역: ${userItem_list.address }<br> 가격: ${userItem_list.price }
-					</div>
-					<br>
-				</c:if>
-				<!-- 거래완료 내역 end -->
-			</c:forEach>
+				
+					<div class="shadow shadow-strong completed"
+							style="padding: 15px 15px; border-radius: 1rem;">
+
+							<img alt=""
+								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+
+							<div style="width: 100%;">
+								<c:if
+									test="${userItem_list.ireservationstate eq 'Yreservation'}">
+									<span style="font-weight: bold; color: darkorange;">[
+										예약중 ]</span>
+									<br>
+								</c:if>
+
+								<span style="font-weight: bold; font-size: 27px;">
+									${userItem_list.ititle } </span> <br> <input type="checkbox"
+									 name="ititle"
+									value="${userItem_list.ititle }" style="display: none;"
+									id="titleRadio" /><span> ${userItem_list.address }</span>
+								<c:choose>
+									<c:when
+										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
+										<span>${userItem_list.refreshTime}초 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${userItem_list.refreshTime >= 60 && userItem_list.refreshTime < 3600}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 60)}"
+											integerOnly="true" />
+										<span>${percent}분 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${userItem_list.refreshTime >= 3600 && userItem_list.refreshTime < 86400}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 3600)}"
+											integerOnly="true" />
+										<span>${percent}시간 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800} ">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent }일 전</span>
+										<br>
+									</c:when>
+
+
+									<c:when
+										test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent}일 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${userItem_list.refreshTime >= 2678400 && userItem_list.refreshTime < 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 2678400)}"
+											integerOnly="true" />
+										<span>${percent }달 전</span>
+										<br>
+									</c:when>
+									<c:when test="${userItem_list.refreshTime >= 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 32140800)}"
+											integerOnly="true" />
+										<span>${percent }년 전 </span>
+										<br>
+									</c:when>
+								</c:choose>
+
+								<input type="radio" value="${userItem_list.itemid }"
+									name="itemid" style="display: none"> <span
+									style="font-weight: bold; font-size: 20px;"> <c:set
+										var="money" value="${userItem_list.price }" /> <fmt:formatNumber
+										value="${money }" type="number" />원 <br></span>
+							</div>
+							<div style="width: 320px; align-self: flex-end;">
+								<span style="margin: 0;" class="like_view"><i
+									class="far fa-comments" style="color: skyblue;"></i>
+									${userItem_list.likecnt } </span> <span style="margin: 0;"
+									class="like_view"><i class="far fa-heart"
+									style="color: red;"></i> ${userItem_list.viewcnt } </span> <br>
+							</div>
+						</div>
+						<br>
+					</c:if>
+					<!-- 판매중 내역 end -->
+				</c:forEach>
 			<br>
-			<button onclick="hiddenCancellations()" id="HiddenCancellation">숨기기
+			<button onclick="hiddenCancellations()" id="HiddenCancellation" class = "nonebtn">숨기기
 				취소</button>
-			<button
-				onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
-				Page</button>
 		</div>
 		</main>
 	</div>
@@ -101,11 +188,14 @@
 var radio_btn = document.getElementsByName("ititle");
 var idradio_btn = document.getElementsByName("itemid");
 var hiddenCancellation = document.getElementsByName("HiddenCancellation").value;
+var nonexistent = document.getElementById("nonexistent");
 var radio_btn_check = 0;
 var istate;
 
 if(radio_btn.length == 0){
-	document.getElementById("HiddenCancellation").style.display = 'none';	
+	document.getElementById("HiddenCancellation").style.display = 'none';
+	nonexistent.style.display = 'block';
+	nonexistent.innerText = '상품이 존재하지 않습니다.';
 }
 for( var i = 0; i < radio_btn.length; i++ ){  		
 	radio_btn[i].style.display = 'block';

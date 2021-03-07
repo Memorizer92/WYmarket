@@ -1,139 +1,167 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-   <%@include file="/WEB-INF/views/include/taglib.jspf"%>
+	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/include/taglib.jspf"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-<style type="text/css">
-*{box-sizing: border-box;}
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
 
-      .modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+<%@ include file="/WEB-INF/views/breakdown/incloud/font_css.jspf"%>
 
-        .modal .bg {
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.6);
-        }
+<script src="https://kit.fontawesome.com/6421ed9b05.js"
+	crossorigin="anonymous"></script>
 
-        .modalBox {
-          position: absolute;
-          background-color: #fff;
-          width: 400px;
-          height: 200px;
-          padding: 15px;
-        }
+<link rel="stylesheet"
+	href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
+<link rel="stylesheet"
+	href=" https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
 
-        .modalBox button {
-          display: block;
-          width: 80px;
-          margin: 0 auto;
-        }
-
-        .hidden {
-          display: none;   
-        }
-        
-        .div{
-        height: 100%;
-        float: left;
-        }
-     
-    /*     #grid_2{
-       width: 70%;
-       margin: 0 auto;
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-        background: white; 
-        } */
-
-   #grid_2{
-       width: 100%;
-       margin: 0 10% 0 10%;
-      
-        background: white; 
-        }
-
-	.firstli > li > button{
-		margin : 0;
-		border: 0;
-		background-color: white;
-		
-	}
-	
-	.firstli > li{
-		margin: 0;
-	}
-	.menutitle{
-		font-size: 20px;
-		
-	}
-</style>
 
 
 </head>
 <body>
- 구매내역
- 		<!-- 로그인 정보 세션 -->			
- 		<c:forEach var ="PurchaserPhVO_list" items="${PurchaserPhVO }"> 		
- 		 <!--  판매중 내역 -->	
- 		<c:if test="${empty PurchaserPhVO_list.ititle }">
+<div id="grid_2" class="div">
+
+	<header
+			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i> 구매내역</header>
+	<!-- 로그인 정보 세션 -->
+	
+	<main>
+			<div id="mainDiv">
+			<div>
+			<ul class="list-inline firstli">
+					<li class="list-inline-item menutitle "><button id="salebtn"
+							class="shadow--sm "
+							onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
+							style="border-bottom: 2px solid black;">구매후기 대기중</button></li>	
+				</ul>
+				</div>
+				
+				<div>
+			<ul class="list-inline firstli">
+			<li class="list-inline-item menutitle"><button
+							id="completedbtn" class="shadow--sm "
+							onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">구매후기 환료</button></li>
+			</ul>
+			</div>
+	<c:forEach var="PurchaserPhVO_list" items="${PurchaserPhVO }">
+	
+		<c:if test="${empty PurchaserPhVO_list.ititle }">
  			구매하신 상품이 없습니다. 
  		</c:if>
- 		
-		<div class ="Purchasedetails" id ="test"style="background-color: green; border: solid black 1px; ">
-		현재날짜와 등록된 날짜 차 값(초):${PurchaserPhVO_list.refreshTime} <br>
-		<c:choose>
-			<c:when test="${PurchaserPhVO_list.refreshTime < 60}">
-				${PurchaserPhVO_list.refreshTime}초 전 <br>
-			</c:when>
-			<c:when test="${PurchaserPhVO_list.refreshTime >= 60 && PurchaserPhVO_list.refreshTime < 3600}">				
-				<fmt:parseNumber var="percent" value="${((PurchaserPhVO_list.refreshTime) / 60)}" integerOnly="true" />
-				${percent}분 전 <br>
-			</c:when>
-			<c:when test="${PurchaserPhVO_list.refreshTime >= 3600 && PurchaserPhVO_list.refreshTime < 86400}">
-			<fmt:parseNumber var="percent" value="${((PurchaserPhVO_list.refreshTime) / 3600)}" integerOnly="true" />
-			${percent }시간 전 <br>
-			</c:when>
-			<c:when test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800} ">
-			<fmt:parseNumber var="percent" value="${((PurchaserPhVO_list.refreshTime) / 86400)}" integerOnly="true" />
-			${percent }일 전 <br>
-			</c:when>
-			<c:when test="${PurchaserPhVO_list.refreshTime >= 2678400 && PurchaserPhVO_list.refreshTime < 32140800}">
-			<fmt:parseNumber var="percent" value="${((PurchaserPhVO_list.refreshTime) / 2678400)}" integerOnly="true" />
-			${percent }달 전 <br>
-			</c:when>
-			<c:when test="${PurchaserPhVO_list.refreshTime >= 32140800}">
-			<fmt:parseNumber var="percent" value="${((PurchaserPhVO_list.refreshTime) / 32140800)}" integerOnly="true" />
-			${percent }년 전 <br>
-			</c:when>	
-		</c:choose>
-		<span>구매완료</span> 제목: ${PurchaserPhVO_list.ititle}<br>
-		지역: ${PurchaserPhVO_list.address }<br>	
-		구매자: ${PurchaserPhVO_list.purchaser} <br>
-		판매자: ${PurchaserPhVO_list.usernick} <br>	
-		<span style="background-color: red;">거래완료</span> ${PurchaserPhVO_list.price }	<br>
-		
-		</div>	
-		<!-- 판매중 내역 end -->			
-		</c:forEach>
-		<button><span>작성한 후기 보기</span></button>
 
-		<button onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My Page</button>
+		<div class="shadow shadow-strong completed"
+							style="padding: 15px 15px; border-radius: 1rem;">
+
+							<img alt=""
+								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+
+							<div style="width: 100%;">
+								<span style="font-weight: bold; font-size: 27px;">
+									${PurchaserPhVO_list.ititle } </span> <br>
+									<span> ${PurchaserPhVO_list.address }</span>
+								<c:choose>
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 0 && PurchaserPhVO_list.refreshTime < 60}">
+										<span>${PurchaserPhVO_list.refreshTime}초 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 60 && PurchaserPhVO_list.refreshTime < 3600}">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 60)}"
+											integerOnly="true" />
+										<span>${percent}분 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 3600 && PurchaserPhVO_list.refreshTime < 86400}">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 3600)}"
+											integerOnly="true" />
+										<span>${percent}시간 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800} ">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent }일 전</span>
+										<br>
+									</c:when>
+
+
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800}">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent}일 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${PurchaserPhVO_list.refreshTime >= 2678400 && PurchaserPhVO_list.refreshTime < 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 2678400)}"
+											integerOnly="true" />
+										<span>${percent }달 전</span>
+										<br>
+									</c:when>
+									<c:when test="${PurchaserPhVO_list.refreshTime >= 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((PurchaserPhVO_list.refreshTime) / 32140800)}"
+											integerOnly="true" />
+										<span>${percent }년 전 </span>
+										<br>
+									</c:when>
+								</c:choose>
+
+								<input type="radio" value="${PurchaserPhVO_list.itemid }"
+									name="itemid" style="display: none"> <span
+									style="font-weight: bold; font-size: 20px;"> <c:set
+										var="money" value="${PurchaserPhVO_list.price }" /> <fmt:formatNumber
+										value="${money }" type="number" />원 <br></span>
+							</div>
+							<div style="width: 320px; align-self: flex-end;">
+								<span style="margin: 0;" class="like_view"><i
+									class="far fa-comments" style="color: skyblue;"></i>
+									${PurchaserPhVO_list.likecnt } </span> <span style="margin: 0;"
+									class="like_view"><i class="far fa-heart"
+									style="color: red;"></i> ${PurchaserPhVO_list.viewcnt } </span> <br>
+							</div>
+						</div>
+						<br>
+					
+				
+				</c:forEach>				
+				</div>
+				</main>
+				</div>
+				
+	<button>
+		<span>작성한 후기 보기</span>
+	</button>
+
+	<button
+		onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
+		Page</button>
 
 
 

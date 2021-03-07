@@ -61,6 +61,7 @@ public class BreakdownController {
 	  public String gSalecomplete(Model model, HttpSession session) { 
 	  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
 	  String userNick = user.getUserNick();
+	  model.addAttribute("purchasedetailsCount", bservice.purchasedetailsCount(userNick));
 	  model.addAttribute("usernick", userNick);	  
 	  model.addAttribute("SellerPhVO", bservice.getSellerPhVO(userNick));
 	  return "/breakdown/sale/saleCompletedPage";

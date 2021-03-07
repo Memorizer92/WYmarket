@@ -30,7 +30,7 @@ public interface IBreakdownService {
 	
 	int productDelete(String ititle, String usernick,String istate, String itemid);
 	
-
+	int purchasedetailsCount(String usernick);
 	
 
 }

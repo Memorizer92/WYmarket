@@ -31,16 +31,19 @@
 
 
 </head>
-<body>
+<body ondragstart="return false" onselectstart="return false">
+<!--  oncontextmenu="return false" 마우스 우클릭 금지 -->
 
 	<div id="grid_2" class="div">
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;" class = "titlefont">판매내역</header>
+			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>판매내역</header>
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">
 					<li class="list-inline-item menutitle "><button id="salebtn"
-							class="shadow--sm " onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
+							class="shadow--sm "
+							onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
 							style="border-bottom: 2px solid black;">판매중</button></li>
 					<li class="list-inline-item menutitle"><button
 							id="completedbtn" class="shadow--sm "
@@ -56,8 +59,8 @@
 							data-bs-toggle="dropdown" aria-expanded="false"
 							style="box-shadow: 0 0 0 0;">
 							<i class="fas fa-ellipsis-h"></i>
-						</button>						
-						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="cursor: pointer;">
 							<li id="productChoice" class="disabled"><div
 									class="dropdown-item" onclick="productChoice()">거래상품 선택</div></li>
 							<li id="ReservationChoise" class="disabled"><div
@@ -66,128 +69,132 @@
 									class="dropdown-item" onclick="hideenChoice()">상품 숨기기</div></li>
 							<li id="pullUp" class="disabled"><div class="dropdown-item"
 									onclick="pullUp()">끌어올리기</div></li>
-							<li id="productDeleteChoise" class="disabled"><div class="dropdown-item"
-									onclick="productDeleteChoise()">상품 삭제하기</div></li>
+							<li id="productDeleteChoise" class="disabled"><div
+									class="dropdown-item" onclick="productDeleteChoise()">상품
+									삭제하기</div></li>
 						</ul>
 					</div>
 				</div>
 
-
+				<div id="nonexistent" style="display: none;"></div>
 				<c:forEach var="userItem_list" items="${itemvo }">
 					<c:if test="${userItem_list.istate eq 'Onsale'}">
 						<!--  판매중 내역 -->
- 			
-							<div class="shadow shadow-strong completed"
-							style="padding: 15px 5px; border-radius: 1rem;">
-							
-							<span> 제목: ${userItem_list.ititle } </span>
-							
- 							<input type="checkbox"
-								onclick="openModal()" name="ititle"
-								value="${userItem_list.ititle }" style="display: none;" id ="titleRadio"/>															   							   
-							
+						<div class="shadow shadow-strong completed"
+							style="padding: 15px 15px; border-radius: 1rem;">
 
-							<span>ID: ${userItem_list.itemid }</span> <br> 
-							<span>현재날짜와 등록된 날짜 차 값(초):${userItem_list.refreshTime}</span> <br>
-							<c:choose>
-					
-								<c:when
-									test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
-									<span>${userItem_list.refreshTime}초 전</span>
+							<img alt=""
+								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+
+							<div style="width: 100%;">
+								<c:if
+									test="${userItem_list.ireservationstate eq 'Yreservation'}">
+									<span style="font-weight: bold; color: darkorange;">[
+										예약중 ]</span>
 									<br>
-								</c:when>
+								</c:if>
 
-								<c:when
-									test="${userItem_list.refreshTime >= 60 && userItem_list.refreshTime < 3600}">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 60)}"
-										integerOnly="true" />
-									<span>${percent}분 전</span>
-									<br>
-								</c:when>
+								<span style="font-weight: bold; font-size: 27px;">
+									${userItem_list.ititle } </span> <br> <input type="checkbox"
+									onclick="openModal()" name="ititle"
+									value="${userItem_list.ititle }" style="display: none;"
+									id="titleRadio" /><span> ${userItem_list.address }</span>
+								<c:choose>
+									<c:when
+										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
+										<span>${userItem_list.refreshTime}초 전</span>
+										<br>
+									</c:when>
 
-								<c:when
-									test="${userItem_list.refreshTime >= 3600 && userItem_list.refreshTime < 86400}">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 3600)}"
-										integerOnly="true" />
-									<span>${percent}시간 전</span>
-									<br>
-								</c:when>
+									<c:when
+										test="${userItem_list.refreshTime >= 60 && userItem_list.refreshTime < 3600}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 60)}"
+											integerOnly="true" />
+										<span>${percent}분 전</span>
+										<br>
+									</c:when>
 
-								<c:when
-									test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800} ">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 86400)}"
-										integerOnly="true" />
-									<span>${percent }일 전</span>
-									<br>
-								</c:when>
+									<c:when
+										test="${userItem_list.refreshTime >= 3600 && userItem_list.refreshTime < 86400}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 3600)}"
+											integerOnly="true" />
+										<span>${percent}시간 전</span>
+										<br>
+									</c:when>
 
-
-								<c:when
-									test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800}">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 86400)}"
-										integerOnly="true" />
-									<span>${percent}일 전</span>
-									<br>
-								</c:when>
-
-
-								<c:when
-									test="${userItem_list.refreshTime >= 2678400 && userItem_list.refreshTime < 32140800}">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 2678400)}"
-										integerOnly="true" />
-									<span>${percent }달 전</span>
-									<br>
-								</c:when>
-								<c:when test="${userItem_list.refreshTime >= 32140800}">
-									<fmt:parseNumber var="percent"
-										value="${((userItem_list.refreshTime) / 32140800)}"
-										integerOnly="true" />
-									<span>${percent }년 전 </span>
-									<br>
-								</c:when>
-							</c:choose>
-
-							<input type="radio" value="${userItem_list.itemid }"
-								name="itemid" style="display: none"> 
-							
+									<c:when
+										test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800} ">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent }일 전</span>
+										<br>
+									</c:when>
 
 
+									<c:when
+										test="${userItem_list.refreshTime >= 86400 && userItem_list.refreshTime < 2764800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent}일 전</span>
+										<br>
+									</c:when>
 
-							<c:if test="${userItem_list.ireservationstate eq 'Yreservation'}">
-								<span>예약중</span>
-							</c:if>
-							 <span>지역:
-								${userItem_list.address }</span> <br> <span>가격:
-								${userItem_list.price }</span> <br>
-						
-								
+									<c:when
+										test="${userItem_list.refreshTime >= 2678400 && userItem_list.refreshTime < 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 2678400)}"
+											integerOnly="true" />
+										<span>${percent }달 전</span>
+										<br>
+									</c:when>
+									<c:when test="${userItem_list.refreshTime >= 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((userItem_list.refreshTime) / 32140800)}"
+											integerOnly="true" />
+										<span>${percent }년 전 </span>
+										<br>
+									</c:when>
+								</c:choose>
+
+								<input type="radio" value="${userItem_list.itemid }"
+									name="itemid" style="display: none"> <span
+									style="font-weight: bold; font-size: 20px;"> <c:set
+										var="money" value="${userItem_list.price }" /> <fmt:formatNumber
+										value="${money }" type="number" />원 <br></span>
+							</div>
+							<div style="width: 320px; align-self: flex-end;">
+								<span style="margin: 0;" class="like_view"><i
+									class="far fa-comments" style="color: skyblue;"></i>
+									${userItem_list.likecnt } </span> <span style="margin: 0;"
+									class="like_view"><i class="far fa-heart"
+									style="color: red;"></i> ${userItem_list.viewcnt } </span> <br>
+							</div>
 						</div>
 						<br>
 					</c:if>
 					<!-- 판매중 내역 end -->
 				</c:forEach>
-
+				<br>
 				<div>
 					<button onclick="TransactionCompleted()" style="display: none;"
-						id="TransactionCompleted">거래완료</button>
+						id="TransactionCompleted" class="nonebtn">거래완료</button>
 					<button onclick="ProductHideen()" style="display: none;"
-						id="ProductHideen">상품 숨기기</button>
+						id="ProductHideen" class="nonebtn">상품 숨기기</button>
 					<button onclick="pullUpChoise()" id="pullUpChoise"
-						style="display: none">끌어 올리기</button>
-					<button onclick="ProductReservationY()" style="display: none;"
-						id="ProductReservationY" value="Yreservation">예약중으로 변경</button>
+						style="display: none" class="nonebtn">끌어 올리기</button>
 					<button onclick="ProductReservationN()" style="display: none;"
-						id="ProductReservationN" value="Nreservation">예약중으로 취소</button>
+						id="ProductReservationN" value="Nreservation" class="nonebtn">예약중
+						취소</button>
+					<button onclick="ProductReservationY()" style="display: none;"
+						id="ProductReservationY" value="Yreservation" class="nonebtn">예약중
+						변경</button>
 					<button onclick="ProductDelete()" style="display: none;"
-						id="ProductDelete">상품 삭제하기</button>
-					<button
-						onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
-						Page</button>
+						id="ProductDelete" class="nonebtn">상품 삭제</button>					
 				</div>
 
 				<c:forEach var="userinfo_list" items="${userinfo }">
@@ -211,9 +218,6 @@
 					</div>
 				</div>
 			</div>
-		
-
-
 
 		</main>
 	</div>
@@ -221,9 +225,14 @@
 	<script type="text/javascript"
 		src="<%=application.getContextPath()%>/resources/assets/js/breakdown_sale.js"></script>
 	<script>
+	
+	
+	
+	
   //판매내역에 보여지는 거래상품 버튼 클릭 시 생성되는 거래완료 버튼 이벤트
     function TransactionCompleted() {
     	istate = 'Completed';
+    
         for(var i = 0; i<radio_btn.length; i++){
             if(radio_btn[i].checked==true){ // Title값
             idradio_btn[i].checked=true; // ID값
@@ -286,10 +295,11 @@
   //판매내역에 보여지는 예약 버튼 클릭 시 생성되는 예약취소 버튼 이벤트
     function ProductReservationN() {  	   
         for(var i = 0; i<radio_btn.length; i++){
-            if(radio_btn[i].checked==true){           	           	     		
+            if(radio_btn[i].checked==true){     
+            	idradio_btn[i].checked=true;
     var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "<%=application.getContextPath() %>/param/reservation/"+ productReservationN + "/" + radio_btn[i].value);  
+    form.setAttribute("action", "<%=application.getContextPath() %>/param/reservation/"+ productReservationN + "/" + radio_btn[i].value + "/" + idradio_btn[i].value);  
     document.body.appendChild(form);  
     radio_btn_check++;    
     form.submit();

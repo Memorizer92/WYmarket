@@ -1,7 +1,10 @@
 @charset "UTF-8";
-        * {
+
+* {
 	box-sizing: border-box;
 }
+
+
 
 /* @media (max-width: 817px){
 .firstli{
@@ -93,13 +96,22 @@
 	font-family: 'Akaya Kanadaka', cursive;
 }
 
-.completed{
-	padding: 15px 5px; 
-	border-radius: 1reml;
+.completed {
+	padding: 15px 5px;
+	border-radius: 1rem;
+	display: flex;
+	border: solid 2px #dee2e6c2;
+	position: relative;
+	
+}
+
+.completed>*:not(:last-child) {
+	margin-right: 15px;
 }
 
 .completed>span {
-	margin: 20px;
+	margin-left: 20px;
+	font-size: 20px;
 }
 /* modal */
 .modalCloseBtn {
@@ -134,20 +146,66 @@
 #mainDiv {
 	min-width: 400px;
 	max-width: 700px;
-	min-height: 100vh;
+	min-height: 88vh;
 	margin: 0px auto;
 }
 /* modal - end */
-
 .disabled {
-      pointer-events: visible;
-      opacity: 1;
-} 
-#titleRadio{
-	position: relative;
-	top: 20px;
-	background-color: silver;	
+	pointer-events: visible;
+	opacity: 1;
+}
+
+.like_view {
+	float: right;
+	font-size: 20px;
+	padding: 4px;
+}
+
+.nonebtn {
+	outline: 0;
+	font-family: 'Noto Serif KR', serif;
+	padding: 5px;
+	width: 100px;
+	float: right;
+	margin: 2px;
+	opacity: 0.6;
+	border: solid 2px #bdc3c7;
+	border-radius: 0.5rem;
+}
+
+.nonebtn:hover {
+	background-color: darkorange;
+	border-radius: 0.5rem;
+	opacity: 1;
+}
+
+.cPoint{
+	cursor: pointer;
+	opacity: 0.3;
+	transition: all 1s;
+}
+
+.cPoint:hover{
+	opacity: 0.7;
 }
 
 
-  
+#nonexistent {
+	height: 200px;
+	position: inherit;
+	font-size: 30px;
+	text-align: center;
+	padding-top: 100px;
+	opacity: 0.6;
+}
+
+#titleRadio {
+    float: right;
+    position: absolute;
+    right: 11px;
+    width: 25px;
+    height: 22px;
+    top: 13px;
+    cursor: pointer;
+}
+

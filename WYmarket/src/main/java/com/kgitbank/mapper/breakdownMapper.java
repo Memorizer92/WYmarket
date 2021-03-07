@@ -64,7 +64,9 @@ public interface breakdownMapper {
 			@Param("itemid") String itemid
 			);
 
-	
+	int purchasedetailsCount(
+			@Param("usernick") String usernick
+			);
 		
 	
 	

@@ -51,6 +51,11 @@ SELECT itemID, iImagePath, Purchaser,
 ]]>	
 </select>
 
+<select id="purchasedetailsCount" resultType="int">
+		SELECT COUNT(*) from purchasedetails where usernick = #{usernick}
+</select>
+
+
 <update id="completedIstate">
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick} AND itemid = #{itemid}
 </update>

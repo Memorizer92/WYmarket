@@ -78,6 +78,11 @@ public class BreakdownService implements IBreakdownService {
 		return break_mapper.productDelete(ititle, usernick, istate, itemid);
 	}
 
+	@Override
+	public int purchasedetailsCount(String usernick) {
+		return break_mapper.purchasedetailsCount(usernick);
+	}
+
 
 
 	

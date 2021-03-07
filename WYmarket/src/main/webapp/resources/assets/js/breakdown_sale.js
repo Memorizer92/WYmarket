@@ -6,7 +6,7 @@ const pullupCheck = document.getElementById("pup");
 const closeDiv = document.querySelector(".modalDiv");
 const closeBtn = document.querySelector(".modalCloseBtn");
 
-
+var nonexistent = document.getElementById("nonexistent");
 var istate;
 var btntype;		
 var radio_btn = document.getElementsByName("ititle");
@@ -16,22 +16,30 @@ var idradio_btn = document.getElementsByName("itemid");
 
 
 
+	if(radio_btn.length == 0){	
+	nonexistent.style.display = 'block';
+	nonexistent.innerText = '상품이 존재하지 않습니다.';
+			var dis = document.querySelectorAll(".disabled");				
+		dis.forEach(function(userItem) {
+  		userItem.style.pointerEvents = 'none'; 
+		userItem.style.opacity = '0.6'; 
 		
-		
-		
+});
+}
 		
 	//판매내역에 보여지는 거래상품 버튼 클릭 이벤트(라디오 버튼 생성)	
     function productChoice() {		         
     	alert("해당 상품을 선택해 주세요.");	
-        for( var i = 0; i < radio_btn.length; i++ ){
-        		radio_btn[i].style.display = 'inline';
-      			
-         }		
-		document.getElementById("TransactionCompleted").style.display = 'inline-block'; // 거래상품 클릭시 생성되는 거래완료 버튼	
+		
+		for(var i = 0; i < radio_btn.length; i++){
+		radio_btn[i].style.display = 'inline';	   	    
+}		
+	document.getElementById("TransactionCompleted").style.display = 'inline-block'; // 거래상품 클릭시 생성되는 거래완료 버튼	
 		var dis = document.querySelectorAll(".disabled");				
 		dis.forEach(function(userItem) {
   		userItem.style.pointerEvents = 'none'; 
 		userItem.style.opacity = '0.6'; 
+		
 });
 	}
 	
