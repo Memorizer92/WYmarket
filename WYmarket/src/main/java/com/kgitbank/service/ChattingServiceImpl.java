@@ -91,6 +91,7 @@ public class ChattingServiceImpl implements ChattingService {
 	public int resetCountAll() {
 		return chat_mapper.resetCountAll();
 	}
+
 	 
 	 
 

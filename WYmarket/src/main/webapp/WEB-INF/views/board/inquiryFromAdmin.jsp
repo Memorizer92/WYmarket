@@ -36,7 +36,6 @@ body {
 	flex-direction: row;
 	justify-content: center;
 	width: 600px;
-	display: flex;
 	border: solid 1px white;
 	border-radius: 20px;
 	height: 900px;
@@ -46,17 +45,19 @@ body {
 }
 
 #inner {
-	margin-top: 15px;
+	display: flex;
+	flex-direction: column;
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
 	margin-left: auto;
+	justify-content: center;
 }
 
 ul {
 	width: 100%;
 	overflow: auto;
-	height: 892px;
+	height: 750px;
 }
 
 li {
@@ -93,8 +94,18 @@ textarea {
 	height: 200px;
 }
 
-#text {
+#text1 {
+	margin-top: 10px;
 	margin-bottom: 15px;
+}
+
+.btn-primary {
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 15px;
 }
 </style>
 <body>
@@ -111,9 +122,11 @@ textarea {
 					</li>
 				</c:forEach>
 			</ul>
+			<button type="button" class="btn btn-primary"
+				onclick="location.href='/wymarket/board/notice/c'">이전으로</button>
 		</div>
 	</div>
-	
+
 
 	<div class="modal fade" id="inquirySentModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">

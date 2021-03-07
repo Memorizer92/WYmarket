@@ -280,10 +280,10 @@ tbody>tr>th {
 			onclick="userAccessCount()">접속자 수 보기</button>
 		<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
 			onclick="userSignUpCount()">가입자 수 보기</button>
-
 		<button class="btn btn-primary" onclick="searchAll()">전체 리스트
 			보기</button>
-
+		<button type="button" class="btn btn-primary" id='backbtn'
+			onclick="location.href='/wymarket/admin'">이전으로</button>
 	</div>
 	</div>
 	<script

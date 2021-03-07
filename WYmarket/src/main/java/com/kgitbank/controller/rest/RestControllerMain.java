@@ -407,15 +407,17 @@ public class RestControllerMain implements Serializable {
 	public String inquiryModal(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
 
 		inquiry = (Inquiry) wyMarketService.selectInquiryByID(inquiry.getInquiryID());
-		
+
 		session.setAttribute("inqVO", inquiry);
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		System.out.println(session.getAttribute("inqVO"));
+
+		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm");
 
 		return "					<div class=\"container\" id='inquiryContainer'>\r\n"
 				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
 				+ "							<p>닉네임 : " + inquiry.getUserNick() + "</p>\r\n" + "<p>카테고리 : "
-				+ inquiry.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : " + format.format(inquiry.getInquiryDate()) + "</p>"
+				+ inquiry.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : " + format.format(inquiry.getInquiryDate())
+				+ "</p>"
 				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
 				+ "								\" name=\"textArea\"\r\n"
 				+ "								readonly=\"readonly\">" + inquiry.getInquiryContent()
@@ -428,17 +430,16 @@ public class RestControllerMain implements Serializable {
 
 		return "		<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
 				+ "			placeholder=\"답장하실 내용을 여기에 입력해주세요 :)\" name=\"textArea\" id='text'></textarea>\r\n"
-				+ "		<button class=\"btn btn-primary\" id='inquirybtn' data-bs-dismiss=\"modal\" onclick=\"ajaxReply()\">답장\r\n"
-				+ "			보내기</button>";
+				+ "		<button class=\"btn btn-primary\" id='inquirybtn' data-bs-dismiss=\"modal\" onclick=\"ajaxReply("
+				+ inquiry.getInquiryID() + ")\">답장\r\n" + "			보내기</button>";
 	}
 
-	// 사용자가 문의 내역 li를 클릭할 때
+	// 사용자가 문의 내역 li를 클릭할 때 & 관리자가 송신함 li 클릭할 때
 	@PostMapping(value = "/admin/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String checkHistory(@RequestBody InquiryAdminToUser inq, Model model, HttpSession session) {
-
 		InquiryAdminToUser iatu = wyMarketService.selectInquiryAdminToUserByID(inq.getInquiryID());
 		Inquiry i = wyMarketService.selectInquiryByID(iatu.getUserInquiryID());
-		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm");
 
 		return "				<div class=\"modal-header\">\r\n"
 				+ "					<h5 class=\"modal-title\" id=\"exampleModalLabel\">수신함</h5>\r\n"
@@ -455,10 +456,39 @@ public class RestControllerMain implements Serializable {
 				+ "\r\n" + "				</textarea>\r\n" + "						</div>\r\n"
 				+ "					</div>\r\n" + "				</div>\r\n"
 				+ "				<div class=\"modal-footer\">\r\n"
-				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" id=\"text\"aria-label=\"With\r\n"
+				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" id=\"text1\"aria-label=\"With\r\n"
 				+ "						textarea\"\r\n"
 				+ "						name=\"textArea\" readonly=\"readonly\">" + iatu.getInquiryContent()
 				+ "</textarea>\r\n" + "				</div>";
+	}
+
+	// 답장 보내기 확정 버튼 눌렀을 때
+	@GetMapping(value = "admin/sendInquiryAdminToUser/{textarea}/{inquiryID}", produces = "text/html; charset=UTF-8")
+	public String sendInquiryAdminToUser(Model model, HttpSession session, @PathVariable String textarea,
+			@PathVariable int inquiryID) {
+
+		Inquiry inquiry = (Inquiry) session.getAttribute("inqVO");
+		System.out.println("inquiry : " + inquiry);
+		InquiryAdminToUser inquiryAdminToUser = new InquiryAdminToUser();
+		inquiryAdminToUser.setUserInquiryID(inquiry.getInquiryID());
+		inquiryAdminToUser.setUserNick(inquiry.getUserNick());
+		inquiryAdminToUser.setInquiryCategory(inquiry.getInquiryCategory());
+		inquiryAdminToUser.setInquiryContent(textarea);
+		inquiryAdminToUser.setInquiryDate(new Date());
+		wyMarketService.insertInquiryAdminToUser(inquiryAdminToUser);
+
+		int maxiatu = wyMarketService.selectMaxInquiryAdminToUserByID();
+
+		wyMarketService.updateInquiryUserCountTotal();
+
+		SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm");
+		String formatStr = format.format(new Date());
+		System.out.println("이 아디" + inquiryAdminToUser.getInquiryID());
+
+		return "<li class=\"list-group-item lili\" \r\n" + "							onclick=\"ajaxshowHistory(" + maxiatu
+				+ ")\">문의 번호 :\r\n" + "							" + inquiry.getInquiryID() + " <br> 닉네임 : "
+				+ inquiry.getUserNick() + " <br>\r\n" + "							카테고리 : "
+				+ inquiry.getInquiryCategory() + "<br> 날짜 : " + formatStr + "</li>";
 	}
 
 }
