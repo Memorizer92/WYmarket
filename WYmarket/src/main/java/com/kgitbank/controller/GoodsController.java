@@ -71,8 +71,8 @@ public class GoodsController {
 				 * fileName);
 				 */
 		
-		 user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
-		 model.addAttribute("user", user.getUserNick()); 
+		 user = (UserInfo) session.getAttribute("user"); 
+		 model.addAttribute("user", user.getUserNick()); // 주의
 		 log.info(user.getUserNick());
 		
 		 
@@ -89,7 +89,7 @@ public class GoodsController {
 		model.addAttribute("goods",goods);
 		//구매자 시퀀스 필요
 		String nick = gservice.getId(goods.getUsernick());  
-		user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));  
+		user = (UserInfo) session.getAttribute("user");  
 		session.setAttribute("buyerId",user.getUserID()); 
 		session.setAttribute("buyerName", user.getUserNick()); 
 		session.setAttribute("sellerId", nick);

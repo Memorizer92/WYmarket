@@ -45,7 +45,7 @@ public class BreakdownController {
 
 	@GetMapping("/sale") // 판매중 화면
 	public String sale(Model model, HttpSession session) {
-		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();		
 		
 		model.addAttribute("usernick", userNick);		
@@ -59,7 +59,7 @@ public class BreakdownController {
 		// 거래 완료 화면
 	  @GetMapping("/salecomplete") 
 	  public String gSalecomplete(Model model, HttpSession session) { 
-	  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+	  UserInfo user = (UserInfo) session.getAttribute("user");
 	  String userNick = user.getUserNick();
 	  model.addAttribute("purchasedetailsCount", bservice.purchasedetailsCount(userNick));
 	  model.addAttribute("usernick", userNick);	  
@@ -77,7 +77,7 @@ public class BreakdownController {
 				@PathVariable("itemid") String itemid,
 				HttpSession session) {	
 		  
-		 	    UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		 	    UserInfo user = (UserInfo) session.getAttribute("user");
 		 	    String userNick = user.getUserNick();
 		  		model.addAttribute("usernick", userNick);
 		  		model.addAttribute("success", "success");
@@ -90,7 +90,7 @@ public class BreakdownController {
 	 // 숨김 화면
 	  @GetMapping("/salehidden") 
 	  public String gSalehidden (Model model, HttpSession session) {
-		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  UserInfo user = (UserInfo) session.getAttribute("user");
 		  String userNick = user.getUserNick();
 		    model.addAttribute("usernick", userNick);
 			model.addAttribute("itemvo", bservice.getShitemVO(userNick));
@@ -105,7 +105,7 @@ public class BreakdownController {
 			  @PathVariable("ititle") String ititle,
 			  @PathVariable("itemid") String itemid,
 			  HttpSession session) {
-		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  UserInfo user = (UserInfo) session.getAttribute("user");
 		  String userNick = user.getUserNick();
 		  bservice.hiddenIstate(istate, ititle, userNick, itemid);
 		  if(istate.equals("Onsale")) {
@@ -124,7 +124,7 @@ public class BreakdownController {
 			  @PathVariable("ititle") String ititle,
 			  @PathVariable("itemid") String itemid,
 			  HttpSession session) {
-		  UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		  UserInfo user = (UserInfo) session.getAttribute("user");
 		  String userNick = user.getUserNick();
 		  bservice.reservationStateChange(iReservationState, ititle, userNick, itemid);
 		  model.addAttribute("usernick", userNick);
@@ -138,7 +138,7 @@ public class BreakdownController {
 	 // 구매내역 화면
 	@GetMapping("/purchase")
 	public String purchase(Model model, HttpSession session) {	
-		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
 		model.addAttribute("PurchaserPhVO", bservice.getPurchaserPhVO(userNick));
 		return "/breakdown/purchasePage";
@@ -151,7 +151,7 @@ public class BreakdownController {
 			@PathVariable("itemid") String itemid,
 			@PathVariable("istate") String istate
 			){
-		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
 		bservice.productPullUp(ititle, userNick,istate, itemid);
 		model.addAttribute("itemvo", bservice.getShitemVO(userNick));
@@ -164,7 +164,7 @@ public class BreakdownController {
 			@PathVariable("itemid") String itemid,
 			@PathVariable("istate") String istate
 			){
-		UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
 		bservice.productDelete(ititle, userNick, istate, itemid);
 		model.addAttribute("itemvo", bservice.getShitemVO(userNick));		

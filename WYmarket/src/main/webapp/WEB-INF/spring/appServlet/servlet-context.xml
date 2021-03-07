@@ -82,9 +82,24 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/chats/chatting" />
+			<mapping path="/main" />
 			<!-- <exclude-mapping path="/login" /> -->
-			<beans:bean class="com.kgitbank.interceptor.Interceptor" />
+			<beans:bean
+				class="com.kgitbank.interceptor.UserInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin" />
+			<mapping path="/admin/**" />
+			<beans:bean
+				class="com.kgitbank.interceptor.AdminInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/login" />
+			<mapping path="/auth/kakao/login" />
+			<beans:bean
+				class="com.kgitbank.interceptor.LoginInterceptor" />
 		</interceptor>
 	</interceptors>
+
 
 </beans:beans>
