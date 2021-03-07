@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.GoodsVO;
 import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 
 @Service
@@ -311,16 +313,20 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.resetInquiryUserCountTotal();
 	}
 
+	@Override
+	public int deleteSearchInDistance() {
+		return wyMarketMapper.deleteSearchInDistance();
+	}
+	
+	@Override
+	public int insertSearchInDistance(GoodsVO goodsVo) {
+		return wyMarketMapper.insertSearchInDistance(goodsVo);
+	}
 
-
-
-
-
-
-
-
-
-
-
+	@Override
+	public List<SearchInDistance> selectSearchInDistance() {
+		return wyMarketMapper.selectSearchInDistance();
+	}
 
 }
+

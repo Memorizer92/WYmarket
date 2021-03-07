@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 
 <title>header</title>
-
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -146,6 +146,13 @@ a {
 
 #inquirybtn:hover {
 	background: radial-gradient(at 10% 30px, white, #FF8A3D);
+}
+
+#seeReplyBtn {
+	margin-top: 30px;
+	color: #fff;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
 }
 </style>
 
@@ -474,14 +481,15 @@ a {
 						aria-labelledby="nav-8-tab">888</div>
 					<div class="tab-pane fade" id="nav-9" role="tabpanel"
 						aria-labelledby="nav-9-tab">
-						<form action="<%=application.getContextPath()%>/admin/sendInquiry">
+						<form action="<%=application.getContextPath()%>/admin/sendInquiry"
+							id='form'>
 							<div class="container" id='inquiryContainer'>
 								<div class="container" id='inquiryContainerInner'>
 									<p>검색과 관련된 궁금한 점이나 불편사항 개선할 점이 있으면 자유롭게 이야기해주세요. 소중한 의견
 										감사합니다. &#128522</p>
 									<p>※ 답변에는 시간이 소요됩니다. 조금만 기다려주세요 :)</p>
 									<select class="form-select" id="inputGroupSelect01"
-										name="inquirySelect">
+										name="inquirySelect" form='form'>
 										<option selected>문의 카테고리 검색</option>
 										<option value="transaction">거래 환불/분쟁 및 사기 신고</option>
 										<option value="account">계정 문의 (로그인, 인증, 제재, 탈퇴 등)</option>
@@ -494,13 +502,14 @@ a {
 										<option value="error">오류 제보</option>
 									</select>
 									<textarea class="form-control" aria-label="With textarea"
-										placeholder="문의하실 내용을 여기에 입력해주세요 :)" name="textArea"></textarea>
-									<button class="btn btn-primary" type="submit" id='inquirybtn'>당근마켓팀에게
-										보내기</button>
+										placeholder="문의하실 내용을 여기에 입력해주세요 :)" name="textArea"
+										id='textArea'></textarea>
+									<button class="btn btn-primary" type="button" id='inquirybtn'
+										onclick="send()">당근마켓팀에게 보내기</button>
 								</div>
 							</div>
 						</form>
-						<button type="button" class="btn btn-primary" id='inquiryBtn'
+						<button type="button" class="btn btn-primary" id='seeReplyBtn'
 							onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiryFromAdmin';">
 							답장 보기
 							<c:if test="${adminToUserCount ne 0}">
@@ -521,7 +530,12 @@ a {
 	</div>
 	<hr>
 	footer
+
+	<script
+		src="<%=application.getContextPath()%>/resources/assets/js/notice.js"></script>
+
 	<script>
+
 		var home = document.getElementById("pills-home-tab");
 		var profile = document.getElementById("pills-profile-tab");
 		var contact = document.getElementById("pills-contact-tab");
@@ -545,9 +559,14 @@ a {
 
 		if ("${inquiryFlag}" == 1) {
 			inquiry.click();
-			alert("성공적으로 접수되었습니다.");
 	<%session.removeAttribute("inquiryFlag");%>
 		}
+		
+/* 		window.onpageshow = function(event) {
+			if (event.persisted || window.performance.navigation.type == 2) {
+				window.location.href = '/wymarket/board/notice/c';
+			}
+		} */
 	</script>
 
 </body>

@@ -17,21 +17,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
 import com.kgitbank.service.BoardService;
+import com.kgitbank.service.WYmarketService;
 
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
  
+	@Autowired
+	WYmarketService wyMarketService;
 	
 	//공지사항
 	@RequestMapping("notice/{category}")
-	public ModelAndView notice(@PathVariable("category") String category) {
+	public ModelAndView notice(@PathVariable("category") String category, Model model) {
 		
 		List<BoardVO> list = boardService.listAll();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/notice");//뷰를 list.jsp로 지정
 		mav.addObject("list",list);//데이터 저장 
+		
+		// 관리자로 부터 답변 온 문의 알림 표시
+		model.addAttribute("adminToUserCount", wyMarketService.selectInquiryUserCountTotal());
+		
 		return mav;
 	}
 	

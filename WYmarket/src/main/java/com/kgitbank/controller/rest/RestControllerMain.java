@@ -250,7 +250,7 @@ public class RestControllerMain implements Serializable {
 
 		long time = (long) session.getAttribute("exceedTime");
 		String timeStr = String.valueOf(time);
-		
+
 		return timeStr;
 	}
 
@@ -402,21 +402,27 @@ public class RestControllerMain implements Serializable {
 		return selectBanResult;
 	}
 
+	// 사용자가 보낸 문의를 관리자가 li를 클릭해서 modal 띄울 때
 	@PostMapping(value = "/admin/inquiryModal", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String inquiryModal(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
 
+		inquiry = (Inquiry) wyMarketService.selectInquiryByID(inquiry.getInquiryID());
+		
 		session.setAttribute("inqVO", inquiry);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		return "					<div class=\"container\" id='inquiryContainer'>\r\n"
 				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
-				+ "							<p>" + inquiry.getUserNick() + "</p>\r\n" + "							<p>"
-				+ inquiry.getInquiryCategory() + "</p>\r\n"
+				+ "							<p>닉네임 : " + inquiry.getUserNick() + "</p>\r\n" + "<p>카테고리 : "
+				+ inquiry.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : " + format.format(inquiry.getInquiryDate()) + "</p>"
 				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
 				+ "								\" name=\"textArea\"\r\n"
 				+ "								readonly=\"readonly\">" + inquiry.getInquiryContent()
 				+ "</textarea>\r\n" + "						</div>\r\n" + "					</div>";
 	}
 
+	// 답장하는 textarea 띄우는 버튼 누를 때
 	@PostMapping(value = "/admin/adminToUser", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String adminToUser(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
 
@@ -426,27 +432,30 @@ public class RestControllerMain implements Serializable {
 				+ "			보내기</button>";
 	}
 
+	// 사용자가 문의 내역 li를 클릭할 때
 	@PostMapping(value = "/admin/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String checkHistory(@RequestBody InquiryAdminToUser inq, Model model, HttpSession session) {
 
 		InquiryAdminToUser iatu = wyMarketService.selectInquiryAdminToUserByID(inq.getInquiryID());
 		Inquiry i = wyMarketService.selectInquiryByID(iatu.getUserInquiryID());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		return "				<div class=\"modal-header\">\r\n"
-				+ "					<h5 class=\"modal-title\" id=\"exampleModalLabel\">Modal title</h5>\r\n"
+				+ "					<h5 class=\"modal-title\" id=\"exampleModalLabel\">수신함</h5>\r\n"
 				+ "					<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"\r\n"
 				+ "						aria-label=\"Close\"></button>\r\n" + "				</div>\r\n"
 				+ "				<div class=\"modal-body\" id='modalContent'>\r\n"
 				+ "					<div class=\"container\" id='inquiryContainer'>\r\n"
 				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
-				+ "							<p>" + i.getUserNick() + "</p>\r\n" + "							<p>"
-				+ i.getInquiryCategory() + "</p>\r\n"
+				+ "							<p>닉네임 : " + i.getUserNick() + "</p>\r\n"
+				+ "							<p>카테고리 : " + i.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : "
+				+ format.format(i.getInquiryDate()) + "</p>"
 				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
 				+ "								name=\"textArea\" readonly=\"readonly\">" + i.getInquiryContent()
 				+ "\r\n" + "				</textarea>\r\n" + "						</div>\r\n"
 				+ "					</div>\r\n" + "				</div>\r\n"
 				+ "				<div class=\"modal-footer\">\r\n"
-				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" aria-label=\"With\r\n"
+				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" id=\"text\"aria-label=\"With\r\n"
 				+ "						textarea\"\r\n"
 				+ "						name=\"textArea\" readonly=\"readonly\">" + iatu.getInquiryContent()
 				+ "</textarea>\r\n" + "				</div>";
