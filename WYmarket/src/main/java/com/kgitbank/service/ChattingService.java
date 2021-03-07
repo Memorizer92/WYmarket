@@ -21,5 +21,5 @@ public interface ChattingService {
 	
 	public int resetSellerCount(int roomId);
 	public int resetBuyerCount(int roomId);
-	
+	public int resetCountAll();
 }

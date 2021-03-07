@@ -120,7 +120,7 @@ function submitChatMessageForm(form){
 <body>
 	 
 <div class="container-md cen style">
-	<div class="top">WY Talk / 
+	<div class="top">WY Talk  
 	<form action="./chatting" method="get"> 
 		<input style="display: none" type="text" name="roomId" value="${vo.roomId }" />
 		<input style="display: none" type="text" name="buyerName" value="${vo.buyerName}" />
@@ -150,7 +150,7 @@ function submitChatMessageForm(form){
 		 
 	</form>
  
- 	<div class="chat-messages"></div>
+ 	<div class="chat-messages" style="overflow:auto;  height: 450px;" ></div>
 </div>  
 </div>
 	 

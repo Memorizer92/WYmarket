@@ -6,28 +6,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
-import com.kgitbank.model.ChattingVO;
-import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BoardService;
-import com.kgitbank.service.ChattingService;
 
 @Controller
 @RequestMapping("/board/*")
-@SessionAttributes("user")
 public class BoardController {
  
-	UserInfo user;
 	
 	//공지사항
 	@RequestMapping("notice/{category}")
@@ -70,8 +63,6 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
-	@Autowired
-	ChattingService chattingService;
 	
 	//게시글 목록
 	@RequestMapping("list")

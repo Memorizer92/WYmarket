@@ -60,6 +60,10 @@
 		update chat_info set buyerCount=0 where roomId = #{roomId} 
 	</update>
 	
+	<update id="resetCountAll">
+		update chat_info set buyerCount=0,sellerCount=0
+	</update>
+	
 	
 	
 </mapper>

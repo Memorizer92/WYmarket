@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kgitbank.model.KakaoProfile;
 import com.kgitbank.model.OAuthToken;
 import com.kgitbank.model.UserInfo;
+import com.kgitbank.service.ChattingService;
 import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
@@ -45,6 +46,9 @@ public class LoginFormController {
 
    @Autowired
    private WYmarketService wyMarketService;
+   
+	@Autowired
+	ChattingService chattingService;
 
    @GetMapping("/location")
    public String location() {
@@ -62,10 +66,14 @@ public class LoginFormController {
       return "loginForm";
    }
 
-   
+   int ch=0;
    // 로그인
    @GetMapping("/login")
    public String loginPage(Model model, HttpSession session) {
+	   if(ch==0) {
+		   chattingService.resetCountAll();//카운트db 초기화 
+		   ch++;
+	   }
       if(session.getAttribute("Admin") != null) {
          System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
          return "redirect:/admin";

@@ -41,6 +41,8 @@ public class ChatController {
 
 	@Autowired
 	ChattingService chattingService;
+	
+	 
 
 	//구매자 채팅방 목록
 	@RequestMapping("/chats/chatting")

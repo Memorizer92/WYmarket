@@ -85,6 +85,12 @@ public class ChattingServiceImpl implements ChattingService {
 	public int resetBuyerCount(int roomId) {
 		return chat_mapper.resetBuyerCount(roomId);
 	}
+
+
+	@Override
+	public int resetCountAll() {
+		return chat_mapper.resetCountAll();
+	}
 	 
 	 
 
