@@ -77,8 +77,6 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
-	@Autowired
-	ChattingService chattingService;
 	
 	//게시글 목록
 	@RequestMapping("list")
