@@ -41,4 +41,6 @@ public class GoodsService implements GoodsServiceImpl{
 		return goods_mapper.getId(userNick);
 	}
 
+	 
+
 }

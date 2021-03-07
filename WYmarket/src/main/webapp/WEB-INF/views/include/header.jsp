@@ -138,7 +138,7 @@
             font-size: 40px;
         }
 
-        .navi { 
+        .navis { 
             width: 1130px;
             margin-left: auto;
             margin-right: auto;
@@ -199,39 +199,51 @@
     <article class="head1">
         <menu>
             <div class="head2 container-xl">
-                <li class="nick"><strong>임종훈</strong>님</li>
-                <li id="logout" class="logout"><a href="">로그아웃</a></li>
+                <li class="nick"><strong>${user}</strong>님</li>
+              
+                <li id="kakaoLogout" class="logout">로그아웃</li>
             </div>
         </menu>
     </article>
 
-    <div class="navi container-xl">
+    <div class="navis container-xl">
 
         <div class="dropdown">
             <button class="dropbtn"><i class="fas fa-bars fontsize big"></i><br>카테고리</button>
             <div class="dropdown-content">
-                <a href="#">의류</a>
-                <a href="#">전자기기</a>
-                <a href="#">기타</a>
+                <a href="/wymarket/main?category=전체">전체</a>
+                <a href="/wymarket/main?category=남성의류">남성의류</a>
+                <a href="/wymarket/main?category=전자기기">전자기기</a>
+                <a href="/wymarket/main?category=기타">기타</a>
             </div>
         </div>
 
-        <a class="logo" href="#">
-            <img src="../image/wylogo.jpg" alt="" width="160" height="45">
+        <a class="logo" href="/wymarket/main">
+            <img src="<%=application.getContextPath() %>/image/wylogo.jpg" alt="" width="160" height="45">
         </a>
-
+        
+  <form action="/wymarket/main" method="get">
         <div class="search">
-            <input class="searchinput" type="text" placeholder="검색어 입력">
+            <input class="searchinput" type="text" name="search" placeholder="검색어 입력">
             <button class="searchbtn"><i class="fas fa-search mid"></i></button>
         </div>
-
-        <a class="sale" href=""><i class="fas fa-won-sign biggest"></i></a>
+  </form>
+  
+        <a class="sale" href="/wymarket/goods/register"><i class="fas fa-won-sign biggest"></i></a>
         <a class="mypage" href=""><i class="fas fa-user biggest"></i></a>
 		<a class="chat" href="/wymarket/chats/chatting"><i class="far fa-comments biggest"></i></a>
     </div>
 <hr>
-<%--  <%@ include file="./footer.jsp" %> --%>
+ 
  
 </body>
-
+<script>
+	 document.getElementById('kakaoLogout').addEventListener('click',()=>{
+				ajaxLogOut();
+ 				setTimeout(function(){
+					window.location.href = "https://kauth.kakao.com/oauth/logout?client_id=f5c99e47d61ce4b7e521d120e1f04199&logout_redirect_uri=http://localhost:8080/wymarket/login";
+		        }, 1000); 
+			});
+		 
+	</script>
 </html>
