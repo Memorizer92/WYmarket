@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.GoodsVO;
+import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 
 @Service
@@ -135,38 +139,194 @@ public class WYmarketServiceImpl implements WYmarketService{
 	}
 
 	@Override
-	public AdminInfo getAdminInfo2(String phoneNumber) {
-		return wyMarketMapper.getAdminInfo2(phoneNumber);
+	public AdminInfo getAdminInfo2() {
+		return wyMarketMapper.getAdminInfo2();
 	}
 
 	@Override
-	public int selectUserCountId(String search) {
-		
+	public int selectUserCountId(String search) {		
 		return wyMarketMapper.selectUserCountId(search);
 	}
 
 	@Override
 	public int selectUserCountNick(String search) {
-
 		return wyMarketMapper.selectUserCountNick(search);
 	}
 
 	@Override
 	public int selectUserCountAddress(String search) {
-
 		return wyMarketMapper.selectUserCountAddress(search);
 	}
 
+	@Override
+	public int updateUserUnBan(String userNick) {
+		return wyMarketMapper.updateUserUnBan(userNick);
+	}
 
+	@Override
+	public String selectUserBan(String userNick) {
+		return wyMarketMapper.selectUserBan(userNick);
+	}
 
+	@Override
+	public int updateUserCountTotal(int userAccessCount) {
+		return wyMarketMapper.updateUserCountTotal(userAccessCount);
+	}
 
+	@Override
+	public int selectUserCountTotal() {
+		return wyMarketMapper.selectUserCountTotal();
+	}
 
+	@Override
+	public int insertUserAccessDate(String userNick) {
+		return wyMarketMapper.insertUserAccessDate(userNick);
+	}
 
+	@Override
+	public int selectUserAccessCount(String userNick) {
+		return wyMarketMapper.selectUserAccessCount(userNick);
+	}
 
+	@Override
+	public Date selectUserAccessDate(String userNick) {
+		return wyMarketMapper.selectUserAccessDate(userNick);
+	}
 
+	@Override
+	public int selectAccessCount() {
+		return wyMarketMapper.selectAccessCount();
+	}
 
+	@Override
+	public int selectAccessCountByDate(String totalDate) {
+		return wyMarketMapper.selectAccessCountByDate(totalDate);
+	}
 
+	@Override
+	public List<UserInfo> selectUserByAccessDate(Pagination page) {
+		return wyMarketMapper.selectUserByAccessDate(page);
+	}
 
+	@Override
+	public UserInfo selectUserInfoByMail(String mail) {
+		return wyMarketMapper.selectUserInfoByMail(mail);
+	}
 
+	@Override
+	public int selectSignupCountByDate(String totalDate) {
+		return wyMarketMapper.selectSignupCountByDate(totalDate);
+	}
+
+	@Override
+	public List<UserInfo> selectUserBySignupDate(Pagination page) {
+		return wyMarketMapper.selectUserBySignupDate(page);
+	}
+
+	@Override
+	public int selectIdByUserNick(String userNick) {
+		return wyMarketMapper.selectIdByUserNick(userNick);
+	}
+
+	@Override
+	public List<String> selectUserNickFromItem() {
+		return wyMarketMapper.selectUserNickFromItem();
+	}
+
+	@Override
+	public UserInfo selectLatLong(String userNick) {
+		return wyMarketMapper.selectLatLong(userNick);
+	}
+
+	@Override
+	public int selectCountFromItem() {
+		return wyMarketMapper.selectCountFromItem();
+	}
+
+	@Override
+	public int insertInquiryInfo(Inquiry inquiry) {
+		return wyMarketMapper.insertInquiryInfo(inquiry);
+	}
+
+	@Override
+	public List<Inquiry> selectInquiryInfo() {
+		return wyMarketMapper.selectInquiryInfo();
+	}
+
+	@Override
+	public int updateInquiryCountTotal() {
+		return wyMarketMapper.updateInquiryCountTotal();
+	}
+
+	@Override
+	public int selectInquiryCountTotal() {
+		return wyMarketMapper.selectInquiryCountTotal();
+	}
+
+	@Override
+	public int resetInquiryCountTotal() {
+		return wyMarketMapper.resetInquiryCountTotal();
+	}
+
+	@Override
+	public int insertInquiryAdminToUser(InquiryAdminToUser inquiryAdminToUser) {
+		return wyMarketMapper.insertInquiryAdminToUser(inquiryAdminToUser);
+	}
+
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUser() {
+		return wyMarketMapper.selectInquiryAdminToUser();
+	}
+
+	@Override
+	public InquiryAdminToUser selectInquiryAdminToUserByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryAdminToUserByID(inquiryID);
+	}
+
+	@Override
+	public Inquiry selectInquiryByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryByID(inquiryID);
+	}
+
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUserByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryAdminToUserByUserNick(userNick);
+	}
+
+	@Override
+	public List<Inquiry> selectInquiryByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryByUserNick(userNick);
+	}
+
+	@Override
+	public int updateInquiryUserCountTotal() {
+		return wyMarketMapper.updateInquiryUserCountTotal();
+	}
+
+	@Override
+	public int selectInquiryUserCountTotal() {
+		return wyMarketMapper.selectInquiryUserCountTotal();
+	}
+
+	@Override
+	public int resetInquiryUserCountTotal() {
+		return wyMarketMapper.resetInquiryUserCountTotal();
+	}
+
+	@Override
+	public int deleteSearchInDistance() {
+		return wyMarketMapper.deleteSearchInDistance();
+	}
+	
+	@Override
+	public int insertSearchInDistance(GoodsVO goodsVo) {
+		return wyMarketMapper.insertSearchInDistance(goodsVo);
+	}
+
+	@Override
+	public List<SearchInDistance> selectSearchInDistance() {
+		return wyMarketMapper.selectSearchInDistance();
+	}
 
 }
+

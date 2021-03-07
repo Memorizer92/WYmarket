@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,7 @@
 * {
 	box-sizing: border-box;
 }
+
 #kakaoLogout {
 	text-decoration: none;
 	text-align: center;
@@ -62,6 +65,7 @@
 		</nav>
 		<section id="container">
 			<div id="container_box">
+				<span>1:${user}</span> <span>2:${userNick}</span>
 				<li><a href="goods/register">상품등록</a></li>
 				<%@ include file="goods/list.jsp"%>
 			</div>
@@ -82,14 +86,14 @@
 
 	<script>
 	
-	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");
+/* 	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");
 	if("${Admin.adminNick}" != ""){
 			var form = document.createElement("form");
 		    form.setAttribute("method", "get");
 		    form.setAttribute("action", "/wymarket/admin");
 			document.body.appendChild(form);
 		    form.submit();
-	}
+	} */
 	
 /* 		if (window.performance.navigation.type == 1) {
 			window.location.href = '/wymarket/login';

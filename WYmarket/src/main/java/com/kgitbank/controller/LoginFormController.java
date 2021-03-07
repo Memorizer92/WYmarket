@@ -1,6 +1,7 @@
 package com.kgitbank.controller;
 
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,93 +28,82 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kgitbank.model.KakaoProfile;
 import com.kgitbank.model.OAuthToken;
 import com.kgitbank.model.UserInfo;
+import com.kgitbank.service.ChattingService;
 import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
-import lombok.extern.log4j.Log4j;
-
 @Controller
-@SessionAttributes(names = { "user","lat","lon","address", "user"})
-@Log4j
+@SessionAttributes(names = { "user", "lat", "lon", "address" })
 public class LoginFormController {
- 
+
+
 	OAuthToken oauthToken = null;
- 	String mail = "";
-	
+	String mail = "";
+
+   @Autowired
+   private WYmarketService wyMarketService;
+   
+	@Autowired
+	ChattingService chattingService;
+
+
 	@Autowired
 	private UserService service;
-
-	@Autowired
-	private WYmarketService wyMarketService;
 
 	@GetMapping("/location")
 	public String location() {
 		return "location";
 	}
 
-	@GetMapping("/echo")
-	public String echo() {
-		return "echo";
-	}
 
-	@GetMapping("/echo3")
-	public String echo3() {
-		return "echo3";
-	}
-	
-	
-	@RequestMapping("/chat")
-	public ModelAndView chat() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("chat");
-		return mv;
-	}
-	 
- 
 	@GetMapping("/address")
 	public String address() {
 		return "address";
 	}
 
+   int ch=0;
+   // 로그인
+   @GetMapping("/login")
+   public String loginPage(Model model, HttpSession session) {
+	   if(ch==0) {
+		   chattingService.resetCountAll();//카운트db 초기화 
+		   ch++;
+	   }
+      if(session.getAttribute("Admin") != null) {
+         System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+         return "redirect:/admin";
+      } 
+      if(session.getAttribute((String) model.getAttribute("user")) != null) {
+         System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+         return "redirect:/main";
+      } else {
+         System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
+         return "/login/login";
+      }
+      
+      
+   }
+
+
 	@GetMapping("/auth/kakao")
 	public String loginForm() {
 		return "loginForm";
-	}
-
-	
-	// 로그인
-	@GetMapping("/login")
-	public String loginPage(Model model, HttpSession session) {
-		if(session.getAttribute("Admin") != null) {
-			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-			return "redirect:/admin";
-		} 
-		if(session.getAttribute((String) model.getAttribute("user")) != null) {
-			
-			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "redirect:/main";
-		} else {
-			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "/login/login";
-		}
-		
-		
-	}
+	} 
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
-		
+
 		session.removeAttribute("Admin");
 		session.removeAttribute((String) model.getAttribute("user"));
-		System.out.println("왜 안 읽혀"+session.getAttribute((String) model.getAttribute("user")));
+		System.out.println("왜 안 읽혀" + session.getAttribute((String) model.getAttribute("user")));
 		System.out.println("adminInfo in loginformcontroller" + session.getAttribute("Admin"));
-		
+
 		return null;
 	}
-	
-	 //로그아웃
+
+	// 로그아웃
 	@GetMapping("/auth/kakao/logout")
-	public String logout(String code,HttpSession session, Model model) {
+	public String logout(String code, HttpSession session, Model model) {
 		System.out.println("제발 들어와주세요");
 
 		RestTemplate rt3 = new RestTemplate();
@@ -150,7 +140,7 @@ public class LoginFormController {
 
 		session.removeAttribute((String) model.getAttribute("user"));
 		System.out.println(session.getAttribute((String) model.getAttribute("user")));
-		
+
 		return "logout";
 	}
 
@@ -160,7 +150,7 @@ public class LoginFormController {
 		System.out.println("카카오 로그인" + model.getAttribute("lat"));
 		System.out.println("카카오 로그인" + model.getAttribute("lon"));
 		System.out.println("카카오 로그인" + model.getAttribute("address"));
-		
+
 		// post방식으로 key=value 데이터를 요청(카카오쪽으로)
 
 		RestTemplate rt = new RestTemplate();
@@ -219,9 +209,7 @@ public class LoginFormController {
 		KakaoProfile kakaoprofile = null;
 
 		try {
-			System.out.println("값 뜨나" + response2.getBody());
 			kakaoprofile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
-			System.out.println("카카오 프로파일" + kakaoprofile);
 		} catch (JsonMappingException e) {
 			e.printStackTrace();
 		} catch (JsonProcessingException e) {
@@ -232,11 +220,7 @@ public class LoginFormController {
 
 		String userNick = wyMarketService.getUserNickByMail(mail);
 		System.out.println("카카오 닉 : " + userNick);
-		if(userNick != null) {
-			model.addAttribute("user", userNick);
-			session.setAttribute(userNick, userNick);
-		} // 수정 필요하면 고쳐야 됨..
-		
+
 		int result = service.selectKakaoMail(mail);
 		System.out.println("가입 유무 : " + result);
 
@@ -246,6 +230,32 @@ public class LoginFormController {
 		System.out.println("카카오 아이디(번호): " + kakaoprofile.getId());
 		System.out.println("이름 : " + kakaoprofile.getKakao_account().getProfile().getNickname());
 		System.out.println("카카오 이메일: " + mail);
+
+		if (userNick != null) {
+			UserInfo userInfo = (UserInfo) wyMarketService.selectUserInfoByMail(mail);
+
+			userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+			Date now = new Date();
+			Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+			if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
+				if (!format.format(now).equals(format.format(userAccessDate))) {
+					wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+					// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+					wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+				}
+			} else {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+
+			model.addAttribute("user", userNick);
+			session.setAttribute((String) model.getAttribute("user"), userInfo);
+		} // 수정 필요하면 고쳐야 됨..
 
 		// 가입유무 : 1이면 바로 메인페이지로 리턴
 		if (result == 1) {
@@ -265,17 +275,36 @@ public class LoginFormController {
 		userInfo.setAddress((String) model.getAttribute("address"));
 		userInfo.setKakaoMail(mail);
 		userInfo.setUserNick(userInfo.getUserNick());
-		
-		model.addAttribute("user", userInfo.getUserNick());
-		session.setAttribute(userInfo.getUserNick(), userInfo);
-		
+
 		System.out.println("db에 넣을 메일: " + mail);
 		System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());
 		System.out.println(userInfo);
-		
+
 		int rs = service.insertUser(userInfo);
 		System.out.println("자동가입 확인 유무: " + rs);
-		
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+		if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
+			if (!format.format(now).equals(format.format(userAccessDate))) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+
+		userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
+		model.addAttribute("user", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo);
+
 		return "redirect:/main";
 	}
 

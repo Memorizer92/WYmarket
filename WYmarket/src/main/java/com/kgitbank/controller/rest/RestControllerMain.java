@@ -19,18 +19,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.kgitbank.controller.LoginFormController;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.UserIP;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
-
-import lombok.extern.log4j.Log4j;
-
 import com.kgitbank.service.CertificationService;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -38,10 +38,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@Scope("session")
 @SessionAttributes({ "smscodes", "phonenumber", "check", "lat", "lon", "address", "user", "findph" })
-@Log4j
-public class RestControllerMain implements Serializable{
+public class RestControllerMain implements Serializable {
 
 	@Autowired
 	private WYmarketService wyMarketService;
@@ -160,6 +158,8 @@ public class RestControllerMain implements Serializable{
 				System.out.println(diffSec + "초 차이");
 				System.out.println(diffDays + "일 차이");
 
+				session.setAttribute("exceedTime", diffSec);
+
 				if (diffSec >= 60) {
 					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
 					smsCnt = 1;
@@ -226,13 +226,13 @@ public class RestControllerMain implements Serializable{
 			}
 		}
 
-		return numStr; // uri 반환 !!!
+		return numStr;
 	}
 
 	@PostMapping(value = { "/getph/{sms}" }, produces = "text/html; charset=UTF-8")
 	public String sendph(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model) {
 
-		return phoneNumber; // uri 반환 !!!
+		return phoneNumber;
 	}
 
 	@PostMapping(value = { "/smsReqCnt" }, produces = "text/html; charset=UTF-8")
@@ -241,7 +241,17 @@ public class RestControllerMain implements Serializable{
 		System.out.println("인증횟수 : " + smsCnt);
 		String check = String.valueOf(smsCnt);
 
-		return check; // uri 반환 !!!
+		return check;
+	}
+
+	// 3회 초과했을 때 남은 시간 반환
+	@PostMapping(value = { "/exceedTime" }, produces = "text/html; charset=UTF-8")
+	public String exceedTime(Model model, HttpSession session) {
+
+		long time = (long) session.getAttribute("exceedTime");
+		String timeStr = String.valueOf(time);
+
+		return timeStr;
 	}
 
 	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")
@@ -251,7 +261,7 @@ public class RestControllerMain implements Serializable{
 		System.out.println("인증횟수는 몇일까 : " + smsCnt);
 		String check = String.valueOf(smsCnt);
 
-		return check; // uri 반환 !!!
+		return check;
 	}
 
 	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
@@ -260,7 +270,7 @@ public class RestControllerMain implements Serializable{
 		System.out.println(result);
 		String check = String.valueOf(result);
 
-		return check; // uri 반환 !!!
+		return check;
 	}
 
 	@PostMapping(value = "/selectNick", consumes = "application/json", produces = "text/html; charset=UTF-8")
@@ -280,41 +290,81 @@ public class RestControllerMain implements Serializable{
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
 
-		model.addAttribute("user", userInfo.getUserNick());
-		session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
-		System.out.println(session.getAttribute(userInfo.getUserNick()));
-		
-		
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
 		userInfo.setPhoneNumber(dashPhoneNumber);
 
-		System.out.println(userInfo);
-
 		int result = wyMarketService.insertUserPhNk(userInfo);
 		System.out.println(result);
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+		Date now = new Date();
+		Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+		if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
+			if (format.format(now) != format.format(userAccessDate)) {
+				wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+		} else {
+			wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+			// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+			wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+		}
+
+		userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
+		model.addAttribute("user", userInfo.getUserNick());
+		session.setAttribute(userInfo.getUserNick(), userInfo); // 중요, 가변하는 닉네임에 VO 담음
+		System.out.println(session.getAttribute(userInfo.getUserNick()));
 
 		return null;
 	}
 
+	// 관리자 또는 사용자 메인 페이지로 넘어가기 전에 세션에 정보 담음
 	@PostMapping(value = { "/ajaxToMain" }, consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String ajaxToMain(@RequestBody UserInfo userInfo, AdminInfo adminInfo, Model model, HttpSession session) {
 
 		String dashPhoneNumber = userInfo.getPhoneNumber().substring(0, 3) + "-"
 				+ userInfo.getPhoneNumber().substring(3, 7) + "-" + userInfo.getPhoneNumber().substring(7);
 
+		// 관리자가 로그인하려는 것이라면
 		if (wyMarketService.getAdminPhCount(dashPhoneNumber) == 1) {
 			adminInfo = new AdminInfo();
 			Map<String, Object> adminList = wyMarketService.getAdminInfo(dashPhoneNumber);
+			AdminInfo topAdminInfo = wyMarketService.getAdminInfo2();
+			adminInfo.setAdminMemo(topAdminInfo.getAdminMemo());
 			adminInfo.setPhoneNumber((String) adminList.get("PHONENUMBER"));
 			adminInfo.setAdminNick((String) adminList.get("ADMINNICK"));
 			adminInfo.setAdminCreateDate((Date) adminList.get("ADMINCREATEDATE"));
 			adminInfo.setAdminGrade((String) adminList.get("ADMINGRADE"));
-			adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
+//         adminInfo.setAdminMemo((String) adminList.get("ADMINMEMO"));
 			session.setAttribute("Admin", adminInfo);
-		} else {
+		}
+		// 사용자가 로그인하려는 것이라면
+		else {
 			userInfo.setPhoneNumber(dashPhoneNumber);
 			UserInfo info = wyMarketService.selectUserInfo(userInfo.getPhoneNumber());
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+			Date now = new Date();
+			Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
+			System.out.println("현재 날짜 " + format.format(now));
+			if (wyMarketService.selectUserAccessCount(info.getUserNick()) >= 1) {
+				if (!format.format(now).equals(format.format(userAccessDate))) {
+					wyMarketService.insertUserAccessDate(info.getUserNick());
+					// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+					wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+				}
+			} else {
+				wyMarketService.insertUserAccessDate(info.getUserNick());
+				// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+			}
+
+			userInfo.setUserID(wyMarketService.selectIdByUserNick(info.getUserNick()));
 
 			model.addAttribute("user", info.getUserNick());
 			session.setAttribute((String) model.getAttribute("user"), info);
@@ -322,17 +372,93 @@ public class RestControllerMain implements Serializable{
 			System.out.println(session.getAttribute((String) model.getAttribute("user")));
 		}
 
-		return null;
+		return String.valueOf(wyMarketService.getAdminPhCount(dashPhoneNumber));
 	}
 
 	@PostMapping(value = "/saveMemo", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String saveMemo(@RequestBody AdminInfo adminInfo, Model model, HttpSession session) {
 		int updateRow = wyMarketService.updateAdminMemo(adminInfo);
 		adminInfo = (AdminInfo) session.getAttribute("Admin");
-		adminInfo = (AdminInfo) wyMarketService.getAdminInfo2(adminInfo.getPhoneNumber());
+		adminInfo = (AdminInfo) wyMarketService.getAdminInfo2();
 
 		session.setAttribute("Admin", adminInfo);
 		System.out.println(session.getAttribute("Admin"));
 		return null;
 	}
+
+	@GetMapping("/admin/ban/{userNick}")
+	public String adminUserBan(@PathVariable("userNick") String userNick, Model model) {
+		int updateBan = wyMarketService.updateUserBan(userNick);
+		String selectBanResult = wyMarketService.selectUserBan(userNick);
+
+		return selectBanResult;
+	}
+
+	@GetMapping(value = "/admin/unban/{userNick}", produces = "text/html; charset=UTF-8")
+	public String adminUserUnBan(@PathVariable("userNick") String userNick, Model model) {
+		int updateResult = wyMarketService.updateUserUnBan(userNick);
+		String selectBanResult = wyMarketService.selectUserBan(userNick);
+
+		return selectBanResult;
+	}
+
+	// 사용자가 보낸 문의를 관리자가 li를 클릭해서 modal 띄울 때
+	@PostMapping(value = "/admin/inquiryModal", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String inquiryModal(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
+
+		inquiry = (Inquiry) wyMarketService.selectInquiryByID(inquiry.getInquiryID());
+		
+		session.setAttribute("inqVO", inquiry);
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return "					<div class=\"container\" id='inquiryContainer'>\r\n"
+				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
+				+ "							<p>닉네임 : " + inquiry.getUserNick() + "</p>\r\n" + "<p>카테고리 : "
+				+ inquiry.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : " + format.format(inquiry.getInquiryDate()) + "</p>"
+				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
+				+ "								\" name=\"textArea\"\r\n"
+				+ "								readonly=\"readonly\">" + inquiry.getInquiryContent()
+				+ "</textarea>\r\n" + "						</div>\r\n" + "					</div>";
+	}
+
+	// 답장하는 textarea 띄우는 버튼 누를 때
+	@PostMapping(value = "/admin/adminToUser", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String adminToUser(@RequestBody Inquiry inquiry, Model model, HttpSession session) {
+
+		return "		<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
+				+ "			placeholder=\"답장하실 내용을 여기에 입력해주세요 :)\" name=\"textArea\" id='text'></textarea>\r\n"
+				+ "		<button class=\"btn btn-primary\" id='inquirybtn' data-bs-dismiss=\"modal\" onclick=\"ajaxReply()\">답장\r\n"
+				+ "			보내기</button>";
+	}
+
+	// 사용자가 문의 내역 li를 클릭할 때
+	@PostMapping(value = "/admin/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	public String checkHistory(@RequestBody InquiryAdminToUser inq, Model model, HttpSession session) {
+
+		InquiryAdminToUser iatu = wyMarketService.selectInquiryAdminToUserByID(inq.getInquiryID());
+		Inquiry i = wyMarketService.selectInquiryByID(iatu.getUserInquiryID());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+
+		return "				<div class=\"modal-header\">\r\n"
+				+ "					<h5 class=\"modal-title\" id=\"exampleModalLabel\">수신함</h5>\r\n"
+				+ "					<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"\r\n"
+				+ "						aria-label=\"Close\"></button>\r\n" + "				</div>\r\n"
+				+ "				<div class=\"modal-body\" id='modalContent'>\r\n"
+				+ "					<div class=\"container\" id='inquiryContainer'>\r\n"
+				+ "						<div class=\"container\" id='inquiryContainerInner'>\r\n"
+				+ "							<p>닉네임 : " + i.getUserNick() + "</p>\r\n"
+				+ "							<p>카테고리 : " + i.getInquiryCategory() + "</p>\r\n" + "<p>날짜 : "
+				+ format.format(i.getInquiryDate()) + "</p>"
+				+ "							<textarea class=\"form-control\" aria-label=\"With textarea\"\r\n"
+				+ "								name=\"textArea\" readonly=\"readonly\">" + i.getInquiryContent()
+				+ "\r\n" + "				</textarea>\r\n" + "						</div>\r\n"
+				+ "					</div>\r\n" + "				</div>\r\n"
+				+ "				<div class=\"modal-footer\">\r\n"
+				+ "					<p>관리자가 보낸 답장</p><textarea class=\"form-control\" id=\"text\"aria-label=\"With\r\n"
+				+ "						textarea\"\r\n"
+				+ "						name=\"textArea\" readonly=\"readonly\">" + iatu.getInquiryContent()
+				+ "</textarea>\r\n" + "				</div>";
+	}
+
 }

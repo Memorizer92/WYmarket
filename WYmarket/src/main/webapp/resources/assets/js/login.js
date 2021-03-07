@@ -209,7 +209,8 @@ function ajaxToMain() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			if (xhttp.status == 200) {
-
+				document.getElementById("ajaxToMain").value = `${this.responseText}`;
+				console.log('js에서의 값' + document.getElementById("ajaxToMain").value);
 			} else {
 
 			}
@@ -221,6 +222,22 @@ function ajaxToMain() {
 	xhttp.send(JSON.stringify(data));
 }
 
+function ajaxExceedTime() {
+	const prefix = "/wymarket/exceedTime";
 
+	let uri = prefix;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+			document.getElementById("time2").value = `${this.responseText}`;
+		}
+	}
+
+	xhttp.open('POST', uri, true);
+
+	xhttp.send();
+}
 
 

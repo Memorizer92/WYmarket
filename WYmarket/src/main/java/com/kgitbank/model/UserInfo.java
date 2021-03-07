@@ -1,5 +1,6 @@
 package com.kgitbank.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class UserInfo {
+public class UserInfo implements Serializable{
 	
 	private Integer userID;
 	private String phoneNumber;

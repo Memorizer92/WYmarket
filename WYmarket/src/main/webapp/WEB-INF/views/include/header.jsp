@@ -5,6 +5,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="../image/wyfavicon.ico">
+    <link rel="shortcut icon" href="../image/wyfavicon.ico">
     <title>header</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -116,8 +118,14 @@
             color: #1b5ac2;;
             float: left;
             margin-top: 20px;
+              margin-right: 20px;
         }
-
+	.chat{
+	color: #1b5ac2;;
+            float: left;
+            margin-top: 20px;
+	
+	}
         .mid {
             font-size: 20px;
         }
@@ -219,7 +227,7 @@
 
         <a class="sale" href=""><i class="fas fa-won-sign biggest"></i></a>
         <a class="mypage" href=""><i class="fas fa-user biggest"></i></a>
-
+		<a class="chat" href="/wymarket/chats/chatting"><i class="far fa-comments biggest"></i></a>
     </div>
 <hr>
 <%--  <%@ include file="./footer.jsp" %> --%>

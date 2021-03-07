@@ -59,13 +59,17 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 목록</h2>
 
-				<form role="form" method="POST" autocomplete="off">
+				<form role="form" method="post" autocomplete="off">
+					<input type="hidden" name="n" value="${goods.itemid}" />
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
 						<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
 					</div>
-					
+					<div class="inputArea">
+						<label for="usernick">판매자</label>
+						<span>${goods.usernick}</span>
+					</div>
 					<div class="inputArea">
 						<label for="ititle">상품명</label>
 						<span>${goods.ititle}</span>
@@ -86,8 +90,35 @@ textarea#icontent {
 					</div>
 
 					<div class="inputArea">
-						<button type="button" id="register_Btn" class="btn btn-warning">수정</button>
-						<button type="button" id="register_Btn" class="btn btn-danger">삭제</button>
+					<%-- <a href="goods/view?n=${goods.itemid}"> --%>
+						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+						
+						<c:set var="sellerId" value="${sellerId}" />
+						<c:set var="buyerId" value="${buyerId}" />
+					 
+					 <c:if test="${sellerId ne buyerId}"> <%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
+						<button type="button" id="chat_Btn"
+						onclick="location.href=
+						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}&check=0';">
+							채팅으로 거래하기
+						</button>
+					</c:if>
+						
+						<script>
+							var formObj = $("form[role='form']");
+							
+							$("#modify_Btn").click(function(){
+								formObj.attr("submit", "/goods/modify");//action
+								formObj.attr("method", "get")
+								formObj.submit();
+							});
+							
+							$("#delete_Btn").click(function(){
+								formObj.attr("action", "/goods/delete");
+								formObj.submit();
+							});
+						</script>
 					</div>
 
 				</form>

@@ -60,7 +60,7 @@
 		</div>
 		<div>
 			내용
-			<textarea name="ncontent" id="ncontent" rows="4" cols="80" placeholder="내용을 입력해주세요" >${vo.ncontent}</textarea>
+			<textarea name="ncontent" id="ncontent" rows="20" cols="80" placeholder="내용을 입력해주세요" >${vo.ncontent}</textarea>
 		</div>
 		<div>
 			이름

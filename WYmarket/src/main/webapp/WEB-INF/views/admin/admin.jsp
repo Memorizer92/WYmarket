@@ -19,6 +19,14 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Do+Hyeon&family=Indie+Flower&display=swap"
+	rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Lobster&display=swap"
+	rel="stylesheet">
 
 <style type="text/css">
 * {
@@ -26,7 +34,7 @@
 }
 
 body {
-	background-image: url("/wymarket/image/carrotbg.jpg");
+	
 }
 
 #kakaoLogout {
@@ -38,12 +46,13 @@ body {
 	border-radius: 5px;
 	font-weight: bold;
 	display: block;
+	width: 100%;
 	margin-left: auto;
-	margin-right: 5%;
-	width: 20%;
-	margin-top: 25px;
+	margin-right: auto;
+	margin-top: 15px;
 	height: 50px;
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 #logoutheader {
@@ -54,22 +63,42 @@ body {
 #outerContainer {
 	display: flex;
 	flex-direction: row;
+	margin-top: 50px;
+	position: relative;
+	right: 100px;
+}
+
+#searchcontainer {
+	margin-top: 40px;
+}
+
+#searchcontainer>form {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
 
 #rightHandContainer {
 	display: flex;
 	flex-direction: column;
-	max-width: 30%;
+	margin-left: 10px;
+	margin-top: 40px;
+}
+
+#rightHandContainer>.container {
+	width: 250px;
 }
 
 #adminProfile {
 	display: flex;
 	flex-direction: column;
-	background-color: white;
+	background-color: #f2f3f7;
+	border: 1px solid #ddd;
+	box-shadow: 7px 7px 7px rgba(0, 0, 0, .1);
 }
 
 .profileP {
-	
+	margin-top: 13px;
 }
 
 #adminHeader {
@@ -131,7 +160,7 @@ img {
 }
 
 .textarea[contenteditable]:empty::before {
-	content: "Placeholder still possible";
+	content: "메모를 입력하십시요";
 	color: gray;
 }
 
@@ -142,20 +171,135 @@ img {
 
 th {
 	text-align: center;
+	vertical-align: middle;
+}
+
+.page-link {
+	background-color: white;
+	color: green;
+	border-radius: 10%;
+}
+
+.page-item {
+	margin-left: 10px;
+}
+
+.form-select {
+	width: 120px;
+}
+
+#search {
+	width: 300px;
+	margin-left: 20px;
+}
+
+#searchbtn {
+	width: 60px;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
+	margin-left: 20px;
+}
+
+#searchallbtn {
+	margin-left: auto;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
+}
+
+#adminMemo, #twobtn, #adminBtn, #inquiryBtn {
+	margin-top: 15px;
+}
+
+#memoBtn {
+	margin-bottom: 15px;
+}
+
+#memoNick {
+	margin-bottom: 30px;
+	margin-top: 15px;
+}
+
+#twobtn>* {
+	width: 100%;
+}
+
+[name='btn'] {
+	background-color: rgba(131, 131, 135, 0.3);
+	border-color: rgba(70, 70, 85, 1);
+	color: rgba(70, 70, 85, 1);
+	border: none;
+}
+
+[name='btn']:hover {
+	background-color: #ffb856;
+}
+
+#accessbtn {
+	background-color: #469536;
+	border: none;
+}
+
+#adminBtn {
+	background-color: #ff953e;
+	border: none;
+}
+
+#nick, #memoNick {
+	font-family: 'Do Hyeon', sans-serif;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#nick {
+	font-size: 20px;
+}
+
+table {
+	/* border-collapse: separate;
+	border-spacing: 10px 0; */
+	
+}
+
+.table>:not(caption)>*>* {
+	padding: .5rem 25px;
+	background-color: var(- -bs-table-bg);
+	border-bottom-width: 1px;
+	box-shadow: inset 0 0 0 9999px var(- -bs-table-accent-bg);
+}
+
+thead>tr>th {
+	font-family: 'Kanit', sans-serif;
+	font-size: 16px;
+}
+
+tbody>tr>th {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	background-image: radial-gradient(at 10% 80px, white, lightgreen 55%, green);
+	color: white;
+	border-color: lightgreen;
+}
+
+.page-link:active, .page-link:hover {
+	color: green;
 }
 </style>
 </head>
-<header id='logoutheader'>
-	<a id='kakaoLogout'>로그아웃</a>
-</header>
+<header id='logoutheader'> </header>
 <body>
 
-	<h2>Admin Page</h2>
+
 
 	<div class="container" id='outerContainer'>
 		<div class="container" id='leftHandContainer'>
 			<div class="container" id='tableDiv'>
-				<table class="table">
+				<table class="table table-responsive table-striped">
 					<thead>
 						<tr>
 							<th scope="col">회원 번호</th>
@@ -172,12 +316,14 @@ th {
 							<th scope="col">받은 리뷰 수</th>
 							<th scope="col">키워드</th>
 							<th scope="col">정지 여부</th>
-
+							<th scope="col"></th>
+							<th scope="col"></th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="user" items="${users}">
-							
+							<c:set var="i" value="${i+1}" />
 							<tr>
 								<th scope="col">${user.userID }</th>
 								<th scope="col">${user.phoneNumber}</th>
@@ -193,15 +339,20 @@ th {
 								<th scope="col">${user.saleItemCnt}</th>
 								<th scope="col">${user.reviewCnt}</th>
 								<th scope="col">${user.keyWord}</th>
-								<th scope="col">${user.ban}</th>
+								<th scope="col" id='banTF${i }'>${user.ban}</th>
 								<th scope="col">
-									<button onclick="ban(${user.userNick })">정지</button>
+									<button class="btn btn-primary" name="btn"
+										onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="ban">정지</button>
 								</th>
 								<th scope="col">
-									<button onclick="unban(${user.userNick })">정지 해제</button>
+									<button class="btn btn-primary" name="btn"
+										onclick="banUnban(this,'${user.userNick }',${i })"
+										data-btn-type="unban">정지 해제</button>
 								</th>
 								<th scope="col">
-								
+									<button class="btn btn-primary" name="btn"
+										onclick="toMyPage('${user.userNick }')">마이 페이지</button>
 								</th>
 							</tr>
 						</c:forEach>
@@ -209,27 +360,39 @@ th {
 				</table>
 			</div>
 			<hr>
+			<div class="container">
+				<h5 id='rowCount'>
+					검색 결과 : <b>${rowCount } 개</b>
+				</h5>
+			</div>
 
+			<c:url var="firstHref"
+				value="./admin?pageNum=1&amount=${pagination.amount }" />
 			<c:url var="previousHref2"
 				value="./admin?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
-			.
 			<c:url var="nextHref2"
 				value="./admin?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
-
 			<c:url var="previousHref1"
 				value="./admin?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
 			<c:url var="nextHref1"
 				value="./admin?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
+			<c:url var="lastHref"
+				value="./admin?pageNum=${pageService.lastPage }&amount=${pagination.amount }" />
 
 			<nav aria-label="...">
 				<ul class="pagination justify-content-center">
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq 1}"> disabled</c:if>">
+						<a class="page-link" href="${firstHref }" tabindex="-1"
+						aria-disabled="true">처음으로</a>
+					</li>
 					<li
 						class="page-item<c:if test="${not pageService.previous }"> disabled</c:if>">
 						<a class="page-link" href="${previousHref2 }" tabindex="-1"
 						aria-disabled="true">&lt;&lt;</a>
 					</li>
 					<li
-						class="page-item<c:if test="${pagination.pageNum eq 1 or pagination.pageNum eq 0 }"> disabled</c:if>">
+						class="page-item<c:if test="${pagination.pageNum eq 1}"> disabled</c:if>">
 						<a class="page-link" href="${previousHref1 }" tabindex="-1"
 						aria-disabled="true">&lt;</a>
 					</li>
@@ -238,7 +401,8 @@ th {
 						<li
 							class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
 							aria-current="page"><a class="page-link"
-							href="./admin?pageNum=${i }&amount=${pagination.amount }">${i }</a></li>
+							href="./admin?pageNum=${i }&amount=${pagination.amount }
+							">${i }</a></li>
 					</c:forEach>
 					<li
 						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
@@ -250,22 +414,33 @@ th {
 						<a class="page-link" href="${nextHref2 }" tabindex="-1"
 						aria-disabled="true">&gt;&gt;</a>
 					</li>
+					<li
+						class="page-item<c:if test="${pagination.pageNum eq pageService.lastPage }"> disabled</c:if>">
+						<a class="page-link" href="${lastHref }" tabindex="-1"
+						aria-disabled="true">끝으로</a>
+					</li>
 				</ul>
 			</nav>
-			<div class="container">
-				<form action="/wymarket/admin/board">
-					<select name="list">
+			<div class="container" id='searchcontainer'>
+				<form action="/wymarket/admin">
+					<select class="form-select" aria-label="Default select example"
+						name="list">
+						<option selected>검색분류</option>
 						<option value="userId"
-							<c:if test="${list eq 'userId'}">selected</c:if>>회원번호</option>
+							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
 						<option value="userNick"
-							<c:if test="${list eq 'userNick'}">selected</c:if>>닉네임</option>
+							<c:if test="${lists eq 'userNick'}">selected</c:if>>닉네임</option>
 						<option value="address"
-							<c:if test="${list eq 'address'}">selected</c:if>>주소</option>
-						<input type="text" name="search" />
-						<%-- <input name="text" value="${fn:escapeXml(user.userId)}"> --%>
+							<c:if test="${lists eq 'address'}">selected</c:if>>주소</option>
+					</select> <input id='search' type="text" class="form-control"
+						aria-label="Username" aria-describedby="basic-addon1"
+						name="search" value="${searchs }"> <input id='searchbtn'
+						type="submit" class="form-control" aria-label="Username"
+						aria-describedby="basic-addon1" value="검색">
 
-					</select> <input type="submit" />
 				</form>
+				<button class="btn btn-primary" onclick="searchAll()"
+					id='searchallbtn'>전체 리스트 보기</button>
 			</div>
 
 		</div>
@@ -275,22 +450,44 @@ th {
 					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img1' />
 					<p class='profileP' id='nick'>${Admin.adminNick }</p>
 				</div>
-				<p class='profileP'>생성일 : ${Admin.adminCreateDate }</p>
-				<p class='profileP'>관리자 등급 : ${Admin.adminGrade }</p>
+				<p class='profileP'>
+					<b>생성일 :</b>
+					<fmt:formatDate value="${Admin.adminCreateDate }"
+						pattern="yy/MM/dd" />
+				</p>
+				<p class='profileP'>
+					<b>관리자 등급 : </b>${Admin.adminGrade }</p>
 			</div>
-			<button type="button" class="btn btn-primary" id='adminBtn'>공지사항
-				쓰기</button>
+			<a id='kakaoLogout'>로그아웃</a>
+
 			<div class="container" id='adminMemo'>
-				<img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
-				<p>${Admin.adminNick }</p>
+				<div class="container" id='memoP'>
+					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
+					<p id='memoNick'>${Admin.adminNick }</p>
+				</div>
 				<p>
 					<span id='memo' class="textarea" role="textbox"
-						<c:if test="${Admin.adminGrade eq '부'}">readonly</c:if>
-						contenteditable></span>
+						contenteditable=<c:if test="${Admin.adminGrade eq '부'}">"false"</c:if>></span>
 				</p>
-
-				<button type="button" class="btn btn-primary" id='memoBtn'
-					onclick="ajaxSaveMemo()">메모</button>
+				<c:if test="${Admin.adminGrade eq '정'}">
+					<button type="button" class="btn btn-primary" id='memoBtn'
+						onclick="ajaxSaveMemo()">메모하기</button>
+				</c:if>
+			</div>
+			<div class="container" id='twobtn'>
+				<button type="button" class="btn btn-primary" id='accessbtn'
+					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
+					수 보기</button>
+				<button type="button" class="btn btn-primary" id='adminBtn'
+					onclick="location.href='<%=application.getContextPath()%>/board/write';">공지사항
+					쓰기</button>
+				<button type="button" class="btn btn-primary" id='inquiryBtn'
+					onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiry';">
+					문의 보기
+					<c:if test="${inquiryCount ne 0}">
+						<span class="badge bg-secondary">${inquiryCount }</span>
+					</c:if>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -343,11 +540,6 @@ th {
 			xhttp.send(JSON.stringify(data));
 
 			console.log('여기오나?')
-/* 			var form = document.createElement("form");
-			form.setAttribute("method", "post");
-			form.setAttribute("action", "/wymarket/admin");
-			document.body.appendChild(form);
-			form.submit(); */
 
 		} else {
 			alert("'정' 관리자만 사용할 수 있는 기능입니다.")
@@ -355,7 +547,12 @@ th {
 
 	}
 	
+	function toMyPage(userNick){
+		location.href='/wymarket/param/test02/' + userNick;
+	}
 
+	
+	
 </script>
 
 </body>
