@@ -4,10 +4,11 @@
 <html>
 
 <head>
+ 
 <meta charset="UTF-8">
-<link rel="icon" href="../image/wyfavicon.ico">
-<link rel="shortcut icon" href="../image/wyfavicon.ico">
-<title>header</title>
+ <link rel="icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <title>공지사항</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -19,6 +20,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
 	crossorigin="anonymous"></script>
+ 
 
 <style>
 * {
@@ -146,6 +148,7 @@
 	font-size: 40px;
 }
 
+<<<<<<< HEAD
 .navis {
 	padding-top: 10px;
 	width: 1130px;
@@ -156,6 +159,14 @@
 	flex-wrap: nowrap;
 	justify-content: center;
 }
+ 
+        .nick {
+            position: relative;
+            float: left;
+            padding-right: 9px;
+            width: 110px;
+        }
+ 
 
 .head1 {
 	width: 100%;

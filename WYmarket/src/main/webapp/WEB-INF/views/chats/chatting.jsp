@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+ <link rel="icon" href="<%=application.getContextPath() %>/image/chatf.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/chatf.ico">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<title>Insert title here</title>
+<title>채팅방</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"

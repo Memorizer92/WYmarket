@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 
 <title>header</title>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+ <link rel="icon" href="<%=application.getContextPath() %>/image/noticef.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/noticef.ico">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -169,7 +170,7 @@
             position: relative;
             float: left;
             padding-right: 9px;
-            width: 80px;
+            width: 110px;
         }
 
         .search {
@@ -243,7 +244,22 @@ a {
 	font-size: 14px;
 	color: gray;
 }
-
+  #kakaoLogout {
+/* 	text-decoration: none;
+	text-align: center;
+	padding-top: 14px; */
+	background-color: #fef01b;
+	color: #3A1D1D;
+	border-radius: 5px;
+	font-weight: bold;
+/* 	display: block;
+	margin-left: auto;
+	margin-right: 5%;
+	width: 20%;
+	margin-top: 25px;
+	height: 50px; */
+	cursor: pointer;
+}
 .pp {
 	margin-top: 4px;
 }
@@ -375,7 +391,8 @@ a {
 		<a class="chat" href="/wymarket/chats/chatting"><i class="far fa-comments biggest"></i></a>
     </div>
 <hr>
- 
+ <script
+		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
  
 </body>
 <script>

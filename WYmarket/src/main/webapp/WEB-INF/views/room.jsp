@@ -23,8 +23,8 @@
 		.container h1{
 			text-align: left;
 			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
+			color: black;
+			border-left: 3px solid #black;
 			margin-bottom: 20px;
 		}
 		.roomContainer{
@@ -37,15 +37,15 @@
 			border: none;
 		}
 		.roomList th{
-			border: 1px solid #FFBB00;
+			border: 1px solid #black;
 			background-color: #fff;
-			color: #FFBB00;
+			color: #black;
 		}
 		.roomList td{
-			border: 1px solid #FFBB00;
+			border: 1px solid #black;
 			background-color: #fff;
 			text-align: left;
-			color: #FFBB00;
+			color: #black;
 		}
 		.roomList .num{
 			width: 75px;
@@ -59,10 +59,10 @@
 			text-align: center;
 		}
 		button{
-			background-color: #FFBB00;
+			background-color: #black;
 			font-size: 14px;
-			color: #000;
-			border: 1px solid #000;
+			color: black;
+			border: 1px solid #black;
 			border-radius: 5px;
 			padding: 3px;
 			margin: 3px;
@@ -134,7 +134,7 @@
 	function createChatingRoom(res){
 	   
 		if(res != null){
-			var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'> </th></tr>";
+			var tag = "<tr><th class='num'>방 번호</th><th class='room'>이름</th><th class='go'> </th></tr>";
 			Array.from(res).forEach(function(element, idx){ 
 				var rName = element.roomName;
 				var rNumber = element.roomNumber;
@@ -172,16 +172,16 @@
 </script>
 <body>
 	<div class="container">
-		<h1>채팅방</h1>
+		<h1>WY Chatting Room</h1>
 		<div id="roomContainer" class="roomContainer">
 			<table id="roomList" class="roomList"></table>
 		</div>
 		<div>
 			<table class="inputTable">
 				<tr>
-					<th>방 제목</th>
+					<th>방 이름</th>
 					<th><input type="text" name="roomName" id="roomName"></th>
-					<th><button id="createRoom">방 만들기</button></th>
+					<th><button id="createRoom">방 생성</button></th>
 				</tr>
 			</table>
 		</div>
