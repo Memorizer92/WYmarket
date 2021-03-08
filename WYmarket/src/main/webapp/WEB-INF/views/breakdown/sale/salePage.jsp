@@ -37,7 +37,7 @@
 	<div id="grid_2" class="div">
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>판매내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i>판매내역</header>
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">
@@ -68,7 +68,7 @@
 							<li id="hideenChoice" value="숨기기" class="disabled"><div
 									class="dropdown-item" onclick="hideenChoice()">상품 숨기기</div></li>
 							<li id="pullUp" class="disabled"><div class="dropdown-item"
-									onclick="pullUp()">끌어올리기</div></li>
+									onclick="pullUp()">상품 끌어올리기</div></li>
 							<li id="productDeleteChoise" class="disabled"><div
 									class="dropdown-item" onclick="productDeleteChoise()">상품
 									삭제하기</div></li>
@@ -82,7 +82,8 @@
 						<!--  판매중 내역 -->
 						<div class="shadow shadow-strong completed"
 							style="padding: 15px 15px; border-radius: 1rem;">
-
+						
+							
 							<img alt=""
 								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
 								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
@@ -91,15 +92,17 @@
 								<c:if
 									test="${userItem_list.ireservationstate eq 'Yreservation'}">
 									<span style="font-weight: bold; color: darkorange;">[
-										예약중 ]</span>
+										예약중 ]</span>										
 									<br>
 								</c:if>
-
+									<input type="text" name = "ireservationstate" value="${userItem_list.ireservationstate }" style="display: none;"/>
+								
 								<span style="font-weight: bold; font-size: 27px;">
 									${userItem_list.ititle } </span> <br> <input type="checkbox"
-									onclick="openModal()" name="ititle"
+									onclick="openModal(this)" name="ititle"
 									value="${userItem_list.ititle }" style="display: none;"
 									id="titleRadio" /><span> ${userItem_list.address }</span>
+									<br>
 								<c:choose>
 									<c:when
 										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
@@ -235,6 +238,11 @@
     
         for(var i = 0; i<radio_btn.length; i++){
             if(radio_btn[i].checked==true){ // Title값
+            	if(ireservationstate_val[i].value == 'Nreservation'){
+   				 alert("예약중이 아닌 상품은 거래하실 수 없습니다.");
+   				radio_btn[i].checked = false;
+   				 return false;    				 
+   			 }
             idradio_btn[i].checked=true; // ID값
     var form = document.createElement("form");
     form.setAttribute("method", "post");   
@@ -255,7 +263,12 @@
     function ProductHideen() {
     	istate = 'Hidden';
         for(var i = 0; i<radio_btn.length; i++){
-            if(radio_btn[i].checked==true){  
+            if(radio_btn[i].checked==true){ 
+            	 if(ireservationstate_val[i].value == 'Yreservation'){
+    				 alert("예약중인 상품은 숨기기 하실 수 없습니다.");
+    				 radio_btn[i].checked = false;
+    				 return false;    				 
+    			 }
             	 idradio_btn[i].checked=true;
     var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -271,12 +284,13 @@
             return;
         }
     }  
-	
+    
     //판매내역에 보여지는 예약 버튼 클릭 시 생성되는 예약하기 버튼 이벤트
     function ProductReservationY() {   	
         for(var i = 0; i<radio_btn.length; i++){
             if(radio_btn[i].checked==true){  
             	idradio_btn[i].checked=true;
+            
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     form.setAttribute("action", "<%=application.getContextPath() %>/param/reservation/"+ productReservationY + "/" + radio_btn[i].value + "/" + idradio_btn[i].value);  
@@ -291,12 +305,15 @@
             return;
         }
     }
-	
+    
+    
+    
   //판매내역에 보여지는 예약 버튼 클릭 시 생성되는 예약취소 버튼 이벤트
     function ProductReservationN() {  	   
         for(var i = 0; i<radio_btn.length; i++){
-            if(radio_btn[i].checked==true){     
+            if(radio_btn[i].checked==true){    
             	idradio_btn[i].checked=true;
+            	
     var form = document.createElement("form");
     form.setAttribute("method", "post");
     form.setAttribute("action", "<%=application.getContextPath() %>/param/reservation/"+ productReservationN + "/" + radio_btn[i].value + "/" + idradio_btn[i].value);  
@@ -315,8 +332,14 @@
   //판매내역에 보여지는 상품끌어올리기 버튼 클릭 시 생성되는 상품끌어올리기 버튼 이벤트
 	 function pullUpChoise() {
 		 istate = 'Onsale';
-		 for(var i = 0; i<radio_btn.length; i++){
+		 
+		 for(var i = 0; i<radio_btn.length; i++){			
 	            if(radio_btn[i].checked==true){  
+	            	 if(ireservationstate_val[i].value == 'Yreservation'){
+	    				 alert("예약중인 상품은 끌어올리기 하실 수 없습니다.");
+	    				 radio_btn[i].checked = false;
+	    				 return false;    				 
+	    			 }
 	            	idradio_btn[i].checked=true;
 	    var form = document.createElement("form");
 	    form.setAttribute("method", "post");
@@ -336,7 +359,12 @@
   function ProductDelete() {
 	  istate = 'Onsale';
 	  for(var i = 0; i<radio_btn.length; i++){
-          if(radio_btn[i].checked==true){  
+          if(radio_btn[i].checked==true){ 
+        	  if(ireservationstate_val[i].value == 'Yreservation'){
+ 				 alert("예약중인 상품은 삭제할 수 없습니다.");
+ 				radio_btn[i].checked = false;
+ 				 return false;    				 
+ 			 }
           	idradio_btn[i].checked=true;
   var form = document.createElement("form");
   form.setAttribute("method", "post");

@@ -37,7 +37,7 @@
 				
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>숨김 상품</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i>숨김 상품</header>
 		<main>
 		<div id="mainDiv">								
 				<ul class="list-inline firstli">
@@ -77,13 +77,10 @@
 				
 				<c:if test="${userItem_list.istate eq 'Hidden'}">
 				
-					<div class="shadow shadow-strong completed"
-							style="padding: 15px 15px; border-radius: 1rem;">
+					<div class="shadow shadow-strong completed">
 
 							<img alt=""
-								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
-								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
-
+								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png">
 							<div style="width: 100%;">
 								<c:if
 									test="${userItem_list.ireservationstate eq 'Yreservation'}">

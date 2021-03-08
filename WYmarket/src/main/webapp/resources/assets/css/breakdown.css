@@ -4,14 +4,19 @@
 	box-sizing: border-box;
 }
 
-
-
 /* @media (max-width: 817px){
 .firstli{
 		display: grid;
 		
 	}
 } */
+img {
+	width: 300px;
+	height: 165px;
+	border: solid 2px #dee2e6;
+	border-radius: 0.5rem;
+}
+
 .modal {
 	position: fixed;
 	top: 0;
@@ -97,12 +102,11 @@
 }
 
 .completed {
-	padding: 15px 5px;
 	border-radius: 1rem;
 	display: flex;
 	border: solid 2px #dee2e6c2;
 	position: relative;
-	
+	padding: 15px 15px;
 }
 
 .completed>*:not(:last-child) {
@@ -179,16 +183,15 @@
 	opacity: 1;
 }
 
-.cPoint{
+.cPoint {
 	cursor: pointer;
 	opacity: 0.3;
 	transition: all 1s;
 }
 
-.cPoint:hover{
+.cPoint:hover {
 	opacity: 0.7;
 }
-
 
 #nonexistent {
 	height: 200px;
@@ -200,12 +203,11 @@
 }
 
 #titleRadio {
-    float: right;
-    position: absolute;
-    right: 11px;
-    width: 25px;
-    height: 22px;
-    top: 13px;
-    cursor: pointer;
+	float: right;
+	position: absolute;
+	right: 11px;
+	width: 25px;
+	height: 22px;
+	top: 13px;
+	cursor: pointer;
 }
-

@@ -16,7 +16,7 @@
 			<props>
 				<prop key="user">c##wymarket</prop>
 				<prop key="password">1234</prop>
-				<prop key="url">jdbc:oracle:thin:@localhost:1521/XE</prop>
+				<prop key="url">jdbc:oracle:thin:@61.77.190.253:1521/xe</prop>
 			</props>
 		</property>
 	</bean>

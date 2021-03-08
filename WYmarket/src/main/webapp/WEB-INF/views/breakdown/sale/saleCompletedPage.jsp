@@ -40,7 +40,7 @@
 
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i>거래내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i>거래내역</header>
 
 		<main>
 			<div id="mainDiv">
@@ -80,23 +80,18 @@
 					<div id="nonexistent">상품이 존재하지 않습니다.</div>
 				</c:if>
 				<c:forEach var="SellerPhVO_list" items="${SellerPhVO }">
-					<input type="text" value="${SellerPhVO_list.ititle}" name="ititle"
-						style="display: none" />
-
-
-					<div class="shadow shadow-strong completed"
-						style="padding: 15px 15px; border-radius: 1rem;">
+					
+					<div class="shadow shadow-strong completed">
 
 						<img alt=""
-							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
-							style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png">
 						<div style="width: 100%;">
 							<span style="font-weight: bold; color: darkorange;">[ 거래완료
 								]</span> <br> <span> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"
 									 name="radio_btn"
-									value="${userItem_list.ititle }" style="display: none;"
-									id="titleRadio" /><span>${SellerPhVO_list.address }</span>
+									value="${userItem_list.ititle }" id="titleRadio" /><span>${SellerPhVO_list.address }</span>
 
+ 				<br>
 							<c:choose>
 								<c:when
 									test="${SellerPhVO_list.refreshTime >= 0 && SellerPhVO_list.refreshTime < 60}">
@@ -162,12 +157,12 @@
 
 						</div>
 					</div>
+					<br>
 				</c:forEach>
-
+				
 				<br>
-				<button id="reviewBtn"
-					onclick="location.href='<%=application.getContextPath()%>/param/purchase'" class= "nonebtn" style="width: 140px;">후기
-					작성 하기</button>
+				<button id="revieShowwBtn"
+					onclick="reviewShow()" class= "nonebtn" style="width: 140px;">구매자 후기 보기</button>
 			
 				<input type="text" value="${success}" id="success"
 					style="display: none;">
@@ -180,23 +175,38 @@
 	
 	
 	
-		var ititle = document.getElementsByName("ititle");
+		
+		var success = document.getElementById("success");
 		var radio_btn = document.getElementsByName("radio_btn");
+		var radio_btn_check = 0;
 		
-		if (ititle.length == 0) {
-			document.getElementById("reviewBtn").style.display = 'none';
-		}
-
-		for( var i = 0; i < radio_btn.length; i++ ){  		
-			radio_btn[i].style.display = 'block';
-		}	
-		 var success = document.getElementById("success");
-		
-
 		if (success.value == 'success') {
 			location.href = '<%=application.getContextPath()%>/param/salecomplete';
 			console.log(success.value + "확인");
 		}
+		
+		if (radio_btn.length == 0) {
+			document.getElementById("revieShowwBtn").style.display = 'none';
+		}
+
+		
+
+		
+		function revieShowwBtn() {
+			for( var i = 0; i < radio_btn.length; i++ ){  		
+				if(radio_btn[i].checked==true){
+					console.log("확인");
+					radio_btn_check++;
+					return;
+				}
+			}	
+			
+			if(radio_btn_check==0){
+	            alert("상품을 선택해주세요");
+	            return;
+	        }
+		}
+		
 	</script>
 </body>
 </html>
