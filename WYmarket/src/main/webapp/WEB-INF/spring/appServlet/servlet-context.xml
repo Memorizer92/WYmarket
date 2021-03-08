@@ -46,12 +46,12 @@
       
     
    
- 
+ <!-- C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources -->
+ <!-- C:\workspace_spring\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WYmarket\resources -->
      <!-- 업로드 패스 설정  -->
    <beans:bean class="java.lang.String" id="uploadPath">
-    <beans:constructor-arg value="C:\Users\seunghwan\Downloads\eclipse\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\WYmarket\resources" />
+    <beans:constructor-arg value="C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources" />
    </beans:bean>
-   
    
    
    

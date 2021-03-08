@@ -1,9 +1,7 @@
 package com.kgitbank.controller;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 //import javax.annotation.Resource;
@@ -12,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +23,6 @@ import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GoodsService;
 import com.kgitbank.util.UploadFileUtils;
 
-
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -33,71 +30,72 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @SessionAttributes("user")
 public class GoodsController {
-	
+
 	@Autowired
 	GoodsService gservice;
-	
+
 	@Autowired
 	private String uploadPath;
-	
+
 	// 상품등록페이지
-	@GetMapping("register") 
-	public void getGoodsRegister() throws
-	Exception{
+	@GetMapping("register")
+	public void getGoodsRegister() throws Exception {
 		log.info("상품등록페이지");
 	}
+
 	
-	// 상품 등록
-	@PostMapping("add/{ititle}/{icategory}/{icontent}/{price}")
-	public String success(Model model, 
-			GoodsVO goods, MultipartFile file, HttpSession session,
-			/* @PathVariable("iimagepath") String iimagepath, */
-			@PathVariable("ititle") String ititle,
-			@PathVariable("icategory") String icategory,
-			@PathVariable("icontent") String icontent,
-			@PathVariable("price") Integer price
-			) throws IOException, Exception {
-				/*
-				 * String imgUploadPath = uploadPath + File.separator + "imgUpload"; String
-				 * ymdPath = UploadFileUtils.calcPath(imgUploadPath); String fileName = null;
-				 * 
-				 * if(file != null) { fileName = UploadFileUtils.fileUpload(imgUploadPath,
-				 * file.getOriginalFilename(), file.getBytes(), ymdPath); } else { fileName =
-				 * uploadPath + File.separator + "images" + File.separator + "none.png"; }
-				 * 
-				 * goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator +
-				 * fileName);
-				 */
-		
-		 UserInfo user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
-		 model.addAttribute("user", user.getUserNick());
-		 log.info(user.getUserNick());
-		 
-		 
-		
-		int result = gservice.createGoods(goods, user.getUserNick(), ititle, icategory, icontent, price);
-		
-		return "redirect:/main";
-	}
-	
-	//상품 조회
+	  @PostMapping("add") 
+	  public String success(Model model, @ModelAttribute GoodsVO goods, MultipartFile file,
+			  HttpSession session) throws Exception {
+	  
+	  String imgUploadPath = uploadPath + File.separator + "imgUpload"; // 이미지를 업로드할 폴더를 설정 = /uploadPath/imgUpload
+	  String ymdPath = UploadFileUtils.calcPath(imgUploadPath); // 위의 폴더를 기준으로 연월일 폴더를 생성 
+	  String fileName = null; // 기본 경로와 별개로 작성되는 경로 + 파일이름
+	  
+	  if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+	  // 파일 인풋박스에 첨부된 파일이 없다면(=첨부된 파일이 이름이 없다면)
+	  
+	  fileName = UploadFileUtils.fileUpload(imgUploadPath, 
+			  file.getOriginalFilename(), file.getBytes(), ymdPath);
+	  
+	  // gdsImg에 원본 파일 경로 + 파일명 저장 
+	  goods.setIimagepath(File.separator + "imgUpload"
+	  + ymdPath + File.separator + fileName);
+	  
+	  } else { // 첨부된 파일이 없으면 
+		  fileName = File.separator + "images" + File.separator + "none.png"; // 미리 준비된 none.png파일을 대신 출력함
+	  
+	  goods.setIimagepath(fileName); }
+	  
+	  UserInfo user = (UserInfo)
+	  session.getAttribute((String)model.getAttribute("user"));
+	  model.addAttribute("user", user.getUserNick()); log.info(user.getUserNick());
+	  
+	  int result = gservice.createGoods(goods,user.getUserNick(),goods.getItitle(),
+			  goods.getIcategory(),goods.getIcontent(),goods.getPrice(),goods.getIimagepath());
+	  
+	  
+	  return "redirect:/main"; }
+	 
+
+	// 상품 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public void getList(@RequestParam("n") int itemid, Model model) {
 		GoodsVO goods = gservice.getGoods(itemid);
-		model.addAttribute("goods",goods);
-		
+		model.addAttribute("goods", goods);
+
 	}
-	
-	//상품 수정페이지
+
+	// 상품 수정페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	//@GetMapping("modify") 
+	// @GetMapping("modify")
 	public void getGoodsModify(@RequestParam("n") int itemid, Model model) {
 		System.out.println(itemid);
 		GoodsVO goods = gservice.getGoods(itemid);
 		System.out.println(itemid);
-		model.addAttribute("goods",goods);
+		model.addAttribute("goods", goods);
 	}
-	
+
 	/*
 	 * //상품 수정
 	 * 
@@ -126,7 +124,5 @@ public class GoodsController {
 	 * 
 	 * return "redirect:/main"; }
 	 */
-	
-
 
 }

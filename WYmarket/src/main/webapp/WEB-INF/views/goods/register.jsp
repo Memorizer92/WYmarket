@@ -19,19 +19,23 @@ function inputCheck() {
     /*  const iimagepath = document.getElementById("iimagepath") */
     
     /* const bbb = document.getElementById("bbb").value; */
-    /* const iimagepath = document.getElementById("iimagepath"); */
+    //$Temp.ImagePath -like "*D:\*"
+    
+    //const iimagepath = document.getElementById("iimagepath").value;
+    var iimagepath = document.form.iimagepath.value;
     const ititle = document.getElementById("ititle").value; /* .value = 'test' */
     const icg = document.getElementById("icategory");
     const icategory = icg.options[icg.selectedIndex].value;
     const icontent = document.getElementById("icontent").value;
     /* const icontent = document.form.icontent.value; */
     const price = document.getElementById("price").value;
+    /* document.getElementById("iimagepath").enctype = "multipart/form-data"; */
+    
+    /* var iimagepath = document.form.iimagepath.value; */
+    /* var iimagepaths = document.getElementById("iimagepath").value;
+    var iimagepath = iimagepaths - "C:/fakepath/";
     //var length = document.regForm.length - 1;
 	/* console.log(bbb); */
-	console.log(ititle);
-	console.log(icategory);
-	console.log(price);
-	console.log(icontent);
 	
     /* if (iimagepath == null || iimagepath == "") {
         alert('상품 이미지를 선택해주세요');
@@ -63,12 +67,15 @@ function inputCheck() {
         document.regForm.price.focus();                       
         return;  
     } */
-    var form = document.createElement("form");
+    document.form.submit();
+    <%-- var form = document.createElement("form");
     form.setAttribute("method", "post");
-    form.setAttribute("action", "<%=application.getContextPath() %>/goods/add/" + ititle + "/" 
-    		+ icategory + "/" + icontent + "/" + price);
+    form.setAttribute("encoding", "multipart/form-data");
+    form.setAttribute("enctype", "multipart/form-data");
+    form.setAttribute("action", "<%=application.getContextPath() %>/goods/add/" 
+    		+ ititle + "/" + icategory + "/" + icontent + "/" + price + "/" + iimagepath);
     document.body.appendChild(form);
-    form.submit();
+    form.submit(); --%>
 }
 </script>
 
@@ -123,10 +130,10 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 등록</h2>
 				<!-- /{iimagepath}/{ititle}/{icategory}/{icontent}/{price}") -->
-				<!-- <form action="./add" role="form" method="POST" 
-				 autocomplete="off"  enctype="multipart/form-data"> --> <!-- name="regForm" -->
+				<form action="./add" role="form" method="POST" name="form"
+				 autocomplete="off"  enctype="multipart/form-data"> <!-- name="regForm" -->
 					
-					<%-- <div class="inputArea">
+					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
 						<input type="file" id="iimagepath" name="file" />
 						<div class="select_img"><img src=""/></div>
@@ -144,7 +151,7 @@ textarea#icontent {
 						</script>
 						<p>아래 주소는 각 컴퓨터 마다 다르기 때문에 각자 값을 Value에 추가해주세요!</p>
 						<%=request.getRealPath("/") %>
-					</div> --%>
+					</div>
 					
 					<div class="inputArea">
 						<label for="ititle">상품명</label> <input type="text" id="ititle"
@@ -178,7 +185,7 @@ textarea#icontent {
 						<!-- <button type="submit" id="register_Btn">등록</button> -->
 						<input type="button" value="등록" onclick="inputCheck()"/>
 					</div>
-				<!-- </form> -->
+				</form>
 			</div>
 		</section>
 		<footer id="footer">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kgitbank.mapper.goodsMapper;
 import com.kgitbank.model.GoodsVO;
@@ -30,10 +31,11 @@ public class GoodsService implements GoodsServiceImpl{
 		goods_mapper.goodsModify(goods);
 	}
 
-	@Override
-	public int createGoods(GoodsVO goods, String user, String ititle, String icategory,
-			String icontent, Integer price) {
-		return goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price);
-	}
+	
+	
+	  @Override public int createGoods(GoodsVO goods,String user, String ititle,
+			  String icategory, String icontent, Integer price, String iimagepath) { return
+	  goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price, iimagepath); }
+	 
 
 }

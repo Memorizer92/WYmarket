@@ -62,15 +62,12 @@
 				<%@ include file="include/nav.jsp"%>
 			</div>
 		</nav>
-		<c:if test="">
 		<section id="container">
-
 				<span>1:${user}</span>
 				<li><a href="goods/register">상품등록</a></li>
 				<%@ include file="goods/list.jsp"%>
 			</div>
 		</section>
-		</c:if>
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
