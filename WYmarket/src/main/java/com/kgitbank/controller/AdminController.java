@@ -29,7 +29,7 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({ "users", "lists", "searchs", "user" })
+@SessionAttributes({ "users", "lists", "searchs"})
 public class AdminController implements Serializable {
 
 	@Autowired

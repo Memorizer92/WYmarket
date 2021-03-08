@@ -31,7 +31,6 @@ import com.kgitbank.service.ChattingService;
 
 
 @Controller 
-@SessionAttributes("user")
 public class ChatController {
 	int count=0;
 	UserInfo user;
