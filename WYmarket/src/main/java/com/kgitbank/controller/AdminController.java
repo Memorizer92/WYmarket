@@ -236,7 +236,7 @@ public class AdminController implements Serializable {
 	}
 
 	// 사용자가 관리자에게 문의 보내기 버튼 누를 때
-	@GetMapping("admin/sendInquiry")
+	@GetMapping("/sendInquiry")
 	public String sendInquiry(HttpServletRequest request, Model model, HttpSession session) {
 
 		String inquiryCategory = request.getParameter("inquirySelect");
@@ -278,7 +278,7 @@ public class AdminController implements Serializable {
 
 
 	// 사용자가 관리자가 보낸 답장 페이지 볼 때
-	@GetMapping("admin/seeInquiryFromAdmin")
+	@GetMapping("/seeInquiryFromAdmin")
 	public String seeInquiryFromAdmin(Model model, HttpSession session) {
 
 		UserInfo userInfo = (UserInfo) session.getAttribute("user");

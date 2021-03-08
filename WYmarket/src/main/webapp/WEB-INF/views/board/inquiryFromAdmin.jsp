@@ -35,7 +35,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	width: 600px;
+	width: 750px;
 	border: solid 1px white;
 	border-radius: 20px;
 	height: 900px;
@@ -63,6 +63,8 @@ ul {
 li {
 	cursor: pointer;
 	background: radial-gradient(at 10% 30px, white, #e3e3e3);
+	margin-bottom: 10px;
+	border-radius: 50px;
 }
 
 li:hover {

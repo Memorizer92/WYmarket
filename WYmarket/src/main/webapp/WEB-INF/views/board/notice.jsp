@@ -1401,7 +1401,7 @@ a {
 						</div></div>
 					<div class="tab-pane fade" id="nav-9" role="tabpanel"
 						aria-labelledby="nav-9-tab">
-						<form action="<%=application.getContextPath()%>/admin/sendInquiry"
+						<form action="<%=application.getContextPath()%>/sendInquiry"
 							id='form'>
 							<div class="container" id='inquiryContainer'>
 								<div class="container" id='inquiryContainerInner'>
@@ -1430,7 +1430,7 @@ a {
 							</div>
 						</form>
 						<button type="button" class="btn btn-primary" id='seeReplyBtn'
-							onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiryFromAdmin';">
+							onclick="location.href='<%=application.getContextPath()%>/seeInquiryFromAdmin';">
 							답장 보기
 							<c:if test="${adminToUserCount ne 0}">
 								<span class="badge bg-secondary">${adminToUserCount }</span>
