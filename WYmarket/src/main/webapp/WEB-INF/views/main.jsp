@@ -70,10 +70,6 @@
 	</div>
 
 
-
-
-
-	 
 	<script>
 	
 /* 	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");

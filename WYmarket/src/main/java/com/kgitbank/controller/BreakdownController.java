@@ -31,7 +31,6 @@ import oracle.net.aso.m;
 @Controller
 @RequestMapping("/param/")
 @Log4j
-@SessionAttributes("user")
 public class BreakdownController {
 
 	@Setter(onMethod_ = {@Autowired})

@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@SessionAttributes({ "user", "userNick" })
+@SessionAttributes({"userNick" })
 public class MainController {
 
 	@Autowired
