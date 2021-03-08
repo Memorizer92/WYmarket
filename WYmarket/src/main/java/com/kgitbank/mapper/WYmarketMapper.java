@@ -144,6 +144,11 @@ public interface WYmarketMapper {
 	
 	int selectMaxInquiryAdminToUserByID();
 	
+	int updateLatLonAddress(UserInfo userInfo);
+	UserInfo selectUserInfoByUserNick(String userNick);
+	int updateAddressFromItem(UserInfo userInfo);
+	int updateAddressFromSearchInDistance(UserInfo userInfo);
+	
 }
 
 

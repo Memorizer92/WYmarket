@@ -86,6 +86,7 @@
 			<mapping path="/chats/**" />
 			<mapping path="/goods/**" />
 			<mapping path="/main" />
+			<mapping path="/main/**" />
 			<!-- <exclude-mapping path="/login" /> -->
 			<beans:bean
 				class="com.kgitbank.interceptor.UserInterceptor" />
