@@ -73,9 +73,7 @@
 
 
 
-	<script
-		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
-
+	 
 	<script>
 	
 /* 	console.log("AdminNick in Main.jsp" + "${Admin.adminNick}");

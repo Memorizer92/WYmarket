@@ -239,8 +239,11 @@
     </div>
 <div class = "test"></div>
  
+ <script
+		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
  
 </body>
+
 <script>
 	 document.getElementById('kakaoLogout').addEventListener('click',()=>{
 				ajaxLogOut();
