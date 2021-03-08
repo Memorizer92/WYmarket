@@ -6,8 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main</title>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+<title>메인 페이지</title>
+ <link rel="icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"

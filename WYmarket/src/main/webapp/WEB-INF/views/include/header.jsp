@@ -5,9 +5,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="../image/wyfavicon.ico">
-    <link rel="shortcut icon" href="../image/wyfavicon.ico">
-    <title>header</title>
+    <link rel="icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <title>공지사항</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -164,7 +164,7 @@
             position: relative;
             float: left;
             padding-right: 9px;
-            width: 80px;
+            width: 110px;
         }
 
         .search {
