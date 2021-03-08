@@ -125,7 +125,7 @@ function submitChatMessageForm(form){
 		<input style="display: none" type="text" name="roomId" value="${vo.roomId }" />
 		<input style="display: none" type="text" name="buyerName" value="${vo.buyerName}" />
 		<input style="display: none" type="text" name="sellerName" value="${vo.sellerName}" />
-		<input style="display: none" type="text" name="user" value="${user}" /> 
+		<input style="display: none" type="text" name="user" value="${userNick}" /> 
 	<button type="submit">
 	나가기
 	</button>
@@ -139,7 +139,7 @@ function submitChatMessageForm(form){
 	
 	<form onsubmit="submitChatMessageForm(this); return false;">
 		<div>
-			<input style="display: none"type="text" name="writer" value="${user}" autocomplete="off" readonly/>
+			<input style="display: none"type="text" name="writer" value="${userNick}" autocomplete="off" readonly/>
 		</div>
 	 	<div>
 			<input type="text" name="body" placeholder="내용" autocomplete="off"/>&nbsp;

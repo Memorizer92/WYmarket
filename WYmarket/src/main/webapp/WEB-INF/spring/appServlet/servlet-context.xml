@@ -81,7 +81,10 @@
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/chats/chatting" />
+			<mapping path="/board/**" />
+			<mapping path="/param/**" />
+			<mapping path="/chats/**" />
+			<mapping path="/goods/**" />
 			<mapping path="/main" />
 			<!-- <exclude-mapping path="/login" /> -->
 			<beans:bean

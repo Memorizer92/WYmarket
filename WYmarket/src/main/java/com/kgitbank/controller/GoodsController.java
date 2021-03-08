@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/goods/*")
 @Log4j
-@SessionAttributes("user")
+@SessionAttributes({"user","userNick"})
 public class GoodsController {
 	
 	@Autowired
@@ -72,7 +72,7 @@ public class GoodsController {
 				 */
 		
 		 user = (UserInfo) session.getAttribute("user"); 
-		 model.addAttribute("user", user.getUserNick()); // 주의
+		 model.addAttribute("userNick", user.getUserNick()); // 주의
 		 log.info(user.getUserNick());
 		
 		 

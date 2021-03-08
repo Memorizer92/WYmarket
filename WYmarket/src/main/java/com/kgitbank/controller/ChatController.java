@@ -64,7 +64,7 @@ public class ChatController {
 
 		model.addAttribute("sellerList",sellerList);
 		model.addAttribute("buyerList",buyerList);
-		model.addAttribute("user",user.getUserNick()); //주의
+		model.addAttribute("userNick",user.getUserNick()); //주의
 
 		return "chats/chatting";
 	}
@@ -77,7 +77,7 @@ public class ChatController {
 
 		count=0;
 		user = (UserInfo) session.getAttribute("user"); 
-		model.addAttribute("user", user.getUserNick()); //주의
+		model.addAttribute("userNick", user.getUserNick()); //주의
 
 		//채팅방 개설 되있는지 확인
 		int ch = chattingService.selectRoomId(vo.getRoomId());
