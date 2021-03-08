@@ -34,17 +34,17 @@
     <hr>
     <footer class="foot container-xl "> 
     
-       │<a class="tt" href="./board/notice/a"><b>공지사항</b></a>
-       │<a class="tt" href="./board/notice/b"><b>운영정책</b></a>
-       │<a class="tt" href="./board/notice/c"><b>자주묻는질문</b></a>
-       │<a class="tt" href="./board/operationTerms"><b>이용약관</b></a>
-       │<a class="tt" href="./board/privacyPolicy"><b>개인정보처리방침</b></a>│
+       │<a class="tt" href="/wymarket/board/notice/a"><b>공지사항</b></a>
+       │<a class="tt" href="/wymarket/board/notice/b"><b>운영정책</b></a>
+       │<a class="tt" href="/wymarket/board/notice/c"><b>자주묻는질문</b></a>
+       │<a class="tt" href="/wymarket/board/operationTerms"><b>이용약관</b></a>
+       │<a class="tt" href="/wymarket/board/privacyPolicy"><b>개인정보처리방침</b></a>│
     </footer>
     <hr>
 
  
  
- <%@ include file="./header.jsp" %>
+ 
 </body>
 
 </html>

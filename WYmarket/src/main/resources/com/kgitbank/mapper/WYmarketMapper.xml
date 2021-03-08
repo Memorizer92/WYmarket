@@ -419,6 +419,18 @@
 		resultType="com.kgitbank.model.SearchInDistance">
 		select * from sh_searchInDistance
 	</select>
+	
+	<!-- search상품 테이블 조회 -->
+	<select id="selectSearchGoods" resultType="com.kgitbank.model.SearchInDistance">
+		select *
+		from
+		sh_searchInDistance WHERE stitle LIKE '%' || #{search} || '%'
+	</select>
+	
+	<!-- category상품 테이블 조회 -->
+	<select id="selectCategoryGoods" resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where scategory = #{scategory}
+	</select>
 
 </mapper>
 

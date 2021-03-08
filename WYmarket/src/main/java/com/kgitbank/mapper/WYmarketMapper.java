@@ -138,6 +138,9 @@ public interface WYmarketMapper {
 	int deleteSearchInDistance();
 	int insertSearchInDistance(GoodsVO goodsVo);
 	List<SearchInDistance> selectSearchInDistance();
+	public List<SearchInDistance> selectSearchGoods(String search);
+
+	List<SearchInDistance> selectCategoryGoods(String category);
 	
 	int selectMaxInquiryAdminToUserByID();
 	

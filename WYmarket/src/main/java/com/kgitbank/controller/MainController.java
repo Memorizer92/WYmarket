@@ -34,7 +34,7 @@ public class MainController {
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(HttpSession session, Model model) {
+	public String mainPageGET(HttpSession session, Model model,String search,String category) {
 		log.info("메인 페이지");
 		System.out.println("메인페이지 세션 값 : " + session.getAttribute((String) model.getAttribute("user")));
 
@@ -69,13 +69,24 @@ public class MainController {
 				wyMarketService.insertSearchInDistance(goods);
 			}
 		}
-
-		List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
-
-		System.out.println(sid);
-		model.addAttribute("goods", sid);
+		
+		if(search==null) {//메인페이지 
+			List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
+			model.addAttribute("goods", sid);
+			System.out.println(sid);
+		}else {//검색창에 검색 했을때
+			List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
+			model.addAttribute("goods", sid);
+			System.out.println(sid);
+		} 
+		
+		if(category!=null) {//카테고리에서 선택 했을때
+			List<SearchInDistance> sid = wyMarketService.selectCategoryGoods(category);
+			model.addAttribute("goods", sid);
+			System.out.println(sid);
+		}
 
 		return "/main";
 	}
-
+  
 }

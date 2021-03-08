@@ -327,6 +327,16 @@ public class WYmarketServiceImpl implements WYmarketService{
 	public List<SearchInDistance> selectSearchInDistance() {
 		return wyMarketMapper.selectSearchInDistance();
 	}
+	
+	@Override
+	public List<SearchInDistance> selectSearchGoods(String search) {
+		return wyMarketMapper.selectSearchGoods(search);
+	}
+
+	@Override
+	public List<SearchInDistance> selectCategoryGoods(String category) {
+		return wyMarketMapper.selectCategoryGoods(category);
+	}
 
 	@Override
 	public int selectMaxInquiryAdminToUserByID() {
