@@ -33,7 +33,7 @@ import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes(names = { "user", "lat", "lon", "address" })
+@SessionAttributes(names = {"lat", "lon", "address" })
 public class LoginFormController {
 
 	OAuthToken oauthToken = null;

@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/goods/*")
 @Log4j
-@SessionAttributes({"user","userNick"})
+@SessionAttributes({"userNick"})
 public class GoodsController {
 	
 	@Autowired
