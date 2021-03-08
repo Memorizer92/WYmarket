@@ -37,7 +37,7 @@
 	<!-- 등록 상품 조회 -->
 	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
 		SELECT * FROM sh_searchInDistance WHERE itemid = #{itemid}
-	</select>
+	</select> 
 	
 	<!-- 유저아이디(시퀀스) 조회 -->
 	<select  id="getId" resultType="java.lang.String">
