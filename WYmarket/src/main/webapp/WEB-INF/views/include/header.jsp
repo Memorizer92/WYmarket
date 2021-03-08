@@ -139,6 +139,7 @@
         }
 
         .navi { 
+        padding-top: 10px;
             width: 1130px;
             margin-left: auto;
             margin-right: auto;
@@ -192,6 +193,9 @@
              
         }
 
+.test{
+    border-bottom: 2px solid rgb(244, 244, 250);
+             padding: 6px;}
     </style>
 </head>
 <body>
@@ -229,7 +233,7 @@
         <a class="mypage" href=""><i class="fas fa-user biggest"></i></a>
 		<a class="chat" href="/wymarket/chats/chatting"><i class="far fa-comments biggest"></i></a>
     </div>
-<hr>
+<div class = "test"></div>
 <%--  <%@ include file="./footer.jsp" %> --%>
  
 </body>

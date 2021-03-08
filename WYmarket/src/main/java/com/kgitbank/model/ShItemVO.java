@@ -31,4 +31,5 @@ public class ShItemVO {
 	private String ireservationstate;
 	
 	
+	
 }

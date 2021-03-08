@@ -26,6 +26,7 @@
             text-align: center; 
         }
 
+
     </style>
 </head>
 <body>
@@ -44,7 +45,7 @@
 
  
  
- <%@ include file="./header.jsp" %>
+<%--  <%@ include file="./header.jsp" %> --%>
 </body>
 
 </html>

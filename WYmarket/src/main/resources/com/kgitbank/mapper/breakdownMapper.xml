@@ -82,7 +82,7 @@ DELETE from sh_item  where ititle = #{ititle} AND usernick = #{usernick} AND ist
 
 <insert id="insertPurchase">
 INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) values(
-	  		pitemID_seq.nextval,
+(select itemid from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
 	  		#{purchaser},
 (select usernick from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
 (select address from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),

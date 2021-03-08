@@ -34,7 +34,7 @@
 
 	<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/test01'"></i> 구매내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i> 구매내역</header>
 	<!-- 로그인 정보 세션 -->
 	
 	<main>
@@ -69,9 +69,15 @@
 								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
 
 							<div style="width: 100%;">
+								<span style="font-weight: bold; color: darkorange;">[ 구매완료
+								]</span> <br>
+								<input type="checkbox"
+									 name="radio_btn"
+									value="${userItem_list.itemid }" id="titleRadio" />
 								<span style="font-weight: bold; font-size: 27px;">
 									${PurchaserPhVO_list.ititle } </span> <br>
 									<span> ${PurchaserPhVO_list.address }</span>
+									<br>
 								<c:choose>
 									<c:when
 										test="${PurchaserPhVO_list.refreshTime >= 0 && PurchaserPhVO_list.refreshTime < 60}">
@@ -151,18 +157,33 @@
 					
 				
 				</c:forEach>				
+	<button class= "nonebtn" style="width: 160px;" onclick="reviewWriting()">구매자 후기남기기</button>
 				</div>
 				</main>
 				</div>
 				
-	<button>
-		<span>작성한 후기 보기</span>
-	</button>
 
-	<button
-		onclick="location.href = '<%=application.getContextPath() %>/param/test01'">My
-		Page</button>
+<script type="text/javascript">
 
+var radio_btn = document.getElementsByName("radio_btn");
+var radio_btn_check = 0;
+
+function reviewWriting() {
+	for( var i = 0; i < radio_btn.length; i++ ){  		
+		if(radio_btn[i].checked==true){
+			console.log("확인");
+			radio_btn_check++;
+			return;
+		}
+	}	
+	
+	if(radio_btn_check==0){
+        alert("상품을 선택해주세요");
+        return;
+    }
+}
+
+</script>
 
 
 </body>

@@ -37,10 +37,10 @@ public class BreakdownController {
 	@Setter(onMethod_ = {@Autowired})
 	BreakdownService bservice;
 		
-	@GetMapping("/test01")
+	@GetMapping("/myPage")
 	public String test01() {
 		
-		return "/test01";
+		return "/myPage";
 	}
 
 	@GetMapping("/sale") // 판매중 화면
