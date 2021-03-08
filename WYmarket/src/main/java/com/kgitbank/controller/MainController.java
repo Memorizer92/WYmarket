@@ -23,7 +23,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@SessionAttributes({ "user" })
+@SessionAttributes({ "user", "userNick" })
 public class MainController {
 
 	@Autowired
@@ -36,9 +36,11 @@ public class MainController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainPageGET(HttpSession session, Model model,String search,String category) {
 		log.info("메인 페이지");
-		System.out.println("메인페이지 세션 값 : " + session.getAttribute((String) model.getAttribute("user")));
+		System.out.println("메인페이지 세션 값 : " + session.getAttribute("user"));
 
-		UserInfo userInfo = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo userInfo = (UserInfo) session.getAttribute("user");
+
+		model.addAttribute("userNick", userInfo.getUserNick());
 
 		List<String> userNickList = wyMarketService.selectUserNickFromItem();
 

@@ -47,7 +47,7 @@ public class ChatController {
 	//구매자 채팅방 목록
 	@RequestMapping("/chats/chatting")
 	public String chatting(@ModelAttribute ChattingVO vo,HttpSession session,Model model) {
-		user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
+		user = (UserInfo) session.getAttribute("user"); 
 		 
 		if(count==0) { 
 			if(vo.getBuyerName()!=null||vo.getSellerName()!=null) {
@@ -64,7 +64,7 @@ public class ChatController {
 
 		model.addAttribute("sellerList",sellerList);
 		model.addAttribute("buyerList",buyerList);
-		model.addAttribute("user",user.getUserNick());
+		model.addAttribute("userNick",user.getUserNick()); //주의
 
 		return "chats/chatting";
 	}
@@ -76,8 +76,8 @@ public class ChatController {
 		model.addAttribute("vo",vo); 
 
 		count=0;
-		user = (UserInfo) session.getAttribute((String) model.getAttribute("user")); 
-		model.addAttribute("user", user.getUserNick()); 
+		user = (UserInfo) session.getAttribute("user"); 
+		model.addAttribute("userNick", user.getUserNick()); //주의
 
 		//채팅방 개설 되있는지 확인
 		int ch = chattingService.selectRoomId(vo.getRoomId());

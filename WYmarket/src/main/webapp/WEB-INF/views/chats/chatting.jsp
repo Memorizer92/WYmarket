@@ -50,7 +50,7 @@
 	<div class="container-md cen style">
 		<div class="top">WY Talk Room</div>
 		<div class="content" style="overflow:auto;">
-			${user}님의 채팅방 목록
+			${userNick}님의 채팅방 목록
 			<hr>
 			<c:forEach var="vo" items="${sellerList}">
 				<button type="button"

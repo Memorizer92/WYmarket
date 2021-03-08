@@ -68,18 +68,18 @@ public class LoginFormController {
 			ch++;
 
 		}
-		if (session.getAttribute("Admin") != null) {
-			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-			return "redirect:/admin";
-		}
-		if (session.getAttribute((String) model.getAttribute("user")) != null) {
-			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "redirect:/main";
-		} else {
-			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute((String) model.getAttribute("user")));
-			return "/login/login";
-		}
-
+//		if (session.getAttribute("Admin") != null) {
+//			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
+//			return "redirect:/admin";
+//		}
+//		if (session.getAttribute("user") != null) {
+//			System.out.println("메인페이지 세션에 든 값 : " + session.getAttribute("user"));
+//			return "redirect:/main";
+//		} else {
+//			System.out.println("로그인페이지 세션에 든 값 : " + session.getAttribute("user"));
+//			return "/login/login";
+//		}
+		return "/login/login";
 	}
 
 	@GetMapping("/auth/kakao")
@@ -91,8 +91,8 @@ public class LoginFormController {
 	public String logout(Model model, HttpSession session) {
 
 		session.removeAttribute("Admin");
-		session.removeAttribute((String) model.getAttribute("user"));
-		System.out.println("왜 안 읽혀" + session.getAttribute((String) model.getAttribute("user")));
+		session.removeAttribute("user");
+		System.out.println("왜 안 읽혀" + session.getAttribute("user"));
 		System.out.println("adminInfo in loginformcontroller" + session.getAttribute("Admin"));
 
 		return null;
@@ -135,8 +135,8 @@ public class LoginFormController {
 			e.printStackTrace();
 		}
 
-		session.removeAttribute((String) model.getAttribute("user"));
-		System.out.println(session.getAttribute((String) model.getAttribute("user")));
+		session.removeAttribute("user");
+		System.out.println(session.getAttribute("user"));
 
 		return "logout";
 	}
@@ -250,8 +250,7 @@ public class LoginFormController {
 				wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
 			}
 
-			model.addAttribute("user", userNick);
-			session.setAttribute((String) model.getAttribute("user"), userInfo);
+			session.setAttribute("user", userInfo);
 		} // 수정 필요하면 고쳐야 됨..
 
 		// 가입유무 : 1이면 바로 메인페이지로 리턴
@@ -299,8 +298,7 @@ public class LoginFormController {
 
 		userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
 
-		model.addAttribute("user", userInfo.getUserNick());
-		session.setAttribute(userInfo.getUserNick(), userInfo);
+		session.setAttribute("user", userInfo);
 
 		return "redirect:/main";
 	}

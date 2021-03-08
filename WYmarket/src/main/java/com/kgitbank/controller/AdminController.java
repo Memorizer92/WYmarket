@@ -242,7 +242,7 @@ public class AdminController implements Serializable {
 		String inquiryCategory = request.getParameter("inquirySelect");
 		String inquiryContent = request.getParameter("textArea");
 
-		UserInfo userInfo = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo userInfo = (UserInfo) session.getAttribute("user");
 		String userNick = userInfo.getUserNick();
 
 		Inquiry inquiry = new Inquiry();
@@ -281,7 +281,7 @@ public class AdminController implements Serializable {
 	@GetMapping("admin/seeInquiryFromAdmin")
 	public String seeInquiryFromAdmin(Model model, HttpSession session) {
 
-		UserInfo userInfo = (UserInfo) session.getAttribute((String) model.getAttribute("user"));
+		UserInfo userInfo = (UserInfo) session.getAttribute("user");
 
 		List<Inquiry> i = wyMarketService.selectInquiryByUserNick(userInfo.getUserNick());
 		List<InquiryAdminToUser> iatu = wyMarketService.selectInquiryAdminToUserByUserNick(userInfo.getUserNick());
