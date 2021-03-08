@@ -332,6 +332,17 @@
 								<button class="kQfCqL" onclick="modify()">소개글 수정</button>
 							</div>
 						</div>
+						
+						<form action="<%=application.getContextPath()%>/param/sale"
+			method="get">
+			<input type="submit" value="판매내역" />
+		</form>
+		<div>
+			<form action="<%=application.getContextPath()%>/param/purchase"
+				method="get">
+				<input type="submit" value="구매내역" />
+			</form>
+		</div>
 					</div>
 					<div class="eqkVCJ">
 						<div class="gDUZll"></div>

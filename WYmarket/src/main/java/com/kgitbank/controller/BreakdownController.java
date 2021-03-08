@@ -114,7 +114,7 @@ public class BreakdownController {
 		  }
 		  model.addAttribute("usernick", userNick);
 		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));	  
-		  return "/breakdown/sale/hiddenPage";
+		  return "redirect:/param/sale";
 	  }
 	  
 	// 예약 하기 / 취소

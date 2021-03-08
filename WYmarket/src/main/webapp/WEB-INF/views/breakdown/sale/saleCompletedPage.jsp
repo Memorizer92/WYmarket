@@ -89,7 +89,7 @@
 							<span style="font-weight: bold; color: darkorange;">[ 거래완료
 								]</span> <br> <span> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"
 									 name="radio_btn"
-									value="${userItem_list.ititle }" id="titleRadio" /><span>${SellerPhVO_list.address }</span>
+									value="${userItem_list.ititle }" id="titleRadio" onclick="oneCheck(this)"/><span>${SellerPhVO_list.address }</span>
 
  				<br>
 							<c:choose>
@@ -172,10 +172,7 @@
 
 
 	<script type="text/javascript">
-	
-	
-	
-		
+
 		var success = document.getElementById("success");
 		var radio_btn = document.getElementsByName("radio_btn");
 		var radio_btn_check = 0;
@@ -190,7 +187,13 @@
 		}
 
 		
-
+		function oneCheck(element) {
+			radio_btn.forEach((cd) => {
+				cd.checked = false;
+			});
+			element.checked = true;
+		}
+		
 		
 		function revieShowwBtn() {
 			for( var i = 0; i < radio_btn.length; i++ ){  		
