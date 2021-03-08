@@ -122,6 +122,9 @@ public interface WYmarketService {
 	UserInfo selectUserInfoByUserNick(String userNick);
 	int updateAddressFromItem(UserInfo userInfo);
 	int updateAddressFromSearchInDistance(UserInfo userInfo);
+	
+	SearchInDistance selectSearchInDistanceById(int itemID);
+	
 }
 
 

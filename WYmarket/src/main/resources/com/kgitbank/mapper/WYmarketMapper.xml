@@ -462,6 +462,11 @@
 		#{userNick}
 	</update>
 
+	<select id="selectSearchInDistanceById"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where itemID = #{itemID}
+	</select>
+
 </mapper>
 
 

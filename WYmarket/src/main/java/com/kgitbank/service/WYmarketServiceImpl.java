@@ -363,5 +363,10 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.updateAddressFromSearchInDistance(userInfo);
 	}
 
+	@Override
+	public SearchInDistance selectSearchInDistanceById(int itemID) {
+		return wyMarketMapper.selectSearchInDistanceById(itemID);
+	}
+
 }
 

@@ -21,92 +21,88 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kgitbank.model.GoodsVO;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GoodsService;
+import com.kgitbank.service.WYmarketService;
 import com.kgitbank.util.UploadFileUtils;
-
 
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequestMapping("/goods/*")
 @Log4j
-@SessionAttributes({"userNick"})
+@SessionAttributes({ "userNick" })
 public class GoodsController {
-	
+
 	@Autowired
 	GoodsService gservice;
-	
+
+	@Autowired
+	WYmarketService wyMarketService;
+
 	@Autowired
 	private String uploadPath;
-	
+
 	UserInfo user;
-	
+
 	// 상품등록페이지
-	@GetMapping("register") 
-	public void getGoodsRegister() throws
-	Exception{
+	@GetMapping("register")
+	public void getGoodsRegister() throws Exception {
 		log.info("상품등록페이지");
 	}
-	
+
 	// 상품 등록
 	@PostMapping("add/{ititle}/{icategory}/{icontent}/{price}")
-	public String success(Model model, 
-			GoodsVO goods, MultipartFile file, HttpSession session,
+	public String success(Model model, GoodsVO goods, MultipartFile file, HttpSession session,
 			/* @PathVariable("iimagepath") String iimagepath, */
-			@PathVariable("ititle") String ititle,
-			@PathVariable("icategory") String icategory,
-			@PathVariable("icontent") String icontent,
-			@PathVariable("price") Integer price
-			) throws IOException, Exception {
-				/*
-				 * String imgUploadPath = uploadPath + File.separator + "imgUpload"; String
-				 * ymdPath = UploadFileUtils.calcPath(imgUploadPath); String fileName = null;
-				 * 
-				 * if(file != null) { fileName = UploadFileUtils.fileUpload(imgUploadPath,
-				 * file.getOriginalFilename(), file.getBytes(), ymdPath); } else { fileName =
-				 * uploadPath + File.separator + "images" + File.separator + "none.png"; }
-				 * 
-				 * goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator +
-				 * fileName);
-				 */
-		
-		 user = (UserInfo) session.getAttribute("user"); 
-		 model.addAttribute("userNick", user.getUserNick()); // 주의
-		 log.info(user.getUserNick());
-		
-		 
-		
+			@PathVariable("ititle") String ititle, @PathVariable("icategory") String icategory,
+			@PathVariable("icontent") String icontent, @PathVariable("price") Integer price)
+			throws IOException, Exception {
+		/*
+		 * String imgUploadPath = uploadPath + File.separator + "imgUpload"; String
+		 * ymdPath = UploadFileUtils.calcPath(imgUploadPath); String fileName = null;
+		 * 
+		 * if(file != null) { fileName = UploadFileUtils.fileUpload(imgUploadPath,
+		 * file.getOriginalFilename(), file.getBytes(), ymdPath); } else { fileName =
+		 * uploadPath + File.separator + "images" + File.separator + "none.png"; }
+		 * 
+		 * goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator +
+		 * fileName);
+		 */
+
+		user = (UserInfo) session.getAttribute("user");
+		model.addAttribute("userNick", user.getUserNick()); // 주의
+		log.info(user.getUserNick());
+
 		int result = gservice.createGoods(goods, user.getUserNick(), ititle, icategory, icontent, price);
-		
+
 		return "redirect:/main";
 	}
-	
-	//상품 조회
+
+	// 상품 조회
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public void getList(@RequestParam("n") int itemid, Model model, HttpSession session) {
-		GoodsVO goods = gservice.getGoods(itemid);
-		model.addAttribute("goods",goods);
-		//구매자 시퀀스 필요
-		String nick = gservice.getId(goods.getUsernick());  
-		user = (UserInfo) session.getAttribute("user");  
-		session.setAttribute("buyerId",user.getUserID()); 
-		session.setAttribute("buyerName", user.getUserNick()); 
+		SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
+		model.addAttribute("goods", sid);
+		// 구매자 시퀀스 필요
+		String nick = gservice.getId(sid.getUserNick());
+		user = (UserInfo) session.getAttribute("user");
+		session.setAttribute("buyerId", user.getUserID());
+		session.setAttribute("buyerName", user.getUserNick());
 		session.setAttribute("sellerId", nick);
 	}
-	
-	
-	
-	//상품 수정페이지
+
+	// 상품 수정페이지
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	//@GetMapping("modify") 
+	// @GetMapping("modify")
 	public void getGoodsModify(@RequestParam("n") int itemid, Model model) {
 		System.out.println(itemid);
-		GoodsVO goods = gservice.getGoods(itemid);
+		SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
 		System.out.println(itemid);
-		model.addAttribute("goods",goods);
+		model.addAttribute("goods", sid);
 	}
-	
+
 	/*
 	 * //상품 수정
 	 * 
@@ -135,7 +131,5 @@ public class GoodsController {
 	 * 
 	 * return "redirect:/main"; }
 	 */
-	
-
 
 }

@@ -6,8 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <link rel="icon" href="<%=application.getContextPath() %>/image/chatf.ico">
-    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/chatf.ico">
+<link rel="icon"
+	href="<%=application.getContextPath()%>/image/chatf.ico">
+<link rel="shortcut icon"
+	href="<%=application.getContextPath()%>/image/chatf.ico">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <title>채팅방</title>
@@ -47,11 +49,20 @@
 	font-size: 50px;
 	color: orange;
 }
+
+.btn-primary {
+	background-color: rgba(255, 191, 82, 1);
+	border: none;
+}
+
+.btn-primary:hover {
+	background-color: #FF8A3D;
+}
 </style>
 <body>
 	<div class="container-md cen style">
 		<div class="top">WY Talk Room</div>
-		<div class="content" style="overflow:auto;">
+		<div class="content" style="overflow: auto;">
 			${userNick}님의 채팅방 목록
 			<hr>
 			<c:forEach var="vo" items="${sellerList}">
@@ -59,9 +70,11 @@
 					onclick="location.href='./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}&sellerName=${vo.sellerName}&buyerName=${vo.buyerName}&check=1'"
 					class="btn btn-primary">
 					구매자 : ${vo.buyerName}<br> 판매상품 : ${vo.item}<br> 연락 시간 :
-					${vo.chatDate} <span class="badge bg-secondary">${vo.buyerCount}</span>
+					<fmt:formatDate value="${vo.chatDate}" pattern="yy/MM/dd HH:mm" />
+					<span class="badge bg-secondary">${vo.buyerCount}</span>
 				</button>
-				<br><br>
+				<br>
+				<br>
 			</c:forEach>
 			<br>
 			<hr>
@@ -70,11 +83,13 @@
 					onclick="location.href='./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}&sellerName=${vo.sellerName}&buyerName=${vo.buyerName}&check=0'"
 					class="btn btn-primary">
 					판매자 : ${vo.sellerName}<br> 판매상품 : ${vo.item}<br> 연락 시간 :
-					${vo.chatDate} <span class="badge bg-secondary">${vo.sellerCount}</span>
+					<fmt:formatDate value="${vo.chatDate}" pattern="yy/MM/dd HH:mm" />
+					<span class="badge bg-secondary">${vo.sellerCount}</span>
 				</button>
-				<br><br>
+				<br>
+				<br>
 			</c:forEach>
-			 
+
 		</div>
 	</div>
 

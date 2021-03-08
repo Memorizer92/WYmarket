@@ -149,6 +149,7 @@ public interface WYmarketMapper {
 	int updateAddressFromItem(UserInfo userInfo);
 	int updateAddressFromSearchInDistance(UserInfo userInfo);
 	
+	SearchInDistance selectSearchInDistanceById(int itemID);
 }
 
 
