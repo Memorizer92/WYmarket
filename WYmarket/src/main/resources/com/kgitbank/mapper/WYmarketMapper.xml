@@ -273,7 +273,7 @@
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
 			WHERE rownum <= #{pageNum } * #{amount } and userCreateDate LIKE #{search} || '%') 
 			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId
+			ORDER BY userCreateDate
 		]]>
 	</select>
 

@@ -41,7 +41,6 @@
 <style type="text/css">
 * {
 	box-sizing: border-box;
-	user-select: none;
 }
 
 body {
@@ -91,6 +90,8 @@ body {
 	justify-content: flex-start;
 	width: 670px;
 	margin-right: auto;
+	margin-left: 150px;
+	margin-top: -37px;
 }
 
 #rightHandContainer {
@@ -229,7 +230,7 @@ th {
 #searchbtn {
 	width: 60px;
 	background-color: rgba(70, 70, 85, 1);
-	border-color: rgba(70, 70, 85, 1);
+	border: none;
 	color: white;
 	margin-left: 10px;
 }
@@ -237,7 +238,7 @@ th {
 #searchallbtn {
 	margin-left: auto;
 	background-color: rgba(70, 70, 85, 1);
-	border-color: rgba(70, 70, 85, 1);
+	border: none;
 	color: white;
 }
 
@@ -268,7 +269,7 @@ th {
 }
 
 [name='btn']:hover {
-	background-color: #ffb856;
+	background-color: #FF8A3D;
 }
 
 #accessbtn {
@@ -281,12 +282,6 @@ th {
 	border: none;
 }
 
-#adminBtn, #accessbtn, #inquiryBtn {
-	/* 	width: 111%;
-	margin-left: -12px; */
-	
-}
-
 #nick, #memoNick {
 	font-family: 'Do Hyeon', sans-serif;
 	margin-left: auto;
@@ -295,12 +290,6 @@ th {
 
 #nick {
 	font-size: 20px;
-}
-
-table {
-	/* border-collapse: separate;
-	border-spacing: 10px 0; */
-	
 }
 
 .table>:not(caption)>*>* {
@@ -337,6 +326,10 @@ tbody>tr>th {
 	overflow: auto;
 	font-family: 'Lato', sans-serif;
 }
+
+#inquiryBtn:hover {
+	background-color: #0d6efd;
+}
 </style>
 </head>
 <header id='logoutheader'> </header>
@@ -344,8 +337,8 @@ tbody>tr>th {
 
 
 
-	<div class="container-lg" id='outerContainer'>
-		<div class="container-lg" id='leftHandContainer'>
+	<div class="container" id='outerContainer'>
+		<div class="container" id='leftHandContainer'>
 			<div class="container" id='tableDiv'>
 				<table class="table table-responsive table-striped">
 					<thead>
@@ -470,9 +463,9 @@ tbody>tr>th {
 				</ul>
 			</nav>
 			<div class="container" id='searchcontainer'>
+				<button class="btn btn-primary" onclick="searchAll()"
+					id='searchallbtn'>전체 리스트 보기</button>
 				<form action="/wymarket/admin" id='form1'>
-					<button class="btn btn-primary" onclick="searchAll()"
-						id='searchallbtn'>전체 리스트 보기</button>
 					<select class="form-select" aria-label="Default select example"
 						name="list" id='selectID'>
 						<option selected>검색분류</option>
@@ -492,7 +485,7 @@ tbody>tr>th {
 			</div>
 
 		</div>
-		<div class="container-lg" id='rightHandContainer'>
+		<div class="container" id='rightHandContainer'>
 			<div class="container" id='adminProfile'>
 				<div class="container" id='adminHeader'>
 					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img1' />

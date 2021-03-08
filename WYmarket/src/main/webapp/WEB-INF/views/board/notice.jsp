@@ -331,12 +331,8 @@ a {
 }
 
 #inquirybtn {
-	background: radial-gradient(at 10% 30px, #FF8A3D, white);
+	background-color: #FF8A3D;
 	border-color: white;
-}
-
-#inquirybtn:hover {
-	background: radial-gradient(at 10% 30px, white, #FF8A3D);
 }
 
 #seeReplyBtn {
@@ -344,6 +340,11 @@ a {
 	color: #fff;
 	background-color: rgba(70, 70, 85, 1);
 	border-color: rgba(70, 70, 85, 1);
+}
+
+
+#buttonContainer {
+	text-align: center;
 }
 
 .foot {
@@ -1365,13 +1366,15 @@ a {
 							</div>
 						</div>
 					</form>
-					<button type="button" class="btn btn-primary" id='seeReplyBtn'
-						onclick="location.href='<%=application.getContextPath()%>/seeInquiryFromAdmin';">
-						답장 보기
-						<c:if test="${adminToUserCount ne 0}">
-							<span class="badge bg-secondary">${adminToUserCount }</span>
-						</c:if>
-					</button>
+					<div class="container" id='buttonContainer'>
+						<button type="button" class="btn btn-primary" id='seeReplyBtn'
+							onclick="location.href='<%=application.getContextPath()%>/seeInquiryFromAdmin';">
+							답장 보기
+							<c:if test="${adminToUserCount ne 0}">
+								<span class="badge bg-secondary">${adminToUserCount }</span>
+							</c:if>
+						</button>
+					</div>
 				</div>
 			</div>
 

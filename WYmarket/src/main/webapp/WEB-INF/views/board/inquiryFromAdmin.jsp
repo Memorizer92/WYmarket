@@ -19,6 +19,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 	crossorigin="anonymous"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho&display=swap"
+	rel="stylesheet">
 </head>
 
 <style>
@@ -62,21 +65,21 @@ ul {
 
 li {
 	cursor: pointer;
-	background: radial-gradient(at 10% 30px, white, #e3e3e3);
-	margin-bottom: 10px;
-	border-radius: 50px;
+	background-color: white;
 }
 
 li:hover {
-	background: radial-gradient(at 10% 30px, #e3e3e3, white);
+	background-color: rgba(255, 191, 82, 1);
 }
 
 p {
 	font-size: 18px;
+	font-family: 'Lato', sans-serif;
 }
 
 #p1 {
 	text-align: center;
+	font-weight: bold;
 }
 
 .modal-footer {
@@ -108,6 +111,10 @@ textarea {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 15px;
+}
+
+.btn-primary:hover {
+	background-color: rgba(70, 70, 85, 1);
 }
 </style>
 <body>

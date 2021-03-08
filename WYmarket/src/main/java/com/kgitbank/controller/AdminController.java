@@ -120,6 +120,13 @@ public class AdminController implements Serializable {
 
 	@GetMapping("/admin/usercount")
 	public String adminUserCount(HttpSession session, HttpServletRequest req, Pagination pagination, Model model) {
+		session.removeAttribute("listSession");
+		session.removeAttribute("searchSession");
+		model.addAttribute("lists", "");
+		model.addAttribute("searchs", "");
+		category = null;
+		categorySearch = null;
+		
 		// 누적 접속자 수를 view에 띄움
 		int userCountTotal = wyMarketService.selectUserCountTotal();
 		session.setAttribute("userCountTotal", userCountTotal);
