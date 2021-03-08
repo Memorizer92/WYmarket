@@ -199,7 +199,7 @@
     <article class="head1">
         <menu>
             <div class="head2 container-xl">
-                <li class="nick"><strong>${user}</strong>님</li>
+                <li class="nick"><strong>${userNick}</strong>님</li>
               
                 <li id="kakaoLogout" class="logout">로그아웃</li>
             </div>
