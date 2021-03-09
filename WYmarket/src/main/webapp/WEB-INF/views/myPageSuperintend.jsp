@@ -188,6 +188,85 @@ border: 0;
 outline: 0;
 background-color: white;
 }
+
+.dhPrXG table tbody > tr {
+    border-bottom: 1px solid rgb(220, 219, 228);
+}
+
+.dhPrXG table tr > td:first-child {
+    height: 9.5rem;
+}
+
+.dhPrXG table tr > :nth-child(2) {
+    width: 8rem;
+}
+
+.dhPrXG table tr > :nth-child(3) {
+    width: 21rem;
+}
+
+.dhPrXG table tr > :nth-child(4) {
+    width: 6.5rem;
+}
+
+.dhPrXG table tr > :nth-child(5) {
+    width: 4.5rem;
+}
+
+.dhPrXG table tr > :nth-child(6) {
+    width: 9.5rem;
+}
+
+.dhPrXG table tr > td:last-child {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 9.5rem;
+}
+
+.bXnHq5{
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    border: 1px solid rgb(195, 194, 204);
+    border-radius: 2px;
+}
+.hwfss{
+    align-items: center;
+    display: flex;
+    flex: 1 1 0%;
+    flex-wrap: wrap;
+    padding: 2px 8px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.sing{
+color: rgb(51, 51, 51);
+    margin-left: 2px;
+    margin-right: 2px;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+}
+
+.kxLast{
+    background-position: 0px center;
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+    width: 2rem;
+    height: 100%;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM1RTVDNkIiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTAgNC44YzAgLjIyOS4wOTguNDQ2LjI3LjU5OGw3LjIgNi40YS44LjggMCAwIDAgMS4wNjEgMGw3LjItNi40YS44LjggMCAxIDAtMS4wNjItMS4xOTVMOCAxMC4xMyAxLjMzMSA0LjIwM2EuOC44IDAgMCAwLTEuMzMuNTk3Ii8+Cjwvc3ZnPgo=);
+}
 </style>
 
 </head>
@@ -207,7 +286,7 @@ background-color: white;
 		<div class="mainBar">
 			<nav class="productBarMain">
 
-				<div class="productBar productBarAfter"><button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/goods/getGoodsRegister' ">상품등록</button></div>
+				<div class="productBar productBarAfter"><button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/goods/register'">상품등록</button></div>
 				<div class="productBar productBarAfter"><button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/mypage/Productmanagement'">상품관리</button></div>
 				<div class="productBar"> <button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/param/purchase'">구매</button> / <button class ="breakdown" onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매내역</button> </div>
 			</nav>
@@ -252,7 +331,26 @@ background-color: white;
 							<th>기능</th>	
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr>
+							<td><a href=""><img src="" alt="" /></a></td>
+							<td> 
+								<div class ="cont">
+									<div class ="bXnHq5">
+										<div class ="hwfss">
+											<div class ="sing">판매중</div>
+										</div>
+										<div class ="kxLast">화살표</div>
+								</div>
+								 </div> 
+							</td>
+							<td><a href="">상품명</a></td>
+							<td>가격</td>
+							<td>찜/댓글</td>
+							<td>최근 수정일</td>
+							<td>기능</td>
+						</tr>
+					</tbody>
 				</table>
 				<div class ="iOnkn">등록된 상품이 없습니다.</div>
 			</main>
