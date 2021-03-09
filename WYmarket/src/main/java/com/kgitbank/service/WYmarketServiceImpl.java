@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.kgitbank.mapper.WYmarketMapper;
 import com.kgitbank.model.AdminInfo;
+import com.kgitbank.model.GoodsVO;
+import com.kgitbank.model.Inquiry;
+import com.kgitbank.model.InquiryAdminToUser;
 import com.kgitbank.model.Pagination;
+import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
 
 @Service
@@ -224,16 +228,145 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectIdByUserNick(userNick);
 	}
 
+	@Override
+	public List<String> selectUserNickFromItem() {
+		return wyMarketMapper.selectUserNickFromItem();
+	}
 
+	@Override
+	public UserInfo selectLatLong(String userNick) {
+		return wyMarketMapper.selectLatLong(userNick);
+	}
 
+	@Override
+	public int selectCountFromItem() {
+		return wyMarketMapper.selectCountFromItem();
+	}
 
+	@Override
+	public int insertInquiryInfo(Inquiry inquiry) {
+		return wyMarketMapper.insertInquiryInfo(inquiry);
+	}
 
+	@Override
+	public List<Inquiry> selectInquiryInfo() {
+		return wyMarketMapper.selectInquiryInfo();
+	}
 
+	@Override
+	public int updateInquiryCountTotal() {
+		return wyMarketMapper.updateInquiryCountTotal();
+	}
 
+	@Override
+	public int selectInquiryCountTotal() {
+		return wyMarketMapper.selectInquiryCountTotal();
+	}
 
+	@Override
+	public int resetInquiryCountTotal() {
+		return wyMarketMapper.resetInquiryCountTotal();
+	}
 
+	@Override
+	public int insertInquiryAdminToUser(InquiryAdminToUser inquiryAdminToUser) {
+		return wyMarketMapper.insertInquiryAdminToUser(inquiryAdminToUser);
+	}
 
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUser() {
+		return wyMarketMapper.selectInquiryAdminToUser();
+	}
 
+	@Override
+	public InquiryAdminToUser selectInquiryAdminToUserByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryAdminToUserByID(inquiryID);
+	}
 
+	@Override
+	public Inquiry selectInquiryByID(int inquiryID) {
+		return wyMarketMapper.selectInquiryByID(inquiryID);
+	}
+
+	@Override
+	public List<InquiryAdminToUser> selectInquiryAdminToUserByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryAdminToUserByUserNick(userNick);
+	}
+
+	@Override
+	public List<Inquiry> selectInquiryByUserNick(String userNick) {
+		return wyMarketMapper.selectInquiryByUserNick(userNick);
+	}
+
+	@Override
+	public int updateInquiryUserCountTotal() {
+		return wyMarketMapper.updateInquiryUserCountTotal();
+	}
+
+	@Override
+	public int selectInquiryUserCountTotal() {
+		return wyMarketMapper.selectInquiryUserCountTotal();
+	}
+
+	@Override
+	public int resetInquiryUserCountTotal() {
+		return wyMarketMapper.resetInquiryUserCountTotal();
+	}
+
+	@Override
+	public int deleteSearchInDistance() {
+		return wyMarketMapper.deleteSearchInDistance();
+	}
+	
+	@Override
+	public int insertSearchInDistance(GoodsVO goodsVo) {
+		return wyMarketMapper.insertSearchInDistance(goodsVo);
+	}
+
+	@Override
+	public List<SearchInDistance> selectSearchInDistance() {
+		return wyMarketMapper.selectSearchInDistance();
+	}
+	
+	@Override
+	public List<SearchInDistance> selectSearchGoods(String search) {
+		return wyMarketMapper.selectSearchGoods(search);
+	}
+
+	@Override
+	public List<SearchInDistance> selectCategoryGoods(String category) {
+		return wyMarketMapper.selectCategoryGoods(category);
+	}
+
+	@Override
+	public int selectMaxInquiryAdminToUserByID() {
+		return wyMarketMapper.selectMaxInquiryAdminToUserByID();
+	}
+
+	@Override
+	public int updateLatLonAddress(UserInfo userInfo) {
+		return wyMarketMapper.updateLatLonAddress(userInfo);
+	}
+
+	@Override
+	public UserInfo selectUserInfoByUserNick(String userNick) {
+		return wyMarketMapper.selectUserInfoByUserNick(userNick);
+	}
+
+	@Override
+	public int updateAddressFromItem(UserInfo userInfo) {
+		return wyMarketMapper.updateAddressFromItem(userInfo);
+	}
+
+	@Override
+	public int updateAddressFromSearchInDistance(UserInfo userInfo) {
+		return wyMarketMapper.updateAddressFromSearchInDistance(userInfo);
+	}
+
+	@Override
+	public SearchInDistance selectSearchInDistanceById(int itemID) {
+		return wyMarketMapper.selectSearchInDistanceById(itemID);
+	}
 
 }
+

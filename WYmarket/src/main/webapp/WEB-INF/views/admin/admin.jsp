@@ -8,8 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+<title>관리자</title>
+<link rel="icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
+<link rel="shortcut icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
+<!-- <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -27,7 +31,13 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Kanit:ital@1&family=Lobster&display=swap"
 	rel="stylesheet">
-
+<script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+	crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho&display=swap"
+	rel="stylesheet">
 <style type="text/css">
 * {
 	box-sizing: border-box;
@@ -37,20 +47,22 @@ body {
 	
 }
 
+#selectID {
+	margin-left: 20px;
+}
+
 #kakaoLogout {
 	text-decoration: none;
 	text-align: center;
-	padding-top: 14px;
+	padding-top: 7px;
 	background-color: #fef01b;
 	color: #3A1D1D;
 	border-radius: 5px;
 	font-weight: bold;
 	display: block;
-	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 15px;
-	height: 50px;
+	height: 37px;
 	cursor: pointer;
 	vertical-align: middle;
 }
@@ -69,13 +81,17 @@ body {
 }
 
 #searchcontainer {
-	margin-top: 40px;
+	margin-top: 48px;
 }
 
 #searchcontainer>form {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
+	width: 670px;
+	margin-right: auto;
+	margin-left: 150px;
+	margin-top: -37px;
 }
 
 #rightHandContainer {
@@ -93,16 +109,17 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: #f2f3f7;
-	border: 1px solid #ddd;
-	box-shadow: 7px 7px 7px rgba(0, 0, 0, .1);
+	border: none;
+	/* box-shadow: 7px 7px 7px rgba(0, 0, 0, .1); */
 }
 
 .profileP {
 	margin-top: 13px;
+	font-family: 'Lato', sans-serif;
 }
 
 #adminHeader {
-	
+	margin-top: 10px;
 }
 
 img {
@@ -123,10 +140,11 @@ img {
 }
 
 #adminMemo {
-	border: 1px solid #ddd;
+	border: none;
 	background-color: #feffdd;
-	box-shadow: 7px 7px 7px rgba(0, 0, 0, .1);
+	/* box-shadow: 7px 7px 7px rgba(0, 0, 0, .1); */
 	width: 100%;
+	height: 275px;
 }
 
 #img2 {
@@ -134,9 +152,25 @@ img {
 	height: 70px;
 }
 
-#adminBtn, #memoBtn {
+#adminBtn {
 	background-color: rgba(70, 70, 85, 1);
 	border-color: rgba(70, 70, 85, 1);
+}
+
+#memoBtn {
+	background-color: rgba(70, 70, 85, 0);
+	border: none;
+	color: gray;
+	font-size: 16px;
+	margin-left: 170px;
+}
+
+.svg-inline--fa {
+	display: inline-block;
+	font-size: 30px;
+	height: 1em;
+	overflow: visible;
+	vertical-align: -.125em;
 }
 
 #memoInput {
@@ -176,7 +210,7 @@ th {
 
 .page-link {
 	background-color: white;
-	color: green;
+	color: black;
 	border-radius: 10%;
 }
 
@@ -190,26 +224,26 @@ th {
 
 #search {
 	width: 300px;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 #searchbtn {
 	width: 60px;
 	background-color: rgba(70, 70, 85, 1);
-	border-color: rgba(70, 70, 85, 1);
+	border: none;
 	color: white;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 #searchallbtn {
 	margin-left: auto;
 	background-color: rgba(70, 70, 85, 1);
-	border-color: rgba(70, 70, 85, 1);
+	border: none;
 	color: white;
 }
 
-#adminMemo, #twobtn, #adminBtn {
-	margin-top: 15px;
+#twobtn {
+	margin-top: 5px;
 }
 
 #memoBtn {
@@ -222,7 +256,9 @@ th {
 }
 
 #twobtn>* {
-	width: 100%;
+	width: 110%;
+	margin-left: -10px;
+	margin-top: 15px;
 }
 
 [name='btn'] {
@@ -233,7 +269,7 @@ th {
 }
 
 [name='btn']:hover {
-	background-color: #ffb856;
+	background-color: #FF8A3D;
 }
 
 #accessbtn {
@@ -256,12 +292,6 @@ th {
 	font-size: 20px;
 }
 
-table {
-	/* border-collapse: separate;
-	border-spacing: 10px 0; */
-	
-}
-
 .table>:not(caption)>*>* {
 	padding: .5rem 25px;
 	background-color: var(- -bs-table-bg);
@@ -281,13 +311,24 @@ tbody>tr>th {
 
 .page-item.active .page-link {
 	z-index: 3;
-	background-image: radial-gradient(at 10% 80px, white, lightgreen 55%, green);
-	color: white;
-	border-color: lightgreen;
+	background: rgba(219, 218, 213, 1);
+	color: black;
+	border: none;
 }
 
 .page-link:active, .page-link:hover {
-	color: green;
+	color: black;
+	background: radial-gradient(at 10% 30px, #e3e3e3, white);
+}
+
+#memo {
+	height: 200px;
+	overflow: auto;
+	font-family: 'Lato', sans-serif;
+}
+
+#inquiryBtn:hover {
+	background-color: #0d6efd;
 }
 </style>
 </head>
@@ -362,7 +403,7 @@ tbody>tr>th {
 			<hr>
 			<div class="container">
 				<h5 id='rowCount'>
-					검색 결과 : <b>${rowCount } 개</b>
+					검색 결과 : <b>${rowCount } 건</b>
 				</h5>
 			</div>
 
@@ -422,9 +463,11 @@ tbody>tr>th {
 				</ul>
 			</nav>
 			<div class="container" id='searchcontainer'>
-				<form action="/wymarket/admin">
+				<button class="btn btn-primary" onclick="searchAll()"
+					id='searchallbtn'>전체 리스트 보기</button>
+				<form action="/wymarket/admin" id='form1'>
 					<select class="form-select" aria-label="Default select example"
-						name="list">
+						name="list" id='selectID'>
 						<option selected>검색분류</option>
 						<option value="userId"
 							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
@@ -439,8 +482,6 @@ tbody>tr>th {
 						aria-describedby="basic-addon1" value="검색">
 
 				</form>
-				<button class="btn btn-primary" onclick="searchAll()"
-					id='searchallbtn'>전체 리스트 보기</button>
 			</div>
 
 		</div>
@@ -458,29 +499,39 @@ tbody>tr>th {
 				<p class='profileP'>
 					<b>관리자 등급 : </b>${Admin.adminGrade }</p>
 			</div>
-			<a id='kakaoLogout'>로그아웃</a>
 
 			<div class="container" id='adminMemo'>
 				<div class="container" id='memoP'>
-					<img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
-					<p id='memoNick'>${Admin.adminNick }</p>
+					<%-- <img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
+					<p id='memoNick'>${Admin.adminNick }</p> --%>
+					<button type="button" class="btn btn-primary" id='memoBtn'
+						onclick="ajaxSaveMemo()">
+						<i class="far fa-edit"></i>
+					</button>
+					<c:if test="${Admin.adminGrade eq '정'}">
+
+					</c:if>
 				</div>
 				<p>
 					<span id='memo' class="textarea" role="textbox"
 						contenteditable=<c:if test="${Admin.adminGrade eq '부'}">"false"</c:if>></span>
 				</p>
-				<c:if test="${Admin.adminGrade eq '정'}">
-					<button type="button" class="btn btn-primary" id='memoBtn'
-						onclick="ajaxSaveMemo()">메모하기</button>
-				</c:if>
 			</div>
 			<div class="container" id='twobtn'>
 				<button type="button" class="btn btn-primary" id='accessbtn'
 					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
 					수 보기</button>
 				<button type="button" class="btn btn-primary" id='adminBtn'
-					onclick="location.href='<%=application.getContextPath()%>/board/write';">공지사항
+					onclick="location.href='<%=application.getContextPath()%>/board/list';">공지사항
 					쓰기</button>
+				<button type="button" class="btn btn-primary" id='inquiryBtn'
+					onclick="location.href='<%=application.getContextPath()%>/admin/seeInquiry';">
+					문의 보기
+					<c:if test="${inquiryCount ne 0}">
+						<span class="badge bg-secondary">${inquiryCount }</span>
+					</c:if>
+				</button>
+				<a id='kakaoLogout'>로그아웃</a>
 			</div>
 		</div>
 	</div>

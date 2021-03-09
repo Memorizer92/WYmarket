@@ -7,7 +7,12 @@
 
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel="icon"
+	href="<%=application.getContextPath()%>/image/salef.ico">
+<link rel="shortcut icon"
+	href="<%=application.getContextPath()%>/image/salef.ico">
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <style>
 .inputArea {
@@ -37,8 +42,9 @@ textarea#icontent {
 	height: 180px;
 }
 
-.select_img img { margin:20px 0; }
-
+.select_img img {
+	margin: 20px 0;
+}
 </style>
 
 <title>상품조회</title>
@@ -60,51 +66,57 @@ textarea#icontent {
 				<h2>상품 목록</h2>
 
 				<form role="form" method="post" autocomplete="off">
-					<input type="hidden" name="n" value="${goods.itemid}" />
-					
+					<input type="hidden" name="n" value="${goods.itemID}" />
+
 					<div class="inputArea">
-						<label for="iimagepath">상품 이미지</label>
-						<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
+						<label for="iimagepath">상품 이미지</label> <img
+							src="${pageContext.request.contextPath}${goods.simagePath }" />
 					</div>
 					<div class="inputArea">
-						<label for="usernick">판매자</label>
-						<span>${goods.usernick}</span>
+						<label for="usernick">판매자</label> <span>${goods.userNick}</span>
 					</div>
 					<div class="inputArea">
-						<label for="ititle">상품명</label>
-						<span>${goods.ititle}</span>
+						<label for="ititle">상품명</label> <span>${goods.stitle}</span>
 					</div>
 					<div class="inputArea">
-						<label for="icategory">카테고리</label>
-						<span>${goods.icategory}</span>
-					</div>
-					
-					<div class="inputArea">
-						<label for="price">상품가격</label>
-						<span><fmt:formatNumber value="${goods.price}" pattern="###,###,###"/></span>
-					</div>
-					
-					<div class="inputArea">
-						<label for="icontent">상품소개</label>
-						<span>${goods.icontent}</span>
+						<label for="icategory">카테고리</label> <span>${goods.scategory}</span>
 					</div>
 
 					<div class="inputArea">
-					<%-- <a href="goods/view?n=${goods.itemid}"> --%>
+						<label for="price">상품가격</label> <span><fmt:formatNumber
+								value="${goods.price}" pattern="###,###,###" /></span>
+					</div>
+
+					<div class="inputArea">
+						<label for="icontent">상품소개</label> <span>${goods.scontent}</span>
+					</div>
+
+					<div class="inputArea">
+						<%-- <a href="goods/view?n=${goods.itemid}"> --%>
 						<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 						<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
-						<button type="button" id="chat_Btn">채팅하기</button>
-						
+
+						<c:set var="sellerId" value="${sellerId}" />
+						<c:set var="buyerId" value="${buyerId}" />
+
+						<c:if test="${sellerId ne buyerId}">
+							<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
+							<button type="button" id="chat_Btn"
+								onclick="location.href=
+						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0';">
+								채팅으로 거래하기</button>
+						</c:if>
+
 						<script>
 							var formObj = $("form[role='form']");
-							
-							$("#modify_Btn").click(function(){
+
+							$("#modify_Btn").click(function() {
 								formObj.attr("submit", "/goods/modify");//action
 								formObj.attr("method", "get")
 								formObj.submit();
 							});
-							
-							$("#delete_Btn").click(function(){
+
+							$("#delete_Btn").click(function() {
 								formObj.attr("action", "/goods/delete");
 								formObj.submit();
 							});

@@ -51,6 +51,11 @@ SELECT itemID, iImagePath, Purchaser,
 ]]>	
 </select>
 
+<select id="purchasedetailsCount" resultType="int">
+		SELECT COUNT(*) from purchasedetails where usernick = #{usernick}
+</select>
+
+
 <update id="completedIstate">
 UPDATE sh_item SET istate = #{istate} where ititle = #{ititle} AND usernick = #{usernick} AND itemid = #{itemid}
 </update>
@@ -67,13 +72,17 @@ UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{iti
 UPDATE sh_item SET refreshtime = sysdate where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
 </update>
 
+<update id="productDelete">
+DELETE from sh_item  where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
+</update>
+
 
 
 
 
 <insert id="insertPurchase">
 INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) values(
-	  		pitemID_seq.nextval,
+(select itemid from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
 	  		#{purchaser},
 (select usernick from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),
 (select address from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid}),

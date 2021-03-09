@@ -8,7 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 수</title>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+<link rel="icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
+<link rel="shortcut icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -29,6 +32,7 @@
 <style>
 * {
 	box-sizing: border-box;
+	user-select: none;
 }
 
 #outerContainer {
@@ -47,7 +51,7 @@ th {
 
 .page-link {
 	background-color: white;
-	color: green;
+	color: black;
 	border-radius: 10%;
 }
 
@@ -62,6 +66,17 @@ th {
 	box-shadow: inset 0 0 0 9999px var(- -bs-table-accent-bg);
 }
 
+[name='btn'] {
+	background-color: rgba(131, 131, 135, 0.3);
+	border-color: rgba(70, 70, 85, 1);
+	color: rgba(70, 70, 85, 1);
+	border: none;
+}
+
+[name='btn']:hover {
+	background-color: #FF8A3D;
+}
+
 thead>tr>th {
 	font-family: 'Kanit', sans-serif;
 	font-size: 16px;
@@ -74,13 +89,14 @@ tbody>tr>th {
 
 .page-item.active .page-link {
 	z-index: 3;
-	background-image: radial-gradient(at 10% 80px, white, lightgreen 55%, green);
-	color: white;
-	border-color: lightgreen;
+	background: rgba(219, 218, 213, 1);
+	color: black;
+	border: none;
 }
 
 .page-link:active, .page-link:hover {
-	color: green;
+	color: black;
+	background: radial-gradient(at 10% 30px, #e3e3e3, white);
 }
 
 .form-select {
@@ -91,6 +107,16 @@ tbody>tr>th {
 #datecontainer {
 	display: flex;
 	flex-direction: row;
+	margin-left: 12px;
+	margin-top: 25px;
+}
+
+#datecontainer>:last-child {
+	margin-left: auto;
+	margin-right: 11px;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
 }
 
 #datecontainer>form {
@@ -98,8 +124,22 @@ tbody>tr>th {
 	flex-direction: row;
 }
 
+form>* {
+	margin-left: 10px;
+}
+
+#searchallbtn {
+	margin-right: 10px;
+	background-color: rgba(70, 70, 85, 1);
+	border-color: rgba(70, 70, 85, 1);
+	color: white;
+}
+
 #totalCount {
 	text-align: center;
+	margin-left: auto;
+	width: 150px;
+	margin-top: -80px;
 }
 
 #countPart {
@@ -108,6 +148,22 @@ tbody>tr>th {
 
 .card-text {
 	margin-top: -8px;
+}
+
+#btnContainer {
+	margin-left: 277px;
+	margin-top: 20px;
+}
+
+#userAccessCntBtn {
+	margin-right: 15px;
+	background-color: #469536;
+	border: none;
+}
+
+#userSignUpCntBtn {
+	background-color: #FF8A3D;
+	border: none;
 }
 </style>
 </head>
@@ -159,16 +215,17 @@ tbody>tr>th {
 								<th scope="col">
 									<button class="btn btn-primary"
 										onclick="banUnban(this,'${user.userNick }',${i })"
-										data-btn-type="ban">정지</button>
+										data-btn-type="ban" name="btn">정지</button>
 								</th>
 								<th scope="col">
 									<button class="btn btn-primary"
 										onclick="banUnban(this,'${user.userNick }',${i })"
-										data-btn-type="unban">정지 해제</button>
+										data-btn-type="unban" name="btn">정지 해제</button>
 								</th>
 								<th scope="col">
 									<button class="btn btn-primary"
-										onclick="toMyPage('${user.userNick}')">마이 페이지</button>
+										onclick="toMyPage('${user.userNick}')" name="btn">마이
+										페이지</button>
 								</th>
 							</tr>
 						</c:forEach>
@@ -178,21 +235,21 @@ tbody>tr>th {
 			<hr>
 			<div class="container">
 				<h5 id='rowCount'>
-					검색 결과 : <b>${accessCount } 개</b>
+					검색 결과 : <b>${accessCount } 건</b>
 				</h5>
 			</div>
 			<c:url var="firstHref"
-				value="./admin?pageNum=1&amount=${pagination.amount }" />
+				value="./usercount?pageNum=1&amount=${pagination.amount }" />
 			<c:url var="previousHref2"
-				value="./admin?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
+				value="./usercount?pageNum=${pageService.startPage - 1}&amount=${pagination.amount }" />
 			<c:url var="nextHref2"
-				value="./admin?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
+				value="./usercount?pageNum=${pageService.endPage + 1}&amount=${pagination.amount }" />
 			<c:url var="previousHref1"
-				value="./admin?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
+				value="./usercount?pageNum=${pagination.pageNum - 1 }&amount=${pagination.amount }" />
 			<c:url var="nextHref1"
-				value="./admin?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
+				value="./usercount?pageNum=${pagination.pageNum + 1 }&amount=${pagination.amount }" />
 			<c:url var="lastHref"
-				value="./admin?pageNum=${pageService.lastPage }&amount=${pagination.amount }" />
+				value="./usercount?pageNum=${pageService.lastPage }&amount=${pagination.amount }" />
 
 			<nav aria-label="...">
 				<ul class="pagination justify-content-center">
@@ -216,7 +273,7 @@ tbody>tr>th {
 						<li
 							class="page-item<c:if test="${pagination.pageNum eq i }"> active</c:if>"
 							aria-current="page"><a class="page-link"
-							href="./admin?pageNum=${i }&amount=${pagination.amount }
+							href="./usercount?pageNum=${i }&amount=${pagination.amount }
 							">${i }</a></li>
 					</c:forEach>
 					<li
@@ -236,9 +293,18 @@ tbody>tr>th {
 					</li>
 				</ul>
 			</nav>
-
+			<div class="card border-dark mb-3" style="max-width: 18rem;"
+				id='totalCount'>
+				<div class="card-header">누적 접속자 수</div>
+				<div class="card-body text-dark" id='countPart'>
+					<p class="card-text">${userCountTotal }</p>
+				</div>
+			</div>
 		</div>
 		<div class="container" id='datecontainer'>
+
+			<button class="btn btn-primary" onclick="searchAll()"
+				id='searchallbtn'>전체 리스트 보기</button>
 
 			<form action="/wymarket/admin/accessUserCount" id='accessForm'>
 
@@ -265,27 +331,17 @@ tbody>tr>th {
 
 			</form>
 
-			<div class="card border-dark mb-3" style="max-width: 18rem;"
-				id='totalCount'>
-				<div class="card-header">누적 접속자 수</div>
-				<div class="card-body text-dark" id='countPart'>
-					<p class="card-text">${userCountTotal }</p>
-				</div>
-			</div>
-
+			<button type="button" class="btn btn-primary" id='backbtn'
+				onclick="location.href='/wymarket/admin'">이전으로</button>
+		</div>
+		<div class="container" id='btnContainer'>
+			<button id='userAccessCntBtn' class="btn btn-primary" type="button"
+				onclick="userAccessCount()">접속자 수 보기</button>
+			<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
+				onclick="userSignUpCount()">가입자 수 보기</button>
 		</div>
 	</div>
-	<div class="container">
-		<button id='userAccessCntBtn' class="btn btn-primary" type="button"
-			onclick="userAccessCount()">접속자 수 보기</button>
-		<button id='userSignUpCntBtn' class="btn btn-primary" type="button"
-			onclick="userSignUpCount()">가입자 수 보기</button>
 
-		<button class="btn btn-primary" onclick="searchAll()">전체 리스트
-			보기</button>
-
-	</div>
-	</div>
 	<script
 		src="<%=application.getContextPath()%>/resources/assets/js/usercount.js"></script>
 

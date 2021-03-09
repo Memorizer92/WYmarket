@@ -101,10 +101,35 @@
 #nick2Char, #nickOverrap {
 	display: none;
 	margin-top: 10px;
+	margin-bottom: -5px;
+}
+
+input:-internal-autofill-selected {
+	appearance: menulist-button;
+	background-color: rgb(255, 138, 61) !important;
+	background-image: none !important;
+	color: -internal-light-dark(black, white) !important;
+}
+
+#loginbtn {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
+}
+
+#loginbtn:hover {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
 }
 
 body {
 	background-image: url("/wymarket/image/carrotbg.jpg");
+}
+
+#time2 {
+	margin-top: 10px;
+	margin-bottom: -10px;
 }
 </style>
 </head>
@@ -193,7 +218,7 @@ function onlyNumber(){
 				<div class="modal-body">
 					<div class="input-group flex-nowrap">
 						<span class="input-group-text" id="addon-wrapping">닉네임</span> <input
-							type="text" class="form-control" placeholder="Username"
+							type="text" class="form-control" placeholder="닉네임을 입력하세요"
 							aria-label="Username" aria-describedby="addon-wrapping"
 							id="nickname" name="nick_name">
 					</div>
@@ -203,7 +228,8 @@ function onlyNumber(){
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" onclick="toMain()">로그인하기</button>
+					<button type="button" class="btn btn-primary" id='loginbtn'
+						onclick="toMain()">로그인하기</button>
 				</div>
 			</div>
 		</div>
@@ -330,7 +356,10 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">인증 횟수 3회 초과로 인하여 더 이상 인증하실 수 없습니다.</div>
+				<div class="modal-body">
+					인증 횟수 3회 초과로 인하여 더 이상 인증하실 수 없습니다.<br>
+					<p id='time2'></p>
+				</div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -341,164 +370,202 @@ function onlyNumber(){
 		</div>
 	</div>
 
-	<script
+	<script type="text/javascript"
 		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
 
 	<script>
-	window.onpageshow = function(event){
-		if(event.persisted || window.performance.navigation.type == 2){
+	window.onpageshow = function(event) {
+		if (event.persisted || window.performance.navigation.type == 2) {
 			window.location.href = '/wymarket/login';
 		}
 	}
 
-/* 	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
-		if(timeLimit != 0){
-			document.getElementById("smsReqCnt").value += 1;
-		}
-	} */
-	
-	
-			const confirm = document.getElementById('getConfirm');
+	/* 	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
+			if(timeLimit != 0){
+				document.getElementById("smsReqCnt").value += 1;
+			}
+		} */
 
-			const phonetext = document.getElementById('phonenumber');
-			const phonebtn = document.getElementById('checkphone');
+	const confirm = document.getElementById('getConfirm');
 
-			const smstext = document.getElementById('sms');
-			const smsbtn = document.getElementById('checksms');
+	const phonetext = document.getElementById('phonenumber');
+	const phonebtn = document.getElementById('checkphone');
+
+	const smstext = document.getElementById('sms');
+	const smsbtn = document.getElementById('checksms');
 
 
-			phonebtn.addEventListener('click',()=>{
-				if(phonetext.value.length == 11){
-					if(timeLimit == 30 || timeLimit == 0){
-						
-						ajaxGetSMS(phonetext.value);
-						ajaxGetph(phonetext.value);
-						
-						setTimeout(function(){
-							ajaxSmsReqCnt();
-							console.log("카운트 : " + document.getElementById("smsReqCnt").value);
-							console.log("원하는 카운트 : " + "${smsCnt}");
-							setTimeout(function(){
-							if(document.getElementById("smsReqCnt").value >= 3){
-								var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
-								myModal.show()	
-							} else{
-								timeLimit = 30;
-								startTime();
-								ajaxToNick();
-								setTimeout(function(){
-								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
-								myModal.show()	
-								}, 1000);
-							}
+	phonebtn.addEventListener('click', () => {
+		if (phonetext.value.length == 11) {
+			if (timeLimit == 90 || timeLimit == 0) {
+
+				ajaxGetSMS(phonetext.value);
+				ajaxGetph(phonetext.value);
+
+				setTimeout(function() {
+					ajaxSmsReqCnt();
+					setTimeout(function() {
+						if (document.getElementById("smsReqCnt").value >= 3) {
+							ajaxExceedTime();
+							var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
+							myModal.show()
+							setTimeout(function() {
+								startTime2();
 							}, 1000);
-				        }, 1000);
-								
-					} else{
-						var myModal = new bootstrap.Modal(document.getElementById('smsRetry'));
-						myModal.show()		
-					}
-				} else{
-					var myModal = new bootstrap.Modal(document.getElementById('notPh'));
-					myModal.show()
-				}
-				 
-			});
+						} else {
+							timeLimit = 90;
+							startTime();
+							ajaxToNick();
+							setTimeout(function() {
+								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
+								myModal.show()
+							}, 1000);
+						}
+					}, 1000);
+				}, 1000);
 
-			smsbtn.addEventListener('click',()=>{
-				if(timeLimit == 0){
+			} else {
+				var myModal = new bootstrap.Modal(document.getElementById('smsRetry'));
+				myModal.show()
+			}
+		} else {
+			var myModal = new bootstrap.Modal(document.getElementById('notPh'));
+			myModal.show()
+		}
+
+	});
+
+	smsbtn.addEventListener('click', () => {
+		if (timeLimit == 0) {
+			var myModal = new bootstrap.Modal(document.getElementById('timeExceed'));
+			myModal.show()
+		} else {
+			if (smstext.value == document.getElementById('getsmscode').value
+				&& phonetext.value == document.getElementById('getph').value && smstext.value != ""
+				&& phonetext.value != "") {
+				if (document.getElementById('getConfirm').value == "0") {
+					var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'));
+					myModal.show()
+					document.getElementById('nickname').value = '';
+					document.getElementById('nickOverrap').style.display = 'none';
+					document.getElementById('nick2Char').style.display = 'none';
+				} else {
+					ajaxToMain();
+					setTimeout(function() {
+						if (document.getElementById("ajaxToMain").value == '1') {
+							var form = document.createElement("form");
+							form.setAttribute("method", "get");
+							form.setAttribute("action", "./admin");
+							document.body.appendChild(form);
+							form.submit();
+						} else {
+							var form = document.createElement("form");
+							form.setAttribute("method", "get");
+							form.setAttribute("action", "./main");
+							document.body.appendChild(form);
+							form.submit();
+						}
+
+					}, 1000);
+				}
+
+			} else {
+				var myModal = new bootstrap.Modal(document.getElementById('smsFail'));
+				myModal.show()
+			}
+		}
+	});
+
+
+	function toMain() {
+		const nickInput = document.getElementById("nickname");
+		if (nickInput.value.length <= 1) {
+			document.getElementById('nick2Char').style.display = 'block';
+			document.getElementById('nickOverrap').style.display = 'none';
+		} else {
+			if (document.getElementById("userNickCheck").value == "1") {
+				document.getElementById('nick2Char').style.display = 'none';
+				document.getElementById('nickOverrap').style.display = 'block';
+			} else {
+				if (timeLimit != 0) {
+					ajaxNickUpdate();
+					setTimeout(function() {
+						var form = document.createElement("form");
+						form.setAttribute("method", "get");
+						form.setAttribute("action", "./main");
+						document.body.appendChild(form);
+						form.submit();
+					}, 1000);
+				} else {
 					var myModal = new bootstrap.Modal(document.getElementById('timeExceed'));
 					myModal.show()
-				} else{
-				if(smstext.value == document.getElementById('getsmscode').value 
-						&& phonetext.value == document.getElementById('getph').value && smstext.value != ""
-						&& phonetext.value != ""){
-					console.log(document.getElementById('getConfirm').value);
-					if(document.getElementById('getConfirm').value == "0"){
-						var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'));
-						myModal.show()
-						document.getElementById('nickname').value = '';
-						document.getElementById('nickOverrap').style.display = 'none';
-						document.getElementById('nick2Char').style.display = 'none';
-					} else {
-						ajaxToMain();
-						setTimeout(function(){
-							console.log('jsp에서의 값' + document.getElementById("ajaxToMain").value);
-							if(document.getElementById("ajaxToMain").value == '1'){
-			 					var form = document.createElement("form");
-							    form.setAttribute("method", "get");
-							    form.setAttribute("action", "./admin");
-								document.body.appendChild(form);
-							    form.submit();
-							} else{
-			 	 				var form = document.createElement("form");
-							    form.setAttribute("method", "get");
-							    form.setAttribute("action", "./main");
-								document.body.appendChild(form);
-							    form.submit();
-							}
-
-						}, 1000);
-					}
-
-				} else{
-					var myModal = new bootstrap.Modal(document.getElementById('smsFail'));
-					myModal.show()	
 				}
-				}
-			});
 
+			}
 
-function toMain() {
-	const nickInput = document.getElementById("nickname");
-	if (nickInput.value.length <= 1) {
-		document.getElementById('nick2Char').style.display = 'block';
-		document.getElementById('nickOverrap').style.display = 'none';
-	} else {
-		
-		console.log("toMain console" + document.getElementById("userNickCheck").value);
-
-		if (document.getElementById("userNickCheck").value == "1") {
-			document.getElementById('nick2Char').style.display = 'none';
-			document.getElementById('nickOverrap').style.display = 'block';
-		} else {
- 			ajaxNickUpdate();
-			setTimeout(function(){
-				var form = document.createElement("form");
-				form.setAttribute("method", "get");
-				form.setAttribute("action", "./main");
-				document.body.appendChild(form);
-				form.submit();
-	        }, 1000);
 		}
-
 	}
-}
-			
+
 	const nickname = document.getElementById('nickname');
-	nickname.addEventListener('keyup', ()=> {
+	nickname.addEventListener('keyup', () => {
 		ajaxNickCheck();
-		console.log(nickname.value);
 	});
-	
-			
-
-	
-			var timeLimit = 30;
-			function startTime(){
 
 
-			var x = setInterval(function() {
+	var timeLimit = 90;
+	function startTime() {
 
-			  timeLimit--;
+		var x = setInterval(function() {
 
-			  document.getElementById("time").innerHTML = timeLimit;
+			timeLimit--;
 
-			  if (timeLimit == 0) {
-			    clearInterval(x);
-			  }
-			}, 1000);
-			};
+			if (timeLimit < 60) {
+				document.getElementById("time").innerHTML = timeLimit;
+			} else {
+				var min = (timeLimit / 60).toFixed(0);
+				var sec = timeLimit % 60;
+				if (sec < 10) {
+					sec = '0' + sec;
+				}
+				document.getElementById("time").innerHTML = min + ":" + sec;
+			}
+
+			if (timeLimit == 0) {
+				clearInterval(x);
+			}
+		}, 1000);
+	};
+
+
+	var timeLimit2 = 70 - document.getElementById('time2').value;
+	var cnt = 0;
+	var time = 1000;
+	function startTime2() {
+		timeLimit2 = 70 - document.getElementById('time2').value;
+		cnt++;
+		if (cnt > 1) {
+			time *= 1000;
+		}
+		var x = setInterval(function() {
+
+			timeLimit2--;
+			if (timeLimit2 < 60) {
+				document.getElementById("time2").innerHTML = timeLimit2;
+			} else {
+				var min = (timeLimit2 / 60).toFixed(0);
+				var sec = timeLimit2 % 60;
+				if (sec < 10) {
+					sec = '0' + sec;
+				}
+				document.getElementById("time2").innerHTML = min + ":" + sec;
+			}
+
+
+			if (timeLimit2 == 0) {
+				clearInterval(x);
+			}
+		}, time);
+	};
 	</script>
 
 </body>

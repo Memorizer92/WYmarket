@@ -9,7 +9,7 @@ import com.kgitbank.model.UserInfo;
 
 public interface goodsMapper {
 
-	public List<GoodsVO> getGoodsList();
+	public List<GoodsVO> getGoodsList(String userNick);
 	
 	public int createGoods(GoodsVO goods, 
 			@Param("user") String user,
@@ -23,4 +23,9 @@ public interface goodsMapper {
 	public GoodsVO getGoods(int itemid);
 
 	public void goodsModify(GoodsVO goods);
+	
+	public String getId(String userNick);
+	
+	 
+	 
 }

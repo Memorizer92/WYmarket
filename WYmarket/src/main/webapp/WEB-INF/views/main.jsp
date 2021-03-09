@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>main</title>
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+<title>메인 페이지</title>
+ <link rel="icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
+    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,32 +25,30 @@
 	box-sizing: border-box;
 }
 
-#kakaoLogout {
-	text-decoration: none;
+  #kakaoLogout {
+/* 	text-decoration: none;
 	text-align: center;
-	padding-top: 14px;
+	padding-top: 14px; */
 	background-color: #fef01b;
 	color: #3A1D1D;
 	border-radius: 5px;
 	font-weight: bold;
-	display: block;
+/* 	display: block;
 	margin-left: auto;
 	margin-right: 5%;
 	width: 20%;
 	margin-top: 25px;
-	height: 50px;
+	height: 50px; */
 	cursor: pointer;
 }
-
+/*
 #logoutheader {
 	display: flex;
 	justify-content: flex-end;
-}
+} */
 </style>
 </head>
-<header id='logoutheader'>
-	<a id='kakaoLogout'>로그아웃</a>
-</header>
+ 
 <body>
 
 	<div id="root">
@@ -57,20 +57,12 @@
 				<%@ include file="include/header.jsp"%>
 			</div>
 		</header>
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="include/nav.jsp"%>
-			</div>
-		</nav>
-		<c:if test="">
+		 
 		<section id="container">
-
-				<span>1:${user}</span>
-				<li><a href="goods/register">상품등록</a></li>
+			<div id="container_box"> 
 				<%@ include file="goods/list.jsp"%>
 			</div>
 		</section>
-		</c:if>
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
@@ -78,12 +70,6 @@
 		</footer>
 	</div>
 
-
-
-
-
-	<script
-		src="<%=application.getContextPath()%>/resources/assets/js/main.js"></script>
 
 	<script>
 	
@@ -112,12 +98,7 @@
 		 }
 		 } */
 		 
-		 document.getElementById('kakaoLogout').addEventListener('click',()=>{
-				ajaxLogOut();
- 				setTimeout(function(){
-					window.location.href = "https://kauth.kakao.com/oauth/logout?client_id=f5c99e47d61ce4b7e521d120e1f04199&logout_redirect_uri=http://localhost:8080/wymarket/login";
-		        }, 1000); 
-			});
+	 
 		 
 	</script>
 

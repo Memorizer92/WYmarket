@@ -16,8 +16,8 @@ public class GoodsService implements GoodsServiceImpl{
 	goodsMapper goods_mapper;
 	
 	@Override
-	public List<GoodsVO> getGoodsList(){
-		return goods_mapper.getGoodsList();
+	public List<GoodsVO> getGoodsList(String userNick){
+		return goods_mapper.getGoodsList(userNick);
 	}
 
 	@Override
@@ -35,5 +35,12 @@ public class GoodsService implements GoodsServiceImpl{
 			String icontent, Integer price) {
 		return goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price);
 	}
+	
+	@Override
+	public String getId(String userNick) {
+		return goods_mapper.getId(userNick);
+	}
+
+	 
 
 }

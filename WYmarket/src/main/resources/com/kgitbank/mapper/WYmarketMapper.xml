@@ -103,7 +103,8 @@
 	</select>
 
 	<select id="selectUserAccessDate" resultType="Date">
-		select accessDate
+		select
+		MAX(accessDate)
 		from
 		sh_userAccessDate WHERE userNick = #{userNick}
 	</select>
@@ -272,15 +273,201 @@
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
 			WHERE rownum <= #{pageNum } * #{amount } and userCreateDate LIKE #{search} || '%') 
 			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId
+			ORDER BY userCreateDate
 		]]>
 	</select>
 
-	<select id="selectIdByUserNick"
-		resultType="Integer">
+	<select id="selectIdByUserNick" resultType="Integer">
 		select userid from
 		sh_userInfo where usernick=#{userNick}
 	</select>
 
+	<select id="selectUserNickFromItem" resultType="String">
+		SELECT Distinct
+		userNick
+		FROM
+		sh_item
+	</select>
+
+	<select id="selectLatLong"
+		resultType="com.kgitbank.model.UserInfo">
+		select latitude, longitude from
+		sh_userInfo where
+		usernick=#{userNick}
+	</select>
+
+	<select id="selectCountFromItem" resultType="Integer">
+		SELECT
+		count(*)
+		FROM
+		sh_item
+	</select>
+
+	<insert id="insertInquiryInfo">
+		INSERT INTO sh_inquiry
+		VALUES
+		(inquiry_seq.nextval,
+		#{userNick}, #{inquiryCategory}, #{inquiryContent}, sysdate)
+	</insert>
+
+	<select id="selectInquiryInfo"
+		resultType="com.kgitbank.model.Inquiry">
+		select * from
+		sh_inquiry order by inquiryDate desc
+	</select>
+
+	<update id="updateInquiryCountTotal">
+		UPDATE sh_inquiryCountTotal SET total = total + 1
+	</update>
+
+	<select id="selectInquiryCountTotal" resultType="Integer">
+		select total
+		from
+		sh_inquiryCountTotal
+	</select>
+
+	<update id="resetInquiryCountTotal">
+		UPDATE sh_inquiryCountTotal SET total = 0
+	</update>
+
+	<insert id="insertInquiryAdminToUser">
+		INSERT INTO sh_inquiryAdminToUser
+		VALUES
+		(inquiryAdminToUser_seq.nextval, #{userInquiryID},
+		#{userNick},
+		#{inquiryCategory}, #{inquiryContent}, sysdate)
+	</insert>
+
+	<select id="selectInquiryAdminToUser"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser order by inquiryDate desc
+	</select>
+
+	<select id="selectInquiryAdminToUserByID"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser WHERE inquiryID =
+		#{inquiryID}
+	</select>
+
+	<select id="selectMaxInquiryAdminToUserByID"
+		resultType="Integer">
+		select MAX(inquiryID)
+		from
+		sh_inquiryAdminToUser
+	</select>
+
+	<select id="selectInquiryByID"
+		resultType="com.kgitbank.model.Inquiry">
+		select *
+		from
+		sh_inquiry WHERE inquiryID =
+		#{inquiryID}
+	</select>
+
+	<select id="selectInquiryAdminToUserByUserNick"
+		resultType="com.kgitbank.model.InquiryAdminToUser">
+		select *
+		from
+		sh_inquiryAdminToUser WHERE userNick =
+		#{userNick} order by inquiryDate desc
+	</select>
+
+	<select id="selectInquiryByUserNick"
+		resultType="com.kgitbank.model.Inquiry">
+		select *
+		from
+		sh_inquiry WHERE userNick =
+		#{userNick}
+	</select>
+
+	<update id="updateInquiryUserCountTotal">
+		UPDATE sh_inquiryUserCountTotal SET total = total + 1
+	</update>
+
+	<select id="selectInquiryUserCountTotal" resultType="Integer">
+		select total
+		from
+		sh_inquiryUserCountTotal
+	</select>
+
+	<update id="resetInquiryUserCountTotal">
+		UPDATE sh_inquiryUserCountTotal SET total = 0
+	</update>
+
+	<delete id='deleteSearchInDistance'>
+		DELETE FROM sh_searchInDistance
+	</delete>
+
+	<insert id="insertSearchInDistance">
+		INSERT INTO sh_searchInDistance
+		VALUES
+		(searchInDistance_seq.nextval, #{iimagepath, jdbcType=VARCHAR},
+		#{usernick}, #{address},
+		#{manner}, #{ititle}, #{icategory},
+		#{refreshtime}, #{icontent},
+		#{price},
+		#{chatcnt}, #{likecnt},
+		#{viewcnt}, #{istate},
+		#{iReservationState})
+	</insert>
+
+	<select id="selectSearchInDistance"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance
+	</select>
+
+	<!-- search상품 테이블 조회 -->
+	<select id="selectSearchGoods"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select *
+		from
+		sh_searchInDistance WHERE stitle LIKE '%' ||
+		#{search} || '%'
+	</select>
+
+	<!-- category상품 테이블 조회 -->
+	<select id="selectCategoryGoods"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where scategory =
+		#{scategory}
+	</select>
+
+	<update id="updateLatLonAddress">
+		UPDATE sh_userInfo SET latitude =
+		#{latitude},
+		longitude = #{longitude}, address = #{address}
+		WHERE userNick =
+		#{userNick}
+	</update>
+
+	<select id="selectUserInfoByUserNick"
+		resultType="com.kgitbank.model.UserInfo">
+		select * from
+		sh_userInfo where userNick =#{userNick}
+	</select>
+
+	<update id="updateAddressFromItem">
+		UPDATE sh_item SET address = #{address}
+		WHERE userNick
+		= #{userNick}
+	</update>
+
+	<update id="updateAddressFromSearchInDistance">
+		UPDATE sh_searchInDistance SET address = #{address}
+		WHERE userNick =
+		#{userNick}
+	</update>
+
+	<select id="selectSearchInDistanceById"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where itemID = #{itemID}
+	</select>
+
 </mapper>
+
+
 
