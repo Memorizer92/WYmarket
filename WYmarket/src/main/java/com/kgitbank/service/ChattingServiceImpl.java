@@ -92,6 +92,12 @@ public class ChattingServiceImpl implements ChattingService {
 		return chat_mapper.resetCountAll();
 	}
 
+
+	@Override
+	public int deleteChat(int roomId) {
+		return chat_mapper.deleteChat(roomId);
+	}
+
 	 
 	 
 

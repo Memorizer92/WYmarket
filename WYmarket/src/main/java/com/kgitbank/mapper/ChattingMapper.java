@@ -25,6 +25,8 @@ public interface ChattingMapper {
 	
 	public int resetCountAll();
 	
+	public int deleteChat(int roomId);
+	
 	
 	
 }

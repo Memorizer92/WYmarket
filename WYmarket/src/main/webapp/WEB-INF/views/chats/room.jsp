@@ -132,10 +132,11 @@ function submitChatMessageForm(form){
 	</form>
 	</div>
     <div class="content"> 
-	<div>${vo.item }(${vo.price}원) 거래방</div>
-	<div>구매자 : ${vo.buyerName }</div> 
-	<div>판매자 : ${vo.sellerName }</div> 
-	<br>
+	<b>${vo.item } 상품 (${vo.price}원)</b> 
+	 
+	&emsp;&emsp; &nbsp;&nbsp;구매자 : ${vo.buyerName } <br>
+	&emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;판매자 : ${vo.sellerName } 
+	<br><br>
 	
 	<form onsubmit="submitChatMessageForm(this); return false;">
 		<div>
@@ -149,7 +150,7 @@ function submitChatMessageForm(form){
 			 
 		 
 	</form>
- 
+ <br>
  	<div class="chat-messages" style="overflow:auto;  height: 450px;" ></div>
 </div>  
 </div>

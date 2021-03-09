@@ -409,7 +409,7 @@ a {
 			class="far fa-comments biggest "></i></a> <a class="refreshAddress"
 			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip"
 			data-bs-placement="bottom" title="주소 새로고침"><i
-			class="fas fa-sync-alt biggest"></i></a>
+			class="fas fa-map-marked-alt biggest"></i></a>
 	</div>
 	<hr>
 	<script
@@ -660,17 +660,9 @@ a {
 								aria-labelledby="headingThree"
 								data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									1. 찜이란<br> - 관심 상품을 확인할 수 있도록 보관하는 기능으로서 상품페이지 > 찜하기 가능<br>
-
-
-
-
-									2. 찜한 상품을 보는 방법<br> -앱 > 우측 상단의 하트 아이콘 > 찜리스트 확인 가능<br>
-
-
-
-
-									3. 찜 취소 방법<br> - 찜한 상품의 상세페이지 > 찜 버튼을 한번 더 눌러 찜 해제 가능<br>
+									<strong>1. 상품 삭제 기준</strong> <br> - 거래금지품목(술,전자담배,계정,의약품
+									등)을 판매 등록한 경우<br> - 타 사이트 홍보 및 외부 url이 있는 경우<br> <strong>2.
+										상품 판매 완료 기준</strong> <br> - 운영정책 위반으로 상점이 차단된 경우 판매중인 상품은 판매완료로 변경<br>
 
 								</div>
 							</div>
@@ -723,21 +715,10 @@ a {
 							<div id="collapseOne" class="accordion-collapse collapse show"
 								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									거래금지품목은 이용약관 및 현행 법률에 따라 즉시 삭제 및 계정 차단이 될 수 있으므로 운영정책을 참고하셔서 이용
-									부탁 드립니다. 개인정보 : 개인정보를 사고파는 행위와 면허증, 허가증, 등록증 등을 위, 변조하는 행위는 형법에
+									<b>거래금지품목은 이용약관 및 현행 법률에 따라 즉시 삭제 및 계정 차단이 될 수 있으므로 운영정책을 참고하셔서 이용
+									부탁 드립니다.</b> <br>개인정보 : 개인정보를 사고파는 행위와 면허증, 허가증, 등록증 등을 위, 변조하는 행위는 형법에
 									따라 처벌받을 수 있습니다.<br> 예시) 주민등록증, 여권, 학생증, 수험표, 운전면허증, 대포통장,
-									듀얼폰, 듀얼넘버 등 <br> 온라인 개인 계정 : 개인 계정 및 인증번호를 통해 각종 피해가 발생되고
-									있어 번개장터 운영정책에 따라 제재 됩니다.<br> 예시) 카톡계정, 인스타 계정, 페이스북 계정,
-									네이버 계정, 카카오톡, 네이버, 페이스북 인증번호 등<br> 불법현금융통 : 정보통신망 이용촉진 및
-									정보보호등의 관한 법률 제 72조 통신과금을 이용해 매입하는 행위는 불법현금융통으로 제재 됩니다. <br>
-									예시) 불법 현금융통을 목적으로 한 모든 상품 (불법대출, 돈구해요, 개인돈빌려요, 리니지M등)<br>
-
-
-									허위매물 : 실물을 확보하지 않은 판매하는 행위는 번개장터 운영정책에 따라 제재 됩니다. (※ 자동차 허위매물의
-									경우 증빙 시 해제 가능합니다.)<br> 예시) 백화점/문화 상품권 예약판매, 타 사이트
-									대리구매(배송지변경), 알바를 통한 상품 대리판매, 자동차 <br> 사행성 : 불법 도박 및 사행성
-									상품은 번개장터 운영정책에 따라 제재 됩니다.<br> 예시)토토, 카지노, 바카라, 화투, 포커,
-									한게임, 섯다, 바둑이, 홀덤, 세븐등 머니쿠폰, 전용장비, 라이브스코어인증 등
+									듀얼폰, 듀얼넘버 등 
 
 								</div>
 							</div>
@@ -760,26 +741,7 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingThree">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseThree"
-									aria-expanded="false" aria-controls="collapseThree">
-									반드시 체크해야할 거래사기 유형</button>
-							</h2>
-							<div id="collapseThree" class="accordion-collapse collapse"
-								aria-labelledby="headingThree"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									사기거래 패턴2. “안전 거래 링크 전달”<br> 판매자가 ‘링크’ 형태로 전달하는 안전거래(네이버페이,
-									번개페이 등)는 모두 피싱 사이트입니다.<br> 최근 사기범들이 즐겨 쓰는 수법은 카카오톡을 통해
-									안전거래 사칭 링크를 보내고 결제를 유도하는 것입니다.<br> 아래 사칭 링크 예시를 참고하시고, 절대
-									클릭하지 마세요!<br> ▶번개페이 사칭 링크: pay.bunjang123 등의 형태<br> ※
-									번개페이 정상 거래 시 예금주 명은 '번개장터 주식회사' 입니다. (그 외 예금주는 모두 사칭 입니다.)<br>
-
-								</div>
-							</div>
-						</div>
+					
 
 					</div>
 
@@ -832,49 +794,13 @@ a {
 									1. 찜이란<br> - 관심 상품을 확인할 수 있도록 보관하는 기능으로서 상품페이지 > 찜하기 가능<br>
 
 
-
-
 									2. 찜한 상품을 보는 방법<br> -앱 > 우측 상단의 하트 아이콘 > 찜리스트 확인 가능<br>
 
 
-
-
-									3. 찜 취소 방법<br> - 찜한 상품의 상세페이지 > 찜 버튼을 한번 더 눌러 찜 해제 가능<br>
-
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFour">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFour"
-									aria-expanded="false" aria-controls="collapseFour">
-									개인정보 설정은 어떻게 하나요?</button>
-							</h2>
-							<div id="collapseFour" class="accordion-collapse collapse"
-								aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									찜하신 것을 취소하고 싶으신가요?<br> 찜 취소는 찜한 상품을 들어가 찜을 한 번 더 눌러주면 찜하신
-									것이 해제됩니다.
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFive">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFive"
-									aria-expanded="false" aria-controls="collapseFive">사진
-									업로드 시 최적 사이즈</button>
-							</h2>
-							<div id="collapseFive" class="accordion-collapse collapse"
-								aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>[사진 업로드 시 최적 사이즈]</strong> - 640*640 사이즈로 사진 등록 시 보다
-									깨끗한 사진 등록이 가능합니다.
-								</div>
-							</div>
-						</div>
-
+					 
 					</div>
 
 
@@ -922,17 +848,9 @@ a {
 								aria-labelledby="headingThree"
 								data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									1. 찜이란<br> - 관심 상품을 확인할 수 있도록 보관하는 기능으로서 상품페이지 > 찜하기 가능<br>
-
-
-
-
-									2. 찜한 상품을 보는 방법<br> -앱 > 우측 상단의 하트 아이콘 > 찜리스트 확인 가능<br>
-
-
-
-
-									3. 찜 취소 방법<br> - 찜한 상품의 상세페이지 > 찜 버튼을 한번 더 눌러 찜 해제 가능<br>
+								<strong>1. 상품 삭제 기준</strong> <br> - 거래금지품목(술,전자담배,계정,의약품
+									등)을 판매 등록한 경우<br> - 타 사이트 홍보 및 외부 url이 있는 경우<br> <strong>2.
+										상품 판매 완료 기준</strong> <br> - 운영정책 위반으로 상점이 차단된 경우 판매중인 상품은 판매완료로 변경<br>
 
 								</div>
 							</div>
@@ -952,21 +870,7 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFive">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFive"
-									aria-expanded="false" aria-controls="collapseFive">사진
-									업로드 시 최적 사이즈</button>
-							</h2>
-							<div id="collapseFive" class="accordion-collapse collapse"
-								aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>[사진 업로드 시 최적 사이즈]</strong> - 640*640 사이즈로 사진 등록 시 보다
-									깨끗한 사진 등록이 가능합니다.
-								</div>
-							</div>
-						</div>
+					 
 
 					</div>
 				</div>
@@ -1002,62 +906,8 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingThree">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseThree"
-									aria-expanded="false" aria-controls="collapseThree">
-									좋아요는 무엇이고, 어떻게 하나요?</button>
-							</h2>
-							<div id="collapseThree" class="accordion-collapse collapse"
-								aria-labelledby="headingThree"
-								data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									1. 찜이란<br> - 관심 상품을 확인할 수 있도록 보관하는 기능으로서 상품페이지 > 찜하기 가능<br>
-
-
-
-
-									2. 찜한 상품을 보는 방법<br> -앱 > 우측 상단의 하트 아이콘 > 찜리스트 확인 가능<br>
-
-
-
-
-									3. 찜 취소 방법<br> - 찜한 상품의 상세페이지 > 찜 버튼을 한번 더 눌러 찜 해제 가능<br>
-
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFour">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFour"
-									aria-expanded="false" aria-controls="collapseFour">
-									좋아요 취소는 어떻게 하나요?</button>
-							</h2>
-							<div id="collapseFour" class="accordion-collapse collapse"
-								aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									찜하신 것을 취소하고 싶으신가요?<br> 찜 취소는 찜한 상품을 들어가 찜을 한 번 더 눌러주면 찜하신
-									것이 해제됩니다.
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFive">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFive"
-									aria-expanded="false" aria-controls="collapseFive">사진
-									업로드 시 최적 사이즈</button>
-							</h2>
-							<div id="collapseFive" class="accordion-collapse collapse"
-								aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>[사진 업로드 시 최적 사이즈]</strong> - 640*640 사이즈로 사진 등록 시 보다
-									깨끗한 사진 등록이 가능합니다.
-								</div>
-							</div>
-						</div>
+					 
+					 
 
 					</div>
 				</div>
@@ -1119,36 +969,8 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFour">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFour"
-									aria-expanded="false" aria-controls="collapseFour">
-									여러개의 계정을 만들수 있나요?</button>
-							</h2>
-							<div id="collapseFour" class="accordion-collapse collapse"
-								aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									찜하신 것을 취소하고 싶으신가요?<br> 찜 취소는 찜한 상품을 들어가 찜을 한 번 더 눌러주면 찜하신
-									것이 해제됩니다.
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFive">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFive"
-									aria-expanded="false" aria-controls="collapseFive">
-									14세 미만은 가입이 불가한가요?</button>
-							</h2>
-							<div id="collapseFive" class="accordion-collapse collapse"
-								aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>[사진 업로드 시 최적 사이즈]</strong> - 640*640 사이즈로 사진 등록 시 보다
-									깨끗한 사진 등록이 가능합니다.
-								</div>
-							</div>
-						</div>
+					 
+						 
 
 					</div>
 				</div>
@@ -1225,21 +1047,7 @@ a {
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingFive">
-								<button class="accordion-button collapsed" type="button"
-									data-bs-toggle="collapse" data-bs-target="#collapseFive"
-									aria-expanded="false" aria-controls="collapseFive">
-									사기를 당하면 어떻게 처리하나요?</button>
-							</h2>
-							<div id="collapseFive" class="accordion-collapse collapse"
-								aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<strong>[사진 업로드 시 최적 사이즈]</strong> - 640*640 사이즈로 사진 등록 시 보다
-									깨끗한 사진 등록이 가능합니다.
-								</div>
-							</div>
-						</div>
+					 
 
 					</div>
 				</div>

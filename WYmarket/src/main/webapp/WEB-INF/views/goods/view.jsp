@@ -102,8 +102,7 @@ textarea#icontent {
 						<c:if test="${sellerId ne buyerId}">
 							<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
 							<button type="button" id="chat_Btn"
-								onclick="location.href=
-						'<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0';">
+								onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
 								채팅으로 거래하기</button>
 						</c:if>
 

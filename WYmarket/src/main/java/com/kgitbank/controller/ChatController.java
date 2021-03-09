@@ -46,9 +46,17 @@ public class ChatController {
 
 	//구매자 채팅방 목록
 	@RequestMapping("/chats/chatting")
-	public String chatting(@ModelAttribute ChattingVO vo,HttpSession session,Model model) {
+	public String chatting(@ModelAttribute ChattingVO vo,HttpSession session,Model model,String delete) {
 		user = (UserInfo) session.getAttribute("user"); 
 		 
+		if(delete==null) {
+			
+		}else if(delete.equals("true")) {
+			chattingService.deleteChat(vo.getRoomId());
+			System.out.println(vo.getRoomId()+"번 방 삭제");
+			delete="false";
+		} 
+		
 		if(count==0) { 
 			if(vo.getBuyerName()!=null||vo.getSellerName()!=null) {
 				if(vo.getBuyerName().equals(user.getUserNick())) {//나가기하면 받은메시지(읽은메시지)삭제
@@ -69,7 +77,7 @@ public class ChatController {
 		return "chats/chatting";
 	}
  
-
+ 
 	//채팅방
 	@RequestMapping("/chats/room")
 	public String showRoom(@ModelAttribute ChattingVO vo, Model model,HttpSession session,int check) {
