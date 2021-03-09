@@ -86,7 +86,7 @@ public class GoodsController {
 	 
 	  
 	// 상품 조회
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	@RequestMapping(value = "/view2", method = RequestMethod.GET)
 	public void getList(@RequestParam("n") int itemid, Model model, HttpSession session) {
 		SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
 		model.addAttribute("goods", sid);

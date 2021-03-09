@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+div {
+    display: block;
+}
+div.container_box {
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: silver;
+}
+div.sc-GDiEgd.ffhRs{
+    display: flex;
+    padding: 30px 200px;
+}
+div.sc-dfRKBO.dHlrrk{
+	width: 430px;
+    height: 430px;
+	margin-right: 40px;
+    flex-shrink: 0;
+}
+div.sc-FGdgdS.Eqrak {
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    transition: opacity 0.2s ease-in-out 0s;
+    opacity: 1;
+}
+div.sc-jiTwWT.efsCcW {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+}
+div.sc-cXHFlN.lihcCo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+div.sc-fdqjUm.bYWuXd{
+	padding-bottom: 30px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    width: 100%;
+}
+div.sc-cLmFfZ.keaVUW{
+	font-size: 24px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+div.sc-eAyhxF.ioSadU{
+	display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 40px;
+    font-weight: 500;
+}
+div.sc-kyCyAI.kbnbuz{
+	height: 30px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+div.sc-BOulX.hnYMWw{
+	display: flex;
+    margin-bottom: 25px;
+}
+div.sc-hAcydR.cMqzFd{
+	position: relative;
+    width: 90px;
+    padding-left: 15px;
+    color: rgb(153, 153, 153);
+}
+div.sc-hAcydR.cMqzFd::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgb(204, 204, 204);
+}
+div.sc-eomEcv.eAimDN{
+	position: relative;
+    display: flex;
+}
+div.sc-iBfVdv.gaaKji{
+	display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+div.sc-iBfVdv.gaaKji > * {
+    flex: 1 1 0%;
+    font-weight: 600;
+    margin-right: 10px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 56px;
+    font-size: 18px;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+
+
+
+
+
+

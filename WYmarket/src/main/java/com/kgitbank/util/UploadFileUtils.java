@@ -12,7 +12,7 @@ import org.springframework.util.FileCopyUtils;
 // 썸네일을 생성하여 별도의 폴더에 저장
 
 public class UploadFileUtils {
-
+		 
 	public static String fileUpload(String uploadPath,
 			String fileName, 
 			byte[] fileData, String ymdPath) throws Exception {

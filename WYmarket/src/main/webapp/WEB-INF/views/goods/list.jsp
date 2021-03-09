@@ -37,7 +37,7 @@
 						<c:forEach items="${goods}" var="goods">
 							<li>
 								<div class="iimagepath">
-									<a href="goods/view?n=${goods.itemID}"> <img
+									<a href="goods/view2?n=${goods.itemID}"> <img
 										src="${pageContext.request.contextPath}${goods.simagePath}">
 									</a>
 								</div>
