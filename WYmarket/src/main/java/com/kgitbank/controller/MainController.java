@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@SessionAttributes({"userNick","lat", "lon", "address"})
+@SessionAttributes({ "userNick", "lat", "lon", "address" })
 public class MainController {
 
 	@Autowired
@@ -35,7 +35,7 @@ public class MainController {
 
 	// 메인페이지
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String mainPageGET(HttpSession session, Model model,String search,String category) {
+	public String mainPageGET(HttpSession session, Model model, String search, String category) {
 		log.info("메인 페이지");
 		System.out.println("메인페이지 세션 값 : " + session.getAttribute("user"));
 
@@ -62,54 +62,70 @@ public class MainController {
 		}
 
 		// 6km 이내인 상품들 따로 DB 테이블 관리를 위해 해당 테이블 내용 삭제
-		wyMarketService.deleteSearchInDistance();
-
+		// wyMarketService.deleteSearchInDistance();
+		List<GoodsVO> distance6km = new ArrayList<GoodsVO>();
 		// 거리 이내의 상품 띄우는 리스트
 		for (String userNick : userNickList6km) {
-			List<GoodsVO> goodsVO = gservice.getGoodsList(userNick);
-			for (GoodsVO goods : goodsVO) {
-				// 6km 이내 상품들을 DB에 하나씩 insert
-				wyMarketService.insertSearchInDistance(goods);
+			List<GoodsVO> items = wyMarketService.selectItemByUserNick(userNick);
+			for (GoodsVO item : items) {
+				distance6km.add(item);
 			}
+			// List<GoodsVO> goodsVO = gservice.getGoodsList(userNick);
+			// for (GoodsVO goods : goodsVO) {
+			// 6km 이내 상품들을 DB에 하나씩 insert
+			// wyMarketService.insertSearchInDistance(goods);
+			// }
 		}
-		
-		if(search==null) {//메인페이지 
-			List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
-			model.addAttribute("goods", sid);
-			System.out.println(sid);
-		}else {//검색창에 검색 했을때
-			List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
-			model.addAttribute("goods", sid);
-			System.out.println(sid);
-		} 
-		
-		if(category!=null) {//카테고리에서 선택 했을때
-			List<SearchInDistance> sid = wyMarketService.selectCategoryGoods(category);
-			model.addAttribute("goods", sid);
-			System.out.println(sid);
+
+		if (search == null) {// 메인페이지
+			// List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
+			model.addAttribute("goods", distance6km);
+			// System.out.println(sid);
+		} else {// 검색창에 검색 했을때
+				// List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
+			List<GoodsVO> distance6kmSearch = new ArrayList<GoodsVO>();
+			for (String userNick : userNickList6km) {
+				List<GoodsVO> items = wyMarketService.selectItemByUserNickSearch(userNick, search);
+				for (GoodsVO item : items) {
+					distance6kmSearch.add(item);
+				}
+			}
+			model.addAttribute("goods", distance6kmSearch);
+			// System.out.println(sid);
+		}
+
+		if (category != null) {// 카테고리에서 선택 했을때
+			// List<SearchInDistance> sid = wyMarketService.selectCategoryGoods(category);
+			List<GoodsVO> distance6kmCategory = new ArrayList<GoodsVO>();
+			for (String userNick : userNickList6km) {
+				List<GoodsVO> items = wyMarketService.selectItemByUserNickCategory(userNick, category);
+				for (GoodsVO item : items) {
+					distance6kmCategory.add(item);
+				}
+			}
+			model.addAttribute("goods", distance6kmCategory);
+			// System.out.println(sid);
 		}
 
 		return "/main";
 	}
-  
+
 	@GetMapping("/main/refreshAddress")
 	public String refreshAddress(Model model, HttpSession session) {
-		
+
 		UserInfo userInfo = (UserInfo) session.getAttribute("user");
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));
 		userInfo.setAddress((String) model.getAttribute("address"));
-		
+
 		wyMarketService.updateLatLonAddress(userInfo);
 		userInfo = wyMarketService.selectUserInfoByUserNick(userInfo.getUserNick());
 		wyMarketService.updateAddressFromItem(userInfo);
 		wyMarketService.updateAddressFromSearchInDistance(userInfo);
-		
+
 		session.setAttribute("user", userInfo);
-		
+
 		return "redirect:/main";
 	}
-	
+
 }
-
-

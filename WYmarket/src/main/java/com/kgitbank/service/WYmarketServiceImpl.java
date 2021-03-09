@@ -368,5 +368,20 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectSearchInDistanceById(itemID);
 	}
 
+	@Override
+	public List<GoodsVO> selectItemByUserNick(String userNick) {
+		return wyMarketMapper.selectItemByUserNick(userNick);
+	}
+
+	@Override
+	public List<GoodsVO> selectItemByUserNickSearch(String userNick, String search) {
+		return wyMarketMapper.selectItemByUserNickSearch(userNick, search);
+	}
+
+	@Override
+	public List<GoodsVO> selectItemByUserNickCategory(String userNick, String category) {
+		return wyMarketMapper.selectItemByUserNickCategory(userNick, category);
+	}
+
 }
 

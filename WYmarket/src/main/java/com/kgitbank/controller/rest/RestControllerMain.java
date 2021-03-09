@@ -61,9 +61,6 @@ public class RestControllerMain implements Serializable {
 		model.addAttribute("lat", lat);
 		model.addAttribute("lon", lon);
 
-		double distanceKiloMeter = GpsDistance.distance(lat, lon, 37.338936, 127.111150, "kilometer");
-		System.out.println("두 위치 간 km" + distanceKiloMeter);
-
 		try {
 			String address = new GpsToAddress(lat, lon).getAddress();
 			System.out.println(address);

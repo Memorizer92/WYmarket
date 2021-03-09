@@ -20,7 +20,7 @@ public class SearchInDistance {
 	private Integer chatCnt;
 	private Integer likeCnt;
 	private Integer viewCnt;
-	private String sSsate;
+	private String sstate;
 	private String sreservationState;
 	
 }

@@ -17,9 +17,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 		UserInfo userInfo = (UserInfo) session.getAttribute("user");
-		System.out.println(userInfo);
 		AdminInfo adminInfo = (AdminInfo) session.getAttribute("Admin");
-		System.out.println(adminInfo);
 
 		if (adminInfo != null) {
 			return true;

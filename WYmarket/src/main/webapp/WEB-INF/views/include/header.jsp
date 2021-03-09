@@ -4,11 +4,13 @@
 <html>
 
 <head>
- 
+
 <meta charset="UTF-8">
- <link rel="icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
-    <link rel="shortcut icon" href="<%=application.getContextPath() %>/image/wyfavicon.ico">
-    <title>공지사항</title>
+<link rel="icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
+<link rel="shortcut icon"
+	href="<%=application.getContextPath()%>/image/wyfavicon.ico">
+<title>공지사항</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -20,7 +22,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
 	crossorigin="anonymous"></script>
- 
+
 
 <style>
 * {
@@ -148,7 +150,6 @@
 	font-size: 40px;
 }
 
-
 .navis {
 	padding-top: 10px;
 	width: 1130px;
@@ -159,14 +160,13 @@
 	flex-wrap: nowrap;
 	justify-content: center;
 }
- 
-        .nick {
-            position: relative;
-            float: left;
-            padding-right: 9px;
-            width: 110px;
-        }
- 
+
+.nick {
+	position: relative;
+	float: left;
+	padding-right: 9px;
+	width: 110px;
+}
 
 .head1 {
 	width: 100%;
@@ -232,10 +232,11 @@ a {
 				<i class="fas fa-bars fontsize big"></i><br>카테고리
 			</button>
 			<div class="dropdown-content">
-				<a href="/wymarket/main?category=전체">전체</a> <a
+				<a href="/wymarket/main?category=여성의류">여성의류</a> <a
+					href="/wymarket/main?category=패션잡화">패션잡화</a><a
 					href="/wymarket/main?category=남성의류">남성의류</a> <a
-					href="/wymarket/main?category=전자기기">전자기기</a> <a
-					href="/wymarket/main?category=기타">기타</a>
+					href="/wymarket/main?category=디지털/가전">디지털/가전</a> <a
+					href="/wymarket/main?category=도서/티켓/취미/애완">도서/티켓/취미/애완</a>
 			</div>
 		</div>
 
@@ -256,17 +257,16 @@ a {
 
 		<a class="sale" href="/wymarket/goods/register"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="상품 등록"><i
-			class="fas fa-won-sign biggest"></i></a> 
-			<a class="mypage" href=""
+			class="fas fa-won-sign biggest"></i></a> <a class="mypage" href=""
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="마이 페이지"><i
-			class="fas fa-user biggest"></i></a> 
-			<a class="chat"
-			href="/wymarket/chats/chatting" onclick="window.open(this.href,'채팅방','width=650,height=800,left=650,top=130');return false;" data-bs-toggle="tooltip"
-			data-bs-placement="bottom" title="채팅"><i
-			class="far fa-comments biggest "></i></a> 
-			<a class="refreshAddress"
-			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip" data-bs-placement="bottom"
-			title="주소 새로고침"><i class="fas fa-map-marked-alt biggest"></i></a>
+			class="fas fa-user biggest"></i></a> <a class="chat"
+			href="/wymarket/chats/chatting"
+			onclick="window.open(this.href,'채팅방','width=650,height=800,left=650,top=130');return false;"
+			data-bs-toggle="tooltip" data-bs-placement="bottom" title="채팅"><i
+			class="far fa-comments biggest "></i></a> <a class="refreshAddress"
+			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip"
+			data-bs-placement="bottom" title="주소 새로고침"><i
+			class="fas fa-map-marked-alt biggest"></i></a>
 	</div>
 	<div class="test"></div>
 

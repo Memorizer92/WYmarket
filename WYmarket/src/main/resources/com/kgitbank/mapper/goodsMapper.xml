@@ -5,59 +5,62 @@
 <mapper namespace="com.kgitbank.mapper.goodsMapper">
 
 	<!-- 상품 목록 -->
-	<select id="getGoodsList" resultType="com.kgitbank.model.GoodsVO">
+	<select id="getGoodsList"
+		resultType="com.kgitbank.model.GoodsVO">
 		SELECT
-			*
+		*
 		FROM
-			sh_item WHERE usernick in (select usernick from sh_userinfo where ban = 'N')
-		ORDER BY 
-			refreshtime desc
+		sh_item WHERE usernick in (select usernick from sh_userinfo where ban = 'N')
+		ORDER BY
+		refreshtime desc
 	</select>
 
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
-	INSERT INTO sh_item (itemid, usernick, ititle, address, manner,
-	icategory, refreshtime, icontent, price, iimagepath, istate)
+		INSERT INTO sh_item (itemid, usernick, ititle, address, manner,
+		icategory, refreshtime, icontent, price, iimagepath, istate)
 
-	VALUES (
-	itemID_seq.nextval,
-	#{user},
-	#{ititle},
-	(select address from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
-	(select manner from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
-	#{icategory},
-	sysdate,
-	#{icontent},
-	#{price},
-	#{iimagepath},
-	'Onsale'
-	)
+		VALUES (
+		itemID_seq.nextval,
+		#{user},
+		#{ititle},
+		(select address from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
+		(select manner from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
+		#{icategory},
+		sysdate,
+		#{icontent},
+		#{price},
+		#{iimagepath},
+		'Onsale'
+		)
 	</insert>
-	
+
 	<!-- 등록 상품 조회 -->
 	<select id="getGoods" resultType="com.kgitbank.model.GoodsVO">
-		SELECT * FROM sh_searchInDistance WHERE itemid = #{itemid}
-	</select> 
-	
-	<!-- 유저아이디(시퀀스) 조회 -->
-	<select  id="getId" resultType="java.lang.String">
-		select userID from sh_userInfo  where userNick = #{userNick}
+		SELECT * FROM sh_item WHERE itemid = #{itemid}
+		<!-- SELECT * FROM sh_searchInDistance WHERE itemid = #{itemid} -->
 	</select>
-	
+
+	<!-- 유저아이디(시퀀스) 조회 -->
+	<select id="getId" resultType="java.lang.String">
+		select userID from sh_userInfo
+		where userNick = #{userNick}
+	</select>
+
 	<!-- 상품목록 수정 -->
 	<update id="goodsModify">
-	 update sh_item
-	     set
-	     	 iimagepath = #{iimagepath},
-	         ititle = #{ititle},
-	         icategory = #{icategory},
-	         price = #{price},
-	         icontent = #{icontent},
-	         istate = #{istate}
-	     where itemid = ${itemid}
+		update sh_item
+		set
+		iimagepath = #{iimagepath},
+		ititle = #{ititle},
+		icategory = #{icategory},
+		price = #{price},
+		icontent = #{icontent},
+		istate = #{istate}
+		where itemid = ${itemid}
 	</update>
-	
-	 
-	
- 
+
+
+
+
 </mapper>
