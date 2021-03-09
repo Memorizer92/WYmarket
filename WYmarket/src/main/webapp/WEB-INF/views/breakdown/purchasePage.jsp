@@ -30,140 +30,140 @@
 
 </head>
 <body>
-<div id="grid_2" class="div">
+	<div id="grid_2" class="div">
 
-	<header
+		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i> 구매내역</header>
-	<!-- 로그인 정보 세션 -->
-	
-	<main>
+			class="titlefont">
+			<i class="fas fa-arrow-left cPoint" style="float: left;"
+				onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>
+			구매내역
+		</header>
+		<!-- 로그인 정보 세션 -->
+
+		<main>
 			<div id="mainDiv">
-			<div>
-			<ul class="list-inline firstli">
-					<li class="list-inline-item menutitle "><button id="salebtn"
-							class="shadow--sm "
-							onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
-							style="border-bottom: 2px solid black;">구매후기 대기중</button></li>	
-				</ul>
-				</div>
-				
 				<div>
-			<ul class="list-inline firstli">
-			<li class="list-inline-item menutitle"><button
-							id="completedbtn" class="shadow--sm "
-							onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">구매후기 환료</button></li>
-			</ul>
-			</div>
-	<c:forEach var="PurchaserPhVO_list" items="${PurchaserPhVO }">
-	
-		<c:if test="${empty PurchaserPhVO_list.ititle }">
+					<ul class="list-inline firstli">
+						<li class="list-inline-item menutitle "><button id="salebtn"
+								class="shadow--sm "
+								onclick="location.href = '<%=application.getContextPath()%>/param/sale'"
+								style="border-bottom: 2px solid black;">구매후기 대기중</button></li>
+						<li class="list-inline-item menutitle"><button
+								id="completedbtn" class="shadow--sm "
+								onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">구매후기
+								환료</button></li>
+					</ul>
+				</div>
+
+				<c:forEach var="PurchaserPhVO_list" items="${PurchaserPhVO }">
+
+					<c:if test="${empty PurchaserPhVO_list.ititle }">
  			구매하신 상품이 없습니다. 
  		</c:if>
 
-		<div class="shadow shadow-strong completed"
-							style="padding: 15px 15px; border-radius: 1rem;">
+					<div class="shadow shadow-strong completed"
+						style="padding: 15px 15px; border-radius: 1rem;">
 
-							<img alt=""
-								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
-								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+						<img alt=""
+							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+							style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
 
-							<div style="width: 100%;">
-								<span style="font-weight: bold; color: darkorange;">[ 구매완료
-								]</span> <br>
-								<input type="checkbox"
-									 name="radio_btn"
-									value="${userItem_list.itemid }" id="titleRadio" onclick="oneCheck(this)" />
-								<span style="font-weight: bold; font-size: 27px;">
-									${PurchaserPhVO_list.ititle } </span> <br>
-									<span> ${PurchaserPhVO_list.address }</span>
+						<div style="width: 100%;">
+							<span style="font-weight: bold; color: darkorange;">[ 구매완료
+								]</span> <br> <input type="checkbox" name="radio_btn"
+								value="${userItem_list.itemid }" id="titleRadio"
+								onclick="oneCheck(this)" /> <span
+								style="font-weight: bold; font-size: 27px;">
+								${PurchaserPhVO_list.ititle } </span> <br> <span>
+								${PurchaserPhVO_list.address }</span> <br>
+							<c:choose>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 0 && PurchaserPhVO_list.refreshTime < 60}">
+									<span>${PurchaserPhVO_list.refreshTime}초 전</span>
 									<br>
-								<c:choose>
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 0 && PurchaserPhVO_list.refreshTime < 60}">
-										<span>${PurchaserPhVO_list.refreshTime}초 전</span>
-										<br>
-									</c:when>
+								</c:when>
 
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 60 && PurchaserPhVO_list.refreshTime < 3600}">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 60)}"
-											integerOnly="true" />
-										<span>${percent}분 전</span>
-										<br>
-									</c:when>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 60 && PurchaserPhVO_list.refreshTime < 3600}">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 60)}"
+										integerOnly="true" />
+									<span>${percent}분 전</span>
+									<br>
+								</c:when>
 
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 3600 && PurchaserPhVO_list.refreshTime < 86400}">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 3600)}"
-											integerOnly="true" />
-										<span>${percent}시간 전</span>
-										<br>
-									</c:when>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 3600 && PurchaserPhVO_list.refreshTime < 86400}">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 3600)}"
+										integerOnly="true" />
+									<span>${percent}시간 전</span>
+									<br>
+								</c:when>
 
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800} ">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
-											integerOnly="true" />
-										<span>${percent }일 전</span>
-										<br>
-									</c:when>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800} ">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
+										integerOnly="true" />
+									<span>${percent }일 전</span>
+									<br>
+								</c:when>
 
 
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800}">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
-											integerOnly="true" />
-										<span>${percent}일 전</span>
-										<br>
-									</c:when>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 86400 && PurchaserPhVO_list.refreshTime < 2764800}">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 86400)}"
+										integerOnly="true" />
+									<span>${percent}일 전</span>
+									<br>
+								</c:when>
 
-									<c:when
-										test="${PurchaserPhVO_list.refreshTime >= 2678400 && PurchaserPhVO_list.refreshTime < 32140800}">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 2678400)}"
-											integerOnly="true" />
-										<span>${percent }달 전</span>
-										<br>
-									</c:when>
-									<c:when test="${PurchaserPhVO_list.refreshTime >= 32140800}">
-										<fmt:parseNumber var="percent"
-											value="${((PurchaserPhVO_list.refreshTime) / 32140800)}"
-											integerOnly="true" />
-										<span>${percent }년 전 </span>
-										<br>
-									</c:when>
-								</c:choose>
+								<c:when
+									test="${PurchaserPhVO_list.refreshTime >= 2678400 && PurchaserPhVO_list.refreshTime < 32140800}">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 2678400)}"
+										integerOnly="true" />
+									<span>${percent }달 전</span>
+									<br>
+								</c:when>
+								<c:when test="${PurchaserPhVO_list.refreshTime >= 32140800}">
+									<fmt:parseNumber var="percent"
+										value="${((PurchaserPhVO_list.refreshTime) / 32140800)}"
+										integerOnly="true" />
+									<span>${percent }년 전 </span>
+									<br>
+								</c:when>
+							</c:choose>
 
-								<input type="radio" value="${PurchaserPhVO_list.itemid }"
-									name="itemid" style="display: none"> <span
-									style="font-weight: bold; font-size: 20px;"> <c:set
-										var="money" value="${PurchaserPhVO_list.price }" /> <fmt:formatNumber
-										value="${money }" type="number" />원 <br></span>
-							</div>
-							<div style="width: 320px; align-self: flex-end;">
-								<span style="margin: 0;" class="like_view"><i
-									class="far fa-comments" style="color: skyblue;"></i>
-									${PurchaserPhVO_list.likecnt } </span> <span style="margin: 0;"
-									class="like_view"><i class="far fa-heart"
-									style="color: red;"></i> ${PurchaserPhVO_list.viewcnt } </span> <br>
-							</div>
+							<input type="radio" value="${PurchaserPhVO_list.itemid }"
+								name="itemid" style="display: none"> <span
+								style="font-weight: bold; font-size: 20px;"> <c:set
+									var="money" value="${PurchaserPhVO_list.price }" /> <fmt:formatNumber
+									value="${money }" type="number" />원 <br></span>
 						</div>
-						<br>
-					
-				
-				</c:forEach>				
-	<button class= "nonebtn"  id ="reviewBtn"style="width: 160px;" onclick="reviewWriting()">구매자 후기남기기</button>
-				</div>
-				</main>
-				</div>
-				
+						<div style="width: 320px; align-self: flex-end;">
+							<span style="margin: 0;" class="like_view"><i
+								class="far fa-comments" style="color: skyblue;"></i>
+								${PurchaserPhVO_list.likecnt } </span> <span style="margin: 0;"
+								class="like_view"><i class="far fa-heart"
+								style="color: red;"></i> ${PurchaserPhVO_list.viewcnt } </span> <br>
+						</div>
+					</div>
+					<br>
 
-<script type="text/javascript">
+
+				</c:forEach>
+				<button class="nonebtn" id="reviewBtn" style="width: 160px;"
+					onclick="reviewWriting()">구매자 후기남기기</button>
+			</div>
+		</main>
+	</div>
+
+
+	<script type="text/javascript">
 
 var radio_btn = document.getElementsByName("radio_btn");
 var radio_btn_check = 0;
