@@ -148,7 +148,7 @@
 	font-size: 40px;
 }
 
-<<<<<<< HEAD
+
 .navis {
 	padding-top: 10px;
 	width: 1130px;
@@ -182,7 +182,7 @@ menu {
 	position: relative;
 	float: left;
 	padding-right: 9px;
-	width: 80px;
+	width: 110px;
 }
 
 .search {
@@ -261,12 +261,12 @@ a {
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="마이 페이지"><i
 			class="fas fa-user biggest"></i></a> 
 			<a class="chat"
-			href="/wymarket/chats/chatting" data-bs-toggle="tooltip"
+			href="/wymarket/chats/chatting" onclick="window.open(this.href,'채팅방','width=650,height=800,left=650,top=130');return false;" data-bs-toggle="tooltip"
 			data-bs-placement="bottom" title="채팅"><i
 			class="far fa-comments biggest "></i></a> 
 			<a class="refreshAddress"
 			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip" data-bs-placement="bottom"
-			title="주소 새로고침"><i class="fas fa-sync-alt biggest"></i></a>
+			title="주소 새로고침"><i class="fas fa-map-marked-alt biggest"></i></a>
 	</div>
 	<div class="test"></div>
 

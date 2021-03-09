@@ -48,7 +48,8 @@
 		update sh_noticement set 
 			ntitle = #{ntitle},
 			ncontent = #{ncontent},
-			adminNick = #{adminNick}
+			adminNick = #{adminNick},
+			ndate = sysdate
 		where noticeID=#{noticeID}  
 	</update>
 

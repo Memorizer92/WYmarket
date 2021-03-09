@@ -70,6 +70,9 @@
 		update chat_info set buyerCount=0,sellerCount=0
 	</update>
 
+	<delete id="deleteChat">
+		delete from chat_info where roomId = #{roomId}
+	</delete>
 
 </mapper>
 
