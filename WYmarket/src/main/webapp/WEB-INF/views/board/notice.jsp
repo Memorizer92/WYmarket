@@ -342,17 +342,41 @@ a {
 	border-color: rgba(70, 70, 85, 1);
 }
 
-
 #buttonContainer {
 	text-align: center;
 }
 
+.tt:link {
+	color: black;
+	text-decoration: none;
+}
+
+.tt:visited {
+	color: black;
+}
+
 .foot {
 	padding-top: 12px;
-	width: 1130px;
+	width: 100%;
+	min-width:1200px;
 	height: 50px;
 	text-align: center;
 }
+
+.fonts {
+	font-family: 'Josefin Sans', sans-serif;
+	font-weight: 700;
+	color: rgb(153, 152, 152);
+	font-size: 14px;
+	min-width:1200px;
+	line-height: 150%;
+	margin-left: 24%;
+}
+</style>
+<style>
+@import
+	url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap')
+	;
 </style>
 
 
@@ -715,10 +739,10 @@ a {
 							<div id="collapseOne" class="accordion-collapse collapse show"
 								aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-									<b>거래금지품목은 이용약관 및 현행 법률에 따라 즉시 삭제 및 계정 차단이 될 수 있으므로 운영정책을 참고하셔서 이용
-									부탁 드립니다.</b> <br>개인정보 : 개인정보를 사고파는 행위와 면허증, 허가증, 등록증 등을 위, 변조하는 행위는 형법에
-									따라 처벌받을 수 있습니다.<br> 예시) 주민등록증, 여권, 학생증, 수험표, 운전면허증, 대포통장,
-									듀얼폰, 듀얼넘버 등 
+									<b>거래금지품목은 이용약관 및 현행 법률에 따라 즉시 삭제 및 계정 차단이 될 수 있으므로 운영정책을
+										참고하셔서 이용 부탁 드립니다.</b> <br>개인정보 : 개인정보를 사고파는 행위와 면허증, 허가증, 등록증
+									등을 위, 변조하는 행위는 형법에 따라 처벌받을 수 있습니다.<br> 예시) 주민등록증, 여권, 학생증,
+									수험표, 운전면허증, 대포통장, 듀얼폰, 듀얼넘버 등
 
 								</div>
 							</div>
@@ -741,7 +765,7 @@ a {
 								</div>
 							</div>
 						</div>
-					
+
 
 					</div>
 
@@ -800,7 +824,7 @@ a {
 								</div>
 							</div>
 						</div>
-					 
+
 					</div>
 
 
@@ -848,7 +872,7 @@ a {
 								aria-labelledby="headingThree"
 								data-bs-parent="#accordionExample">
 								<div class="accordion-body">
-								<strong>1. 상품 삭제 기준</strong> <br> - 거래금지품목(술,전자담배,계정,의약품
+									<strong>1. 상품 삭제 기준</strong> <br> - 거래금지품목(술,전자담배,계정,의약품
 									등)을 판매 등록한 경우<br> - 타 사이트 홍보 및 외부 url이 있는 경우<br> <strong>2.
 										상품 판매 완료 기준</strong> <br> - 운영정책 위반으로 상점이 차단된 경우 판매중인 상품은 판매완료로 변경<br>
 
@@ -870,7 +894,7 @@ a {
 								</div>
 							</div>
 						</div>
-					 
+
 
 					</div>
 				</div>
@@ -906,8 +930,8 @@ a {
 								</div>
 							</div>
 						</div>
-					 
-					 
+
+
 
 					</div>
 				</div>
@@ -969,8 +993,8 @@ a {
 								</div>
 							</div>
 						</div>
-					 
-						 
+
+
 
 					</div>
 				</div>
@@ -1047,7 +1071,7 @@ a {
 								</div>
 							</div>
 						</div>
-					 
+
 
 					</div>
 				</div>
@@ -1205,7 +1229,30 @@ a {
 		class="tt" href="/wymarket/board/privacyPolicy"><b>개인정보처리방침</b></a>│
 </footer>
 <hr>
+<div class="fonts">
+	<div style="color: black; font-weight: lighter;">
+		<img src="<%=application.getContextPath()%>/image/wylogo.jpg" alt=""
+			width="160" height="45"> &emsp; <b>회사소개</b><br>
+		<br>
+		<b>누구나, 무엇이든 쉽고 편하고 안전하게 거래하는 세상을 꿈꾸고 있습니다.</b><br>
+		<br>
+		<br>
+	</div>
+	대표이사: 이재후 | 개인정보보호담당자: 이동주 | 사업자등록정보: 113-86-45836 | 통신판매업신고:
+	2019-서울서초-1126<br> 주소: 서울특별시 서초구 서초대로38길 12 마제스타시티 타워2 지하1층<br>
+	고객센터 대표번호: 1670-2910 | FAX: 02-598-8241<br> 고객센터 운영시간: 전화문의 :
+	9시~18시(주말.공휴일 제외) | 1:1문의 : 9시~18시<br>
+	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;※점심시간
+	12~13시<br> 고객센터 문의 help@bunjang.co.kr | 제휴문의 partner@bunjang.co.kr<br>
+	호스팅서비스 제공자: Amazon Web Services (AWS)<br> “번개장터_컨시어지” 상점의 판매상품을
+	제외한 모든 상품들에 대하여, 번개장터㈜는 통신판매중개자로서 중고거래마켓 번개장터의 거래 당사자가 아니며,<br>
+	입점판매자가 등록한 상품정보 및 거래에 대해 책임을 지지 않습니다. <b>우리은행 채무지급보증 안내</b><br>
+	번개장터(주)는 “번개장터_컨시어지” 상점이 판매한 상품에 한해, 고객님이 현금 결제한 금액에 대해 우리은행과 채무지급보증
+	계약을 체결하여 안전거래를<br> 보장하고 있습니다.<br>
+	<br> Copyright ⓒ Bungaejangter Inc. All rights reserved. <br>
+	<br>
 
+</div>
 <script
 	src="<%=application.getContextPath()%>/resources/assets/js/notice.js"></script>
 

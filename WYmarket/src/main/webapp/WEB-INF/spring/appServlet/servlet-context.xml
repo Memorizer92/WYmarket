@@ -55,11 +55,17 @@
 		class="com.kgitbank.util.SocketHandler" />
 
 
-	<!-- 업로드 패스 설정 -->
+
+
+
+	<!-- 업로드 패스 설정 (각자 경로에 맞게 설정) -->
+	<!-- C:\Users\jongh\git\WYmarket\WYmarket\src\main\webapp\resources -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-			value="C:\Users\Hyun\Desktop\JAVA SW DEVELOPER OCTOBER HYUN\gitWYmarket\WYmarket\WYmarket\src\main\webapp\resources" />
+			value="C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources" />
 	</beans:bean>
+
+
 
 
 	<!-- 일반 파일 업로드 경로 -->
