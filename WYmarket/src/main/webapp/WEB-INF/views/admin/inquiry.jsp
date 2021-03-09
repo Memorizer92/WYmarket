@@ -132,6 +132,11 @@ textarea {
 	border-color: #FF8A3D;
 }
 
+.btn-primary:hover {
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
+}
+
 #backbtn {
 	background-color: rgba(70, 70, 85, 1);
 	border-color: rgba(70, 70, 85, 1);
