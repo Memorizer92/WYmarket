@@ -63,7 +63,7 @@
 <body>
 	<div class="container-md cen style">
 		<div class="top">WY Talk Room</div>
-		<button onclick="location.href='/wymarket/main'" class="btn btn-primary" type="button" style="background-color: gray;">메인으로</button><br><br> 
+	<!-- 	<button onclick="location.href='/wymarket/main'" class="btn btn-primary" type="button" style="background-color: gray;">메인으로</button><br><br>  -->
 		<div class="content" style="overflow: auto;">
 			${userNick}님의 채팅방 목록
 			<hr>
