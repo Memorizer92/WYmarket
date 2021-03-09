@@ -34,7 +34,7 @@
 
 	<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i> 구매내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i> 구매내역</header>
 	<!-- 로그인 정보 세션 -->
 	
 	<main>
@@ -73,7 +73,7 @@
 								]</span> <br>
 								<input type="checkbox"
 									 name="radio_btn"
-									value="${userItem_list.itemid }" id="titleRadio" />
+									value="${userItem_list.itemid }" id="titleRadio" onclick="oneCheck(this)" />
 								<span style="font-weight: bold; font-size: 27px;">
 									${PurchaserPhVO_list.ititle } </span> <br>
 									<span> ${PurchaserPhVO_list.address }</span>
@@ -157,7 +157,7 @@
 					
 				
 				</c:forEach>				
-	<button class= "nonebtn" style="width: 160px;" onclick="reviewWriting()">구매자 후기남기기</button>
+	<button class= "nonebtn"  id ="reviewBtn"style="width: 160px;" onclick="reviewWriting()">구매자 후기남기기</button>
 				</div>
 				</main>
 				</div>
@@ -167,6 +167,17 @@
 
 var radio_btn = document.getElementsByName("radio_btn");
 var radio_btn_check = 0;
+
+if (radio_btn.length == 0) {
+	document.getElementById("reviewBtn").style.display = 'none';
+}
+
+function oneCheck(element) {
+	radio_btn.forEach((cd) => {
+		cd.checked = false;
+	});
+	element.checked = true;
+}
 
 function reviewWriting() {
 	for( var i = 0; i < radio_btn.length; i++ ){  		

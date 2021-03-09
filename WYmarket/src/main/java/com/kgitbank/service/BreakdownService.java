@@ -83,7 +83,17 @@ public class BreakdownService implements IBreakdownService {
 		return break_mapper.purchasedetailsCount(usernick);
 	}
 
+	@Override
+	public int getShuserInfoCdate(String usernick) {
+		return break_mapper.getShuserInfoCdate(usernick);
+	}
 
+	@Override
+	public int shitemVOCount(String usernick) {
+		return break_mapper.shitemVOCount(usernick);
+	}
+
+	
 
 	
 

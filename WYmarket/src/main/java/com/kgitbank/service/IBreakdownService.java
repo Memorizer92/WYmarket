@@ -32,5 +32,8 @@ public interface IBreakdownService {
 	
 	int purchasedetailsCount(String usernick);
 	
+	int shitemVOCount(String usernick);
+	
+	int getShuserInfoCdate(String usernick);
 
 }

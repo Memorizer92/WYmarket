@@ -17,8 +17,7 @@ public class ShUserInfoVO {
 	private Integer manner;
 	private Integer varifycnt;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate usercreatedate;
+	private Integer usercreatedate;
 	private Integer saleitemcnt;
 	private Integer reviewcnt;
 	private String keyword;
