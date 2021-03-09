@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.kgitbank.mapper.breakdownMapper;
+import com.kgitbank.model.Pageination;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
 import com.kgitbank.model.ShUserInfoVO;
@@ -91,6 +92,16 @@ public class BreakdownService implements IBreakdownService {
 	@Override
 	public int shitemVOCount(String usernick) {
 		return break_mapper.shitemVOCount(usernick);
+	}
+
+	@Override
+	public List<ShItemVO> getUserItemList(Pageination paging) {	
+		return break_mapper.getUserItemList(paging);
+	}
+
+	@Override
+	public int getCount(String usernick) {
+		return break_mapper.getCount(usernick);
 	}
 
 	

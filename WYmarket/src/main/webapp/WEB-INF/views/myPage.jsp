@@ -164,7 +164,7 @@
 									<c:when test="${shitemCount != 0 }">
 										<div class="khixbV">
 
-											<c:forEach var="shitem_List" items="${itemvo }">
+											<c:forEach var="shitem_List" items="${pageList }">
 												<c:if test="${shitem_List.istate eq 'Onsale'}">
 													<div class="fwledp">
 
@@ -271,7 +271,43 @@
 			</div>
 		</div>
 	
+		<div>
+		
+		
+	
+		
+<c:url var="previousHref" value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }"/>
+<c:url var="nextHref" value="./myPage?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${usernick }"/>
 
+<c:url var="onego" value="./myPage?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${usernick }"/>
+<c:url var="oneback" value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${usernick }"/>
+<nav aria-label="...">
+        <ul class="pagination">  
+                     
+                <li class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
+              <a class="page-link" href="${previousHref }" tabindex="-1" aria-disabled="true">&lt;&lt;</a>
+                </li>
+                              
+                 <li class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
+                   <a class="page-link" href="${oneback }" tabindex="-1" aria-disabled="true">&lt;</a>
+                </li>
+                
+                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }">                                
+                        <li class="page-item<c:if test="${page.currPage eq i }"> active</c:if>" aria-current="page">
+                              <a class="page-link" href="./myPage?pagenum=${i }&amount=${page.amount }&usernick=${usernick }">${i }</a>     
+                  		</li>                                             
+                </c:forEach>
+                                
+                  <li class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
+                   <a class="page-link" href="${onego }" tabindex="-1" aria-disabled="true">&gt;</a>
+                                     
+                </li>
+                <li class="page-item<c:if test="${not page.next }"> disabled</c:if>">
+                        <a class="page-link" href="${nextHref }" tabindex="-1" aria-disabled="true">&gt;&gt;</a>
+                </li>    
+          </ul>
+</nav>
+			</div>
 
 		<footer id="footer">
 			<div id="footer_box">

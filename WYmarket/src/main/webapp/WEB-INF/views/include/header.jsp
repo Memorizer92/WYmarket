@@ -220,6 +220,7 @@ a {
 		<menu>
 			<div class="head2 container-xl">
 				<li class="nick"><strong>${userNick}</strong>님</li>
+				<li id = "myStore" class="nick myStor" style="cursor: pointer;"><strong>내 상점</strong></li>
 				<li id="kakaoLogout" class="logout">로그아웃</li>
 			</div>
 		</menu>
@@ -282,5 +283,10 @@ a {
 		        }, 1000); 
 			});
 		 
+	 
+document.getElementById('myStore').addEventListener('click',()=>{				
+		 
+		 location.href = '<%=application.getContextPath()%>/param/myPage';
+			});
 	</script>
 </html>

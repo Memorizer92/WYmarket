@@ -164,7 +164,7 @@
 }
 
 .hwfws3 {
-	-webkit-box-align: center;
+
 	align-items: center;
 	display: flex;
 	flex: 1 1 0%;
@@ -245,13 +245,14 @@
 	display: flex;
 	flex: 1 1 0%;
 	flex-wrap: wrap;
-	padding: 2px 8px;
+
 	position: relative;
 	overflow: hidden;
 	box-sizing: border-box;
 }
 
 .sing {
+width: 100%;
 	color: rgb(51, 51, 51);
 	margin-left: 2px;
 	margin-right: 2px;
@@ -322,8 +323,18 @@
 							<div class="cont">
 								<div class="eAMYPo">
 									
-									<select class="hwfws3">
-										<option value="10">10개씩</option>
+									
+									
+									
+
+									
+									
+									<select class="hwfws3" name ="pageOpenCount" onchange="if(this.value) location.href=(this.value);" st>
+										<option selected disabled="disabled">목록 수</option>
+										<option value="./Productmanagement?pagenum=1&amount=2&usernick=${user.userNick }">10개씩</option>
+										<option value="./Productmanagement?pagenum=1&amount=3&usernick=${user.userNick }">20개씩</option>
+										<option value="./Productmanagement?pagenum=1&amount=4&usernick=${user.userNick }">50개씩</option>
+										
 									</select>
 									
 								</div>
@@ -353,7 +364,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="shitem_List" items="${itemvo }">
+
+							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
 									<td><a href=""><img
 											src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
@@ -433,6 +445,45 @@
 				</main>
 			</div>
 		</div>
+
+
+
+
+	
+
+<div>
+<c:url var="previousHref" value="./Productmanagement?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${user.userNick }"/>
+<c:url var="nextHref" value="./Productmanagement?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${user.userNick }"/>
+
+<c:url var="onego" value="./Productmanagement?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${user.userNick }"/>
+<c:url var="oneback" value="./Productmanagement?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${user.userNick }"/>
+<nav aria-label="...">
+        <ul class="pagination">  
+                     
+                <li class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
+              <a class="page-link" href="${previousHref }" tabindex="-1" aria-disabled="true">&lt;&lt;</a>
+                </li>
+                              
+                 <li class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
+                   <a class="page-link" href="${oneback }" tabindex="-1" aria-disabled="true">&lt;</a>
+                </li>
+                
+                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }">                                
+                        <li class="page-item<c:if test="${page.currPage eq i }"> active</c:if>" aria-current="page">
+                              <a class="page-link" href="./Productmanagement?pagenum=${i }&amount=${page.amount }&usernick=${user.userNick }">${i }</a>     
+                  		</li>                                             
+                </c:forEach>
+                                
+                  <li class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
+                   <a class="page-link" href="${onego }" tabindex="-1" aria-disabled="true">&gt;</a>
+                                     
+                </li>
+                <li class="page-item<c:if test="${not page.next }"> disabled</c:if>">
+                        <a class="page-link" href="${nextHref }" tabindex="-1" aria-disabled="true">&gt;&gt;</a>
+                </li>    
+          </ul>
+</nav>
+			</div>
 
 
 		<footer id="footer">

@@ -1,6 +1,7 @@
 package com.kgitbank.model;
 
 import java.sql.Timestamp;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

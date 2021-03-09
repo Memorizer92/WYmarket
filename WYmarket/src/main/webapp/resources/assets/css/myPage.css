@@ -309,9 +309,9 @@
 }
 
 .iucOgr {
-	position: absolute;
+	position: fixed;
 	top: 102px;
-	right: calc(50% - 617px);
+	right: 10px;
 	z-index: 20;
 }
 
@@ -420,9 +420,8 @@
 }
 
 .fwledp {
-	width: 196px;
-	margin-right: 11px;
-	margin-bottom: 11px;
+	    width: 236px;
+    margin: 8px 10px;
 }
 
 .jfyxup {
