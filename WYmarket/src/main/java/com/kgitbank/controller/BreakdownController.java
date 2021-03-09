@@ -37,8 +37,15 @@ public class BreakdownController {
 	BreakdownService bservice;
 		
 	@GetMapping("/myPage")
-	public String test01() {
-		
+	public String test01(Model model, HttpSession session) {
+		UserInfo user = (UserInfo) session.getAttribute("user");
+		String userNick = user.getUserNick();
+		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));					
+		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
+		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
+		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+		model.addAttribute("products", "products");		
+		log.fatal(model.getAttribute("shitemCount"));
 		return "/myPage";
 	}
 
@@ -113,7 +120,7 @@ public class BreakdownController {
 		  }
 		  model.addAttribute("usernick", userNick);
 		  model.addAttribute("itemvo", bservice.getShitemVO(userNick));	  
-		  return "/breakdown/sale/hiddenPage";
+		  return "redirect:/param/sale";
 	  }
 	  
 	// 예약 하기 / 취소
@@ -171,7 +178,6 @@ public class BreakdownController {
 	}
 
 			
-	
 	
 	
 	

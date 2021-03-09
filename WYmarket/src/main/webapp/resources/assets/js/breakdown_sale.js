@@ -21,12 +21,14 @@ var idradio_btn = document.getElementsByName("itemid");
 
 
 if (radio_btn.length == 0) {
+	
 	nonexistent.style.display = 'block';
 	nonexistent.innerText = '상품이 존재하지 않습니다.';
 	var dis = document.querySelectorAll(".disabled");
 	dis.forEach(function(userItem) {
 		userItem.style.pointerEvents = 'none';
 		userItem.style.opacity = '0.6';
+		
 
 	});
 }
@@ -44,7 +46,7 @@ function productChoice() {
 	dis.forEach(function(userItem) {
 		userItem.style.pointerEvents = 'none';
 		userItem.style.opacity = '0.6';
-
+	
 	});
 }
 

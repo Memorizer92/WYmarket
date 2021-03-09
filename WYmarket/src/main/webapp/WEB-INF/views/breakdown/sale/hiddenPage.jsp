@@ -37,7 +37,7 @@
 				
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i>숨김 상품</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>숨김 상품</header>
 		<main>
 		<div id="mainDiv">								
 				<ul class="list-inline firstli">
@@ -93,7 +93,7 @@
 									${userItem_list.ititle } </span> <br> <input type="checkbox"
 									 name="ititle"
 									value="${userItem_list.ititle }" style="display: none;"
-									id="titleRadio" /><span> ${userItem_list.address }</span>
+									id="titleRadio" onclick="oneCheck(this)" /><span> ${userItem_list.address }</span>
 								<c:choose>
 									<c:when
 										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
@@ -197,6 +197,14 @@ if(radio_btn.length == 0){
 for( var i = 0; i < radio_btn.length; i++ ){  		
 	radio_btn[i].style.display = 'block';
 }	
+
+
+function oneCheck(element) {
+	radio_btn.forEach((cd) => {
+		cd.checked = false;
+	});
+	element.checked = true;
+}
 
 function hiddenCancellations() {
 	istate = 'Onsale';

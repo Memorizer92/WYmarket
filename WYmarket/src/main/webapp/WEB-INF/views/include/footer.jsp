@@ -31,6 +31,7 @@
 <body>
   
  
+ 
     <hr>
     <footer class="foot container-xl "> 
     
@@ -41,6 +42,7 @@
        │<a class="tt" href="/wymarket/board/privacyPolicy"><b>개인정보처리방침</b></a>│
     </footer>
     <hr>
+
 
 </body>
 
