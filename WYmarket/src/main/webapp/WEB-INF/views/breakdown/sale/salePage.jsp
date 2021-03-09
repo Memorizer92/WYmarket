@@ -37,7 +37,7 @@
 	<div id="grid_2" class="div">
 		<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i>판매내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>판매내역</header>
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">

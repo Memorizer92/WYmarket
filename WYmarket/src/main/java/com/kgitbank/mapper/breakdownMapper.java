@@ -64,10 +64,12 @@ public interface breakdownMapper {
 			@Param("itemid") String itemid
 			);
 
-	int purchasedetailsCount(
-			@Param("usernick") String usernick
-			);
+	int purchasedetailsCount(@Param("usernick") String usernick);
 		
+	int shitemVOCount(@Param("usernick") String usernick);
+	
+	int getShuserInfoCdate(@Param("usernick") String usernick);
+	
 	
 	
 			

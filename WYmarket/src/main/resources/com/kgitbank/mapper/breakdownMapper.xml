@@ -8,6 +8,19 @@
 SELECT usernick from sh_userInfo 
 </select>
 
+
+<select id="getShuserInfoCdate" resultType="int">
+<![CDATA[
+SELECT 
+ (SELECT EXTRACT(DAY FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(usercreatedate, 'yy/mm/dd hh24:mi:ss') tm FROM dual)) as usercreatedate
+		from sh_userinfo where usernick = #{usernick}
+		]]>	
+</select>
+
 <select id="getShitemVO" resultType="com.kgitbank.model.ShItemVO">
 SELECT  itemID, iImagePath, userNick, 
 <![CDATA[
@@ -51,9 +64,15 @@ SELECT itemID, iImagePath, Purchaser,
 ]]>	
 </select>
 
+<select id="shitemVOCount" resultType="int">
+		SELECT COUNT(*) from sh_item where usernick = #{usernick} and istate = 'Onsale'
+</select>
+
 <select id="purchasedetailsCount" resultType="int">
 		SELECT COUNT(*) from purchasedetails where usernick = #{usernick}
 </select>
+
+
 
 
 <update id="completedIstate">
@@ -90,9 +109,6 @@ INSERT INTO purchasedetails (itemid,purchaser,usernick,address,ititle,price) val
 (select price from sh_item where ititle = #{ititle} AND istate = #{istate} AND usernick = #{usernick} AND itemid = #{itemid})
 )	  	 
 </insert>
-
-
-
 
 
 </mapper>

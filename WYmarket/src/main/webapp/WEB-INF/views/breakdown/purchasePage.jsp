@@ -34,7 +34,7 @@
 
 	<header
 			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/param/myPage'"></i> 구매내역</header>
+			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i> 구매내역</header>
 	<!-- 로그인 정보 세션 -->
 	
 	<main>
