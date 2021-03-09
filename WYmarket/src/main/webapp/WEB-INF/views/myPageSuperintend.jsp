@@ -207,8 +207,8 @@ background-color: white;
 		<div class="mainBar">
 			<nav class="productBarMain">
 
-				<div class="productBar productBarAfter">상품등록</div>
-				<div class="productBar productBarAfter">상품관리</div>
+				<div class="productBar productBarAfter"><button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/goods/getGoodsRegister' ">상품등록</button></div>
+				<div class="productBar productBarAfter"><button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/mypage/Productmanagement'">상품관리</button></div>
 				<div class="productBar"> <button class ="breakdown" onclick="location.href ='<%=application.getContextPath()%>/param/purchase'">구매</button> / <button class ="breakdown" onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매내역</button> </div>
 			</nav>
 		</div>
@@ -260,23 +260,6 @@ background-color: white;
 		</div>
 
 
-
-
-
-
-
-
-
-		<form action="<%=application.getContextPath()%>/param/sale"
-			method="get">
-			<input type="submit" value="판매내역" />
-		</form>
-		<div>
-			<form action="<%=application.getContextPath()%>/param/purchase"
-				method="get">
-				<input type="submit" value="구매내역" />
-			</form>
-		</div>
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
