@@ -59,7 +59,7 @@ textarea#icontent {
 			<div id="container_box">
 				<h2>상품 목록</h2>
 
-				<form role="form" method="post" autocomplete="off">
+				<form role="form" method="post" autocomplete="off" name="form">
 					<input type="hidden" name="n" value="${goods.itemid}" />
 					
 					<div class="inputArea">
@@ -99,7 +99,7 @@ textarea#icontent {
 							var formObj = $("form[role='form']");
 							
 							$("#modify_Btn").click(function(){
-								formObj.attr("submit", "/goods/modify");//action
+								formObj.attr("action", "./modify");//action
 								formObj.attr("method", "get")
 								formObj.submit();
 							});

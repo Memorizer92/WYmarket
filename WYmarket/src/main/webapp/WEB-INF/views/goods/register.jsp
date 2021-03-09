@@ -10,63 +10,48 @@
 <script type="text/javascript">
 
 function inputCheck() {
-    /* var iimagepath = document.regForm.iimagepath.value;
-    var val = 
-    var ititle = document.regForm.ititle.value;
-    var icategory = document.regForm.icategory.value;
-    var price = document.regForm.price.value;
-    var icontent = document.regForm.icontent.value; */
-    /*  const iimagepath = document.getElementById("iimagepath") */
-    
-    /* const bbb = document.getElementById("bbb").value; */
-    //$Temp.ImagePath -like "*D:\*"
-    
-    //const iimagepath = document.getElementById("iimagepath").value;
     var iimagepath = document.form.iimagepath.value;
-    const ititle = document.getElementById("ititle").value; /* .value = 'test' */
+    const ititle = document.getElementById("ititle").value;
     const icg = document.getElementById("icategory");
     const icategory = icg.options[icg.selectedIndex].value;
     const icontent = document.getElementById("icontent").value;
-    /* const icontent = document.form.icontent.value; */
     const price = document.getElementById("price").value;
-    /* document.getElementById("iimagepath").enctype = "multipart/form-data"; */
     
-    /* var iimagepath = document.form.iimagepath.value; */
-    /* var iimagepaths = document.getElementById("iimagepath").value;
-    var iimagepath = iimagepaths - "C:/fakepath/";
-    //var length = document.regForm.length - 1;
-	/* console.log(bbb); */
-	
-    /* if (iimagepath == null || iimagepath == "") {
-        alert('상품 이미지를 선택해주세요');
-        document.form.title.focus();
+    if (iimagepath == null || iimagepath == "") {
+        alert('이미지를 등록해주세요');
+        document.form.iimagepath.focus();
         return;
-    } */
+    }
     if (ititle == null || ititle == "") {
         alert('제목을 입력해주세요');
         document.form.ititle.focus();
         return;
     }
-    if (icategory == null || icategory == "") {
+    if (icategory == null || icategory == "전체") {
         alert('카테고리를 선택해주세요');
         document.form.icategory.focus();
         return;
+    }
+    if (price == null || price == ""){
+        alert('가격을 입력해주세요');  
+        document.form.price.focus();                       
+        return;  
+    }
+    if (price.match(/^[0-9]*$/ig) == null){
+        alert('숫자만 입력해주세요');  
+        document.form.price.focus();                       
+        return;  
+    }
+    if (price <= 100){
+    	alert('100원 이상 입력해주세요');  
+        document.form.price.focus();                       
+        return;  
     }
     if (icontent == null || icontent == "") {
         alert('내용을 입력해주세요');
         document.form.icontent.focus();
         return;
     }
-    if(price == null || price == ""){
-        alert('가격을 입력해주세요');  
-        document.form.price.focus();                       
-        return;  
-    }/* 
-    if(price.match(/^[0-9]*$/ig) == null){
-        alert('숫자만 입력해주세요');  
-        document.regForm.price.focus();                       
-        return;  
-    } */
     document.form.submit();
     <%-- var form = document.createElement("form");
     form.setAttribute("method", "post");
@@ -114,7 +99,6 @@ textarea#icontent {
 <title>상품등록</title>
 </head>
 <body>
-<!-- <input type="text" id = "bbb" value="park"></input> -->
 	<div id="root">
 		<header id="header">
 			<div id="header_box">
@@ -129,9 +113,8 @@ textarea#icontent {
 		<section id="container">
 			<div id="container_box">
 				<h2>상품 등록</h2>
-				<!-- /{iimagepath}/{ititle}/{icategory}/{icontent}/{price}") -->
 				<form action="./add" role="form" method="POST" name="form"
-				 autocomplete="off"  enctype="multipart/form-data"> <!-- name="regForm" -->
+				 autocomplete="off"  enctype="multipart/form-data">
 					
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
@@ -149,8 +132,6 @@ textarea#icontent {
 							   }
 							  });
 						</script>
-						<p>아래 주소는 각 컴퓨터 마다 다르기 때문에 각자 값을 Value에 추가해주세요!</p>
-						<%=request.getRealPath("/") %>
 					</div>
 					
 					<div class="inputArea">
@@ -159,10 +140,8 @@ textarea#icontent {
 					</div>
 					<div class="inputArea">
 						<label for="icategory">카테고리</label> 
-						<!-- <input type="text" id="icategory" name="icategory" /> -->
 						<select id="icategory" name="icategory" >
 							<option selected>전체</option>
-							<option>test</option>
 							<option>여성의류</option>
 							<option>패션잡화</option>
 							<option>남성의류</option>
@@ -182,7 +161,6 @@ textarea#icontent {
 					</div>
 					
 					<div class="inputArea">
-						<!-- <button type="submit" id="register_Btn">등록</button> -->
 						<input type="button" value="등록" onclick="inputCheck()"/>
 					</div>
 				</form>
