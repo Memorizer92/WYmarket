@@ -12,44 +12,49 @@
 	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 function inputCheck() {
-    var iimagepath = document.updateForm.iimagepath.value;
-    var ititle = document.updateForm.ititle.value;
-    var icategory = document.updateForm.icategory.value;
-    var price = document.updateForm.price.value;
-    var icontent = document.updateForm.icontent.value;
-    //var length = document.regForm.length - 1;
-
+	var iimagepath = document.form.iimagepath.value;
+    const ititle = document.getElementById("ititle").value;
+    const icg = document.getElementById("icategory");
+    const icategory = icg.options[icg.selectedIndex].value;
+    const icontent = document.getElementById("icontent").value;
+    const price = document.getElementById("price").value;
+    
     if (iimagepath == null || iimagepath == "") {
-        alert('상품 이미지를 선택해주세요');
-        document.updateForm.title.focus();
+        alert('이미지를 등록해주세요');
+        document.form.iimagepath.focus();
         return;
     }
     if (ititle == null || ititle == "") {
         alert('제목을 입력해주세요');
-        document.updateForm.ititle.focus();
+        document.form.ititle.focus();
         return;
     }
-    if (icategory == null || icategory == "") {
+    if (icategory == null || icategory == "전체") {
         alert('카테고리를 선택해주세요');
-        document.updateForm.icategory.focus();
+        document.form.icategory.focus();
         return;
     }
-    if(price == null || price == ""){
+    if (price == null || price == ""){
         alert('가격을 입력해주세요');  
-        document.updateForm.price.focus();                       
+        document.form.price.focus();                       
         return;  
     }
-    if(price.match(/^[0-9]*$/ig) == null){
+    if (price.match(/^[0-9]*$/ig) == null){
         alert('숫자만 입력해주세요');  
-        document.updateForm.price.focus();                       
+        document.form.price.focus();                       
+        return;  
+    }
+    if (price <= 100){
+    	alert('100원 이상 입력해주세요');  
+        document.form.price.focus();                       
         return;  
     }
     if (icontent == null || icontent == "") {
         alert('내용을 입력해주세요');
-        document.updateForm.content.focus();
+        document.form.icontent.focus();
         return;
     }
-    document.updateForm.submit();
+    document.form.submit();
 }
 </script>
 <style>
@@ -63,7 +68,7 @@ select {
 
 label {
 	display: inline-block;
-	width: 70px;
+	width: 150px;
 	padding: 5px;
 }
 
@@ -77,10 +82,12 @@ input {
 
 textarea#icontent {
 	width: 400px;
-	height: 180px;
+	height: 400px;
 }
 
 .select_img img {
+	width: 300px;
+	height: 300px;
 	margin: 20px 0;
 }
 </style>
@@ -101,16 +108,31 @@ textarea#icontent {
 		</nav>
 		<section id="container">
 			<div id="container_box">
-				<h2>상품 등록</h2>
+				<h2>상품 수정</h2>
 
-				<form role="form" method="POST" name="updateForm"
+				<form role="form" method="POST" name="form"
 					autocomplete="off" enctype="multipart/form-data">
 					
 					<input type="hidden" name="itemid" value="${goods.itemid}" />
 
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
-						<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
+						<input type="file" id="iimagepath" name="iimagepath" />
+						<div class="select_img">
+							<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
+							<input type="hidden" name="iimagepath" value="${pageContext.request.contextPath}${goods.iimagepath }" />
+						</div>
+						<script>
+							$("#iimagepath").change(function(){
+							   if(this.files && this.files[0]) {
+							    var reader = new FileReader;
+							    reader.onload = function(data) {
+							     $(".select_img img").attr("src", data.target.result).width(300);        
+							    }
+							    reader.readAsDataURL(this.files[0]);
+							   }
+							  });
+						</script>
 					</div>
 					
 					<div class="inputArea">
@@ -118,14 +140,20 @@ textarea#icontent {
 						<input type="text" id="ititle" name="ititle" value="${goods.ititle}"/>
 					</div>
 					<div class="inputArea">
-						<label for="icategory">카테고리</label>
-						<span>${goods.icategory}</span>
+						<label for="icategory">카테고리</label> 
+						<select id="icategory" name="icategory" >
+							<option selected>${goods.icategory}</option>
+							<option>여성의류</option>
+							<option>패션잡화</option>
+							<option>남성의류</option>
+							<option>디지털/가전</option>
+							<option>도서/티켓/취미/애완</option>
+						</select>
 					</div>
 					
 					<div class="inputArea">
 						<label for="price">상품가격</label>
 						<input type="text" id="price" name="price" value="${goods.price}"/>
-						<%-- <span><fmt:formatNumber value="${goods.price}" pattern="###,###,###"/></span> --%>
 					</div>
 					
 					<div class="inputArea">

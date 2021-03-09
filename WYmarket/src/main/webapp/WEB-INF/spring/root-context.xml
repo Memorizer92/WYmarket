@@ -11,7 +11,7 @@
 
 	<bean id="hikariConfig2" class="com.zaxxer.hikari.HikariConfig">
 		<property name="dataSourceClassName"
-			value="oracle.jdbc.pool.OracleDataSource" /> <!-- datasource가 아닌 driver -->
+			value="oracle.jdbc.pool.OracleDataSource" /> 
 		<property name="dataSourceProperties">
 			<props>
 				<prop key="user">c##wymarket</prop>
@@ -21,7 +21,7 @@
 		</property>
 	</bean>
 
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"> <!-- 데이터를 꺼내오겠다는 뜻 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
 		<constructor-arg ref="hikariConfig2" />
 	</bean>
 
@@ -29,7 +29,22 @@
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+	
+	<!-- <bean id="config" class="com.zaxxer.hikari.HikariConfig"> 
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" /> 
+		<property name="jdbcUrl" value = "jdbc:oracle:thin:@61.84.29.58:1521/xe" /> 
+		<property name="username" value="c##wymarket" /> 
+		<property name="password" value="1234" /> 
+	</bean>
+	
+	<bean id="dataSource" class ="com.zaxxer.hikari.HikariDataSource"> 
+		<constructor-arg ref="config" /> 
+	</bean> 
+	
+	<bean id ="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> 
+	</bean> -->
+	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>

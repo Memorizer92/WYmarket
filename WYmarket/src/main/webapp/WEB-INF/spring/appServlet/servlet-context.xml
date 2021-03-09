@@ -61,7 +61,7 @@
 	<!-- 업로드 패스 설정 -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-			value="C:\Users\seunghwan\Downloads\eclipse\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\WYmarket\resources" />
+			value="C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources" />
 	</beans:bean>
 
 
@@ -113,6 +113,5 @@
 				class="com.kgitbank.interceptor.LoginInterceptor" />
 		</interceptor>
 	</interceptors>
-
 
 </beans:beans>

@@ -12,25 +12,16 @@
 <title>리스트</title>
 
 <style>
-section#content ul li {
-	display: inline-block;
-	margin: 10px;
-	padding-left: 55px
-}
-
-section#content div.iimagepath img {
-	width: 200px;
-	height: 200px;
-}
-
-section#content div.ititle {
-	padding: 10px 0;
-	text-align: center;
-}
-
-section#content div.ititle a {
-	color: #000;
-}
+	section#content ul { margin: 0px 100px 0px 190px;}
+	section#content ul li { display:inline-block; margin: 0px 10px 10px 0px;
+	border-style: solid; border-width: 1px; border-color: silver;}
+	section#content div.iimagepath img { width:200px; height:200px; }
+	section#content div.ititle { padding:10px 0; text-align:center; font-weight:500;
+	border-top-style: solid; border-top-width: 1px; border-top-color: silver; }
+	section#content div.ititle a { color:#000; }
+	section#content div.price {font-weight: bold; padding-left: 15px; font-size: 16px}
+	section#content div.refreshtime {text-align: right; padding: 0px 15px 10px 0px; 
+	color: silver; font-size: 13px}
 </style>
 
 </head>
@@ -53,7 +44,7 @@ section#content div.ititle a {
 								<div class="ititle">${goods.stitle}</div>
 								<div class="icategory">${goods.scategory}</div>
 								<div class="price">
-									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" />
+									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" /> 원
 								</div>
 								<div class="refreshtime">
 									<fmt:formatDate value="${goods.refreshTime}"
@@ -75,5 +66,6 @@ section#content div.ititle a {
 		</section>
 
 	</div>
+
 </body>
 </html>

@@ -110,14 +110,14 @@ textarea#icontent {
 						<script>
 							var formObj = $("form[role='form']");
 
-							$("#modify_Btn").click(function() {
-								formObj.attr("submit", "/goods/modify");//action
+							$("#modify_Btn").click(function(){
+								formObj.attr("action", "./modify");//action
 								formObj.attr("method", "get")
 								formObj.submit();
 							});
 
 							$("#delete_Btn").click(function() {
-								formObj.attr("action", "/goods/delete");
+								formObj.attr("action", "./delete");
 								formObj.submit();
 							});
 						</script>

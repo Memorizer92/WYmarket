@@ -9,7 +9,7 @@
 		SELECT
 			*
 		FROM
-			sh_item WHERE userNick=#{userNick}
+			sh_item WHERE usernick in (select usernick from sh_userinfo where ban = 'N')
 		ORDER BY 
 			refreshtime desc
 	</select>
@@ -17,12 +17,11 @@
 	<!-- 상품 등록 -->
 	<insert id="createGoods">
 	INSERT INTO sh_item (itemid, usernick, ititle, address, manner,
-	icategory, refreshtime, icontent, price, istate)
+	icategory, refreshtime, icontent, price, iimagepath, istate)
 
 	VALUES (
 	itemID_seq.nextval,
 	#{user},
-	<!-- #{iimagepath}, -->
 	#{ititle},
 	(select address from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
 	(select manner from sh_userinfo where usernick = #{user}),  <!-- 추가된 부분 -->
@@ -30,6 +29,7 @@
 	sysdate,
 	#{icontent},
 	#{price},
+	#{iimagepath},
 	'Onsale'
 	)
 	</insert>
