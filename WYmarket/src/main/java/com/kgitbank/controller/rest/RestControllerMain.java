@@ -433,7 +433,7 @@ public class RestControllerMain implements Serializable {
 	}
 
 	// 사용자가 문의 내역 li를 클릭할 때 & 관리자가 송신함 li 클릭할 때
-	@PostMapping(value = "/admin/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
+	@PostMapping(value = "/checkHistory", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String checkHistory(@RequestBody InquiryAdminToUser inq, Model model, HttpSession session) {
 		InquiryAdminToUser iatu = wyMarketService.selectInquiryAdminToUserByID(inq.getInquiryID());
 		Inquiry i = wyMarketService.selectInquiryByID(iatu.getUserInquiryID());
@@ -461,7 +461,7 @@ public class RestControllerMain implements Serializable {
 	}
 
 	// 답장 보내기 확정 버튼 눌렀을 때
-	@GetMapping(value = "admin/sendInquiryAdminToUser/{textarea}/{inquiryID}", produces = "text/html; charset=UTF-8")
+	@GetMapping(value = "/admin/sendInquiryAdminToUser/{textarea}/{inquiryID}", produces = "text/html; charset=UTF-8")
 	public String sendInquiryAdminToUser(Model model, HttpSession session, @PathVariable String textarea,
 			@PathVariable int inquiryID) {
 

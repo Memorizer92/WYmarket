@@ -61,7 +61,7 @@
 	<!-- 업로드 패스 설정 -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-			value="C:\Users\seunghwan\Downloads\eclipse\eclipse-workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp1\wtpwebapps\WYmarket\resources" />
+			value="C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources" />
 	</beans:bean>
 
 
@@ -86,6 +86,16 @@
 			<mapping path="/chats/**" />
 			<mapping path="/goods/**" />
 			<mapping path="/main" />
+			<mapping path="/main/**" />
+			<mapping path="/sendInquiry" />
+			<mapping path="/seeInquiryFromAdmin" />
+			<exclude-mapping path="/board/write" />
+			<exclude-mapping path="/board/insert" />
+			<exclude-mapping path="/board/list" />
+			<exclude-mapping path="/board/view" />
+			<exclude-mapping path="/board/look" />
+			<exclude-mapping path="/board/update" />
+			<exclude-mapping path="/board/delete" />
 			<!-- <exclude-mapping path="/login" /> -->
 			<beans:bean
 				class="com.kgitbank.interceptor.UserInterceptor" />
@@ -103,6 +113,5 @@
 				class="com.kgitbank.interceptor.LoginInterceptor" />
 		</interceptor>
 	</interceptors>
-
 
 </beans:beans>

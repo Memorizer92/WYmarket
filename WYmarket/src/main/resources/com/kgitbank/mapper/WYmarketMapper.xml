@@ -273,7 +273,7 @@
 			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
 			WHERE rownum <= #{pageNum } * #{amount } and userCreateDate LIKE #{search} || '%') 
 			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId
+			ORDER BY userCreateDate
 		]]>
 	</select>
 
@@ -357,7 +357,7 @@
 		resultType="Integer">
 		select MAX(inquiryID)
 		from
-		sh_inquiryAdminToUser 
+		sh_inquiryAdminToUser
 	</select>
 
 	<select id="selectInquiryByID"
@@ -419,17 +419,52 @@
 		resultType="com.kgitbank.model.SearchInDistance">
 		select * from sh_searchInDistance
 	</select>
-	
+
 	<!-- search상품 테이블 조회 -->
-	<select id="selectSearchGoods" resultType="com.kgitbank.model.SearchInDistance">
+	<select id="selectSearchGoods"
+		resultType="com.kgitbank.model.SearchInDistance">
 		select *
 		from
-		sh_searchInDistance WHERE stitle LIKE '%' || #{search} || '%'
+		sh_searchInDistance WHERE stitle LIKE '%' ||
+		#{search} || '%'
 	</select>
-	
+
 	<!-- category상품 테이블 조회 -->
-	<select id="selectCategoryGoods" resultType="com.kgitbank.model.SearchInDistance">
-		select * from sh_searchInDistance where scategory = #{scategory}
+	<select id="selectCategoryGoods"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where scategory =
+		#{scategory}
+	</select>
+
+	<update id="updateLatLonAddress">
+		UPDATE sh_userInfo SET latitude =
+		#{latitude},
+		longitude = #{longitude}, address = #{address}
+		WHERE userNick =
+		#{userNick}
+	</update>
+
+	<select id="selectUserInfoByUserNick"
+		resultType="com.kgitbank.model.UserInfo">
+		select * from
+		sh_userInfo where userNick =#{userNick}
+	</select>
+
+	<update id="updateAddressFromItem">
+		UPDATE sh_item SET address = #{address}
+		WHERE userNick
+		= #{userNick}
+	</update>
+
+	<update id="updateAddressFromSearchInDistance">
+		UPDATE sh_searchInDistance SET address = #{address}
+		WHERE userNick =
+		#{userNick}
+	</update>
+
+	<select id="selectSearchInDistanceById"
+		resultType="com.kgitbank.model.SearchInDistance">
+		select * from sh_searchInDistance where itemID = #{itemID}
 	</select>
 
 </mapper>

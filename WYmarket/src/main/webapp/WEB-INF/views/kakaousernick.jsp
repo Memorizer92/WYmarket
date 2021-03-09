@@ -84,7 +84,7 @@ body {
 	display: block;
 }
 
-.btn-primary {
+#mainbtn, #mainbtn:hover {
 	color: #fff;
 	background-color: #FF8A3D;
 	border-color: #FF8A3D;
@@ -135,7 +135,7 @@ body {
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" onclick="toMain()">메인으로</button>
+							<button type="button" class="btn btn-primary" id='mainbtn' onclick="toMain()">메인으로</button>
 						</div>
 					</div>
 				</div>

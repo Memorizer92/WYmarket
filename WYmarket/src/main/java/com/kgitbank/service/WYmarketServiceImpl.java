@@ -343,5 +343,30 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectMaxInquiryAdminToUserByID();
 	}
 
+	@Override
+	public int updateLatLonAddress(UserInfo userInfo) {
+		return wyMarketMapper.updateLatLonAddress(userInfo);
+	}
+
+	@Override
+	public UserInfo selectUserInfoByUserNick(String userNick) {
+		return wyMarketMapper.selectUserInfoByUserNick(userNick);
+	}
+
+	@Override
+	public int updateAddressFromItem(UserInfo userInfo) {
+		return wyMarketMapper.updateAddressFromItem(userInfo);
+	}
+
+	@Override
+	public int updateAddressFromSearchInDistance(UserInfo userInfo) {
+		return wyMarketMapper.updateAddressFromSearchInDistance(userInfo);
+	}
+
+	@Override
+	public SearchInDistance selectSearchInDistanceById(int itemID) {
+		return wyMarketMapper.selectSearchInDistanceById(itemID);
+	}
+
 }
 

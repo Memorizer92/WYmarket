@@ -116,8 +116,14 @@ public interface WYmarketService {
 	public List<SearchInDistance> selectSearchGoods(String search);
 	public List<SearchInDistance> selectCategoryGoods(String category);
 	
-	
 	int selectMaxInquiryAdminToUserByID();
+	
+	int updateLatLonAddress(UserInfo userInfo);
+	UserInfo selectUserInfoByUserNick(String userNick);
+	int updateAddressFromItem(UserInfo userInfo);
+	int updateAddressFromSearchInDistance(UserInfo userInfo);
+	
+	SearchInDistance selectSearchInDistanceById(int itemID);
 	
 }
 

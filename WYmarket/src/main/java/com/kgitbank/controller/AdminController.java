@@ -120,6 +120,13 @@ public class AdminController implements Serializable {
 
 	@GetMapping("/admin/usercount")
 	public String adminUserCount(HttpSession session, HttpServletRequest req, Pagination pagination, Model model) {
+		session.removeAttribute("listSession");
+		session.removeAttribute("searchSession");
+		model.addAttribute("lists", "");
+		model.addAttribute("searchs", "");
+		category = null;
+		categorySearch = null;
+		
 		// 누적 접속자 수를 view에 띄움
 		int userCountTotal = wyMarketService.selectUserCountTotal();
 		session.setAttribute("userCountTotal", userCountTotal);
@@ -236,7 +243,7 @@ public class AdminController implements Serializable {
 	}
 
 	// 사용자가 관리자에게 문의 보내기 버튼 누를 때
-	@GetMapping("admin/sendInquiry")
+	@GetMapping("/sendInquiry")
 	public String sendInquiry(HttpServletRequest request, Model model, HttpSession session) {
 
 		String inquiryCategory = request.getParameter("inquirySelect");
@@ -278,7 +285,7 @@ public class AdminController implements Serializable {
 
 
 	// 사용자가 관리자가 보낸 답장 페이지 볼 때
-	@GetMapping("admin/seeInquiryFromAdmin")
+	@GetMapping("/seeInquiryFromAdmin")
 	public String seeInquiryFromAdmin(Model model, HttpSession session) {
 
 		UserInfo userInfo = (UserInfo) session.getAttribute("user");

@@ -42,9 +42,6 @@
     </footer>
     <hr>
 
- 
- 
- 
 </body>
 
 </html>

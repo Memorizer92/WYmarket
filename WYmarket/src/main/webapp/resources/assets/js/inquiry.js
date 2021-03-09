@@ -72,7 +72,7 @@ function ajaxshowHistory(id) {
 		}
 	}
 
-	xhttp.open('POST', '/wymarket/admin/checkHistory', true);
+	xhttp.open('POST', '/wymarket/checkHistory', true);
 	xhttp.setRequestHeader('content-type', 'application/json');
 	xhttp.send(JSON.stringify(data));
 

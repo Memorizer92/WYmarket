@@ -105,16 +105,22 @@
 }
 
 input:-internal-autofill-selected {
-    appearance: menulist-button;
-    background-color: rgb(255, 138, 61) !important;
-    background-image: none !important;
-    color: -internal-light-dark(black, white) !important;
+	appearance: menulist-button;
+	background-color: rgb(255, 138, 61) !important;
+	background-image: none !important;
+	color: -internal-light-dark(black, white) !important;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: #FF8A3D;
-    border-color: #FF8A3D;
+#loginbtn {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
+}
+
+#loginbtn:hover {
+	color: #fff;
+	background-color: #FF8A3D;
+	border-color: #FF8A3D;
 }
 
 body {
@@ -222,7 +228,8 @@ function onlyNumber(){
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" onclick="toMain()">로그인하기</button>
+					<button type="button" class="btn btn-primary" id='loginbtn'
+						onclick="toMain()">로그인하기</button>
 				</div>
 			</div>
 		</div>
