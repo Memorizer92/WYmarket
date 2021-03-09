@@ -467,7 +467,7 @@ tbody>tr>th {
 					id='searchallbtn'>전체 리스트 보기</button>
 				<form action="/wymarket/admin" id='form1'>
 					<select class="form-select" aria-label="Default select example"
-						name="list" id='selectID'>
+						name="list" id='selectID' form="form1">
 						<option selected>검색분류</option>
 						<option value="userId"
 							<c:if test="${lists eq 'userId'}">selected</c:if>>회원번호</option>
@@ -478,8 +478,8 @@ tbody>tr>th {
 					</select> <input id='search' type="text" class="form-control"
 						aria-label="Username" aria-describedby="basic-addon1"
 						name="search" value="${searchs }"> <input id='searchbtn'
-						type="submit" class="form-control" aria-label="Username"
-						aria-describedby="basic-addon1" value="검색">
+						type="button" class="form-control" aria-label="Username"
+						aria-describedby="basic-addon1" value="검색" onclick="blockNull()">
 
 				</form>
 			</div>
