@@ -11,6 +11,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
 <script>
 var Chat__roomId = ${param.roomId};
 </script>
@@ -115,6 +124,22 @@ function submitChatMessageForm(form){
 	font-size: 50px;
 	color: orange;
 }
+.gra{
+	background-color: gray;
+	border: none;
+}
+.gra:hover{
+	background-color: gray;
+}
+.sub{
+background-color: rgba(255, 191, 82, 1);;
+	border: none;
+	font-size: 10px;
+	margin-bottom: 3px;
+}
+.sub:hover{
+background-color: #FF8A3D;
+}
 </style>
 </head>
 <body>
@@ -126,16 +151,16 @@ function submitChatMessageForm(form){
 		<input style="display: none" type="text" name="buyerName" value="${vo.buyerName}" />
 		<input style="display: none" type="text" name="sellerName" value="${vo.sellerName}" />
 		<input style="display: none" type="text" name="user" value="${userNick}" /> 
-	<button type="submit">
+	<button type="submit" class="btn btn-primary gra">
 	나가기
 	</button>
 	</form>
 	</div>
     <div class="content"> 
-	<b>${vo.item } 상품 (${vo.price}원)</b> 
+	<b>${vo.item } 상품 (${vo.price}원)</b> <br>
 	 
-	&emsp;&emsp; &nbsp;&nbsp;구매자 : ${vo.buyerName } <br>
-	&emsp; &emsp;&emsp; &emsp; &emsp; &emsp; &emsp; &emsp;판매자 : ${vo.sellerName } 
+	<div style="margin-left: 60%;">구매자 : ${vo.buyerName }  </div> 
+	<div style="margin-left: 60%;">판매자 : ${vo.sellerName }  </div> 
 	<br><br>
 	
 	<form onsubmit="submitChatMessageForm(this); return false;">
@@ -144,7 +169,7 @@ function submitChatMessageForm(form){
 		</div>
 	 	<div>
 			<input type="text" name="body" placeholder="내용" autocomplete="off"/>&nbsp;
-            <input type="submit" value="▲"/>
+            <input class="btn btn-primary sub" type="submit" value="▲"/>
 		</div>
 		 
 			 

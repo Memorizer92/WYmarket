@@ -1,6 +1,8 @@
 package com.kgitbank.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -75,8 +77,17 @@ public class MainController {
 			// 6km 이내 상품들을 DB에 하나씩 insert
 			// wyMarketService.insertSearchInDistance(goods);
 			// }
-		}
-
+		} 
+		
+		// 날짜 정렬
+		Collections.sort(distance6km, new Comparator<GoodsVO>() {
+		    @Override
+		    public int compare(GoodsVO o1, GoodsVO o2) {
+		        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+		    }
+		});
+	 
+	  
 		if (search == null) {// 메인페이지
 			// List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
 			model.addAttribute("goods", distance6km);
@@ -90,6 +101,14 @@ public class MainController {
 					distance6kmSearch.add(item);
 				}
 			}
+			// 날짜 정렬
+			Collections.sort(distance6kmSearch, new Comparator<GoodsVO>() {
+			    @Override
+			    public int compare(GoodsVO o1, GoodsVO o2) {
+			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			    }
+			});
+	
 			model.addAttribute("goods", distance6kmSearch);
 			// System.out.println(sid);
 		}
@@ -103,6 +122,13 @@ public class MainController {
 					distance6kmCategory.add(item);
 				}
 			}
+			// 날짜 정렬
+			Collections.sort(distance6kmCategory, new Comparator<GoodsVO>() {
+			    @Override
+			    public int compare(GoodsVO o1, GoodsVO o2) {
+			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			    }
+			});
 			model.addAttribute("goods", distance6kmCategory);
 			// System.out.println(sid);
 		}

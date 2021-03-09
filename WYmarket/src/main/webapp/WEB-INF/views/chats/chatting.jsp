@@ -87,7 +87,7 @@
 				<button type="button"
 					onclick="window.open('./room?roomId=${vo.roomId }&item=${vo.item}&price=${vo.price}&sellerName=${vo.sellerName}&buyerName=${vo.buyerName}&check=0','chat','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')"
 					class="btn btn-primary">
-					판매자 : ${vo.sellerName}<br> 판매상품 : ${vo.item}<br> 연락 시간 :
+					판매자 : ${vo.sellerName}<br>  연락 시간 :
 					<fmt:formatDate value="${vo.chatDate}" pattern="yy/MM/dd HH:mm" />
 					<span class="badge bg-secondary">${vo.sellerCount}</span>
 				</button>
