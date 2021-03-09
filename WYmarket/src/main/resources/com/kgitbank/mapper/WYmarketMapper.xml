@@ -412,7 +412,7 @@
 		#{price},
 		#{chatcnt}, #{likecnt},
 		#{viewcnt}, #{istate},
-		#{iReservationState})
+		#{ireservationstate})
 	</insert>
 
 	<select id="selectSearchInDistance"
