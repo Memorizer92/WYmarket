@@ -74,8 +74,11 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/Productmanagement")
-	public String ProductManagement(){
+	public String ProductManagement(Model model, HttpSession session){
+		UserInfo user = (UserInfo) session.getAttribute("user");
+		String userNick = user.getUserNick();
 		
+		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 		return "/myPageSuperintend";
 	}
 }

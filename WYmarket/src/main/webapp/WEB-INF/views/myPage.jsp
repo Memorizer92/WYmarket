@@ -160,9 +160,8 @@
 							</div>
 							<div class="lbPeGN">
 								<c:choose>
-									<c:when test="${empty shitemCount }">등록된 상품이 없습니다.</c:when>
-
-									<c:when test="${not empty shitemCount}">
+									<c:when test="${shitemCount eq 0}">등록된 상품이 없습니다.</c:when>
+									<c:when test="${shitemCount != 0 }">
 										<div class="khixbV">
 
 											<c:forEach var="shitem_List" items="${itemvo }">
