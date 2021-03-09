@@ -9,6 +9,36 @@ SELECT usernick from sh_userInfo
 </select>
 
 
+
+<select id="getUserItemList" resultType="com.kgitbank.model.ShItemVO">
+	<![CDATA[
+		SELECT 
+			rn, itemID, iImagePath, userNick,
+			address, manner, iTitle, iCategory, refreshtime, iContent, price, 
+			chatCnt, likeCnt, viewCnt, iState,
+			iReservationState
+	FROM
+		(SELECT
+			rownum rn, itemID, iImagePath, userNick,
+			address, manner, iTitle, iCategory,
+			(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime, iContent, price, 
+			chatCnt, likeCnt, viewCnt, iState,
+			iReservationState
+			FROM
+			 sh_item
+			WHERE
+			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick}
+		)
+	WHERE
+		rn > (#{pagenum} -1) * #{amount}
+		]]>
+</select>
+
+
 <select id="getShuserInfoCdate" resultType="int">
 <![CDATA[
 SELECT 
@@ -35,6 +65,9 @@ SELECT  itemID, iImagePath, userNick,
 		from sh_item where usernick = #{usernick}
 			]]>	
 </select>
+
+
+
 
 <select id="getPurchaserPhVO" resultType="com.kgitbank.model.PurchasedetailsVO">
 SELECT itemID, iImagePath, Purchaser, 
@@ -66,6 +99,10 @@ SELECT itemID, iImagePath, Purchaser,
 
 <select id="shitemVOCount" resultType="int">
 		SELECT COUNT(*) from sh_item where usernick = #{usernick} and istate = 'Onsale'
+</select>
+
+<select id="getCount" resultType="int">
+		SELECT COUNT(*) from sh_item where usernick = #{usernick}
 </select>
 
 <select id="purchasedetailsCount" resultType="int">

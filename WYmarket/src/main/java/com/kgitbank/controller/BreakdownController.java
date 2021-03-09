@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.kgitbank.model.Pageination;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
 import com.kgitbank.model.UserInfo;
@@ -37,15 +38,20 @@ public class BreakdownController {
 	BreakdownService bservice;
 		
 	@GetMapping("/myPage")
-	public String test01(Model model, HttpSession session) {
+	public String test01(Model model, HttpSession session, Pageination paging) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
+		model.addAttribute("usernick", userNick);
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));					
 		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
 		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
 		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+
 		model.addAttribute("products", "products");		
-		log.fatal(model.getAttribute("shitemCount"));
+		
+		paging.setUsernick(userNick);
+		model.addAttribute("pageList", bservice.getUserItemList(paging));			
+		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
 		return "/myPage";
 	}
 

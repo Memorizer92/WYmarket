@@ -159,13 +159,7 @@
 	flex-wrap: nowrap;
 	justify-content: center;
 }
- 
-        .nick {
-            position: relative;
-            float: left;
-            padding-right: 9px;
-            width: 110px;
-        }
+
  
 
 .head1 {
@@ -212,6 +206,9 @@ a {
 	border-bottom: 2px solid rgb(244, 244, 250);
 	padding: 6px;
 }
+.myStor:hover{
+		color: gray;
+	}
 </style>
 </head>
 <body>
@@ -220,6 +217,7 @@ a {
 		<menu>
 			<div class="head2 container-xl">
 				<li class="nick"><strong>${userNick}</strong>님</li>
+				<li id = "myStore" class="nick myStor" style="cursor: pointer;"><strong>내 상점</strong></li>
 				<li id="kakaoLogout" class="logout">로그아웃</li>
 			</div>
 		</menu>
@@ -282,5 +280,10 @@ a {
 		        }, 1000); 
 			});
 		 
+document.getElementById('myStore').addEventListener('click',()=>{				
+		 
+		 location.href = '<%=application.getContextPath()%>/param/myPage';
+			});
+	 
 	</script>
 </html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kgitbank.model.Pageination;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
 import com.kgitbank.model.ShUserInfoVO;
@@ -13,12 +14,17 @@ public interface breakdownMapper {
 	
 	List<ShUserInfoVO> getShuserInfo();
 		
+	List<ShItemVO> getUserItemList(Pageination paging);
+	
 	List<ShItemVO>  getShitemVO(String usernick); 
 			
 	List<PurchasedetailsVO> getPurchaserPhVO(String purchaser);
 	
 	List<PurchasedetailsVO> getSellerPhVO(String usernick);
 	
+	int onsaleCount();
+	
+	int getCount(String usernick);
 	
 	int completedIstate(
 			@Param("istate") String istate, 

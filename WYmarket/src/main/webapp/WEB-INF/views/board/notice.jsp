@@ -349,9 +349,10 @@ a {
 
 .foot {
 	padding-top: 12px;
-	width: 1130px;
-	height: 50px;
-	text-align: center;
+   width: 100%;
+   min-width:1200px;
+   height: 50px;
+   text-align: center;
 }
 </style>
 
