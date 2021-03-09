@@ -467,6 +467,31 @@
 		select * from sh_searchInDistance where itemID = #{itemID}
 	</select>
 
+	<select id="selectItemByUserNick"
+		resultType="com.kgitbank.model.GoodsVO">
+		select * from sh_item where userNick = #{userNick} ORDER BY
+		refreshtime desc
+	</select>
+
+	<select id="selectItemByUserNickSearch"
+		resultType="com.kgitbank.model.GoodsVO">
+		select * from sh_item where userNick = #{userNick} and
+		UPPER(ititle) LIKE UPPER('%' ||
+		#{search} || '%') ORDER BY
+		refreshtime
+		desc
+	</select>
+
+	<select id="selectItemByUserNickCategory"
+		resultType="com.kgitbank.model.GoodsVO">
+		select * from sh_item where userNick = #{userNick} and
+		icategory LIKE ('%' ||
+		#{icategory} || '%')
+		ORDER BY
+		refreshtime desc
+	</select>
+
+
 </mapper>
 
 

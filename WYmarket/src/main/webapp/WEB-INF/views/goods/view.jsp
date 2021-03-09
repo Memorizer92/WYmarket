@@ -66,20 +66,20 @@ textarea#icontent {
 				<h2>상품 목록</h2>
 
 				<form role="form" method="post" autocomplete="off">
-					<input type="hidden" name="n" value="${goods.itemID}" />
+					<input type="hidden" name="n" value="${goods.itemid}" />
 
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label> <img
-							src="${pageContext.request.contextPath}${goods.simagePath }" />
+							src="${pageContext.request.contextPath}${goods.iimagepath }" />
 					</div>
 					<div class="inputArea">
-						<label for="usernick">판매자</label> <span>${goods.userNick}</span>
+						<label for="usernick">판매자</label> <span>${goods.usernick}</span>
 					</div>
 					<div class="inputArea">
-						<label for="ititle">상품명</label> <span>${goods.stitle}</span>
+						<label for="ititle">상품명</label> <span>${goods.ititle}</span>
 					</div>
 					<div class="inputArea">
-						<label for="icategory">카테고리</label> <span>${goods.scategory}</span>
+						<label for="icategory">카테고리</label> <span>${goods.icategory}</span>
 					</div>
 
 					<div class="inputArea">
@@ -88,7 +88,7 @@ textarea#icontent {
 					</div>
 
 					<div class="inputArea">
-						<label for="icontent">상품소개</label> <span>${goods.scontent}</span>
+						<label for="icontent">상품소개</label> <span>${goods.icontent}</span>
 					</div>
 
 					<div class="inputArea">
@@ -102,7 +102,7 @@ textarea#icontent {
 						<c:if test="${sellerId ne buyerId}">
 							<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
 							<button type="button" id="chat_Btn"
-								onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
+								onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
 								채팅으로 거래하기</button>
 						</c:if>
 
