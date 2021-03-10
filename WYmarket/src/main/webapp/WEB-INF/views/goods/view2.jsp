@@ -16,39 +16,6 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<style>
-.inputArea {
-	margin: 10px 0;
-}
-
-select {
-	width: 100px;
-}
-
-label {
-	display: inline-block;
-	width: 70px;
-	padding: 5px;
-}
-
-label[for='icontent'] {
-	display: block;
-}
-
-input {
-	width: 150px;
-}
-
-textarea#icontent {
-	width: 400px;
-	height: 180px;
-}
-
-.select_img img {
-	margin: 20px 0;
-}
-</style>
-
 <title>상품조회</title>
 </head>
 <body>
@@ -153,9 +120,9 @@ textarea#icontent {
 		var formObj = $("form[role='form']");
 
 		$("#modify_Btn").click(function() {
-			formObj.attr("action", "./modify");//action
+			formObj.attr("action", "./modify2");//action
 			formObj.attr("method", "get")
-			formObj.submit();[]
+			formObj.submit();
 		});
 
 		$("#delete_Btn").click(function() {

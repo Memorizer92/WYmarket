@@ -45,7 +45,7 @@ public class GoodsController {
 	UserInfo user;
 
 	// 상품등록페이지
-	@GetMapping("register")
+	@GetMapping("register2")
 	public void getGoodsRegister() throws Exception {
 		log.info("상품등록페이지");
 	}
@@ -100,7 +100,7 @@ public class GoodsController {
 	}
 
 	// 상품 수정페이지
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	@RequestMapping(value = "/modify2", method = RequestMethod.GET)
 	public void getGoodsModify(@RequestParam("n") int itemid, Model model) {
 		System.out.println(itemid);
 		SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
@@ -111,7 +111,7 @@ public class GoodsController {
 	}
 	
 	//상품 수정
-	@RequestMapping(value = "/modify", method = RequestMethod.POST) 
+	@RequestMapping(value = "/modify2", method = RequestMethod.POST) 
 	public String postGoodsModify(GoodsVO goods, MultipartFile file, HttpServletRequest req)
 			throws Exception {
 
