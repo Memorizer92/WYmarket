@@ -29,7 +29,7 @@ import com.kgitbank.service.PageService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes({ "users", "lists", "searchs"})
+@SessionAttributes({ "users", "lists", "searchs" })
 public class AdminController implements Serializable {
 
 	@Autowired
@@ -88,7 +88,7 @@ public class AdminController implements Serializable {
 
 		System.out.println("users 객체 : " + model.getAttribute("users"));
 
-		session.setAttribute("rowCount", pagination.getTotal());
+		model.addAttribute("rowCount", pagination.getTotal());
 
 		PageService pageService;
 
@@ -127,6 +127,7 @@ public class AdminController implements Serializable {
 		category = null;
 		categorySearch = null;
 		
+		
 		// 누적 접속자 수를 view에 띄움
 		int userCountTotal = wyMarketService.selectUserCountTotal();
 		session.setAttribute("userCountTotal", userCountTotal);
@@ -135,26 +136,30 @@ public class AdminController implements Serializable {
 
 		// 현재 연도
 		session.setAttribute("currentYear", dateCalc.getYear());
-		System.out.println(session.getAttribute("currentYear"));
 		// 카테고리를 뭘 눌렀냐에 따라 검색
 		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
-		System.out.println(session.getAttribute("dateTransfer"));
 
 		if (session.getAttribute("signupFlag") != null) {
+			System.out.println("여기 안옴?2");
 			pagination.setSearch((String) session.getAttribute("dateTransfer"));
 			pagination.setTotal(wyMarketService.selectSignupCountByDate((String) session.getAttribute("dateTransfer")));
 			List<UserInfo> selectUserByDate = wyMarketService.selectUserBySignupDate(pagination);
 			model.addAttribute("users", selectUserByDate);
 		} else {
 			if (session.getAttribute("dateTransfer") == null) {
+				System.out.println("여기 안옴?2");
 				pagination.setTotal(wyMarketService.selectUserCount());
 				model.addAttribute("users", wyMarketService.selectUserList(pagination));
 				session.setAttribute("accessCount", pagination.getTotal());
 			} else {
+				System.out.println("여기 안옴?3");
 				pagination.setSearch((String) session.getAttribute("dateTransfer"));
-				pagination.setTotal(
-						wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer")));
+				System.out.println("session" + session.getAttribute("dateTransfer"));
+				int cnt = wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer"));
+				pagination.setTotal(cnt);
+				System.out.println("cnt" + cnt);
 				List<UserInfo> selectUserByDate = wyMarketService.selectUserByAccessDate(pagination);
+				System.out.println("select" + selectUserByDate);
 				model.addAttribute("users", selectUserByDate);
 			}
 		}
@@ -179,16 +184,16 @@ public class AdminController implements Serializable {
 		return "redirect:/admin/usercount";
 	}
 
-	@GetMapping("/admin/dayCheck/{year}/{month}")
-	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
-			HttpServletRequest req, Model model) {
-		// 해당 일
-		session.setAttribute("dayOfMonth", new DateCalc(year, month).getDay());
-		session.setAttribute("selectedYear", year);
-		session.setAttribute("selectedMonth", month);
-
-		return "redirect:/admin/usercount";
-	}
+//	@GetMapping("/admin/dayCheck/{year}/{month}")
+//	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
+//			HttpServletRequest req, Model model, Pagination page) {
+//		// 해당 일
+//		session.setAttribute("dayOfMonth", new DateCalc(year, month).getDay());
+//		session.setAttribute("selectedYear", year);
+//		session.setAttribute("selectedMonth", month);
+//		
+//		return "redirect:/admin/usercount";
+//	}
 
 	@GetMapping("/admin/accessUserCount")
 	public String accessUserCount(HttpServletRequest request, Model model, HttpSession session) {
@@ -205,9 +210,9 @@ public class AdminController implements Serializable {
 
 		accessCount = wyMarketService.selectAccessCountByDate(dateCalc.getTotalDate());
 		session.setAttribute("dateTransfer", dateCalc.getTotalDate());
-
+		System.out.println("dateTransfer" + session.getAttribute("dateTransfer"));
 		session.setAttribute("accessCount", accessCount);
-
+		System.out.println("accessCount" + model.getAttribute("accessCount"));
 		session.setAttribute("selectedYear", year);
 		session.setAttribute("selectedMonth", month);
 		session.setAttribute("selectedDay", day);
@@ -282,7 +287,6 @@ public class AdminController implements Serializable {
 
 		return "/admin/inquiry";
 	}
-
 
 	// 사용자가 관리자가 보낸 답장 페이지 볼 때
 	@GetMapping("/seeInquiryFromAdmin")

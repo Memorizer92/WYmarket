@@ -165,5 +165,7 @@ public interface WYmarketService {
 	List<GoodsVO> selectItemByUserNickSearch(String userNick, String search);
 
 	List<GoodsVO> selectItemByUserNickCategory(String userNick, String category);
+	
+	int selectCountFromWithdrawByPhoneNumber(String phoneNumber);
 
 }

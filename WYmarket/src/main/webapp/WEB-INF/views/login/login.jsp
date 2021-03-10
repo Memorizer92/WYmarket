@@ -177,6 +177,7 @@ function onlyNumber(){
 				style="display: none" /> <input type="text" id="userNickCheck"
 				style="display: none" /> <input type="text" id="smsReqCnt"
 				style="display: none" /> <input type="text" id="ajaxToMain"
+				style="display: none" /><input type="text" id="withdrawNone"
 				style="display: none" />
 		</div>
 	</div>
@@ -370,6 +371,28 @@ function onlyNumber(){
 		</div>
 	</div>
 
+	<div class="modal fade" id="withdrawnID" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">탈퇴된 계정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">탈퇴</div>
+
+
+				<div class="modal-footer" id="modalfooter">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript"
 		src="<%=application.getContextPath()%>/resources/assets/js/login.js"></script>
 
@@ -393,7 +416,7 @@ function onlyNumber(){
 
 	const smstext = document.getElementById('sms');
 	const smsbtn = document.getElementById('checksms');
-
+	const withdrawNone = document.getElementById('withdrawNone');
 
 	phonebtn.addEventListener('click', () => {
 		if (phonetext.value.length == 11) {
@@ -401,8 +424,13 @@ function onlyNumber(){
 
 				ajaxGetSMS(phonetext.value);
 				ajaxGetph(phonetext.value);
+				ajaxDateWithdrawal(phonetext.value);
 
 				setTimeout(function() {
+					if(withdrawNone.value == 1){
+						var myModal = new bootstrap.Modal(document.getElementById('withdrawnID'));
+						myModal.show()
+					} else{
 					ajaxSmsReqCnt();
 					setTimeout(function() {
 						if (document.getElementById("smsReqCnt").value >= 3) {
@@ -422,6 +450,7 @@ function onlyNumber(){
 							}, 1000);
 						}
 					}, 1000);
+					}
 				}, 1000);
 
 			} else {

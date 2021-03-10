@@ -240,4 +240,20 @@ function ajaxExceedTime() {
 	xhttp.send();
 }
 
+function ajaxDateWithdrawal(ph) {
+	const prefix = "/wymarket/dateWithdrawal";
 
+	let uri = prefix + "/" + ph;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+			document.getElementById("withdrawNone").value = `${this.responseText}`;
+		}
+	}
+
+	xhttp.open('GET', uri, true);
+
+	xhttp.send();
+}

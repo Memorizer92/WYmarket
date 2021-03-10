@@ -491,6 +491,13 @@
 		refreshtime desc
 	</select>
 
+	<select id="selectCountFromWithdrawByPhoneNumber" resultType="Integer">
+		SELECT
+		count(*)
+		FROM
+		withdrawal WHERE phoneNumber = #{phoneNumber};
+	</select>
+
 
 </mapper>
 

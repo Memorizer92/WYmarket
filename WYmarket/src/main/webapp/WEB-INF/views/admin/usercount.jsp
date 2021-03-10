@@ -316,7 +316,7 @@ form>* {
 						<option value=${i }>${i }</option>
 					</c:forEach>
 				</select> <select class="form-select" aria-label="Default select example"
-					name="monthSelect" onchange="monthChange()" id='month'>
+					name="monthSelect" onchange="monthChange(1)" id='month'>
 					<option selected>월 선택</option>
 					<c:forEach var="i" begin="1" end="12">
 						<option value=${i }>${i }</option>
@@ -324,9 +324,6 @@ form>* {
 				</select> <select class="form-select" aria-label="Default select example"
 					name="daySelect" id='day'>
 					<option selected>일 선택</option>
-					<c:forEach var="i" begin="1" end="${dayOfMonth}">
-						<option value="${i }">${i }</option>
-					</c:forEach>
 				</select>
 
 			</form>
@@ -350,14 +347,13 @@ form>* {
 		const yearCon = document.getElementById('year');
 		const monthCon = document.getElementById('month');
 		const dayCon = document.getElementById('day');
-			
+
 		if("${selectedYear}" == ""){
 			yearCon.value = '연도 선택';
 			monthCon.value = '월 선택';
 			dayCon.value = '일 선택';
 		} else{
 			yearCon.value = "${selectedYear}";
-			console.log("${selectedYear}")
 			monthCon.value = "${selectedMonth}";
 			if("${selectedDay}" == ""){
 				dayCon.value = '일 선택';
@@ -397,7 +393,7 @@ form>* {
 			dayCon.value = '일 선택';
 			dayCon.disabled = true;
 		}
-		function monthChange() {
+/* 		function monthChange() {
 			if (monthCon.value != '월 선택') {
 				dayCon.disabled = false;
 
@@ -410,15 +406,21 @@ form>* {
 			}
 			dayCon.value = '일 선택';
 
-		}
+		} */
 
 		function userAccessCount() {
 			if(yearCon.value == '연도 선택'){
 				alert("연도를 반드시 선택해주세요");
 			} else{
 				document.getElementById(yearCon.getAttribute('form')).submit();
+				console.log('1번');
+				
 			}
+			
 		}
+		
+		console.log('2번')
+		monthChange(2);
 		
 		function searchAll() {
 			var form = document.createElement("form");
@@ -427,11 +429,6 @@ form>* {
 			document.body.appendChild(form);
 			form.submit();
 		}
-		
-		<%session.removeAttribute("accessCount");
-session.removeAttribute("selectedYear");
-session.removeAttribute("selectedMonth");
-session.removeAttribute("selectedDay");%>
 
 	function userSignUpCount(){
 		if(yearCon.value == '연도 선택'){
@@ -439,12 +436,69 @@ session.removeAttribute("selectedDay");%>
 		} else{
 			document.getElementById('accessForm').action = '/wymarket/admin/signupUserCount';
 			document.getElementById(yearCon.getAttribute('form')).submit();
+
 		}
 	}
 	
 	function toMyPage(userNick){
 		location.href='/wymarket/param/test02/' + userNick;
 	}
+	
+	function monthChange(num) {
+		if (monthCon.value != '월 선택') {
+			dayCon.disabled = false;
+
+			const prefix = "/wymarket";
+			let uri = prefix + "/admin/dayCheck/" + yearCon.value + "/"
+				+ monthCon.value;
+			xhttp = new XMLHttpRequest();
+
+			xhttp.onreadystatechange = function() {
+				if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+					console.log(this.responseText);
+					
+					if(this.responseText == 28){
+						document.getElementById('day').innerHTML = 
+							`<option selected>일 선택</option><c:forEach var="i" begin="1" end="28">
+						<option value="${i }">${i }</option>
+						</c:forEach>`;
+					} else if(this.responseText == 29){
+						document.getElementById('day').innerHTML = 
+							`<option selected>일 선택</option><c:forEach var="i" begin="1" end="29">
+						<option value="${i }">${i }</option>
+						</c:forEach>`;
+					} else if(this.responseText == 30){
+						document.getElementById('day').innerHTML = 
+							`<option selected>일 선택</option><c:forEach var="i" begin="1" end="30">
+						<option value="${i }">${i }</option>
+						</c:forEach>`;
+					} else if(this.responseText == 31){
+						document.getElementById('day').innerHTML = 
+							`<option selected>일 선택</option><c:forEach var="i" begin="1" end="31">
+						<option value="${i }">${i }</option>
+						</c:forEach>`;
+					}
+					if("${selectedDay}" != ""){
+						if(num == 2){
+							document.getElementById('day').value = "${selectedDay}";
+						}
+					}	
+				}
+			}
+			xhttp.open('GET', uri, true);
+			xhttp.send();
+
+		} else {
+			dayCon.disabled = true;
+		}
+		dayCon.value = '일 선택';
+
+	} 
+	
+	<%session.removeAttribute("selectedYear");
+session.removeAttribute("selectedMonth");
+session.removeAttribute("selectedDay");
+session.removeAttribute("dateTransfer");%>
 	</script>
 
 

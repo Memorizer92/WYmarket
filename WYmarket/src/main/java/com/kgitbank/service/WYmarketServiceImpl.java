@@ -383,5 +383,10 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectItemByUserNickCategory(userNick, category);
 	}
 
+	@Override
+	public int selectCountFromWithdrawByPhoneNumber(String phoneNumber) {
+		return wyMarketMapper.selectCountFromWithdrawByPhoneNumber(phoneNumber);
+	}
+
 }
 

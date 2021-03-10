@@ -41,9 +41,10 @@ a {
 	text-decoration: none;
 }
 
-a:visited {
+a:hover {
 	color: #FF8A3D;
 }
+
 </style>
 </head>
 <body>

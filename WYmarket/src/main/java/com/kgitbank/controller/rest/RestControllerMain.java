@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,14 @@ import com.kgitbank.controller.LoginFormController;
 import com.kgitbank.model.AdminInfo;
 import com.kgitbank.model.Inquiry;
 import com.kgitbank.model.InquiryAdminToUser;
+import com.kgitbank.model.Pagination;
 import com.kgitbank.model.UserIP;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.GpsToAddress;
 import com.kgitbank.service.WYmarketService;
 import com.kgitbank.service.CertificationService;
+import com.kgitbank.service.DateCalc;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -486,4 +489,23 @@ public class RestControllerMain implements Serializable {
 				+ inquiry.getInquiryCategory() + "<br> 날짜 : " + formatStr + "</li>";
 	}
 
+	@GetMapping("/dateWithdrawal/{ph}")
+	public String dateWithdrawal(@PathVariable String ph) {
+		
+		int phCnt = wyMarketService.selectCountFromWithdrawByPhoneNumber(ph);
+		
+		return "" + phCnt;
+	}
+	
+	@GetMapping("/admin/dayCheck/{year}/{month}")
+	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
+			HttpServletRequest req, Model model, Pagination page) {
+		// 해당 일
+	
+		session.setAttribute("selectedYear", year);
+		session.setAttribute("selectedMonth", month);
+		
+		return "" + new DateCalc(year, month).getDay() + "";
+	}
+	
 }
