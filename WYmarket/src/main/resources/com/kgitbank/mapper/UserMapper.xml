@@ -31,10 +31,7 @@
 					delete from chat_info where buyerName=#{userNick} or sellerName =  #{userNick};
 				end
 		}
-	</delete>
-
-
-
+	</delete> 
 
 	<!-- 계정 탈퇴 유저 -->
 	<insert id="insertWithdrawal">
@@ -46,5 +43,13 @@
 		jdbcType=VARCHAR},sysdate+7
 		)
 	</insert>
+
+	<!-- 계정 탈퇴 사유 -->
+	<select id="selectWithdrawal" resultType="com.kgitbank.model.WithdrawalVO">
+	  select * from withdrawal
+	</select>
+
+
+
 
 </mapper>
