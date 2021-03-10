@@ -25,6 +25,20 @@ public class UserServiceImpl implements UserService {
 		return user_mapper.selectKakaoMail(mail);
 	}
 
+	@Override
+	public void deleteUserInfo(String userNick) {
+		user_mapper.deleteUserInfo(userNick);
+		
+	}
+
+	 
+
+	@Override
+	public void insertWithdrawal(String userNick, String ncontent, String phoneNumber, String kakaoMail) {
+		user_mapper.insertWithdrawal(userNick,ncontent,phoneNumber,kakaoMail);
+		
+	}
+ 
 
 
 
