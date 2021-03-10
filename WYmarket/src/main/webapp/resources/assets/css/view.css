@@ -4,7 +4,8 @@ div {
     display: block;
 }
 div.container_box {
-    border-style: solid; 
+    border-bottom-style:solid;
+	border-top-style:solid;
     border-width: 1px; 
     border-color: silver;
 }
@@ -13,12 +14,13 @@ div.sc-GDiEgd.ffhRs{
     padding: 30px 200px;
 }
 div.sc-dfRKBO.dHlrrk{
-	width: 430px;
-    height: 430px;
-	margin-right: 40px;
+	border-style: solid; 
+    border-width: 1px; 
+    border-color: silver;
+	margin-right: 50px;
     flex-shrink: 0;
 }
-div.sc-FGdgdS.Eqrak {
+div.sc-FGdgdS.eqrak {
     width: 100%;
     height: 50%;
     position: absolute;
@@ -105,6 +107,25 @@ div.sc-iBfVdv.gaaKji > * {
     -webkit-box-align: center;
     align-items: center;
 }
+div.sc-buGlAa.WhGFK{
+	display: flex;
+	margin-left: 250px;
+}
+div.sc-hkHFWD.hFnNtf{
+	width: 1000px;
+	font-size: 18px;
+    padding: 48px 0px 16px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+div.sc-feWbDf.fWwWem{
+	margin-top: 30px;
+}
+div.sc-goFBvh.dkfMql{
+	white-space: pre-wrap;
+    margin: 40px 0px;
+    line-height: 1.5;
+}
+
 
 
 

@@ -58,13 +58,7 @@ textarea#icontent {
 				<%@ include file="../include/header.jsp"%>
 			</div>
 		</header>
-		<nav id="nav">
-			<div id="nav_box">
-				<%@ include file="../include/nav.jsp"%>
-			</div>
-		</nav>
 		<section id="container">
-			<h2>상품 목록</h2>
 			<div class="container_box">
 				<form role="form" method="post" autocomplete="off">
 					<input type="hidden" name="n" value="${goods.itemID}" />
@@ -72,7 +66,7 @@ textarea#icontent {
 					<!-- 왼쪽 이미지 -->
 					<div class="sc-dfRKBO dHlrrk">
 						<img src="${pageContext.request.contextPath}${goods.simagePath }" 
-						class="sc-FGdgdS Eqrak" width="430px" height="430px"/>
+						class="sc-FGdgdS eqrak" width="430px" height="430px"/>
 					</div>
 
 					<!-- 오른쪽 상품 정보 -->
@@ -110,21 +104,39 @@ textarea#icontent {
 
 								<!-- 오른쪽 하단 버튼 -->
 								<div class="sc-iBfVdv gaaKji">
-									<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
-									<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
-
+									
 									<c:set var="sellerId" value="${sellerId}" />
 									<c:set var="buyerId" value="${buyerId}" />
-
-									<c:if test="${sellerId ne buyerId}">
-										<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
-										<button type="button" id="chat_Btn"
+		
+									<c:choose>
+										<c:when test="${sellerId ne buyerId}">
+											<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
+											<button type="button" id="chat_Btn"
 											onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
 											채팅으로 거래하기</button>
-									</c:if>
+										</c:when>
+										<c:otherwise>
+											<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+											<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
+										</c:otherwise>
+									</c:choose>
 									
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="sc-buGlAa WhGFK">
+					<div class="sc-bCCsHx eozLFC">
+						<div class="sc-cBOTKl iLsYdV"><!-- icontent -->
+							<div class="sc-hkHFWD hFnNtf">상품 정보</div>
+							<div class="sc-iUVpnZ kjiQPu">
+								<div class="sc-feWbDf fWwWem"></div>
+								<div class="sc-goFBvh dkfMql">${goods.scontent}</div>
+							</div>
+						</div>
+						<div class=""><!-- 댓글 -->
 						</div>
 					</div>
 				</div>
@@ -143,7 +155,7 @@ textarea#icontent {
 		$("#modify_Btn").click(function() {
 			formObj.attr("action", "./modify");//action
 			formObj.attr("method", "get")
-			formObj.submit();
+			formObj.submit();[]
 		});
 
 		$("#delete_Btn").click(function() {
