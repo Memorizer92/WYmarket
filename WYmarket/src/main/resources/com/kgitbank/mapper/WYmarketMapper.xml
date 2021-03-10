@@ -495,9 +495,15 @@
 		SELECT
 		count(*)
 		FROM
-		withdrawal WHERE phoneNumber = #{phoneNumber};
+		withdrawal WHERE phoneNumber = #{phoneNumber}
 	</select>
 
+	<select id="selectCountFromWithdrawByKakaoMail" resultType="Integer">
+		SELECT
+		count(*)
+		FROM
+		withdrawal WHERE kakaoMail = #{kakaoMail}
+	</select>
 
 </mapper>
 

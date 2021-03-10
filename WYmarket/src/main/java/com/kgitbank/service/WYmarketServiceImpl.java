@@ -388,5 +388,10 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectCountFromWithdrawByPhoneNumber(phoneNumber);
 	}
 
+	@Override
+	public int selectCountFromWithdrawByKakaoMail(String kakaoMail) {
+		return wyMarketMapper.selectCountFromWithdrawByKakaoMail(kakaoMail);
+	}
+
 }
 

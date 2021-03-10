@@ -382,7 +382,29 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">탈퇴</div>
+				<div class="modal-body">이미 탈퇴된 전화번호입니다.</div>
+
+
+				<div class="modal-footer" id="modalfooter">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="withdrawnKakao" data-bs-backdrop="static"
+		data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">탈퇴된 계정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="modal-body">이미 탈퇴된 메일입니다.</div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -408,7 +430,16 @@ function onlyNumber(){
 				document.getElementById("smsReqCnt").value += 1;
 			}
 		} */
-
+	console.log('${kakaoWithdrawal}');
+		if ("${kakaoWithdrawal}" == 1) {
+			var myModal = new bootstrap.Modal(document.getElementById('withdrawnKakao'));
+			myModal.show()
+			
+		} else {
+			var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop1'));
+			myModal.show()
+		}
+		
 	const confirm = document.getElementById('getConfirm');
 
 	const phonetext = document.getElementById('phonenumber');
@@ -421,13 +452,14 @@ function onlyNumber(){
 	phonebtn.addEventListener('click', () => {
 		if (phonetext.value.length == 11) {
 			if (timeLimit == 90 || timeLimit == 0) {
-
-				ajaxGetSMS(phonetext.value);
-				ajaxGetph(phonetext.value);
 				ajaxDateWithdrawal(phonetext.value);
-
+				setTimeout(function() {
+				ajaxGetph(phonetext.value);
+				ajaxGetSMS(phonetext.value);
+				}, 500);
 				setTimeout(function() {
 					if(withdrawNone.value == 1){
+						//ajaxViewWithdrawalDate();
 						var myModal = new bootstrap.Modal(document.getElementById('withdrawnID'));
 						myModal.show()
 					} else{
@@ -439,7 +471,7 @@ function onlyNumber(){
 							myModal.show()
 							setTimeout(function() {
 								startTime2();
-							}, 1000);
+							}, 800);
 						} else {
 							timeLimit = 90;
 							startTime();
@@ -447,11 +479,11 @@ function onlyNumber(){
 							setTimeout(function() {
 								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
 								myModal.show()
-							}, 1000);
+							}, 800);
 						}
-					}, 1000);
+					}, 800);
 					}
-				}, 1000);
+				}, 800);
 
 			} else {
 				var myModal = new bootstrap.Modal(document.getElementById('smsRetry'));
@@ -495,7 +527,7 @@ function onlyNumber(){
 							form.submit();
 						}
 
-					}, 1000);
+					}, 800);
 				}
 
 			} else {
@@ -595,6 +627,7 @@ function onlyNumber(){
 			}
 		}, time);
 	};
+
 	</script>
 
 </body>

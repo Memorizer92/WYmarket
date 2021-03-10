@@ -49,9 +49,6 @@ function ajaxGetAddress(lat, lon) {
 
 
 
-var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop1'));
-myModal.show()
-
 function ajaxGetSMS(phoneNumber) {
 	const prefix = "/wymarket/getsms";
 
@@ -257,3 +254,21 @@ function ajaxDateWithdrawal(ph) {
 
 	xhttp.send();
 }
+
+/*function ajaxViewWithdrawalDate() {
+	const prefix = "/wymarket/dateWithdrawalModal";
+
+	let uri = prefix + "/" + ph;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+			document.getElementById("withdrawNone").value = `${this.responseText}`;
+		}
+	}
+
+	xhttp.open('GET', uri, true);
+
+	xhttp.send();
+}*/

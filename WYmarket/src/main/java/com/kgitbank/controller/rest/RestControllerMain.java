@@ -55,6 +55,8 @@ public class RestControllerMain implements Serializable {
 
 	private int smsLeftCnt = 3;
 
+	private boolean withFlag = false;
+
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -87,6 +89,13 @@ public class RestControllerMain implements Serializable {
 	@PostMapping(value = { "/getsms/{sms}" }, produces = "text/html; charset=UTF-8")
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model, HttpSession session,
 			UserIP userIp) {
+
+		session.removeAttribute("kakaoWithdrawal");
+
+		if (withFlag) {
+			withFlag = false;
+			return null;
+		}
 
 		String ip = null;
 
@@ -483,29 +492,34 @@ public class RestControllerMain implements Serializable {
 		String formatStr = format.format(new Date());
 		System.out.println("이 아디" + inquiryAdminToUser.getInquiryID());
 
-		return "<li class=\"list-group-item lili\" \r\n" + "							onclick=\"ajaxshowHistory(" + maxiatu
-				+ ")\">문의 번호 :\r\n" + "							" + inquiry.getInquiryID() + " <br> 닉네임 : "
+		return "<li class=\"list-group-item lili\" \r\n" + "							onclick=\"ajaxshowHistory("
+				+ maxiatu + ")\">문의 번호 :\r\n" + "							" + inquiry.getInquiryID() + " <br> 닉네임 : "
 				+ inquiry.getUserNick() + " <br>\r\n" + "							카테고리 : "
 				+ inquiry.getInquiryCategory() + "<br> 날짜 : " + formatStr + "</li>";
 	}
 
 	@GetMapping("/dateWithdrawal/{ph}")
-	public String dateWithdrawal(@PathVariable String ph) {
-		
-		int phCnt = wyMarketService.selectCountFromWithdrawByPhoneNumber(ph);
-		
+	public String dateWithdrawal(@PathVariable String ph, HttpSession session) {
+
+		String dashPhoneNumber = ph.substring(0, 3) + "-" + ph.substring(3, 7) + "-" + ph.substring(7);
+
+		int phCnt = wyMarketService.selectCountFromWithdrawByPhoneNumber(dashPhoneNumber);
+		if (phCnt == 1) {
+			withFlag = true;
+		}
+
 		return "" + phCnt;
 	}
-	
+
 	@GetMapping("/admin/dayCheck/{year}/{month}")
 	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
 			HttpServletRequest req, Model model, Pagination page) {
 		// 해당 일
-	
+
 		session.setAttribute("selectedYear", year);
 		session.setAttribute("selectedMonth", month);
-		
+
 		return "" + new DateCalc(year, month).getDay() + "";
 	}
-	
+
 }

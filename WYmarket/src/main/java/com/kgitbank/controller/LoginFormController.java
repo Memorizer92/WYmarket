@@ -33,7 +33,7 @@ import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
 @Controller
-@SessionAttributes(names = {"lat", "lon", "address" })
+@SessionAttributes(names = { "lat", "lon", "address" })
 public class LoginFormController {
 
 	OAuthToken oauthToken = null;
@@ -150,6 +150,8 @@ public class LoginFormController {
 
 		// post방식으로 key=value 데이터를 요청(카카오쪽으로)
 
+		session.removeAttribute("kakaoWithdrawal");
+
 		RestTemplate rt = new RestTemplate();
 
 		// HttpHeaders 오브젝트 생성
@@ -265,6 +267,12 @@ public class LoginFormController {
 
 	@PostMapping(value = "auth/kakao/kakaonick", consumes = "application/json", produces = "text/html; charset=UTF-8")
 	public String join(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
+
+		int kakaoCnt = wyMarketService.selectCountFromWithdrawByKakaoMail(mail);
+		if (kakaoCnt == 1) {
+			session.setAttribute("kakaoWithdrawal", 1);
+			return "redirect:/login";
+		}
 
 		userInfo.setLatitude((double) model.getAttribute("lat"));
 		userInfo.setLongitude((double) model.getAttribute("lon"));

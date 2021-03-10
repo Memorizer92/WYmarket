@@ -166,7 +166,10 @@ public interface WYmarketMapper {
 
 	List<GoodsVO> selectItemByUserNickSearch(@Param("userNick") String userNick, @Param("search") String search);
 
-	List<GoodsVO> selectItemByUserNickCategory(@Param("userNick") String userNick, @Param("icategory") String icategory);
-	
+	List<GoodsVO> selectItemByUserNickCategory(@Param("userNick") String userNick,
+			@Param("icategory") String icategory);
+
 	int selectCountFromWithdrawByPhoneNumber(String phoneNumber);
+
+	int selectCountFromWithdrawByKakaoMail(String kakaoMail);
 }
