@@ -18,6 +18,10 @@ public interface GoodsServiceImpl {
 	
 	public GoodsVO getGoods(int itemid);
 	
+	/*
+	 * public void goodsModify(GoodsVO goods, String ititle, String icategory,
+	 * String icontent, Integer price, String iimagepath);
+	 */
 	public void goodsModify(GoodsVO goods);
 
 	String getId(String userNick);

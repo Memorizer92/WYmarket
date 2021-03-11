@@ -115,6 +115,7 @@ public class GoodsController {
 		if(file.getOriginalFilename() != null && file.getOriginalFilename().equals("")) { 
 			// 기존 파일을 삭제 
 			System.out.println(req.getParameter("iimagepath"));
+			System.out.println("ㅎㅎ");
 			new File(uploadPath + req.getParameter("iimagepath")).delete();
 
 			// 새로 첨부한 파일을 등록
@@ -124,12 +125,18 @@ public class GoodsController {
 					ymdPath);
 
 			goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			System.out.println(goods.getIimagepath());
 
 		} else { // 새로운 파일이 등록되지 않았다면 // 기존 이미지를 그대로 사용
 			System.out.println(req.getParameter("iimagepath"));
+			System.out.println("ㅠㅠ");
 			goods.setIimagepath(req.getParameter("iimagepath"));
 		}
 
+		/*
+		 * gservice.goodsModify(goods,goods.getItitle(), goods.getIcategory(),
+		 * goods.getIcontent(), goods.getPrice(), goods.getIimagepath());
+		 */
 		gservice.goodsModify(goods);
 
 		return "redirect:/main";

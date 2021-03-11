@@ -13,8 +13,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 function inputCheck() {
-    /* var iimagepath = document.form.iimagepath.value; */
-    const iimagepath = document.getElementById("iimagepath").value;
+    var iimagepath = document.form.iimagepath.value;
+    /* const iimagepath = document.getElementById("iimagepath").value; */
     const ititle = document.getElementById("ititle").value;
     const icg = document.getElementById("icategory");
     const icategory = icg.options[icg.selectedIndex].value;
@@ -72,7 +72,7 @@ function inputCheck() {
 		</header>
 		<section class="container">
 			<h2>상품 등록</h2>
-			<form action="./add" role="form" method="POST" name="form"
+			<form action="./modify2" role="form" method="POST" name="form"
 				 autocomplete="off"  enctype="multipart/form-data">
 				<input type="hidden" name="itemid" value="${goods.itemid}" />
 				<ul class="sc-as a1">
@@ -82,14 +82,14 @@ function inputCheck() {
 							<ul class="sc-ht a4">
 								<li class="sc-tr a51"><!-- 이미지 등록하는 버튼 -->
 									이미지 등록
-									<input type="file" id="iimagepath" name="file"
-									accept="image/jpg, image/jpeg, image/png" />
+									<input type="file" id="iimagepath" name="file"/>
+									<!-- accept="image/jpg, image/jpeg, image/png"  -->
 								</li>
 								<li draggable="false" class="sc-bn a52" id="sc-bn a52">
 									<div class="select_img" id="select_img">
 										<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
-										<input type="hidden" id="iimagepath" name="iimagepath" 
-										value="${pageContext.request.contextPath}${goods.iimagepath }" />
+										<input type="hidden" name="iimagepath" 
+										value="${goods.iimagepath }" />
 									</div>
 									<script>
 										$("#iimagepath").change(function(){
@@ -99,6 +99,7 @@ function inputCheck() {
 										     $(".select_img img").attr("src", data.target.result).width(200);        
 										    }
 										    reader.readAsDataURL(this.files[0]);
+										    console.log($("#iimagepath")); 
 										   }
 										  });
 									</script>
