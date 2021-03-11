@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시글</title>
+<title>게시글 작성</title>
  <script type="text/javascript"  src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
   <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
@@ -59,7 +59,7 @@ h2 {
 </head>
 <body>
 <div class="container" id='outer'>
-		<h2>공지사항 확인</h2>
+		<h2 style="color: orange;">공지사항 수정/삭제</h2>
 
 	 
 			<div class="container" id='formContainer'>

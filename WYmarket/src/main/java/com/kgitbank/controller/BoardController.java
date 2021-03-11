@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kgitbank.model.BoardVO;
+import com.kgitbank.model.WithdrawalVO;
 import com.kgitbank.service.BoardService;
- 
-
+import com.kgitbank.service.UserService;
 import com.kgitbank.service.WYmarketService;
 
 
@@ -26,10 +26,22 @@ import com.kgitbank.service.WYmarketService;
 @RequestMapping("/board/*")
 public class BoardController {
  
-
+	
 	@Autowired
 	WYmarketService wyMarketService;
+	
+	@Autowired
+	private UserService service;
 
+	//계정 탈퇴 사유 조회
+	@RequestMapping("withdrawalList")
+	public String withdrawalList(Model model) {
+		
+		List<WithdrawalVO> listW = service.selectWithdrawal();
+		model.addAttribute("listW", listW);
+		System.out.println("dd"+listW);
+		return "/board/withdrawalList";
+	}
 	
 	//공지사항
 	@RequestMapping("notice/{category}")

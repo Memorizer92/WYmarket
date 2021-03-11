@@ -109,7 +109,7 @@ border-radius: 4px;
 </head>
 <body>
 	<div class="container" id='outer'>
-		<h2>공지사항 수정/삭제</h2>
+		<h2 style="color: orange;">공지사항 수정/삭제</h2>
 
 		<form method="post" name="form1" >
 			<div class="container" id='formContainer'>
