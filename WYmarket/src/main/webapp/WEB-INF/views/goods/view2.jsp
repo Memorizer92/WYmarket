@@ -28,11 +28,11 @@
 		<section id="container">
 			<div class="container_box">
 				<form role="form" method="post" autocomplete="off">
-					<input type="hidden" name="n" value="${goods.itemID}" />
+					<input type="hidden" name="n" value="${goods.itemid}" />
 				<div class="sc-GDiEgd ffhRs">
 					<!-- 왼쪽 이미지 -->
 					<div class="sc-dfRKBO dHlrrk">
-						<img src="${pageContext.request.contextPath}${goods.simagePath }" 
+						<img src="${pageContext.request.contextPath}${goods.iimagepath }" 
 						class="sc-FGdgdS eqrak" width="430px" height="430px"/>
 					</div>
 
@@ -42,7 +42,7 @@
 						<div class="sc-cXHFlN lihcCo">
 							<div class="sc-gJTSre jpBJTK">
 								<div class="sc-fdqjUm bYWuXd">
-									<div class="sc-cLmFfZ keaVUW">${goods.stitle}</div>
+									<div class="sc-cLmFfZ keaVUW">${goods.ititle}</div>
 									<div class="sc-eAyhxF ioSadU">
 										<span><fmt:formatNumber value="${goods.price}"
 												pattern="###,###,###" /> 원</span>
@@ -85,11 +85,11 @@
 											<div class="sc-hAcydR cMqzFd">
 											카테고리
 											</div>
-											<div class="sc-eomEcv eAimDN">${goods.scategory}</div>
+											<div class="sc-eomEcv eAimDN">${goods.icategory}</div>
 										</div>
 										<div class="sc-BOulX hnYMWw">
 											<div class="sc-hAcydR cMqzFd">판매자</div>
-											<div class="sc-eomEcv eAimDN">${goods.userNick}</div>
+											<div class="sc-eomEcv eAimDN">${goods.usernick}</div>
 										</div>
 										<div class="sc-BOulX hnYMWw">
 											<div class="sc-hAcydR cMqzFd">거래지역</div>
@@ -108,7 +108,7 @@
 										<c:when test="${sellerId ne buyerId}">
 											<%-- 자신이 올린 판매글에 들어가면 채팅 거래하기 없음 --%>
 											<button type="button" id="chat_Btn"
-											onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.userNick}&item=${goods.stitle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
+											onclick="window.open('<%=application.getContextPath()%>/chats/room?roomId=${sellerId}${buyerId}&buyerName=${buyerName}&sellerName=${goods.usernick}&item=${goods.ititle}&price=${goods.price}&check=0','채팅방','width=650,height=800,left=650,top=130,status=no,scrollbars=yes')">
 											채팅으로 거래하기</button>
 										</c:when>
 										<c:otherwise>
@@ -129,7 +129,7 @@
 							<div class="sc-hkHFWD hFnNtf">상품 정보</div>
 							<div class="sc-iUVpnZ kjiQPu">
 								<div class="sc-feWbDf fWwWem"></div>
-								<div class="sc-goFBvh dkfMql">${goods.scontent}</div>
+								<div class="sc-goFBvh dkfMql">${goods.icontent}</div>
 							</div>
 						</div>
 						<div class=""><!-- 댓글 -->

@@ -60,13 +60,11 @@
 
 	<!-- 업로드 패스 설정 (각자 경로에 맞게 설정) -->
 	<!-- C:\Users\jongh\git\WYmarket\WYmarket\src\main\webapp\resources -->
+	<!-- C:\Users\seunghwan\Downloads\eclipse\TeamProject\WYmarket\WYmarket\src\main\webapp\resources -->
+	<!-- C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-
-
-			value="C:\Users\seunghwan\Downloads\eclipse\TeamProject\WYmarket\WYmarket\src\main\webapp\resources" />
-
-
+			value="C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources" />
 	</beans:bean>
 
 

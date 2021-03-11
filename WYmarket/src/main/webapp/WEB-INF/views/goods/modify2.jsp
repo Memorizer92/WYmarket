@@ -74,7 +74,7 @@ function inputCheck() {
 			<h2>상품 등록</h2>
 			<form action="./add" role="form" method="POST" name="form"
 				 autocomplete="off"  enctype="multipart/form-data">
-				<input type="hidden" name="itemid" value="${goods.itemID}" />
+				<input type="hidden" name="itemid" value="${goods.itemid}" />
 				<ul class="sc-as a1">
 					<li class="sc-ve a2">
 						<div class="sc-Dr a311">상품이미지</div>
@@ -87,9 +87,9 @@ function inputCheck() {
 								</li>
 								<li draggable="false" class="sc-bn a52" id="sc-bn a52">
 									<div class="select_img" id="select_img">
-										<img src="${pageContext.request.contextPath}${goods.simagePath }" />
+										<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
 										<input type="hidden" id="iimagepath" name="iimagepath" 
-										value="${pageContext.request.contextPath}${goods.simagePath }" />
+										value="${pageContext.request.contextPath}${goods.iimagepath }" />
 									</div>
 									<script>
 										$("#iimagepath").change(function(){
@@ -110,14 +110,14 @@ function inputCheck() {
 						<div class="sc-Dr a311">상품명</div>
 						<div class="sc-Ge a322">
 							<input type="text" id="ititle" 
-							name="ititle" value="${goods.stitle}"/>
+							name="ititle" value="${goods.ititle}"/>
 						</div>
 					</li>
 					<li class="sc-ve a2">
 						<div class="sc-Ww a3111">카테고리</div>
 						<div class="sc-Vv a3222">
 							<select id="icategory" name="icategory" >
-								<option selected>${goods.scategory}</option>
+								<option selected>${goods.icategory}</option>
 								<option>여성의류</option>
 								<option>패션잡화</option>
 								<option>남성의류</option>
@@ -135,7 +135,7 @@ function inputCheck() {
 					<li class="sc-ve a2"> <!-- 소개 -->
 						<div class="sc-TE a3111">상품 설명</div>
 						<div class="sc-Ge a322">
-							<textarea rows="6" cols="50" id="icontent" name="icontent" class="sc-HA a4">${goods.scontent}</textarea>
+							<textarea rows="6" cols="50" id="icontent" name="icontent" class="sc-HA a4">${goods.icontent}</textarea>
 						</div>
 					</li>
 					<li class="sc-ve a2">
