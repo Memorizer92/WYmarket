@@ -59,7 +59,7 @@ h2 {
 </head>
 <body>
 <div class="container" id='outer'>
-		<h2>공지사항 수정/삭제</h2>
+		<h2 style="color: orange;">공지사항 수정/삭제</h2>
 
 	 
 			<div class="container" id='formContainer'>

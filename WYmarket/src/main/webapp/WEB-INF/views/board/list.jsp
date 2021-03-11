@@ -41,7 +41,7 @@
 <body>
 
 <div class="container" id='outer'>
-	<h2>공지사항</h2><br>
+	<h2 style="color: orange;">공지사항</h2><br>
   
  <table class="table table-light table-hover table-striped">
   <thead>
