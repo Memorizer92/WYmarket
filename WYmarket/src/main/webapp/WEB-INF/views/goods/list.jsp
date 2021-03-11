@@ -50,7 +50,7 @@ section#content div.price {
 	font-size: 16px
 }
 
-section#content div.refreshTime1 {
+section#content div.refreshtime1 {
 	text-align: right;
 	padding: 0px 15px 10px 0px;
 	color: silver;
@@ -68,7 +68,7 @@ section#content div.refreshTime1 {
 
 				<section id="content">
 					<ul>
-						<c:forEach items="${itemvo}" var="goods">
+						<c:forEach items="${goods}" var="goods">
 				
 							<li>
 								<div class="iimagepath">
@@ -89,67 +89,67 @@ section#content div.refreshTime1 {
 									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" />
 									원
 								</div>
-								<div class="refreshTime1"> 
-								<c:choose>
-									<c:when
-										test="${goods.refreshTime >= 0 && goods.refreshTime < 60}">
-										<span>${goods.refreshTime}초 전</span>
-										<br>
-									</c:when>
+								<div class="refreshtime1"> 
+									<c:choose>
+                           <c:when
+                              test="${goods.refreshtime >= 0 && goods.refreshtime < 60}">
+                              <span>${goods.refreshtime}초 전</span>
+                              <br>
+                           </c:when>
 
-									<c:when
-										test="${goods.refreshTime >= 60 && goods.refreshTime < 3600}">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 60)}"
-											integerOnly="true" />
-										<span>${percent}분 전</span>
-										<br>
-									</c:when>
+                           <c:when
+                              test="${goods.refreshtime >= 60 && goods.refreshtime < 3600}">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 60)}"
+                                 integerOnly="true" />
+                              <span>${percent}분 전</span>
+                              <br>
+                           </c:when>
 
-									<c:when
-										test="${goods.refreshTime >= 3600 && goods.refreshTime < 86400}">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 3600)}"
-											integerOnly="true" />
-										<span>${percent}시간 전</span>
-										<br>
-									</c:when>
+                           <c:when
+                              test="${goods.refreshtime >= 3600 && goods.refreshtime < 86400}">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 3600)}"
+                                 integerOnly="true" />
+                              <span>${percent}시간 전</span>
+                              <br>
+                           </c:when>
 
-									<c:when
-										test="${goods.refreshTime >= 86400 && goods.refreshTime < 2764800} ">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 86400)}"
-											integerOnly="true" />
-										<span>${percent }일 전</span>
-										<br>
-									</c:when>
+                           <c:when
+                              test="${goods.refreshtime >= 86400 && goods.refreshtime < 2764800} ">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 86400)}"
+                                 integerOnly="true" />
+                              <span>${percent }일 전</span>
+                              <br>
+                           </c:when>
 
 
-									<c:when
-										test="${goods.refreshTime >= 86400 && goods.refreshTime < 2764800}">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 86400)}"
-											integerOnly="true" />
-										<span>${percent}일 전</span>
-										<br>
-									</c:when>
+                           <c:when
+                              test="${goods.refreshtime >= 86400 && goods.refreshtime < 2764800}">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 86400)}"
+                                 integerOnly="true" />
+                              <span>${percent}일 전</span>
+                              <br>
+                           </c:when>
 
-									<c:when
-										test="${goods.refreshTime >= 2678400 && goods.refreshTime < 32140800}">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 2678400)}"
-											integerOnly="true" />
-										<span>${percent }달 전</span>
-										<br>
-									</c:when>
-									<c:when test="${goods.refreshTime >= 32140800}">
-										<fmt:parseNumber var="percent"
-											value="${((goods.refreshTime) / 32140800)}"
-											integerOnly="true" />
-										<span>${percent }년 전 </span>
-										<br>
-									</c:when>
-								</c:choose>
+                           <c:when
+                              test="${goods.refreshtime >= 2678400 && goods.refreshtime < 32140800}">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 2678400)}"
+                                 integerOnly="true" />
+                              <span>${percent }달 전</span>
+                              <br>
+                           </c:when>
+                           <c:when test="${goods.refreshtime >= 32140800}">
+                              <fmt:parseNumber var="percent"
+                                 value="${((goods.refreshtime) / 32140800)}"
+                                 integerOnly="true" />
+                              <span>${percent }년 전 </span>
+                              <br>
+                           </c:when>
+                        </c:choose>
 								</div>
 							</li>
 						</c:forEach>
