@@ -90,7 +90,7 @@ public class RestControllerMain implements Serializable {
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model, HttpSession session,
 			UserIP userIp) {
 
-		//session.removeAttribute("kakaoWithdrawal");
+		// session.removeAttribute("kakaoWithdrawal");
 
 		if (withFlag) {
 			withFlag = false;
@@ -501,16 +501,69 @@ public class RestControllerMain implements Serializable {
 	@GetMapping("/dateWithdrawal/{ph}")
 	public String dateWithdrawal(@PathVariable String ph, HttpSession session) {
 
+		session.removeAttribute("penaltyTime");
+
 		String dashPhoneNumber = ph.substring(0, 3) + "-" + ph.substring(3, 7) + "-" + ph.substring(7);
 
 		int phCnt = wyMarketService.selectCountFromWithdrawByPhoneNumber(dashPhoneNumber);
+
+		String reSignUp = null;
+
 		if (phCnt == 1) {
-			withFlag = true;
+			reSignUp = wyMarketService.selectReSignUpByPhoneNumber(dashPhoneNumber);
+			if (reSignUp.equals("N")) {
+				withFlag = true;
+			}
+		} else if (phCnt >= 2) {
+			reSignUp = wyMarketService.selectReSignUpByPhoneNumberAndMaxDate(dashPhoneNumber);
+			if (reSignUp.equals("N")) {
+				withFlag = true;
+			}
 		}
 
-		return "" + phCnt;
+		Date banDate = wyMarketService.selectBanDateByPhoneNumber(dashPhoneNumber);
+		System.out.println(banDate);
+		if (banDate != null) {
+			Calendar getToday = Calendar.getInstance();
+			getToday.setTime(new Date()); // 현재 날짜
+
+			Calendar cmpDate = Calendar.getInstance();
+			cmpDate.setTime(banDate); // 특정 일자
+
+			long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+			diffSec = -diffSec;
+			long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+
+			if (diffDays <= 0) {
+				if (phCnt == 1) {
+					wyMarketService.updateReSignUpByPhoneNumber(dashPhoneNumber);
+					reSignUp = wyMarketService.selectReSignUpByPhoneNumber(dashPhoneNumber);
+				} else if (phCnt >= 2) {
+					wyMarketService.updateReSignUpByPhoneNumberAndMaxDate(dashPhoneNumber);
+					reSignUp = wyMarketService.selectReSignUpByPhoneNumberAndMaxDate(dashPhoneNumber);
+				}
+				withFlag = false;
+			} else {
+				session.setAttribute("penaltyTime", diffDays);
+			}
+		}
+
+		return reSignUp;
 	}
 
+	@GetMapping("/dateWithdrawalModal/{ph}")
+	public String dateWithdrawalModal(@PathVariable String ph, HttpSession session, Model model) {
+
+		return "" + session.getAttribute("penaltyTime");
+	}
+
+	@GetMapping("/dateWithdrawalModalKakao")
+	public String dateWithdrawalModalKakao(HttpSession session, Model model) {
+
+		return "" + session.getAttribute("penaltyTimeKakao");
+	}
+	
+	
 	@GetMapping("/admin/dayCheck/{year}/{month}")
 	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
 			HttpServletRequest req, Model model, Pagination page) {

@@ -64,7 +64,8 @@
 	<!-- C:\Users\손지원\git\WYmarket\WYmarket\src\main\webapp\resources -->
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
-			value="C:\Users\jongh\git\WYmarket\WYmarket\src\main\webapp\resources" />
+			value="C:\Users\Hyun\Desktop\JAVA SW DEVELOPER OCTOBER HYUN\gitWYmarket\WYmarket\WYmarket\src\main\webapp\resources" />
+
 	</beans:bean>
 
 

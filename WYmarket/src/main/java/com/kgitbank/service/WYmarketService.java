@@ -170,4 +170,25 @@ public interface WYmarketService {
 
 	int selectCountFromWithdrawByKakaoMail(String kakaoMail);
 
+	Date selectBanDateByPhoneNumber(String phoneNumber);
+
+	int deleteWithdrawalByPhoneNumber(String phoneNumber);
+
+	String selectReSignUpByPhoneNumberAndMaxDate(String phoneNumber);
+
+	String selectReSignUpByPhoneNumber(String phoneNumber);
+
+	int updateReSignUpByPhoneNumber(String phoneNumber);
+
+	int updateReSignUpByPhoneNumberAndMaxDate(String phoneNumber);
+	
+	String selectReSignUpByMail(String kakaoMail);
+	
+	String selectReSignUpByMailAndMaxDate(String kakaoMail);
+	
+	int updateReSignUpByMail(String kakaoMail);
+
+	int updateReSignUpByMailAndMaxDate(String kakaoMail);
+
+	Date selectBanDateByMail(String kakaoMail);
 }

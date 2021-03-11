@@ -24,29 +24,33 @@
 	<delete id="deleteUserInfo">
 		{
 		call
-			declare
-				begin
-					delete from sh_userinfo where userNick =#{userNick};
-					delete from sh_item where userNick =#{userNick};
-					delete from chat_info where buyerName=#{userNick} or sellerName =  #{userNick};
-				end
+		declare
+		begin
+		delete from sh_userinfo where userNick =#{userNick};
+		delete from sh_item where userNick =#{userNick};
+		delete from chat_info where buyerName=#{userNick} or sellerName =
+		#{userNick};
+		end
 		}
-	</delete> 
+	</delete>
 
 	<!-- 계정 탈퇴 유저 -->
 	<insert id="insertWithdrawal">
 		INSERT INTO
-		withdrawal(userNick,ncontent,kakaoMail,phoneNumber,banDate)
-		VALUES(
+		withdrawal(withdrawalID,
+		userNick,ncontent,kakaoMail,phoneNumber,banDate)
+		VALUES(withdrawal_seq.nextval,
 		#{userNick},
-		#{ncontent}, #{kakaoMail, jdbcType=VARCHAR},#{phoneNumber,
+		#{ncontent}, #{kakaoMail,
+		jdbcType=VARCHAR},#{phoneNumber,
 		jdbcType=VARCHAR},sysdate+7
 		)
 	</insert>
 
 	<!-- 계정 탈퇴 사유 -->
-	<select id="selectWithdrawal" resultType="com.kgitbank.model.WithdrawalVO">
-	  select * from withdrawal
+	<select id="selectWithdrawal"
+		resultType="com.kgitbank.model.WithdrawalVO">
+		select * from withdrawal
 	</select>
 
 
