@@ -71,8 +71,7 @@
 		ititle = #{ititle},
 		icategory = #{icategory},
 		price = #{price},
-		icontent = #{icontent},
-		istate = #{istate}
+		icontent = #{icontent}
 		where itemid = ${itemid}
 	</update>
 

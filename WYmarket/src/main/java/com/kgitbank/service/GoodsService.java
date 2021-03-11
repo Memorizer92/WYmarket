@@ -26,6 +26,12 @@ public class GoodsService implements GoodsServiceImpl{
 		return goods_mapper.getGoods(itemid);
 	}
 	
+	/*
+	 * @Override public void goodsModify(GoodsVO goods, String ititle, String
+	 * icategory, String icontent, Integer price, String iimagepath) {
+	 * goods_mapper.goodsModify(goods, ititle, icategory, icontent, price,
+	 * iimagepath); }
+	 */
 	@Override
 	public void goodsModify(GoodsVO goods) {
 		goods_mapper.goodsModify(goods);
