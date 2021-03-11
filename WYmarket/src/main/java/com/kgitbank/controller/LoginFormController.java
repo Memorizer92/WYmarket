@@ -292,7 +292,7 @@ public class LoginFormController {
 
 		int kakaoCnt = wyMarketService.selectCountFromWithdrawByKakaoMail(mail);
 		if (kakaoCnt == 1) {
-			session.setAttribute("kakaoWithdrawal", 1);
+			session.setAttribute("kakaoWithdrawal", 1); 
 			return "redirect:/login";
 		}
 
