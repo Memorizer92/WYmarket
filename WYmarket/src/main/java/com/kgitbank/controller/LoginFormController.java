@@ -133,7 +133,7 @@ public class LoginFormController {
 	// 로그아웃
 	@GetMapping("/auth/kakao/logout")
 	public String logout(String code, HttpSession session, Model model) {
-		System.out.println("제발 들어와주세요");
+		// 지워야 하는 코드------------------------아래로
 
 		RestTemplate rt3 = new RestTemplate();
 
@@ -166,7 +166,7 @@ public class LoginFormController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-
+		// 지워야 하는 코드------------------------위로
 		session.removeAttribute("user");
 		System.out.println(session.getAttribute("user"));
 
@@ -216,7 +216,7 @@ public class LoginFormController {
 		}
 
 		System.out.println("카카오 엑세스 토큰 : " + oauthToken.getAccess_token());
-		// dd
+		 
 
 		// -------------------------------profile--------------------------------
 		// 카카오로부터 정보 받기

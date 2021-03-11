@@ -88,17 +88,14 @@ public class MainController {
 		Collections.sort(distance6km, new Comparator<GoodsVO>() {
 		    @Override
 		    public int compare(GoodsVO o1, GoodsVO o2) {
-		        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+		        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 		    }
 		});
 	 
 	  
 		if (search == null) {// 메인페이지
 			// List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
-			model.addAttribute("goods", distance6km);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+			model.addAttribute("goods", distance6km);		
 			// System.out.println(sid);
 		} else {// 검색창에 검색 했을때
 				// List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
@@ -113,14 +110,12 @@ public class MainController {
 			Collections.sort(distance6kmSearch, new Comparator<GoodsVO>() {
 			    @Override
 			    public int compare(GoodsVO o1, GoodsVO o2) {
-			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 			    }
 			});
 	
 			model.addAttribute("goods", distance6kmSearch);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+			
 			// System.out.println(sid);
 		}
 
@@ -137,13 +132,11 @@ public class MainController {
 			Collections.sort(distance6kmCategory, new Comparator<GoodsVO>() {
 			    @Override
 			    public int compare(GoodsVO o1, GoodsVO o2) {
-			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 			    }
 			});
 			model.addAttribute("goods", distance6kmCategory);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+			
 			// System.out.println(sid);
 		}
 

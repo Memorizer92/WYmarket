@@ -265,7 +265,7 @@ function check(){
 			</div>
 		</form>
 
-		<a class="sale" href="/wymarket/goods/register"
+		<a class="sale" href="/wymarket/goods/register2"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="상품 등록"><i
 			class="fas fa-won-sign biggest"></i></a> <a class="mypage" href="/wymarket/param/myPage"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="마이 페이지"><i
@@ -277,7 +277,6 @@ function check(){
 			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip"
 			data-bs-placement="bottom" title="주소 새로고침"><i
 			class="fas fa-map-marked-alt biggest"></i></a>
-			<a href="/wymarket/withdrawal">탈퇴</a>
 	</div>
 	<div class="test"></div>
 

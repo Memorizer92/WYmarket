@@ -257,9 +257,9 @@
 
 .eTKvNd {
 	flex: 1 1 0%;
-	-webkit-box-align: center;
+
 	align-items: center;
-	-webkit-box-pack: center;
+
 	justify-content: center;
 	display: flex;
 	border-top: 1px solid rgb(238, 238, 238);
@@ -513,14 +513,14 @@
 }
 
 #storeNick{
-	    margin: 0px 15px;
+
     font-size: 14px;
     flex-grow: 0;
 	
 }
 
 .storecheck{
-	    font-size: 13px;
+	   font-size: 13px;
     display: flex;
     align-items: center;
     padding: 0px 15px;

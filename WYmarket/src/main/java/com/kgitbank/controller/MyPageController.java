@@ -89,4 +89,6 @@ public class MyPageController {
 		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
 		return "/myPageSuperintend";
 	}
+
+
 }

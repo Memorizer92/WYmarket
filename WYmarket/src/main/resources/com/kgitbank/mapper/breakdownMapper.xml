@@ -8,18 +8,9 @@
 SELECT usernick from sh_userInfo 
 </select>
 
-
-
-
-
 <select id="getUserItemList" resultType="com.kgitbank.model.ShItemVO">
 	<![CDATA[
-		SELECT 
-			rn, itemID, iImagePath, userNick,
-			address, manner, iTitle, iCategory, refreshtime, iContent, price, 
-			chatCnt, likeCnt, viewCnt, iState,
-			iReservationState
-	FROM
+			SELECT * FROM
 		(SELECT
 			rownum rn, itemID, iImagePath, userNick,
 			address, manner, iTitle, iCategory,
@@ -39,6 +30,9 @@ SELECT usernick from sh_userInfo
 		rn > (#{pagenum} -1) * #{amount} order by refreshtime asc
 		]]>
 </select>
+
+
+
 
 
 <select id="getShuserInfoCdate" resultType="int">
@@ -67,7 +61,6 @@ SELECT  itemID, iImagePath, userNick,
 		from sh_item where usernick = #{usernick} order by refreshtime asc
 			]]>	
 </select>
-
 
 
 
