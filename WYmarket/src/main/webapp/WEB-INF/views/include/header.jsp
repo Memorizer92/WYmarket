@@ -277,7 +277,6 @@ function check(){
 			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip"
 			data-bs-placement="bottom" title="주소 새로고침"><i
 			class="fas fa-map-marked-alt biggest"></i></a>
-			<a href="/wymarket/withdrawal">탈퇴</a>
 	</div>
 	<div class="test"></div>
 

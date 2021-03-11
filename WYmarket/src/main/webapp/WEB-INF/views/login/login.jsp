@@ -458,7 +458,7 @@ function onlyNumber(){
 				setTimeout(function() {
 				ajaxGetph(phonetext.value);
 				ajaxGetSMS(phonetext.value);
-				}, 800);
+				}, 1000);
 				setTimeout(function() {
 					if(withdrawNone.value == 'N'){
 						ajaxViewWithdrawalDate(phonetext.value);
@@ -473,7 +473,7 @@ function onlyNumber(){
 							myModal.show()
 							setTimeout(function() {
 								startTime2();
-							}, 800);
+							}, 1000);
 						} else {
 							timeLimit = 90;
 							startTime();
@@ -481,11 +481,11 @@ function onlyNumber(){
 							setTimeout(function() {
 								var myModal = new bootstrap.Modal(document.getElementById('phoneClick'));
 								myModal.show()
-							}, 800);
+							}, 1000);
 						}
-					}, 800);
+					}, 1000);
 					}
-				}, 800);
+				}, 1000);
 
 			} else {
 				var myModal = new bootstrap.Modal(document.getElementById('smsRetry'));
@@ -529,7 +529,7 @@ function onlyNumber(){
 							form.submit();
 						}
 
-					}, 800);
+					}, 1000);
 				}
 
 			} else {

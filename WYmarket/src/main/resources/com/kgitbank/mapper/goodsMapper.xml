@@ -18,6 +18,7 @@
 		price, chatcnt, likecnt,
 		viewcnt, istate, ireservationstate
 		from sh_item where usernick in (select usernick from sh_userinfo where ban = 'N')
+		order by refreshtime desc
 
 	</select>
 

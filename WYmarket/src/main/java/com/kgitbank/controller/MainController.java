@@ -88,7 +88,7 @@ public class MainController {
 		Collections.sort(distance6km, new Comparator<GoodsVO>() {
 		    @Override
 		    public int compare(GoodsVO o1, GoodsVO o2) {
-		        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+		        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 		    }
 		});
 	 
@@ -110,7 +110,7 @@ public class MainController {
 			Collections.sort(distance6kmSearch, new Comparator<GoodsVO>() {
 			    @Override
 			    public int compare(GoodsVO o1, GoodsVO o2) {
-			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 			    }
 			});
 	
@@ -132,7 +132,7 @@ public class MainController {
 			Collections.sort(distance6kmCategory, new Comparator<GoodsVO>() {
 			    @Override
 			    public int compare(GoodsVO o1, GoodsVO o2) {
-			        return o2.getRefreshtime().compareTo(o1.getRefreshtime());
+			        return o1.getRefreshtime().compareTo(o2.getRefreshtime());
 			    }
 			});
 			model.addAttribute("goods", distance6kmCategory);
