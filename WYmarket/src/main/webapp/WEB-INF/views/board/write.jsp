@@ -95,7 +95,7 @@ p {
 </head>
 <body>
 	<div class="container" id='outer'>
-		<h2>공지사항 작성</h2>
+		<h2 style="color: orange;">공지사항 작성</h2>
 
 		<form method="post" name="form1" action="./insert">
 			<div class="container" id='formContainer'>

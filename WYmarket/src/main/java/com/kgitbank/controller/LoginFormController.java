@@ -38,7 +38,7 @@ public class LoginFormController {
 
 	OAuthToken oauthToken = null;
 	String mail = "";
-
+	UserInfo user;
 	@Autowired
 	private WYmarketService wyMarketService;
 
@@ -62,6 +62,29 @@ public class LoginFormController {
 
 	private boolean withFlag = false;
 
+	//회원 탈퇴
+	@RequestMapping("/withdrawal")
+	public String withdrawal() {
+		return "withdrawal";
+	}
+	//회원 탈퇴
+	@RequestMapping("/userDelete")
+	public String userDelete(HttpSession session,String ncontent) {
+		user = (UserInfo) session.getAttribute("user");
+	 
+	 
+		//유저 정보 + 탈퇴 사유 등록
+		service.insertWithdrawal(user.getUserNick(), ncontent, user.getPhoneNumber(), user.getKakaoMail());
+		
+		//유저 관련 정보 삭제
+		service.deleteUserInfo(user.getUserNick()); 
+	 
+		session.removeAttribute("user");
+		
+		
+		return "redirect:/main";
+	}
+	
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {

@@ -213,6 +213,15 @@ a {
 	padding: 6px;
 }
 </style>
+<script>
+function check(){
+    if(document.getElementById('search').value == ""){
+        alert('검색어를 입력해주세요.');
+    } else{
+        document.getElementById(document.getElementById('search').getAttribute('form')).submit();
+    }
+}
+</script>
 </head>
 <body>
 
@@ -246,11 +255,11 @@ a {
 			width="160" height="45">
 		</a>
 
-		<form action="/wymarket/main" method="get">
+		<form action="/wymarket/main" name="form1" id="search1" method="get">
 			<div class="search">
-				<input class="searchinput" type="text" name="search"
-					placeholder="검색어 입력">
-				<button class="searchbtn">
+				<input class="searchinput" type="text" name="search" id="search"
+					placeholder="검색어 입력" form="search1">
+				<button type="button" class="searchbtn"  id="btnSearch" onclick="check()">
 					<i class="fas fa-search mid"></i>
 				</button>
 			</div>
@@ -258,7 +267,7 @@ a {
 
 		<a class="sale" href="/wymarket/goods/register"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="상품 등록"><i
-			class="fas fa-won-sign biggest"></i></a> <a class="mypage" href=""
+			class="fas fa-won-sign biggest"></i></a> <a class="mypage" href="/wymarket/param/myPage"
 			data-bs-toggle="tooltip" data-bs-placement="bottom" title="마이 페이지"><i
 			class="fas fa-user biggest"></i></a> <a class="chat"
 			href="/wymarket/chats/chatting"
@@ -268,6 +277,7 @@ a {
 			href="/wymarket/main/refreshAddress" data-bs-toggle="tooltip"
 			data-bs-placement="bottom" title="주소 새로고침"><i
 			class="fas fa-map-marked-alt biggest"></i></a>
+			<a href="/wymarket/withdrawal">탈퇴</a>
 	</div>
 	<div class="test"></div>
 
