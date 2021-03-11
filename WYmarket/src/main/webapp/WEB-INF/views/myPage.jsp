@@ -95,14 +95,8 @@
 										onclick="modifyStore()">상점명 수정</button>
 								</div>
 								<div
-									style="    padding: 1px;
-    display: none;
-    display: flex;
-    border: 1px solid rgb(35 34 34);
-    height: 42px;
-    width: 256px;
-    /* padding: 7px 0; */
-    border-radius: 5px;">
+									style="padding: 1px; display: none; display: flex; border: 1px solid rgb(35, 34, 34); height: 42px; width: 256px;
+	/* padding: 7px 0; */ border-radius: 5px;">
 									<input id="storeNick" type="text" value=${usernick } />
 									<button class="storecheck">확인</button>
 								</div>
