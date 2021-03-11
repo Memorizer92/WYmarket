@@ -3,6 +3,8 @@ package com.kgitbank.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -15,7 +17,8 @@ public class GoodsVO {
 	private Integer manner;
 	private String ititle;
 	private String icategory;
-	private Date refreshtime;
+
+	private Integer refreshtime;
 	private String icontent;
 	private Integer price;
 	private Integer chatcnt;
