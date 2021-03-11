@@ -72,9 +72,10 @@ section#content div.refreshTime1 {
 				
 							<li>
 								<div class="iimagepath">
-									<a href="goods/view?n=${goods.itemid}"> 
+									<a href="goods/view2?n=${goods.itemid}"> 
 									<img
 										 src="${pageContext.request.contextPath}${goods.iimagepath}">
+
 									</a>
 								</div>
 								
