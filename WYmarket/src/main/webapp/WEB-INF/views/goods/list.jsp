@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@include file="/WEB-INF/views/include/taglib.jspf"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +50,7 @@ section#content div.price {
 	font-size: 16px
 }
 
-section#content div.refreshtime {
+section#content div.refreshTime1 {
 	text-align: right;
 	padding: 0px 15px 10px 0px;
 	color: silver;
@@ -67,24 +67,89 @@ section#content div.refreshtime {
 			<div id="container_box">
 
 				<section id="content">
-
 					<ul>
-						<c:forEach items="${goods}" var="goods">
+						<c:forEach items="${itemvo}" var="goods">
+				
 							<li>
 								<div class="iimagepath">
-									<a href="goods/view?n=${goods.itemid}"> <img
-										src="${pageContext.request.contextPath}${goods.iimagepath}">
+									<a href="goods/view?n=${goods.itemid}"> 
+									<img
+										 src="${pageContext.request.contextPath}${goods.iimagepath}">
 									</a>
 								</div>
-								<div class="ititle">${goods.ititle}</div>
+								
+								<div class="ititle"> ${goods.ititle}<c:if
+									test="${goods.ireservationstate eq 'Yreservation'}">
+									<span style="font-weight: bold; color: darkorange;">[
+										예약중 ]</span>										
+									<br>
+								</c:if></div>
 								<div class="icategory">${goods.icategory}</div>
 								<div class="price">
 									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" />
 									원
 								</div>
-								<div class="refreshtime">
-									<fmt:formatDate value="${goods.refreshtime}"
-										pattern="yyyy-MM-dd" />
+								<div class="refreshTime1"> 
+								<c:choose>
+									<c:when
+										test="${goods.refreshTime >= 0 && goods.refreshTime < 60}">
+										<span>${goods.refreshTime}초 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${goods.refreshTime >= 60 && goods.refreshTime < 3600}">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 60)}"
+											integerOnly="true" />
+										<span>${percent}분 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${goods.refreshTime >= 3600 && goods.refreshTime < 86400}">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 3600)}"
+											integerOnly="true" />
+										<span>${percent}시간 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${goods.refreshTime >= 86400 && goods.refreshTime < 2764800} ">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent }일 전</span>
+										<br>
+									</c:when>
+
+
+									<c:when
+										test="${goods.refreshTime >= 86400 && goods.refreshTime < 2764800}">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 86400)}"
+											integerOnly="true" />
+										<span>${percent}일 전</span>
+										<br>
+									</c:when>
+
+									<c:when
+										test="${goods.refreshTime >= 2678400 && goods.refreshTime < 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 2678400)}"
+											integerOnly="true" />
+										<span>${percent }달 전</span>
+										<br>
+									</c:when>
+									<c:when test="${goods.refreshTime >= 32140800}">
+										<fmt:parseNumber var="percent"
+											value="${((goods.refreshTime) / 32140800)}"
+											integerOnly="true" />
+										<span>${percent }년 전 </span>
+										<br>
+									</c:when>
+								</c:choose>
 								</div>
 							</li>
 						</c:forEach>

@@ -19,12 +19,14 @@
 <script src="https://kit.fontawesome.com/6421ed9b05.js"
 	crossorigin="anonymous"></script>
 
-<link rel="stylesheet" href="<%=application.getContextPath()%>/resources/assets/css/myPage.css" />
+<link rel="stylesheet"
+	href="<%=application.getContextPath()%>/resources/assets/css/myPage.css" />
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 </head>
 <body>
-
-
 
 	<div id="root">
 		<header id="header">
@@ -32,7 +34,7 @@
 				<%@ include file="include/header.jsp"%>
 			</div>
 		</header>
-		
+
 		<div class="iucOgr">
 			<div class="jzWWEx">
 				<div class="fydKsO">
@@ -49,8 +51,8 @@
 						<div class="dewxp"></div>
 					</div>
 					<div class="hOrrVQ">
-					<i class="far fa-eye-slash" style="width: 28px; height: 16px;"></i>
-						
+						<i class="far fa-eye-slash" style="width: 28px; height: 16px;"></i>
+
 						<div>
 							최근 본 상품이 <br>없습니다.
 						</div>
@@ -73,9 +75,11 @@
 									<div class="eVZhRI">
 										<img alt="" src="/wymarket/image/myPage_logo01.png"
 											class="eDQHHq" style="width: 120px; height: 120px;">
-										<div class="frZWOr">상점댕댕이호</div>
+										<div class="frZWOr">${usernick }</div>
 										<div class="jVyPTl">
-											<a class="hGBbhm" style="text-decoration: none" href="<%=application.getContextPath()%>/mypage/Productmanagement">내 상점 관리</a>
+											<a class="hGBbhm" style="text-decoration: none"
+												href="<%=application.getContextPath()%>/mypage/Productmanagement">내
+												상점 관리</a>
 										</div>
 
 									</div>
@@ -84,7 +88,24 @@
 						</div>
 						<div class="hJeYQQ">
 							<div class="dvwUHI">
-								<div class="hxmbLs">상점댕댕이호</div>
+
+								<div class="hxmbLs">${usernick }
+									Store
+									<button class="kQfCqL" style="margin: 26px;"
+										onclick="modifyStore()">상점명 수정</button>
+								</div>
+								<div
+									style="    padding: 1px;
+    display: none;
+    display: flex;
+    border: 1px solid rgb(35 34 34);
+    height: 42px;
+    width: 256px;
+    /* padding: 7px 0; */
+    border-radius: 5px;">
+									<input id="storeNick" type="text" value=${usernick } />
+									<button class="storecheck">확인</button>
+								</div>
 							</div>
 							<div class="eyASDB">
 								<div class="jwtFDB">
@@ -158,9 +179,12 @@
 									상품 <span class="kGPYka">${shitemCount }</span>
 								</div>
 							</div>
-							<div class="lbPeGN">
+							<div>
 								<c:choose>
-									<c:when test="${shitemCount eq 0}">등록된 상품이 없습니다.</c:when>
+
+									<c:when test="${shitemCount eq 0}">
+										<div class="iOnkn">등록된 상품이 없습니다.</div>
+									</c:when>
 									<c:when test="${shitemCount != 0 }">
 										<div class="khixbV">
 
@@ -170,12 +194,22 @@
 
 														<div class="jJGnAY">
 															<div class="cFzedp">
-																<img alt=""
-																	src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
-																	style="width: 194px; height: 194px;">
+																<a
+																	href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">
+																	<img alt=""
+																	src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
+																	style="width: 100%; height: 194px;">
+																</a>
 															</div>
 															<div class="jFyxuP">
-																<div class="dPZorb">카이사 스킨팜ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</div>
+																<div class="dPZorb">${shitem_List.ititle }
+																	<c:if
+																		test="${shitem_List.ireservationstate eq 'Yreservation'}">
+																		<span style="font-weight: bold; color: darkorange;">[
+																			예약중 ]</span>
+																		<br>
+																	</c:if>
+																</div>
 																<div class="clniGs">
 																	<div class="hxBDFe">
 																		<c:set var="money" value="${shitem_List.price }" />
@@ -186,54 +220,60 @@
 																	</div>
 																	<div class="dfsKyK">
 																		<c:choose>
-																			<c:when test="${userTime >= 0 && userTime < 60}">
-																				<span>${userTime}초 전</span>
+																			<c:when
+																				test="${shitem_List.refreshTime >= 0 && shitem_List.refreshTime < 60}">
+																				<span>${shitem_List.refreshTime}초 전</span>
 																				<br>
 																			</c:when>
 
-																			<c:when test="${userTime >= 60 && userTime < 3600}">
+																			<c:when
+																				test="${shitem_List.refreshTime >= 60 && shitem_List.refreshTime < 3600}">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 60)}" integerOnly="true" />
+																					value="${((shitem_List.refreshTime) / 60)}"
+																					integerOnly="true" />
 																				<span>${percent}분 전</span>
 																				<br>
 																			</c:when>
 
 																			<c:when
-																				test="${userTime >= 3600 && userTime < 86400}">
+																				test="${shitem_List.refreshTime >= 3600 && shitem_List.refreshTime < 86400}">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 3600)}" integerOnly="true" />
+																					value="${((shitem_List.refreshTime) / 3600)}"
+																					integerOnly="true" />
 																				<span>${percent}시간 전</span>
 																				<br>
 																			</c:when>
 
 																			<c:when
-																				test="${userTime >= 86400 && userTime < 2764800} ">
+																				test="${shitem_List.refreshTime >= 86400 && shitem_List.refreshTime < 2764800} ">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 86400)}" integerOnly="true" />
+																					value="${((shitem_List.refreshTime) / 86400)}"
+																					integerOnly="true" />
 																				<span>${percent }일 전</span>
 																				<br>
 																			</c:when>
 
 
 																			<c:when
-																				test="${userTime >= 86400 && userTime < 2764800}">
+																				test="${shitem_List.refreshTime >= 86400 && shitem_List.refreshTime < 2764800}">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 86400)}" integerOnly="true" />
+																					value="${((shitem_List.refreshTime) / 86400)}"
+																					integerOnly="true" />
 																				<span>${percent}일 전</span>
 																				<br>
 																			</c:when>
 
 																			<c:when
-																				test="${userTime >= 2678400 && userTime < 32140800}">
+																				test="${shitem_List.refreshTime >= 2678400 && shitem_List.refreshTime < 32140800}">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 2678400)}"
+																					value="${((shitem_List.refreshTime) / 2678400)}"
 																					integerOnly="true" />
 																				<span>${percent }달 전</span>
 																				<br>
 																			</c:when>
-																			<c:when test="${userTime >= 32140800}">
+																			<c:when test="${shitem_List.refreshTime >= 32140800}">
 																				<fmt:parseNumber var="percent"
-																					value="${((userTime) / 32140800)}"
+																					value="${((shitem_List.refreshTime) / 32140800)}"
 																					integerOnly="true" />
 																				<span>${percent }년 전 </span>
 																				<br>
@@ -244,11 +284,13 @@
 															</div>
 															<div class="lkXrFk">
 																<i class="fas fa-map-marker-alt"
-																	style="width: 15px; height: 17px; position: relative; bottom: 1px;"  ></i>
-																	<span class ="address"
-					
-																	style="position: relative; top: -4px;">
-																	<input name ="addressinput" type="text" style="display: none;" value="${shitem_List.address }"/>  ${shitem_List.address }</span>
+																	style="width: 15px; height: 17px; position: relative; bottom: 1px;"></i>
+																<span class="address"
+																	style="position: relative; top: -4px;"> <input
+																	name="addressinput" type="text" style="display: none;"
+																	value="${shitem_List.address }" />
+																	${shitem_List.address }
+																</span>
 															</div>
 														</div>
 													</div>
@@ -262,52 +304,62 @@
 
 							</div>
 						</div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
+						<div>
+							<c:url var="previousHref"
+								value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }" />
+							<c:url var="nextHref"
+								value="./myPage?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${usernick }" />
+
+							<c:url var="onego"
+								value="./myPage?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${usernick }" />
+							<c:url var="oneback"
+								value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${usernick }" />
+							<nav aria-label="...">
+								<ul class="pagination" style="display: flex; list-style: none;">
+
+									<li
+										class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
+										<a class="page-link" href="${previousHref }" tabindex="-1"
+										aria-disabled="true">&lt;&lt;</a>
+									</li>
+
+									<li
+										class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
+										<a class="page-link" href="${oneback }" tabindex="-1"
+										aria-disabled="true">&lt;</a>
+									</li>
+
+									<c:forEach var="i" begin="${page.startPage }"
+										end="${page.endPage }">
+										<li
+											class="page-item<c:if test="${page.currPage eq i }"> active</c:if>"
+											aria-current="page"><a class="page-link"
+											href="./myPage?pagenum=${i }&amount=${page.amount }&usernick=${usernick }">${i }</a>
+										</li>
+									</c:forEach>
+
+									<li
+										class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
+										<a class="page-link" href="${onego }" tabindex="-1"
+										aria-disabled="true">&gt;</a>
+
+									</li>
+									<li
+										class="page-item<c:if test="${not page.next }"> disabled</c:if>">
+										<a class="page-link" href="${nextHref }" tabindex="-1"
+										aria-disabled="true">&gt;&gt;</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	
-		<div>
-		
-		
-	
-		
-<c:url var="previousHref" value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }"/>
-<c:url var="nextHref" value="./myPage?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${usernick }"/>
 
-<c:url var="onego" value="./myPage?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${usernick }"/>
-<c:url var="oneback" value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${usernick }"/>
-<nav aria-label="...">
-        <ul class="pagination">  
-                     
-                <li class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
-              <a class="page-link" href="${previousHref }" tabindex="-1" aria-disabled="true">&lt;&lt;</a>
-                </li>
-                              
-                 <li class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
-                   <a class="page-link" href="${oneback }" tabindex="-1" aria-disabled="true">&lt;</a>
-                </li>
-                
-                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }">                                
-                        <li class="page-item<c:if test="${page.currPage eq i }"> active</c:if>" aria-current="page">
-                              <a class="page-link" href="./myPage?pagenum=${i }&amount=${page.amount }&usernick=${usernick }">${i }</a>     
-                  		</li>                                             
-                </c:forEach>
-                                
-                  <li class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
-                   <a class="page-link" href="${onego }" tabindex="-1" aria-disabled="true">&gt;</a>
-                                     
-                </li>
-                <li class="page-item<c:if test="${not page.next }"> disabled</c:if>">
-                        <a class="page-link" href="${nextHref }" tabindex="-1" aria-disabled="true">&gt;&gt;</a>
-                </li>    
-          </ul>
-</nav>
 			</div>
+
+		</div>
+
+
 
 		<footer id="footer">
 			<div id="footer_box">
@@ -327,8 +379,23 @@
 	<input type="text" name="usernick" id="usernick" value="${usernick }"
 		style="" />
 
-	<script type="text/javascript" src="<%=application.getContextPath()%>/resources/assets/js/myPage.js">
-	
+	<script type="text/javascript"
+		src="<%=application.getContextPath()%>/resources/assets/js/myPage.js">
+		
 	</script>
+	<script type="text/javascript">
+		function modifyStore() {
+			const storeNick = document.getElementById("storeNick");
+			
+			$(document).ready(function() {				
+				$(".hxmbLs").hide();
+			})
+			storeNick.style.display = 'block';
+		}
+
+		
+	</script>
+
+
 </body>
 </html>

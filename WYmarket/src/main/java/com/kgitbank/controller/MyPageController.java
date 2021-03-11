@@ -24,7 +24,7 @@ public class MyPageController {
 	BreakdownService bservice;
 
 	@GetMapping("/products")
-	public String myProductsPage(Model model, HttpSession session) {
+	public String myProductsPage(Model model, HttpSession session, Pageination paging) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
@@ -33,6 +33,9 @@ public class MyPageController {
 		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 
 		model.addAttribute("products", "products");
+		paging.setUsernick(userNick);
+		model.addAttribute("pageList", bservice.getUserItemList(paging));			
+		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
 		return "/myPage";
 	}
 
@@ -79,9 +82,8 @@ public class MyPageController {
 	public String ProductManagement(Model model, HttpSession session, Pageination paging){
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
+		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 		
-		
-
 		paging.setUsernick(userNick);
 		model.addAttribute("pageList", bservice.getUserItemList(paging));			
 		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));

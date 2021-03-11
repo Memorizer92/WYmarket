@@ -46,7 +46,6 @@ public class BreakdownController {
 		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
 		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
 		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
-
 		model.addAttribute("products", "products");		
 		
 		paging.setUsernick(userNick);

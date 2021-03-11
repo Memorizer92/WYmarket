@@ -85,7 +85,7 @@
 						
 							
 							<img alt=""
-								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+								src="${pageContext.request.contextPath}${userItem_list.iimagepath}"
 								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
 
 							<div style="width: 100%;">

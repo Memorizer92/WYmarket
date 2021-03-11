@@ -43,7 +43,7 @@
 
 		<main>
 			<div id="mainDiv">
-				<div>
+			<%-- 	<div>
 					<ul class="list-inline firstli">
 						<li class="list-inline-item menutitle "><button id="salebtn"
 								class="shadow--sm "
@@ -54,19 +54,21 @@
 								onclick="location.href = '<%=application.getContextPath() %>/param/salecomplete'">구매후기
 								환료</button></li>
 					</ul>
-				</div>
+				</div> --%>
 
+						<c:if test="${empty PurchaserPhVO}">
+ 			구매하신 상품이 없습니다. 
+ 			</c:if>
 				<c:forEach var="PurchaserPhVO_list" items="${PurchaserPhVO }">
 
-					<c:if test="${empty PurchaserPhVO_list.ititle }">
- 			구매하신 상품이 없습니다. 
- 		</c:if>
+			
+ 		
 
 					<div class="shadow shadow-strong completed"
 						style="padding: 15px 15px; border-radius: 1rem;">
 
 						<img alt=""
-							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+							src="${pageContext.request.contextPath}${PurchaserPhVO_list.iimagepath}"
 							style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
 
 						<div style="width: 100%;">
@@ -157,7 +159,7 @@
 
 				</c:forEach>
 				<button class="nonebtn" id="reviewBtn" style="width: 160px;"
-					onclick="reviewWriting()">구매자 후기남기기</button>
+					onclick="reviewWriting()">구매 후기남기기</button>
 			</div>
 		</main>
 	</div>

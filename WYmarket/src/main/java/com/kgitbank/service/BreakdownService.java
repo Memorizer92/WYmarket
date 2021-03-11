@@ -104,6 +104,16 @@ public class BreakdownService implements IBreakdownService {
 		return break_mapper.getCount(usernick);
 	}
 
+	@Override
+	public int updateUserInfoNick(String modiyusernick, String usernick) {
+		return break_mapper.updateUserInfoNick(modiyusernick, usernick);
+	}
+
+	@Override
+	public int updateUserItemNick(String modiyusernick, String usernick) {
+		return break_mapper.updateUserItemNick(modiyusernick, usernick);
+	}
+
 	
 
 	

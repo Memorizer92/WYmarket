@@ -40,5 +40,10 @@ public interface IBreakdownService {
 	int getCount(String usernick);
 	
 	int getShuserInfoCdate(String usernick);
+	
+	int updateUserInfoNick(String modiyusernick, String usernick);
+	
+	int updateUserItemNick(String modiyusernick, String usernick);
+	
 
 }

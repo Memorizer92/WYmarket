@@ -6,14 +6,18 @@
 
 	<!-- 상품 목록 -->
 	<select id="getGoodsList"
-		resultType="com.kgitbank.model.GoodsVO">
-		SELECT
-		*
-		FROM
-		sh_item WHERE usernick in (select usernick from sh_userinfo where ban = 'N')
-		ORDER BY
-		refreshtime desc
+		resultType="com.kgitbank.model.GoodsVO">		
+
+		SELECT  itemid, iimagepath, usernick, 
+	 	address, manner, ititle,
+		icategory, icontent,
+		price, chatcnt, likecnt,
+		viewcnt, istate, ireservationstate
+		from sh_item where usernick in (select usernick from sh_userinfo where ban = 'N')
+
 	</select>
+
+
 
 	<!-- 상품 등록 -->
 	<insert id="createGoods">

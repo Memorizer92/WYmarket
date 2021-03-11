@@ -1,5 +1,6 @@
 const nickCheck = document.getElementById("nickCheck");
 const titleRadioLabel = document.getElementById("titleRadioLabel");
+
 const ProductReservationYtag = document.getElementById("ProductReservationY");
 const ProductReservationNtag = document.getElementById("ProductReservationN");
 const productReservationY = document.getElementById("ProductReservationY").value;
