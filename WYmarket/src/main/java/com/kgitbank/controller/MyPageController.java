@@ -26,6 +26,9 @@ public class MyPageController {
 	@GetMapping("/products")
 	public String myProductsPage(Model model, HttpSession session, Pageination paging) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/login";
+		}
 		String userNick = user.getUserNick();
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
 		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
@@ -42,6 +45,9 @@ public class MyPageController {
 	@GetMapping("/comments")
 	public String myCommentsPage(Model model, HttpSession session) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/login";
+		}
 		String userNick = user.getUserNick();
 
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
@@ -55,6 +61,9 @@ public class MyPageController {
 	@GetMapping("/favorites")
 	public String myFavoritesPage(Model model, HttpSession session) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/login";
+		}
 		String userNick = user.getUserNick();
 
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
@@ -68,6 +77,9 @@ public class MyPageController {
 	@GetMapping("/reviews")
 	public String myReviewssPage(Model model, HttpSession session) {
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/login";
+		}
 		String userNick = user.getUserNick();
 
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
@@ -81,6 +93,9 @@ public class MyPageController {
 	@GetMapping("/Productmanagement")
 	public String ProductManagement(Model model, HttpSession session, Pageination paging){
 		UserInfo user = (UserInfo) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/login";
+		}
 		String userNick = user.getUserNick();
 		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 		

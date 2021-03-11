@@ -168,6 +168,10 @@ function ajaxSmsReqCnt() {
 		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
 			document.getElementById("smsReqCnt").value = `${this.responseText}`;
 			console.log(document.getElementById("smsReqCnt").value);
+			if (timeLimit2 <= 0) {
+				document.getElementById("smsReqCnt").value = 0;
+			}
+			console.log(document.getElementById("smsReqCnt").value);
 		}
 	}
 

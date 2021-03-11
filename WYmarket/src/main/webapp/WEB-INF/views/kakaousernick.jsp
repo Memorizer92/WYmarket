@@ -127,7 +127,7 @@ body {
 								<span class="input-group-text" id="addon-wrapping">닉네임</span> <input
 									type="text" class="form-control" placeholder="닉네임을 입력하세요"
 									aria-label="Username" aria-describedby="addon-wrapping"
-									id="userNick" name="userNick">
+									id="userNick" name="userNick" autocomplete="off">
 							</div>
 							<p id="nick2Char">닉네임은 두 글자 이상이어야 합니다.</p>
 							<p id="nickOverrap">이미 사용중인 닉네임입니다.</p>

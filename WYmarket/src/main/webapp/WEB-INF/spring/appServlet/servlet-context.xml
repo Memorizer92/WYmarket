@@ -93,6 +93,7 @@
 			<mapping path="/main/**" />
 			<mapping path="/sendInquiry" />
 			<mapping path="/seeInquiryFromAdmin" />
+			<exclude-mapping path="/param/myPage" />
 			<exclude-mapping path="/board/write" />
 			<exclude-mapping path="/board/insert" />
 			<exclude-mapping path="/board/list" />
@@ -100,6 +101,7 @@
 			<exclude-mapping path="/board/look" />
 			<exclude-mapping path="/board/update" />
 			<exclude-mapping path="/board/delete" />
+			<exclude-mapping path="/board/withdrawalList" />
 			<!-- <exclude-mapping path="/login" /> -->
 			<beans:bean
 				class="com.kgitbank.interceptor.UserInterceptor" />

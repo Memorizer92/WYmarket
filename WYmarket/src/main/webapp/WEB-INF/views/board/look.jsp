@@ -65,10 +65,10 @@ h2 {
 			<div class="container" id='formContainer'>
 <ul class="list-group list-group-flush">
   <li class="list-group-item">작성일자 : <fmt:formatDate value="${vo.ndate}" pattern="yyyy-MM-dd a HH:mm:ss"/></li>
-  <li class="list-group-item">조회수 :${vo.nviewcnt}</li>
-  <li class="list-group-item">제목 :${vo.ntitle}</li>
-  <li class="list-group-item">내용 : ${vo.ncontent}</li>
-  <li class="list-group-item">작성자 : 관리자</li>
+  <li class="list-group-item">조회수 &nbsp;&nbsp;&nbsp;: ${vo.nviewcnt}</li>
+  <li class="list-group-item">제목 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ${vo.ntitle}</li>
+  <li class="list-group-item">내용 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ${vo.ncontent}</li>
+  <li class="list-group-item">작성자 &nbsp;&nbsp;&nbsp;: 관리자</li>
 </ul>
 	 
 		 

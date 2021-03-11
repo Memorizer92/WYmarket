@@ -75,7 +75,7 @@
 									<div class="eVZhRI">
 										<img alt="" src="/wymarket/image/myPage_logo01.png"
 											class="eDQHHq" style="width: 120px; height: 120px;">
-										<div class="frZWOr">${usernick }</div>
+										<div class="frZWOr">${userNick }</div>
 										<div class="jVyPTl">
 											<a class="hGBbhm" style="text-decoration: none"
 												href="<%=application.getContextPath()%>/mypage/Productmanagement">내
@@ -89,15 +89,15 @@
 						<div class="hJeYQQ">
 							<div class="dvwUHI">
 
-								<div class="hxmbLs">${usernick }
+								<div class="hxmbLs">${userNick }
 									Store
 									<button class="kQfCqL" style="margin: 26px;"
 										onclick="modifyStore()">상점명 수정</button>
 								</div>
 
 								<div
-									style="padding: 1px; display: none; display: flex;  height: 42px; width: 256px; padding: 7px 0; border-radius: 5px;">
-									<input id="storeNick" type="text" value=${usernick } />
+									style="padding: 1px; display: none; display: flex; height: 42px; width: 256px; padding: 7px 0; border-radius: 5px;">
+									<input id="storeNick" type="text" value=${userNick } />
 									<button class="storecheck">확인</button>
 								</div>
 							</div>
@@ -192,7 +192,7 @@
 														<div class="jJGnAY">
 															<div class="cFzedp">
 																<a
-																	href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">
+																	href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}">
 																	<img alt=""
 																	src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
 																	style="width: 100%; height: 194px;">
@@ -303,14 +303,14 @@
 						</div>
 						<div>
 							<c:url var="previousHref"
-								value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }" />
+								value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${userNick }" />
 							<c:url var="nextHref"
-								value="./myPage?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${usernick }" />
+								value="./myPage?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${userNick }" />
 
 							<c:url var="onego"
-								value="./myPage?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${usernick }" />
+								value="./myPage?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${userNick }" />
 							<c:url var="oneback"
-								value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${usernick }" />
+								value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${userNick }" />
 							<nav aria-label="...">
 								<ul class="pagination" style="display: flex; list-style: none;">
 
@@ -331,7 +331,7 @@
 										<li
 											class="page-item<c:if test="${page.currPage eq i }"> active</c:if>"
 											aria-current="page"><a class="page-link"
-											href="./myPage?pagenum=${i }&amount=${page.amount }&usernick=${usernick }">${i }</a>
+											href="./myPage?pagenum=${i }&amount=${page.amount }&usernick=${userNick }">${i }</a>
 										</li>
 									</c:forEach>
 
@@ -373,7 +373,7 @@
 		value="${favorites }" style="" />
 	<input type="text" name="reviews" id="reviews" value="${reviews }"
 		style="" />
-	<input type="text" name="usernick" id="usernick" value="${usernick }"
+	<input type="text" name="usernick" id="usernick" value="${userNick }"
 		style="" />
 
 	<script type="text/javascript"
@@ -383,14 +383,12 @@
 	<script type="text/javascript">
 		function modifyStore() {
 			const storeNick = document.getElementById("storeNick");
-			
-			$(document).ready(function() {				
+
+			$(document).ready(function() {
 				$(".hxmbLs").hide();
 			})
 			storeNick.style.display = 'block';
 		}
-
-		
 	</script>
 
 

@@ -56,7 +56,9 @@ section#content div.refreshtime1 {
 	color: silver;
 	font-size: 13px
 }
-
+@media screen and (max-width: 760px) {
+	.head2{justify-content: center;}
+}
 </style>
 
 </head>

@@ -355,7 +355,7 @@
 							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
 									<td><a
-										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}"><img
+										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}"><img
 											src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
 											alt="" style="width: 120px; height: 120px;" /></a></td>
 									<td>
@@ -388,7 +388,7 @@
 										</div>
 									</td>
 									<td><a style="text-decoration: none;"
-										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
+										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
 									<td><c:set var="money" value="${shitem_List.price }" /> <fmt:formatNumber
 											value="${money }" type="number" /> 원</td>
 									<td>${shitem_List.likecnt}/${shitem_List.viewcnt}</td>

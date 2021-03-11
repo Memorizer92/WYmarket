@@ -212,6 +212,12 @@ a {
 	border-bottom: 2px solid rgb(244, 244, 250);
 	padding: 6px;
 }
+@media screen and (max-width: 760px) {
+	.head2{justify-content: center;}
+}
+@media screen and (max-width: 1042px) {
+	.head2{justify-content: center;}
+}
 </style>
 <script>
 function check(){
@@ -297,5 +303,11 @@ document.getElementById('myStore').addEventListener('click',()=>{
 		 
 		 location.href = '<%=application.getContextPath()%>/param/myPage';
 			});
+window.addEventListener('resize', mediaSize);
+function mediaSize(){
+    console.log('width:', window.innerWidth);
+    }
+
+			
 	</script>
 </html>

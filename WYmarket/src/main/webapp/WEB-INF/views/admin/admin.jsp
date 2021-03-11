@@ -272,8 +272,12 @@ th {
 	background-color: #FF8A3D;
 }
 
+#withdrawalbtn {
+	background-color: #c978ff; border: none;
+}
+
 #accessbtn {
-	background-color: #469536;
+	background-color: #29cc57;
 	border: none;
 }
 
@@ -327,8 +331,13 @@ tbody>tr>th {
 	font-family: 'Lato', sans-serif;
 }
 
+#inquiryBtn {
+	background-color: #747ee8;
+	border: none;
+}
+
 #inquiryBtn:hover {
-	background-color: #0d6efd;
+	background-color: #747ee8;
 }
 </style>
 </head>
@@ -518,9 +527,12 @@ tbody>tr>th {
 				</p>
 			</div>
 			<div class="container" id='twobtn'>
+				<button type="button" class="btn btn-primary" id='withdrawalbtn'
+					onclick="location.href='<%=application.getContextPath()%>/board/withdrawalList';">탈퇴
+					회원 보기</button>
 				<button type="button" class="btn btn-primary" id='accessbtn'
-					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">접속자
-					수 보기</button>
+					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">회원
+					접속 정보 보기</button>
 				<button type="button" class="btn btn-primary" id='adminBtn'
 					onclick="location.href='<%=application.getContextPath()%>/board/list';">공지사항
 					쓰기</button>
@@ -592,7 +604,7 @@ tbody>tr>th {
 	}
 	
 	function toMyPage(userNick){
-		location.href='/wymarket/param/test02/' + userNick;
+		location.href='/wymarket/param/myPage?myNick=' + userNick;
 	}
 
 	

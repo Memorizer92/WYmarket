@@ -55,9 +55,7 @@ function blockNull(){
 	}
 	else if(search.value == ""){
 		alert('검색어를 입력해주세요.');
-	} else if(typeof search.value != "number"){
-		alert('숫자를 입력해주세요.');
-	}else{
+	} else{
 		document.getElementById(document.getElementById('selectID').getAttribute('form')).submit();
 	}
 }
