@@ -90,7 +90,7 @@ public class RestControllerMain implements Serializable {
 	public String sendSMS(@PathVariable("sms") String phoneNumber, UserInfo userInfo, Model model, HttpSession session,
 			UserIP userIp) {
 
-		session.removeAttribute("kakaoWithdrawal");
+		//session.removeAttribute("kakaoWithdrawal");
 
 		if (withFlag) {
 			withFlag = false;

@@ -60,6 +60,8 @@ public class LoginFormController {
 
 	int ch = 0;
 
+	private boolean withFlag = false;
+
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
@@ -68,6 +70,12 @@ public class LoginFormController {
 			ch++;
 
 		}
+		System.out.println("로그인쪽 : " + session.getAttribute("kakaoWithdrawal"));
+		if (!withFlag) {
+			session.removeAttribute("kakaoWithdrawal");
+
+		}
+		withFlag = false;
 //		if (session.getAttribute("Admin") != null) {
 //			System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
 //			return "redirect:/admin";
@@ -150,7 +158,7 @@ public class LoginFormController {
 
 		// post방식으로 key=value 데이터를 요청(카카오쪽으로)
 
-		session.removeAttribute("kakaoWithdrawal");
+		// session.removeAttribute("kakaoWithdrawal");
 
 		RestTemplate rt = new RestTemplate();
 
@@ -269,9 +277,11 @@ public class LoginFormController {
 	public String join(@RequestBody UserInfo userInfo, Model model, HttpSession session) {
 
 		int kakaoCnt = wyMarketService.selectCountFromWithdrawByKakaoMail(mail);
+		System.out.println("kakakoCnt : " + kakaoCnt);
 		if (kakaoCnt == 1) {
 			session.setAttribute("kakaoWithdrawal", 1);
-			return "redirect:/login";
+			withFlag = true;
+			return "/login/login";
 		}
 
 		userInfo.setLatitude((double) model.getAttribute("lat"));
