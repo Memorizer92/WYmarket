@@ -9,7 +9,7 @@ import com.kgitbank.model.GoodsVO;
 
 public interface GoodsServiceImpl {
 	
-	public List<GoodsVO> getGoodsList(String userNick); 
+	 List<GoodsVO> getGoodsList(String userNick); 
 	
 	
 	public int createGoods(GoodsVO goods,String user, String ititle, 

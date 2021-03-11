@@ -164,7 +164,6 @@
 }
 
 .hwfws3 {
-
 	align-items: center;
 	display: flex;
 	flex: 1 1 0%;
@@ -245,14 +244,13 @@
 	display: flex;
 	flex: 1 1 0%;
 	flex-wrap: wrap;
-
 	position: relative;
 	overflow: hidden;
 	box-sizing: border-box;
 }
 
 .sing {
-width: 100%;
+	width: 100%;
 	color: rgb(51, 51, 51);
 	margin-left: 2px;
 	margin-right: 2px;
@@ -265,30 +263,17 @@ width: 100%;
 	transform: translateY(-50%);
 	box-sizing: border-box;
 }
-
-.kxLast {
-	background-position: 0px center;
-	background-repeat: no-repeat;
-	background-size: 1rem 1rem;
-	width: 2rem;
-	height: 100%;
-	background-image:
-		url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiM1RTVDNkIiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTAgNC44YzAgLjIyOS4wOTguNDQ2LjI3LjU5OGw3LjIgNi40YS44LjggMCAwIDAgMS4wNjEgMGw3LjItNi40YS44LjggMCAxIDAtMS4wNjItMS4xOTVMOCAxMC4xMyAxLjMzMSA0LjIwM2EuOC44IDAgMCAwLTEuMzMuNTk3Ii8+Cjwvc3ZnPgo=);
-}
 </style>
 
 </head>
 <body>
-
-
 
 	<div id="root">
 		<header id="header">
 			<div id="header_box">
 				<%@ include file="include/header.jsp"%>
 			</div>
-		</header>
-
+		</header>	
 		<div class="gPdUna">
 			<div class="mainBar">
 				<nav class="productBarMain">
@@ -301,16 +286,16 @@ width: 100%;
 						<button class="breakdown"
 							onclick="location.href ='<%=application.getContextPath()%>/mypage/Productmanagement'">상품목록</button>
 					</div>
+					<div class="productBar productBarAfter">
+						<button class="breakdown"
+							onclick="location.href ='<%=application.getContextPath()%>/param/purchase'">구매내역</button>
+					</div>
 					<div class="productBar">
 						<button class="breakdown"
-							onclick="location.href ='<%=application.getContextPath()%>/param/purchase'">구매</button>
-						/
-						<button class="breakdown"
-							onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매내역</button>
+							onclick="location.href = '<%=application.getContextPath()%>/param/sale'">판매관리</button>
 					</div>
 				</nav>
 			</div>
-
 			<div class="eXqDQY">
 				<main class="dhPrXG">
 					<header class="dzcnmr">
@@ -318,39 +303,41 @@ width: 100%;
 							<input type="text" placeholder="상품명을 입력해주세요." />
 							<button type="submit" class="fQvnGB"></button>
 						</form>
-
 						<div class="jAXfuM">
 							<div class="cont">
 								<div class="eAMYPo">
-									
-									
-									
-									
-
-									
-									
-									<select class="hwfws3" name ="pageOpenCount" onchange="if(this.value) location.href=(this.value);" st>
+									<select class="hwfws3" name="pageOpenCount"
+										onchange="if(this.value) location.href=(this.value);">
 										<option selected disabled="disabled">목록 수</option>
-										<option value="./Productmanagement?pagenum=1&amount=2&usernick=${user.userNick }">10개씩</option>
-										<option value="./Productmanagement?pagenum=1&amount=3&usernick=${user.userNick }">20개씩</option>
-										<option value="./Productmanagement?pagenum=1&amount=4&usernick=${user.userNick }">50개씩</option>
-										
+										<option
+											value="./Productmanagement?pagenum=1&amount=2&usernick=${user.userNick }">10개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=3&usernick=${user.userNick }">20개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=4&usernick=${user.userNick }">50개씩</option>
 									</select>
-									
 								</div>
 							</div>
 						</div>
 						<div class="jAXfuM">
 							<div class="cont">
 								<div class="eAMYPo">
-									<div class="hwfws3"></div>
-									
+									<select class="hwfws3" name="pageOpenCount"
+										onchange="if(this.value) location.href=(this.value);">
+										<option selected disabled="disabled">원래 판매상태에 따른 페이지</option>
+										<option
+											value="<%=application.getContextPath()%>/param/sale">10개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=20&usernick=${user.userNick }">20개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=50&usernick=${user.userNick }">50개씩</option>
+									</select>										
 								</div>
 							</div>
 						</div>
 					</header>
-					
-					
+
+
 					<table>
 						<thead>
 							<tr>
@@ -367,8 +354,9 @@ width: 100%;
 
 							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
-									<td><a href=""><img
-											src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png"
+									<td><a
+										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}"><img
+											src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
 											alt="" style="width: 120px; height: 120px;" /></a></td>
 									<td>
 										<div class="cont">
@@ -399,10 +387,11 @@ width: 100%;
 											</div>
 										</div>
 									</td>
-									<td><a href="">${shitem_List.ititle }</a></td>
+									<td><a style="text-decoration: none;"
+										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
 									<td><c:set var="money" value="${shitem_List.price }" /> <fmt:formatNumber
 											value="${money }" type="number" /> 원</td>
-									<td>찜/댓글</td>
+									<td>${shitem_List.likecnt}/${shitem_List.viewcnt}</td>
 									<td><c:choose>
 											<c:when
 												test="${shitem_List.refreshTime >= 0 && shitem_List.refreshTime < 60}">
@@ -441,7 +430,58 @@ width: 100%;
 							</c:forEach>
 						</tbody>
 					</table>
-					
+					<c:if test="${empty itemvo }">
+						<div class="iOnkn">상품 목록이 존재하지 않습니다.</div>
+					</c:if>
+					<div>
+						<c:url var="previousHref"
+							value="./Productmanagement?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${user.userNick }" />
+						<c:url var="nextHref"
+							value="./Productmanagement?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${user.userNick }" />
+
+						<c:url var="onego"
+							value="./Productmanagement?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${user.userNick }" />
+						<c:url var="oneback"
+							value="./Productmanagement?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${user.userNick }" />
+						<nav aria-label="...">
+
+							<ul class="pagination" style="padding-top: 22px;">
+
+								<li
+									class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
+									<a class="page-link" href="${previousHref }" tabindex="-1"
+									aria-disabled="true">&lt;&lt;</a>
+								</li>
+
+								<li
+									class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
+									<a class="page-link" href="${oneback }" tabindex="-1"
+									aria-disabled="true">&lt;</a>
+								</li>
+
+								<c:forEach var="i" begin="${page.startPage }"
+									end="${page.endPage }">
+									<li
+										class="page-item<c:if test="${page.currPage eq i }"> active</c:if>"
+										aria-current="page"><a class="page-link"
+										href="./Productmanagement?pagenum=${i }&amount=${page.amount }&usernick=${user.userNick }">${i }</a>
+									</li>
+								</c:forEach>
+
+								<li
+									class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
+									<a class="page-link" href="${onego }" tabindex="-1"
+									aria-disabled="true">&gt;</a>
+
+								</li>
+								<li
+									class="page-item<c:if test="${not page.next }"> disabled</c:if>">
+									<a class="page-link" href="${nextHref }" tabindex="-1"
+									aria-disabled="true">&gt;&gt;</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
 				</main>
 			</div>
 		</div>
@@ -449,41 +489,9 @@ width: 100%;
 
 
 
-	
 
-<div>
-<c:url var="previousHref" value="./Productmanagement?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${user.userNick }"/>
-<c:url var="nextHref" value="./Productmanagement?pagenum=${page.endPage + 1}&amount=${page.amount }&usernick=${user.userNick }"/>
 
-<c:url var="onego" value="./Productmanagement?pagenum=${page.currPage + 1}&amount=${page.amount }&usernick=${user.userNick }"/>
-<c:url var="oneback" value="./Productmanagement?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${user.userNick }"/>
-<nav aria-label="...">
-        <ul class="pagination">  
-                     
-                <li class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
-              <a class="page-link" href="${previousHref }" tabindex="-1" aria-disabled="true">&lt;&lt;</a>
-                </li>
-                              
-                 <li class="page-item <c:if test="${page.currPage eq 1}">disabled</c:if>">
-                   <a class="page-link" href="${oneback }" tabindex="-1" aria-disabled="true">&lt;</a>
-                </li>
-                
-                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }">                                
-                        <li class="page-item<c:if test="${page.currPage eq i }"> active</c:if>" aria-current="page">
-                              <a class="page-link" href="./Productmanagement?pagenum=${i }&amount=${page.amount }&usernick=${user.userNick }">${i }</a>     
-                  		</li>                                             
-                </c:forEach>
-                                
-                  <li class="page-item <c:if test ="${page.currPage eq page.lastPage}">disabled</c:if>">
-                   <a class="page-link" href="${onego }" tabindex="-1" aria-disabled="true">&gt;</a>
-                                     
-                </li>
-                <li class="page-item<c:if test="${not page.next }"> disabled</c:if>">
-                        <a class="page-link" href="${nextHref }" tabindex="-1" aria-disabled="true">&gt;&gt;</a>
-                </li>    
-          </ul>
-</nav>
-			</div>
+
 
 
 		<footer id="footer">

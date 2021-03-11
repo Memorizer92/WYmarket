@@ -84,7 +84,7 @@
 					<div class="shadow shadow-strong completed">
 
 						<img alt=""
-							src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png">
+							src="${pageContext.request.contextPath}${SellerPhVO_list.iimagepath}">
 						<div style="width: 100%;">
 							<span style="font-weight: bold; color: darkorange;">[ 거래완료
 								]</span> <br> <span> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"

@@ -1,5 +1,6 @@
 package com.kgitbank.model;
 
+
 import java.util.Date;
 
 import lombok.Data;

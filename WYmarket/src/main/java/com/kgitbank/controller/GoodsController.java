@@ -94,7 +94,6 @@ public class GoodsController {
 		session.setAttribute("buyerId", user.getUserID());
 		session.setAttribute("buyerName", user.getUserNick());
 		session.setAttribute("sellerId", nick);
-
 	}
 
 	// 상품 수정페이지
