@@ -116,8 +116,9 @@ public class GoodsController {
 			throws Exception {
 
 		// 새로운 파일이 등록되었는지 확인 
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") { 
+		if(file.getOriginalFilename() != null && file.getOriginalFilename().equals("")) { 
 			// 기존 파일을 삭제 
+			System.out.println(req.getParameter("iimagepath"));
 			new File(uploadPath + req.getParameter("iimagepath")).delete();
 
 			// 새로 첨부한 파일을 등록 
@@ -130,6 +131,7 @@ public class GoodsController {
 					fileName);
 
 		} else { // 새로운 파일이 등록되지 않았다면 // 기존 이미지를 그대로 사용
+			System.out.println(req.getParameter("iimagepath"));
 			goods.setIimagepath(req.getParameter("iimagepath"));
 		}
 

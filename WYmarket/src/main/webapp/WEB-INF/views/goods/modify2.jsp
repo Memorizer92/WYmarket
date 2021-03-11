@@ -13,18 +13,19 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
 function inputCheck() {
-    var iimagepath = document.form.iimagepath.value;
+    /* var iimagepath = document.form.iimagepath.value; */
+    const iimagepath = document.getElementById("iimagepath").value;
     const ititle = document.getElementById("ititle").value;
     const icg = document.getElementById("icategory");
     const icategory = icg.options[icg.selectedIndex].value;
     const icontent = document.getElementById("icontent").value;
     const price = document.getElementById("price").value;
     
-    if (iimagepath == null || iimagepath == "") {
+    /* if (iimagepath == null || iimagepath == "") {
         alert('이미지를 등록해주세요');
         document.form.iimagepath.focus();
         return;
-    }
+    } */
     if (ititle == null || ititle == "") {
         alert('제목을 입력해주세요');
         document.form.ititle.focus();
@@ -87,7 +88,8 @@ function inputCheck() {
 								<li draggable="false" class="sc-bn a52" id="sc-bn a52">
 									<div class="select_img" id="select_img">
 										<img src="${pageContext.request.contextPath}${goods.simagePath }" />
-										<input type="hidden" name="iimagepath" value="${pageContext.request.contextPath}${goods.simagePath }" />
+										<input type="hidden" id="iimagepath" name="iimagepath" 
+										value="${pageContext.request.contextPath}${goods.simagePath }" />
 									</div>
 									<script>
 										$("#iimagepath").change(function(){
