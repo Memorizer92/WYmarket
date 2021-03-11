@@ -45,7 +45,7 @@ public class GoodsController {
 	UserInfo user;
 
 	// 상품등록페이지
-	@GetMapping("register")
+	@GetMapping("register2")
 	public void getGoodsRegister() throws Exception {
 		log.info("상품등록페이지");
 	}
@@ -83,7 +83,7 @@ public class GoodsController {
 	}
 
 	// 상품 조회
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	@RequestMapping(value = "/view2", method = RequestMethod.GET)
 	public void getList(@RequestParam("n") int itemid, Model model, HttpSession session) {
 		// SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
 		GoodsVO item = gservice.getGoods(itemid);
@@ -97,7 +97,7 @@ public class GoodsController {
 	}
 
 	// 상품 수정페이지
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
+	@RequestMapping(value = "/modify2", method = RequestMethod.GET)
 	public void getGoodsModify(@RequestParam("n") int itemid, Model model) {
 		System.out.println(itemid);
 		// SearchInDistance sid = wyMarketService.selectSearchInDistanceById(itemid);
@@ -106,14 +106,16 @@ public class GoodsController {
 		model.addAttribute("goods", item);
 
 	}
-
-	// 상품 수정
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String postGoodsModify(GoodsVO goods, MultipartFile file, HttpServletRequest req) throws Exception {
-
-		// 새로운 파일이 등록되었는지 확인
-		if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-			// 기존 파일을 삭제
+	
+	//상품 수정
+	@RequestMapping(value = "/modify2", method = RequestMethod.POST) 
+	public String postGoodsModify(GoodsVO goods, MultipartFile file, HttpServletRequest req)
+			throws Exception {
+		// 새로운 파일이 등록되었는지 확인 
+		if(file.getOriginalFilename() != null && file.getOriginalFilename().equals("")) { 
+			// 기존 파일을 삭제 
+			System.out.println(req.getParameter("iimagepath"));
+			System.out.println("ㅎㅎ");
 			new File(uploadPath + req.getParameter("iimagepath")).delete();
 
 			// 새로 첨부한 파일을 등록
@@ -123,11 +125,18 @@ public class GoodsController {
 					ymdPath);
 
 			goods.setIimagepath(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+			System.out.println(goods.getIimagepath());
 
 		} else { // 새로운 파일이 등록되지 않았다면 // 기존 이미지를 그대로 사용
+			System.out.println(req.getParameter("iimagepath"));
+			System.out.println("ㅠㅠ");
 			goods.setIimagepath(req.getParameter("iimagepath"));
 		}
 
+		/*
+		 * gservice.goodsModify(goods,goods.getItitle(), goods.getIcategory(),
+		 * goods.getIcontent(), goods.getPrice(), goods.getIimagepath());
+		 */
 		gservice.goodsModify(goods);
 
 		return "redirect:/main";

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kgitbank.model.GoodsVO;
 import com.kgitbank.model.Pageination;
 import com.kgitbank.model.PurchasedetailsVO;
 import com.kgitbank.model.ShItemVO;
@@ -17,9 +18,12 @@ public interface IBreakdownService {
 	
 	List<ShItemVO> getUserItemList(Pageination paging);
 	
+
+	
 	List<PurchasedetailsVO> getPurchaserPhVO(String usernick);
 	
 	List<PurchasedetailsVO> getSellerPhVO(String usernick);
+	
 	
 	int completedIstate(String istate, String ititle, String usernick, String itemid);
 	

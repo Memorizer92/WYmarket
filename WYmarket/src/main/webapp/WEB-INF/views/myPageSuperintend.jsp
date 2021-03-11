@@ -300,8 +300,8 @@
 				<main class="dhPrXG">
 					<header class="dzcnmr">
 						<form action="" class="frGPEd">
-							<input type="text" placeholder="상품명을 입력해주세요." />
-							<button type="submit" class="fQvnGB"></button>
+							<input type="text" placeholder="상품명을 입력해주세요."/>
+							<button  class="fQvnGB"></button>
 						</form>
 						<div class="jAXfuM">
 							<div class="cont">
@@ -351,7 +351,7 @@
 							</tr>
 						</thead>
 						<tbody>
-
+								
 							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
 									<td><a

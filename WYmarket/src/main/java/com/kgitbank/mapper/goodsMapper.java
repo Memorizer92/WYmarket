@@ -31,7 +31,21 @@ public interface goodsMapper {
 	
 	public GoodsVO getGoods(int itemid);
 
-	public void goodsModify(GoodsVO goods);
+	/*
+	 * public void goodsModify( GoodsVO goods,
+	 * 
+	 * @Param("ititle") String ititle,
+	 * 
+	 * @Param("icategory") String icategory,
+	 * 
+	 * @Param("icontent") String icontent,
+	 * 
+	 * @Param("price") Integer price,
+	 * 
+	 * @Param("iimagepath") String iimagepath);
+	 */
+	public void goodsModify(
+			GoodsVO goods);
 	
 	public String getId(String userNick);
 	

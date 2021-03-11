@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="container" id='outer'>
-	<h2 style="color: orange;">회원 탈퇴 사유</h2><br>
+	<h2 style="color: orange;">회원 탈퇴 내역</h2><br>
   <div style="width:100%; height:650px; overflow:auto">
 
  
@@ -38,7 +38,7 @@
        
       <th scope="col">닉네임</th>
       <th scope="col">회원 탈퇴 사유</th> 
-      <th scope="col">회원 가입 가능 날짜</th>
+      <th scope="col">재가입 가능 날짜</th>
     </tr>
   </thead>
   <tbody>

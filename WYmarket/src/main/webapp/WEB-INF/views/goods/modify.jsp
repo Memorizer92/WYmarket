@@ -113,14 +113,14 @@ textarea#icontent {
 				<form role="form" method="POST" name="form"
 					autocomplete="off" enctype="multipart/form-data">
 					
-					<input type="hidden" name="itemid" value="${goods.itemid}" />
+					<input type="hidden" name="itemid" value="${goods.itemID}" />
 
 					<div class="inputArea">
 						<label for="iimagepath">상품 이미지</label>
 						<input type="file" id="iimagepath" name="iimagepath" />
 						<div class="select_img">
-							<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
-							<input type="hidden" name="iimagepath" value="${pageContext.request.contextPath}${goods.iimagepath }" />
+							<img src="${pageContext.request.contextPath}${goods.simagePath }" />
+							<input type="hidden" name="iimagepath" value="${pageContext.request.contextPath}${goods.simagePath }" />
 						</div>
 						<script>
 							$("#iimagepath").change(function(){
@@ -137,12 +137,12 @@ textarea#icontent {
 					
 					<div class="inputArea">
 						<label for="ititle">상품명</label>
-						<input type="text" id="ititle" name="ititle" value="${goods.ititle}"/>
+						<input type="text" id="ititle" name="ititle" value="${goods.stitle}"/>
 					</div>
 					<div class="inputArea">
 						<label for="icategory">카테고리</label> 
 						<select id="icategory" name="icategory" >
-							<option selected>${goods.icategory}</option>
+							<option selected>${goods.scategory}</option>
 							<option>여성의류</option>
 							<option>패션잡화</option>
 							<option>남성의류</option>
@@ -158,7 +158,7 @@ textarea#icontent {
 					
 					<div class="inputArea">
 						<label for="icontent">상품소개</label>
-						<input type="text" id="icontent" name="icontent" value="${goods.icontent}"/>
+						<input type="text" id="icontent" name="icontent" value="${goods.scontent}"/>
 					</div>
 					
 
