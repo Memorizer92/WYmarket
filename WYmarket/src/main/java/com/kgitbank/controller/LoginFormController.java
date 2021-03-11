@@ -1,6 +1,7 @@
 package com.kgitbank.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -62,29 +63,28 @@ public class LoginFormController {
 
 	private boolean withFlag = false;
 
-	//회원 탈퇴
+	// 회원 탈퇴
 	@RequestMapping("/withdrawal")
 	public String withdrawal() {
 		return "withdrawal";
 	}
-	//회원 탈퇴
+
+	// 회원 탈퇴
 	@RequestMapping("/userDelete")
-	public String userDelete(HttpSession session,String ncontent) {
+	public String userDelete(HttpSession session, String ncontent) {
 		user = (UserInfo) session.getAttribute("user");
-	 
-	 
-		//유저 정보 + 탈퇴 사유 등록
+
+		// 유저 정보 + 탈퇴 사유 등록
 		service.insertWithdrawal(user.getUserNick(), ncontent, user.getPhoneNumber(), user.getKakaoMail());
-		
-		//유저 관련 정보 삭제
-		service.deleteUserInfo(user.getUserNick()); 
-	 
+
+		// 유저 관련 정보 삭제
+		service.deleteUserInfo(user.getUserNick());
+
 		session.removeAttribute("user");
-		
-		
+
 		return "redirect:/main";
 	}
-	
+
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
@@ -94,6 +94,7 @@ public class LoginFormController {
 
 		}
 		System.out.println("로그인쪽 : " + session.getAttribute("kakaoWithdrawal"));
+		System.out.println("여기 with : " + withFlag);
 		if (!withFlag) {
 			session.removeAttribute("kakaoWithdrawal");
 
@@ -301,9 +302,144 @@ public class LoginFormController {
 
 		int kakaoCnt = wyMarketService.selectCountFromWithdrawByKakaoMail(mail);
 		System.out.println("kakakoCnt : " + kakaoCnt);
+
+		String reSignUp = null;
+
 		if (kakaoCnt == 1) {
-			session.setAttribute("kakaoWithdrawal", 1);
-			withFlag = true;
+
+			reSignUp = wyMarketService.selectReSignUpByMail(mail);
+			if (reSignUp.equals("N")) {
+				session.setAttribute("kakaoWithdrawal", 1);
+				withFlag = true;
+			}
+			Date banDate = wyMarketService.selectBanDateByMail(mail);
+			System.out.println(banDate);
+			if (banDate != null) {
+				Calendar getToday = Calendar.getInstance();
+				getToday.setTime(new Date()); // 현재 날짜
+
+				Calendar cmpDate = Calendar.getInstance();
+				cmpDate.setTime(banDate); // 특정 일자
+
+				long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+				diffSec = -diffSec;
+				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+
+				if (diffDays <= 0) {
+					if (kakaoCnt == 1) {
+						wyMarketService.updateReSignUpByMail(mail);
+					} else if (kakaoCnt >= 2) {
+						wyMarketService.updateReSignUpByMailAndMaxDate(mail);
+					}
+					withFlag = false;
+					userInfo.setLatitude((double) model.getAttribute("lat"));
+					userInfo.setLongitude((double) model.getAttribute("lon"));
+					userInfo.setAddress((String) model.getAttribute("address"));
+					userInfo.setKakaoMail(mail);
+					userInfo.setUserNick(userInfo.getUserNick());
+
+					System.out.println("db에 넣을 메일: " + mail);
+					System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());
+					System.out.println(userInfo);
+
+					int rs = service.insertUser(userInfo);
+					System.out.println("자동가입 확인 유무: " + rs);
+
+					SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+					// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+					Date now = new Date();
+					Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+					if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
+						if (!format.format(now).equals(format.format(userAccessDate))) {
+							wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+							// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+							wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+						}
+					} else {
+						wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+						// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+						wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+					}
+
+					userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
+					session.setAttribute("user", userInfo);
+
+					return "redirect:/main";
+				} else {
+					session.setAttribute("penaltyTimeKakao", diffDays);
+				}
+			}
+
+			return "/login/login";
+		} else if (kakaoCnt >= 2) {
+
+			reSignUp = wyMarketService.selectReSignUpByMailAndMaxDate(mail);
+			if (reSignUp.equals("N")) {
+				session.setAttribute("kakaoWithdrawal", 1);
+				withFlag = true;
+			}
+			Date banDate = wyMarketService.selectBanDateByMail(mail);
+			System.out.println(banDate);
+			if (banDate != null) {
+				Calendar getToday = Calendar.getInstance();
+				getToday.setTime(new Date()); // 현재 날짜
+
+				Calendar cmpDate = Calendar.getInstance();
+				cmpDate.setTime(banDate); // 특정 일자
+
+				long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+				diffSec = -diffSec;
+				long diffDays = diffSec / (24 * 60 * 60);// 일자수 차이
+
+				if (diffDays <= 0) {
+					if (kakaoCnt == 1) {
+						wyMarketService.updateReSignUpByMail(mail);
+					} else if (kakaoCnt >= 2) {
+						wyMarketService.updateReSignUpByMailAndMaxDate(mail);
+					}
+					withFlag = false;
+					userInfo.setLatitude((double) model.getAttribute("lat"));
+					userInfo.setLongitude((double) model.getAttribute("lon"));
+					userInfo.setAddress((String) model.getAttribute("address"));
+					userInfo.setKakaoMail(mail);
+					userInfo.setUserNick(userInfo.getUserNick());
+
+					System.out.println("db에 넣을 메일: " + mail);
+					System.out.println("db에 넣을 닉네임: " + userInfo.getUserNick());
+					System.out.println(userInfo);
+
+					int rs = service.insertUser(userInfo);
+					System.out.println("자동가입 확인 유무: " + rs);
+
+					SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+					// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
+					Date now = new Date();
+					Date userAccessDate = wyMarketService.selectUserAccessDate(userInfo.getUserNick());
+
+					if (wyMarketService.selectUserAccessCount(userInfo.getUserNick()) >= 1) {
+						if (!format.format(now).equals(format.format(userAccessDate))) {
+							wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+							// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+							wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+						}
+					} else {
+						wyMarketService.insertUserAccessDate(userInfo.getUserNick());
+						// 누적 접속자 수 알기 위해 카운트 올리는 DB 쿼리
+						wyMarketService.updateUserCountTotal(wyMarketService.selectAccessCount());
+					}
+
+					userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
+
+					session.setAttribute("user", userInfo);
+
+					return "redirect:/main";
+				} else {
+					session.setAttribute("penaltyTimeKakao", diffDays);
+				}
+			}
+
 			return "/login/login";
 		}
 

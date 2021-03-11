@@ -393,5 +393,60 @@ public class WYmarketServiceImpl implements WYmarketService{
 		return wyMarketMapper.selectCountFromWithdrawByKakaoMail(kakaoMail);
 	}
 
+	@Override
+	public Date selectBanDateByPhoneNumber(String phoneNumber) {
+		return wyMarketMapper.selectBanDateByPhoneNumber(phoneNumber);
+	}
+
+	@Override
+	public int deleteWithdrawalByPhoneNumber(String phoneNumber) {
+		return wyMarketMapper.deleteWithdrawalByPhoneNumber(phoneNumber);
+	}
+
+	@Override
+	public String selectReSignUpByPhoneNumberAndMaxDate(String phoneNumber) {
+		return wyMarketMapper.selectReSignUpByPhoneNumberAndMaxDate(phoneNumber);
+	}
+
+	@Override
+	public String selectReSignUpByPhoneNumber(String phoneNumber) {
+		return wyMarketMapper.selectReSignUpByPhoneNumber(phoneNumber);
+	}
+
+	@Override
+	public int updateReSignUpByPhoneNumber(String phoneNumber) {
+		return wyMarketMapper.updateReSignUpByPhoneNumber(phoneNumber);
+	}
+
+	@Override
+	public int updateReSignUpByPhoneNumberAndMaxDate(String phoneNumber) {
+		return wyMarketMapper.updateReSignUpByPhoneNumberAndMaxDate(phoneNumber);
+	}
+
+	@Override
+	public String selectReSignUpByMail(String kakaoMail) {
+		return wyMarketMapper.selectReSignUpByMail(kakaoMail);
+	}
+
+	@Override
+	public String selectReSignUpByMailAndMaxDate(String kakaoMail) {
+		return wyMarketMapper.selectReSignUpByMailAndMaxDate(kakaoMail);
+	}
+
+	@Override
+	public int updateReSignUpByMail(String kakaoMail) {
+		return wyMarketMapper.updateReSignUpByMail(kakaoMail);
+	}
+
+	@Override
+	public int updateReSignUpByMailAndMaxDate(String kakaoMail) {
+		return wyMarketMapper.updateReSignUpByMailAndMaxDate(kakaoMail);
+	}
+
+	@Override
+	public Date selectBanDateByMail(String kakaoMail) {
+		return wyMarketMapper.selectBanDateByMail(kakaoMail);
+	}
+
 }
 

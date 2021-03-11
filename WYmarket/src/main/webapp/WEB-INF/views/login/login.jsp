@@ -382,7 +382,7 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">이미 탈퇴된 전화번호입니다.</div>
+				<div class="modal-body" id='withPh'></div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -404,7 +404,7 @@ function onlyNumber(){
 						aria-label="Close"></button>
 				</div>
 
-				<div class="modal-body">이미 탈퇴된 메일입니다.</div>
+				<div class="modal-body" id='withMail'></div>
 
 
 				<div class="modal-footer" id="modalfooter">
@@ -433,6 +433,7 @@ function onlyNumber(){
 		} */
 	console.log('${kakaoWithdrawal}');
 		 if ("${kakaoWithdrawal}" == 1) {
+			kakaoModal();
 			var myModal = new bootstrap.Modal(document.getElementById('withdrawnKakao'));
 			myModal.show()
 			
@@ -457,10 +458,10 @@ function onlyNumber(){
 				setTimeout(function() {
 				ajaxGetph(phonetext.value);
 				ajaxGetSMS(phonetext.value);
-				}, 500);
+				}, 800);
 				setTimeout(function() {
-					if(withdrawNone.value == 1){
-						//ajaxViewWithdrawalDate();
+					if(withdrawNone.value == 'N'){
+						ajaxViewWithdrawalDate(phonetext.value);
 						var myModal = new bootstrap.Modal(document.getElementById('withdrawnID'));
 						myModal.show()
 					} else{

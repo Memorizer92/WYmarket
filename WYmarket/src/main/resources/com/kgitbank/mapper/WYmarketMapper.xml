@@ -491,16 +491,100 @@
 		refreshtime desc
 	</select>
 
-	<select id="selectCountFromWithdrawByPhoneNumber" resultType="Integer">
+	<select id="selectCountFromWithdrawByPhoneNumber"
+		resultType="Integer">
 		SELECT
 		count(*)
+		FROM
+		withdrawal WHERE phoneNumber =
+		#{phoneNumber}
+	</select>
+
+	<select id="selectCountFromWithdrawByKakaoMail"
+		resultType="Integer">
+		SELECT
+		count(*)
+		FROM
+		withdrawal WHERE kakaoMail = #{kakaoMail}
+	</select>
+
+	<select id="selectBanDateByPhoneNumber" resultType="Date">
+		SELECT
+		Max(banDate)
 		FROM
 		withdrawal WHERE phoneNumber = #{phoneNumber}
 	</select>
 
-	<select id="selectCountFromWithdrawByKakaoMail" resultType="Integer">
+	<delete id='deleteWithdrawalByPhoneNumber'>
+		DELETE FROM withdrawal WHERE phoneNumber =
+		#{phoneNumber}
+	</delete>
+
+	<select id="selectReSignUpByPhoneNumberAndMaxDate"
+		resultType="String">
 		SELECT
-		count(*)
+		reSignUp
+		FROM
+		withdrawal WHERE bandate = (select
+		max(bandate) from withdrawal) and phoneNumber = #{phoneNumber}
+	</select>
+	<select id="selectReSignUpByPhoneNumber" resultType="String">
+		SELECT
+		reSignUp
+		FROM
+		withdrawal WHERE phoneNumber = #{phoneNumber}
+	</select>
+
+	<update id="updateReSignUpByPhoneNumber">
+		UPDATE withdrawal SET reSignUp = 'Y'
+		WHERE
+		phoneNumber
+		= #{phoneNumber}
+	</update>
+
+	<update id="updateReSignUpByPhoneNumberAndMaxDate">
+		UPDATE withdrawal SET reSignUp = 'Y'
+		WHERE
+		bandate =
+		(select
+		max(bandate) from withdrawal) and phoneNumber =
+		#{phoneNumber}
+	</update>
+
+	<select id="selectReSignUpByMail" resultType="String">
+		SELECT
+		reSignUp
+		FROM
+		withdrawal WHERE kakaoMail = #{kakaoMail}
+	</select>
+
+	<select id="selectReSignUpByMailAndMaxDate" resultType="String">
+		SELECT
+		reSignUp
+		FROM
+		withdrawal WHERE bandate = (select
+		max(bandate) from
+		withdrawal) and kakaoMail = #{kakaoMail}
+	</select>
+
+	<update id="updateReSignUpByMail">
+		UPDATE withdrawal SET reSignUp = 'Y'
+		WHERE
+		kakaoMail =
+		#{kakaoMail}
+	</update>
+
+	<update id="updateReSignUpByMailAndMaxDate">
+		UPDATE withdrawal SET reSignUp = 'Y'
+		WHERE
+		bandate =
+		(select
+		max(bandate) from withdrawal) and kakaoMail = #{kakaoMail}
+	</update>
+
+	<select id="selectBanDateByMail" resultType="Date">
+		SELECT
+		Max(banDate)
 		FROM
 		withdrawal WHERE kakaoMail = #{kakaoMail}
 	</select>

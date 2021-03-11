@@ -64,7 +64,7 @@
 		<beans:constructor-arg
 
 
-			value="C:\Users\seunghwan\Downloads\eclipse\TeamProject\WYmarket\WYmarket\src\main\webapp\resources" />
+			value="C:\Users\Hyun\Desktop\JAVA SW DEVELOPER OCTOBER HYUN\gitWYmarket\WYmarket\WYmarket\src\main\webapp\resources" />
 
 
 	</beans:bean>

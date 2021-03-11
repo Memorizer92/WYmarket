@@ -255,7 +255,7 @@ function ajaxDateWithdrawal(ph) {
 	xhttp.send();
 }
 
-/*function ajaxViewWithdrawalDate() {
+function ajaxViewWithdrawalDate(ph) {
 	const prefix = "/wymarket/dateWithdrawalModal";
 
 	let uri = prefix + "/" + ph;
@@ -264,11 +264,29 @@ function ajaxDateWithdrawal(ph) {
 
 	xhttp.onreadystatechange = function() {
 		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
-			document.getElementById("withdrawNone").value = `${this.responseText}`;
+			document.getElementById("withPh").innerHTML = `이미 탈퇴된 전화번호입니다.<br>${this.responseText}일 뒤에 다시 진행해주세요`;
 		}
 	}
 
 	xhttp.open('GET', uri, true);
 
 	xhttp.send();
-}*/
+}
+
+function kakaoModal() {
+	const prefix = "/wymarket/dateWithdrawalModalKakao";
+
+	let uri = prefix;
+
+	xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) {
+			document.getElementById("withMail").innerHTML = `이미 탈퇴된 이메일입니다.<br>${this.responseText}일 뒤에 다시 진행해주세요`;
+		}
+	}
+
+	xhttp.open('GET', uri, true);
+
+	xhttp.send();
+}
