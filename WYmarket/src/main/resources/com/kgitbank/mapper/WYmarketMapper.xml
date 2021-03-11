@@ -469,7 +469,17 @@
 
 	<select id="selectItemByUserNick"
 		resultType="com.kgitbank.model.GoodsVO">
-		select * from sh_item where userNick = #{userNick} ORDER BY
+		select itemid, iimagepath, usernick, 
+	 	address, manner, ititle,
+		icategory, icontent,
+		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+		price, chatcnt, likecnt,
+		viewcnt, istate, ireservationstate
+		from sh_item where userNick = #{userNick} ORDER BY
 		refreshtime desc
 	</select>
 
