@@ -486,7 +486,7 @@
 	<select id="selectItemByUserNickSearch"
 		resultType="com.kgitbank.model.GoodsVO">
 		select 
-	itemid, iimagepath, usernick, 
+		itemid, iimagepath, usernick, 
 	 	address, manner, ititle,
 		icategory, icontent,
 		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
@@ -505,8 +505,7 @@
 
 	<select id="selectItemByUserNickCategory"
 		resultType="com.kgitbank.model.GoodsVO">
-		select 
-		itemid, iimagepath, usernick, 
+		select itemid, iimagepath, usernick, 
 	 	address, manner, ititle,
 		icategory, icontent,
 		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
@@ -516,7 +515,7 @@
   FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
 		price, chatcnt, likecnt,
 		viewcnt, istate, ireservationstate
-		 from sh_item where userNick = #{userNick} and
+		from sh_item where userNick = #{userNick} and
 		icategory LIKE ('%' ||
 		#{icategory} || '%')
 		ORDER BY
