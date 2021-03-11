@@ -96,9 +96,9 @@ public class MainController {
 		if (search == null) {// 메인페이지
 			// List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
 			model.addAttribute("goods", distance6km);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+//			UserInfo user = (UserInfo) session.getAttribute("user");
+//			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userInfo.getUserNick()));
 			// System.out.println(sid);
 		} else {// 검색창에 검색 했을때
 				// List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
@@ -118,9 +118,9 @@ public class MainController {
 			});
 	
 			model.addAttribute("goods", distance6kmSearch);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+//			UserInfo user = (UserInfo) session.getAttribute("user");
+//			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userInfo.getUserNick()));
 			// System.out.println(sid);
 		}
 
@@ -141,9 +141,9 @@ public class MainController {
 			    }
 			});
 			model.addAttribute("goods", distance6kmCategory);
-			UserInfo user = (UserInfo) session.getAttribute("user");
-			String userNick = user.getUserNick();
-			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+//			UserInfo user = (UserInfo) session.getAttribute("user");
+//			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userInfo.getUserNick()));
 			// System.out.println(sid);
 		}
 
