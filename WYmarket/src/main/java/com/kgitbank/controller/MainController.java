@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kgitbank.mapper.breakdownMapper;
 import com.kgitbank.model.GoodsVO;
 import com.kgitbank.model.SearchInDistance;
 import com.kgitbank.model.UserInfo;
+import com.kgitbank.service.BreakdownService;
 import com.kgitbank.service.GoodsService;
 import com.kgitbank.service.GpsDistance;
 import com.kgitbank.service.WYmarketService;
@@ -31,7 +33,10 @@ public class MainController {
 
 	@Autowired
 	GoodsService gservice;
-
+	
+	@Autowired
+	BreakdownService bservice;
+	
 	@Autowired
 	WYmarketService wyMarketService;
 
@@ -91,6 +96,9 @@ public class MainController {
 		if (search == null) {// 메인페이지
 			// List<SearchInDistance> sid = wyMarketService.selectSearchInDistance();
 			model.addAttribute("goods", distance6km);
+			UserInfo user = (UserInfo) session.getAttribute("user");
+			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 			// System.out.println(sid);
 		} else {// 검색창에 검색 했을때
 				// List<SearchInDistance> sid = wyMarketService.selectSearchGoods(search);
@@ -110,6 +118,9 @@ public class MainController {
 			});
 	
 			model.addAttribute("goods", distance6kmSearch);
+			UserInfo user = (UserInfo) session.getAttribute("user");
+			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 			// System.out.println(sid);
 		}
 
@@ -130,6 +141,9 @@ public class MainController {
 			    }
 			});
 			model.addAttribute("goods", distance6kmCategory);
+			UserInfo user = (UserInfo) session.getAttribute("user");
+			String userNick = user.getUserNick();
+			model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 			// System.out.println(sid);
 		}
 

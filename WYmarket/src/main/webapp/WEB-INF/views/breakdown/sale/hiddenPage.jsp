@@ -80,7 +80,7 @@
 					<div class="shadow shadow-strong completed">
 
 							<img alt=""
-								src="<%=application.getContextPath()%>/resources/image/carrotcharacter.png">
+								src="${pageContext.request.contextPath}${userItem_list.iimagepath}">
 							<div style="width: 100%;">
 								<c:if
 									test="${userItem_list.ireservationstate eq 'Yreservation'}">
@@ -88,12 +88,13 @@
 										예약중 ]</span>
 									<br>
 								</c:if>
-
+		
 								<span style="font-weight: bold; font-size: 27px;">
 									${userItem_list.ititle } </span> <br> <input type="checkbox"
 									 name="ititle"
 									value="${userItem_list.ititle }" style="display: none;"
 									id="titleRadio" onclick="oneCheck(this)" /><span> ${userItem_list.address }</span>
+									<br>
 								<c:choose>
 									<c:when
 										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">

@@ -432,14 +432,14 @@ function onlyNumber(){
 			}
 		} */
 	console.log('${kakaoWithdrawal}');
-		if ("${kakaoWithdrawal}" == 1) {
+		 if ("${kakaoWithdrawal}" == 1) {
 			var myModal = new bootstrap.Modal(document.getElementById('withdrawnKakao'));
 			myModal.show()
 			
 		} else {
 			var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop1'));
 			myModal.show()
-		}
+		} 
 		
 	const confirm = document.getElementById('getConfirm');
 

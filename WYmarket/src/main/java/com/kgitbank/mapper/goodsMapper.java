@@ -10,7 +10,7 @@ import com.kgitbank.model.UserInfo;
 
 public interface goodsMapper {
 
-	public List<GoodsVO> getGoodsList(String userNick);
+	 List<GoodsVO> getGoodsList(String userNick);
 	
 	  public int createGoods(
 	  GoodsVO goods,

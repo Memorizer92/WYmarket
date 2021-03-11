@@ -77,6 +77,11 @@ public interface breakdownMapper {
 	int getShuserInfoCdate(@Param("usernick") String usernick);
 	
 	
+	int updateUserInfoNick(@Param("modiyusernick") String modiyusernick ,
+			@Param("usernick") String usernick);
+	
+	int updateUserItemNick(@Param("modiyusernick") String modiyusernick ,
+			@Param("usernick") String usernick);
 	
 			
 }
