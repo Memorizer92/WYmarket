@@ -139,7 +139,7 @@ public class GoodsController {
 		 */
 		gservice.goodsModify(goods);
 
-		return "redirect:/main";
+		return "/goods/loading";
 	}
 	
 	
