@@ -78,69 +78,7 @@
 												<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC"
 												width="16" height="16" alt="상품 상태 아이콘">
 												<div class="sc-jLrYHE hZiGaI">
-												<div class="sc-jLrYHE hZiGaI">
-
-														<c:choose>
-															<c:when
-																test="${goods.refreshtime >= 0 && goods.refreshtime < 60}">
-																<span>${goods.refreshtime}초 전</span>
-																<br>
-															</c:when>
-
-															<c:when
-																test="${goods.refreshtime >= 60 && goods.refreshtime < 3600}">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 60)}"
-																	integerOnly="true" />
-																<span>${percent}분 전</span>
-																<br>
-															</c:when>
-
-															<c:when
-																test="${goods.refreshtime >= 3600 && goods.refreshtime < 86400}">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 3600)}"
-																	integerOnly="true" />
-																<span>${percent}시간 전</span>
-																<br>
-															</c:when>
-
-															<c:when
-																test="${goods.refreshtime >= 86400 && goods.refreshtime < 2764800} ">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 86400)}"
-																	integerOnly="true" />
-																<span>${percent }일 전</span>
-																<br>
-															</c:when>
-
-
-															<c:when
-																test="${goods.refreshtime >= 86400 && goods.refreshtime < 2764800}">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 86400)}"
-																	integerOnly="true" />
-																<span>${percent}일 전</span>
-																<br>
-															</c:when>
-
-															<c:when
-																test="${goods.refreshtime >= 2678400 && goods.refreshtime < 32140800}">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 2678400)}"
-																	integerOnly="true" />
-																<span>${percent }달 전</span>
-																<br>
-															</c:when>
-															<c:when test="${goods.refreshtime >= 32140800}">
-																<fmt:parseNumber var="percent"
-																	value="${((goods.refreshtime) / 32140800)}"
-																	integerOnly="true" />
-																<span>${percent }년 전 </span>
-																<br>
-															</c:when>
-														</c:choose>
-													</div>
+												날짜를 넣어용
 												</div>
 											</div>
 										</div>
@@ -229,7 +167,8 @@
 
 		$("#delete_Btn").click(function(){
 			 
-			 var con = confirm("정말로 삭제하시겠습니까?");		 
+			 var con = confirm("정말로 삭제하시겠습니까?");
+			 
 			 if(con) {      
 			  formObj.attr("action", "./delete");
 			  formObj.submit();
