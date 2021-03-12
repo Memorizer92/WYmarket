@@ -91,7 +91,7 @@ public interface breakdownMapper {
    int updateUserItemNick(@Param("modiyusernick") String modiyusernick ,
          @Param("usernick") String usernick);
    
-   List<ShItemVO> getShitemFromState(String userNick, String istate);
+
    
          
 }

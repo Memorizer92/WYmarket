@@ -141,5 +141,13 @@ public class GoodsController {
 
 		return "redirect:/main";
 	}
+	
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(@RequestParam("n") int itemid) {
+		gservice.goodsDelete(itemid);
+		return "redirect:/main";
+	}
 
+	
 }

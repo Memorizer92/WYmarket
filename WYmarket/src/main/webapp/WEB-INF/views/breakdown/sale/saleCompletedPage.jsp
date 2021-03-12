@@ -24,6 +24,7 @@
 <%@ include file="/WEB-INF/views/breakdown/incloud/font_css.jspf"%>
 <script src="https://kit.fontawesome.com/6421ed9b05.js"
 	crossorigin="anonymous"></script>
+	
 <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/assets/css/breakdown.css">
 
@@ -32,6 +33,7 @@
 	pointer-events: none;
 	opacity: 0.6;
 }
+
 </style>
 </head>
 <body>
@@ -39,7 +41,7 @@
 	<div id="grid_2" class="div">
 
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
+			style="padding: 20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-size: 40px; padding-left: 40px;"
 			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>거래내역</header>
 
 		<main>
@@ -79,6 +81,7 @@
 				<c:if test="${purchasedetailsCount == 0}">
 					<div id="nonexistent">상품이 존재하지 않습니다.</div>
 				</c:if>
+				<div style="height: 676px; overflow: auto;" >
 				<c:forEach var="SellerPhVO_list" items="${SellerPhVO }">
 					
 					<div class="shadow shadow-strong completed">
@@ -87,7 +90,7 @@
 							src="${pageContext.request.contextPath}${SellerPhVO_list.iimagepath}">
 						<div style="width: 100%;">
 							<span style="font-weight: bold; color: darkorange;">[ 거래완료
-								]</span> <br> <span> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"
+								]</span> <br> <span style="font-weight: bold; font-size: 25px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden ;font-family: 'Sunflower', sans-serif; "> ${SellerPhVO_list.ititle}</span><br> <input type="checkbox"
 									 name="radio_btn"
 									value="${userItem_list.ititle }" id="titleRadio" onclick="oneCheck(this)"/><span>${SellerPhVO_list.address }</span>
 
@@ -159,11 +162,12 @@
 					</div>
 					<br>
 				</c:forEach>
+				</div>
 				
 				<br>
-				<button id="revieShowwBtn"
+				<!-- <button id="revieShowwBtn"
 					onclick="reviewShow()" class= "nonebtn" style="width: 140px;">구매자 후기 보기</button>
-			
+			 -->
 				<input type="text" value="${success}" id="success"
 					style="display: none;">
 			</div>

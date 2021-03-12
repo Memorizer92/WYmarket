@@ -9,6 +9,8 @@ public class Pageination {
 	private String usernick;	
 	private int pagenum;
 	private int amount;
+	private String psearch;
+	private String istate;
 	
 	
 	public Pageination() {

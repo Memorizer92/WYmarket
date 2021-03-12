@@ -212,12 +212,6 @@ a {
 	border-bottom: 2px solid rgb(244, 244, 250);
 	padding: 6px;
 }
-@media screen and (max-width: 760px) {
-	.head2{justify-content: center;}
-}
-@media screen and (max-width: 1042px) {
-	.head2{justify-content: center;}
-}
 </style>
 <script>
 function check(){
@@ -235,7 +229,7 @@ function check(){
 		<menu>
 			<div class="head2 container-xl">
 				<li class="nick"><strong>${userNick}</strong>님</li>
-				<li id = "myStore" class="nick myStor" style="cursor: pointer;"><strong>내 상점</strong></li>
+<!-- 				<li id = "myStore" class="nick myStor" style="cursor: pointer;"><strong>내 상점</strong></li> -->
 				<li id="kakaoLogout" class="logout">로그아웃</li>
 			</div>
 		</menu>
@@ -248,14 +242,11 @@ function check(){
 				<i class="fas fa-bars fontsize big"></i><br>카테고리
 			</button>
 			<div class="dropdown-content">
-				<a href="/wymarket/main?category=여성의류">여성의류</a> 
-				<a href="/wymarket/main?category=패션잡화">패션잡화</a>
-				<a href="/wymarket/main?category=패션잡화">뷰티/미용</a>
-				<a href="/wymarket/main?category=남성의류">남성의류</a>
-				<a href="/wymarket/main?category=디지털/가전">생활/식품</a> 
-				<a href="/wymarket/main?category=디지털/가전">디지털/가전</a> 
-				<a href="/wymarket/main?category=디지털/가전">스포츠/레저</a>
-				<a href="/wymarket/main?category=도서/티켓/취미/애완">도서/티켓/취미/애완</a>
+				<a href="/wymarket/main?category=여성의류">여성의류</a> <a
+					href="/wymarket/main?category=패션잡화">패션잡화</a><a
+					href="/wymarket/main?category=남성의류">남성의류</a> <a
+					href="/wymarket/main?category=디지털/가전">디지털/가전</a> <a
+					href="/wymarket/main?category=도서/티켓/취미/애완">도서/티켓/취미/애완</a>
 			</div>
 		</div>
 
@@ -302,15 +293,9 @@ function check(){
 			});
 		 
 	 
-document.getElementById('myStore').addEventListener('click',()=>{				
+<%-- document.getElementById('myStore').addEventListener('click',()=>{				
 		 
 		 location.href = '<%=application.getContextPath()%>/param/myPage';
-			});
-window.addEventListener('resize', mediaSize);
-function mediaSize(){
-    console.log('width:', window.innerWidth);
-    }
-
-			
+			}); --%>
 	</script>
 </html>

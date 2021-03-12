@@ -49,6 +49,7 @@ public interface goodsMapper {
 	
 	public String getId(String userNick);
 	
+	public void goodsDelete(int itemid);
 	 
 	 
 }
