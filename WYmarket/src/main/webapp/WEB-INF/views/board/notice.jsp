@@ -252,8 +252,7 @@ a {
 #kakaoLogout {
 	/* 	text-decoration: none;
 	text-align: center;
-	padding-top: 14px; */
-	background-color: #fef01b;
+	padding-top: 14px; */ 
 	color: #3A1D1D;
 	border-radius: 5px;
 	font-weight: bold;

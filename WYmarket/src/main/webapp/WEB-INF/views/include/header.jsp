@@ -212,6 +212,22 @@ a {
 	border-bottom: 2px solid rgb(244, 244, 250);
 	padding: 6px;
 }
+  #kakaoLogout {
+/* 	text-decoration: none;
+	text-align: center;
+	padding-top: 14px; */
+	 
+	color: #3A1D1D;
+	border-radius: 5px;
+	font-weight: bold;
+/* 	display: block;
+	margin-left: auto;
+	margin-right: 5%;
+	width: 20%;
+	margin-top: 25px;
+	height: 50px; */
+	cursor: pointer;
+}
 </style>
 <script>
 function check(){
