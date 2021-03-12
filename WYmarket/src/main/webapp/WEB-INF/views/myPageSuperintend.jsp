@@ -273,14 +273,14 @@
 			<div id="header_box">
 				<%@ include file="include/header.jsp"%>
 			</div>
-		</header>	
+		</header>
 		<div class="gPdUna">
 			<div class="mainBar">
 				<nav class="productBarMain">
 
 					<div class="productBar productBarAfter">
 						<button class="breakdown"
-							onclick="location.href ='<%=application.getContextPath()%>/goods/register'">상품등록</button>
+							onclick="location.href ='<%=application.getContextPath()%>/goods/register2'">상품등록</button>
 					</div>
 					<div class="productBar productBarAfter">
 						<button class="breakdown"
@@ -299,16 +299,23 @@
 			<div class="eXqDQY">
 				<main class="dhPrXG">
 					<header class="dzcnmr">
-						<form action="" class="frGPEd">
-							<input type="text" placeholder="상품명을 입력해주세요."/>
-							<button  class="fQvnGB"></button>
+						<form
+							action="<%=application.getContextPath()%>/mypage/Productmanagement"
+							class="frGPEd" id="pufrom">
+							<input type="text" id="pusearch" name="psearch"
+								placeholder="상품명을 입력해주세요.">
+							<button class="fQvnGB" id="selectID1" form="pufrom"
+								onclick="pucheck()" value="확인"></button>
 						</form>
 						<div class="jAXfuM">
 							<div class="cont">
 								<div class="eAMYPo">
 									<select class="hwfws3" name="pageOpenCount"
 										onchange="if(this.value) location.href=(this.value);">
-										<option selected disabled="disabled">목록 수</option>
+										<option selected disabled="disabled">목록보기</option>
+										<option
+											value="<%=application.getContextPath()%>/mypage/Productmanagement">전체
+											보기</option>
 										<option
 											value="./Productmanagement?pagenum=1&amount=2&usernick=${user.userNick }">10개씩</option>
 										<option
@@ -322,22 +329,20 @@
 						<div class="jAXfuM">
 							<div class="cont">
 								<div class="eAMYPo">
-									<select class="hwfws3" name="pageOpenCount"
-										onchange="if(this.value) location.href=(this.value);">
+									<select class="hwfws3" id="sele" name="pageOpenCount"
+										onchange="chageLangSelect()">
 										<option selected disabled="disabled">원래 판매상태에 따른 페이지</option>
-										<option
-											value="<%=application.getContextPath()%>/param/sale">10개씩</option>
-										<option
-											value="./Productmanagement?pagenum=1&amount=20&usernick=${user.userNick }">20개씩</option>
-										<option
-											value="./Productmanagement?pagenum=1&amount=50&usernick=${user.userNick }">50개씩</option>
-									</select>										
+										<!-- <option onclick="saleState()">판매상태</option> -->
+										<option value="./Productmanagement?istate='Onsale'">판매중</option>
+										<option value="./Productmanagement?istate='Completed'">거래완료</option>
+										<option value="./Productmanagement?istate='Hidden'">숨김</option>
+									</select>
 								</div>
 							</div>
 						</div>
 					</header>
 
-
+					<div st></div>
 					<table>
 						<thead>
 							<tr>
@@ -349,13 +354,16 @@
 								<th>최근 수정일</th>
 								<th>기능</th>
 							</tr>
+
 						</thead>
 						<tbody>
-								
+
+
+
 							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
 									<td><a
-										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}"><img
+										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}"><img
 											src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
 											alt="" style="width: 120px; height: 120px;" /></a></td>
 									<td>
@@ -364,20 +372,22 @@
 												<div class="hwfss">
 
 													<c:choose>
-														<c:when test="${shitem_List.istate eq 'Onsale' }">
-															<div class="sing">판매중</div>
+														<c:when
+															test="${shitem_List.istate eq 'Onsale' and shitem_List.ireservationstate eq 'Nreservation'}">
+															<div class="sing" id="sing">판매중</div>
 														</c:when>
 
-														<c:when test="${shitem_List.istate eq 'Yreservation' }">
-															<div class="sing">예약중</div>
+														<c:when
+															test="${shitem_List.istate eq 'Onsale' and shitem_List.ireservationstate eq 'Yreservation' }">
+															<div class="sing"  id="sing">예약중</div>
 														</c:when>
 
 														<c:when test="${shitem_List.istate eq 'Hidden' }">
-															<div class="sing">숨김</div>
+															<div class="sing"  id="sing">숨김</div>
 														</c:when>
 
 														<c:when test="${shitem_List.istate eq 'Completed' }">
-															<div class="sing">거래완료</div>
+															<div class="sing"  id="sing">거래완료</div>
 														</c:when>
 													</c:choose>
 
@@ -388,7 +398,7 @@
 										</div>
 									</td>
 									<td><a style="text-decoration: none;"
-										href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
+										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
 									<td><c:set var="money" value="${shitem_List.price }" /> <fmt:formatNumber
 											value="${money }" type="number" /> 원</td>
 									<td>${shitem_List.likecnt}/${shitem_List.viewcnt}</td>
@@ -427,6 +437,7 @@
 										</c:choose></td>
 									<td>기능</td>
 								</tr>
+
 							</c:forEach>
 						</tbody>
 					</table>
@@ -486,21 +497,38 @@
 			</div>
 		</div>
 
-
-
-
-
-
-
-
-
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
 			</div>
 		</footer>
 	</div>
+	<script type="text/javascript">
 
+	/* function chageLangSelect() {
+		var langSelect = document
+				.getElementById("sele");
+		var selectValue = langSelect.options[langSelect.selectedIndex].value;
+		var ist = document
+				.getElementById("sing");
+		var istate = icg.options[ist.selectedIndex].value;
+		if(selectValue = istate){
+		}else{
+		}
+
+	} */
+	
+	function pucheck(){
+	   const pusearch = document.getElementById('pusearch');
+	    if(pusearch.value == ""){
+	      alert('검색어를 입력해주세요.');   
+	      return false;
+	   }else{
+	      document.getElementById(document.getElementById('selectID1').getAttribute('form')).submit();
+	   }
+	}
+
+</script>
 
 </body>
 </html>

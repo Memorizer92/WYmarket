@@ -13,6 +13,7 @@ section.container h2{
 }
 div.root input:not([type="file"]){
 	height: 3rem;
+	margin-top:10px;
 	padding: 0px 1rem;
 }
 div.root input,
@@ -86,7 +87,6 @@ li.sc-po.a22{
 div.sc-Dr.a311{
 	width: 10.5rem;
     font-size: 18px;
-    padding-top: 14px;
 }
 div.sc-Ge.a322{
 	flex: 1 1 0%;
@@ -100,7 +100,6 @@ li.sc-op.a23{
 div.sc-Ww.a3111{
 	width: 10.5rem;
 	font-size: 18px;
-	padding-top: 8px;
 }
 div.sc-Vv.a3222{
 	flex: 1 1 0%;
@@ -108,7 +107,6 @@ div.sc-Vv.a3222{
 div.sc-TE.a3111{
 	width: 10.5rem;
     font-size: 18px;
-    padding-top: 18px;
 }
 textarea.sc-HA.a4{
 	width: 80%;
@@ -128,25 +126,22 @@ div.sc-Ff.a33{
     margin: auto;
 }
 div.sc-Ff.a33 input{
-	height: 3.5rem;
+	height: 2.5rem;
     width: 10rem;
-    color: rgb(255, 255, 255);
-    font-size: 20px;
+	float: left;
     font-weight: 700;
-    border-radius: 2px;
-    background: rgb(255, 128, 0);
-    position: relative;
-    margin-right: 40px;
+    background-color: orange;
+    border: none;
+    margin-right: 20px;
 }
 div.sc-Ff.a33 button{
-	height: 3.5rem;
+	height: 2.5rem;
     width: 10rem;
     color: rgb(255, 255, 255);
-    font-size: 20px;
     font-weight: 700;
-    border-radius: 2px;
-    background: rgb(255, 80, 88);
+    background: gray;
     position: relative;
+    border: none;
 }
 
 

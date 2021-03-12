@@ -1,5 +1,10 @@
 package com.kgitbank.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kgitbank.model.Pageination;
+import com.kgitbank.model.ShItemVO;
 import com.kgitbank.model.UserInfo;
 import com.kgitbank.service.BreakdownService;
 
@@ -20,75 +26,95 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class MyPageController {
 
-	@Setter(onMethod_ = { @Autowired })
-	BreakdownService bservice;
+   @Setter(onMethod_ = { @Autowired })
+   BreakdownService bservice;
 
-	@GetMapping("/products")
-	public String myProductsPage(Model model, HttpSession session, Pageination paging) {
-		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = user.getUserNick();
-		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
-		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
-		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
-		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+   @GetMapping("/products")
+   public String myProductsPage(Model model, HttpSession session, Pageination paging) {
+      UserInfo user = (UserInfo) session.getAttribute("user");
+      String userNick = user.getUserNick();
+      model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
+      model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
+      model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
+      model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
 
-		model.addAttribute("products", "products");
-		paging.setUsernick(userNick);
-		model.addAttribute("pageList", bservice.getUserItemList(paging));			
-		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
-		return "/myPage";
-	}
+      model.addAttribute("products", "products");
+      paging.setUsernick(userNick);
+      model.addAttribute("pageList", bservice.getUserItemList(paging));         
+      model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
+      return "/myPage";
+   }
 
-	@GetMapping("/comments")
-	public String myCommentsPage(Model model, HttpSession session) {
-		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = user.getUserNick();
+   @GetMapping("/comments")
+   public String myCommentsPage(Model model, HttpSession session) {
+      UserInfo user = (UserInfo) session.getAttribute("user");
+      String userNick = user.getUserNick();
 
-		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
-		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
-		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
-		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
-		model.addAttribute("comments", "comments");
-		return "/myPage";
-	}
+      model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
+      model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
+      model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
+      model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+      model.addAttribute("comments", "comments");
+      return "/myPage";
+   }
 
-	@GetMapping("/favorites")
-	public String myFavoritesPage(Model model, HttpSession session) {
-		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = user.getUserNick();
+   @GetMapping("/favorites")
+   public String myFavoritesPage(Model model, HttpSession session) {
+      UserInfo user = (UserInfo) session.getAttribute("user");
+      String userNick = user.getUserNick();
 
-		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
-		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
-		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
-		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
-		model.addAttribute("favorites", "favorites");
-		return "/myPage";
-	}
+      model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
+      model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
+      model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
+      model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+      model.addAttribute("favorites", "favorites");
+      return "/myPage";
+   }
 
-	@GetMapping("/reviews")
-	public String myReviewssPage(Model model, HttpSession session) {
-		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = user.getUserNick();
+   @GetMapping("/reviews")
+   public String myReviewssPage(Model model, HttpSession session) {
+      UserInfo user = (UserInfo) session.getAttribute("user");
+      String userNick = user.getUserNick();
 
-		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
-		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
-		model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
-		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
-		model.addAttribute("reviews", "reviews");
-		return "/myPage";
-	}
-	
-	@GetMapping("/Productmanagement")
-	public String ProductManagement(Model model, HttpSession session, Pageination paging){
-		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = user.getUserNick();
-		model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
-		
-		paging.setUsernick(userNick);
-		model.addAttribute("pageList", bservice.getUserItemList(paging));			
-		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));
-		return "/myPageSuperintend";
-	}
+      model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
+      model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수
+      model.addAttribute("saleCount", bservice.purchasedetailsCount(userNick)); // 상품 판매 횟수
+      model.addAttribute("itemvo" , bservice.getShitemVO(userNick));
+      model.addAttribute("reviews", "reviews");
+      return "/myPage";
+   }
+   
+   @GetMapping("/Productmanagement")
+   public String ProductManagement(Model model, HttpSession session, Pageination paging, 
+		   HttpServletRequest request, String istate){
+      UserInfo user = (UserInfo) session.getAttribute("user");
+      String userNick = user.getUserNick();
+      model.addAttribute("itemvo" , bservice.getShitemVO(userNick));   
+      paging.setUsernick(userNick);
+      String search = request.getParameter("psearch");
+      
 
-
+      if(search == null || search.equals("")) {
+      model.addAttribute("pageList", bservice.getUserItemList(paging));         
+      model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));      
+      return "/myPageSuperintend";
+      
+      }else {
+         model.addAttribute("pageList", bservice.searchUserItemList(paging));         
+         model.addAttribute("page", paging.getPageData(10, bservice.searchCount(paging)));
+         return "/myPageSuperintend";         
+      }
+      
+		/*
+		 * if(istate != null) {
+		 * 
+		 * UserInfo user = (UserInfo) session.getAttribute("user"); String userNick1 =
+		 * user.getUserNick();
+		 * 
+		 * model.addAttribute("itemvo" , bservice.getShitemFromState(userNick1,istate));
+		 * paging.setUsernick(userNick1); }
+		 */
+   }
+   
+   
 }
