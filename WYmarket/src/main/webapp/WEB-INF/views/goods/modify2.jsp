@@ -97,6 +97,7 @@ function inputCheck() {
 								<li draggable="false" class="sc-bn a52" id="sc-bn a52">
 									<div class="select_img" id="select_img">
 										<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
+										
 										<input type="hidden" name="iimagepath" 
 										value="${goods.iimagepath }" />
 									</div>
