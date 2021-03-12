@@ -39,24 +39,7 @@ $('.carousel').carousel({
 <style type="text/css">
 * {
 	box-sizing: border-box;
-}
-
-  #kakaoLogout {
-/* 	text-decoration: none;
-	text-align: center;
-	padding-top: 14px; */
-	background-color: #fef01b;
-	color: #3A1D1D;
-	border-radius: 5px;
-	font-weight: bold;
-/* 	display: block;
-	margin-left: auto;
-	margin-right: 5%;
-	width: 20%;
-	margin-top: 25px;
-	height: 50px; */
-	cursor: pointer;
-}
+} 
 /*
 #logoutheader {
 	display: flex;
