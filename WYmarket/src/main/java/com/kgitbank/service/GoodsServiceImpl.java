@@ -26,6 +26,8 @@ public interface GoodsServiceImpl {
 
 	String getId(String userNick);
 	
+	public void goodsDelete(int itemid);
+	
 	 
 
 }

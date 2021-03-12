@@ -17,11 +17,12 @@ public interface breakdownMapper {
 		
 	List<ShItemVO> getUserItemList(Pageination paging);
 	
+	List<ShItemVO> searchUserItemList(Pageination paging);
+	
+	List<ShItemVO> selectStateCategory(Pageination paging);
 	
 	List<ShItemVO>  getShitemVO(String usernick); 
 			
-	
-	
 	List<PurchasedetailsVO> getPurchaserPhVO(String purchaser);
 	
 	List<PurchasedetailsVO> getSellerPhVO(String usernick);
@@ -30,6 +31,8 @@ public interface breakdownMapper {
 	int onsaleCount();
 	
 	int getCount(String usernick);
+	
+	int searchCount(Pageination paging);
 	
 	int completedIstate(
 			@Param("istate") String istate, 

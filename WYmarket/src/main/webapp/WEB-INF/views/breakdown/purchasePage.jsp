@@ -33,7 +33,7 @@
 	<div id="grid_2" class="div">
 
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px;"
+			style="padding: 20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-size: 40px;"
 			class="titlefont">
 			<i class="fas fa-arrow-left cPoint" style="float: left;"
 				onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>
@@ -55,10 +55,7 @@
 								환료</button></li>
 					</ul>
 				</div> --%>
-
-						<c:if test="${empty PurchaserPhVO}">
- 			구매하신 상품이 없습니다. 
- 			</c:if>
+<div style="height: 676px; overflow: auto;" >
 				<c:forEach var="PurchaserPhVO_list" items="${PurchaserPhVO }">
 
 			
@@ -75,9 +72,9 @@
 							<span style="font-weight: bold; color: darkorange;">[ 구매완료
 								]</span> <br> <input type="checkbox" name="radio_btn"
 								value="${userItem_list.itemid }" id="titleRadio"
-								onclick="oneCheck(this)" /> <span
+								onclick="oneCheck(this)"  style="display: none;"/> <span
 								style="font-weight: bold; font-size: 27px;">
-								${PurchaserPhVO_list.ititle } </span> <br> <span>
+								${PurchaserPhVO_list.ititle } </span> <br> <span style="white-space: nowrap;">
 								${PurchaserPhVO_list.address }</span> <br>
 							<c:choose>
 								<c:when
@@ -145,22 +142,29 @@
 								style="font-weight: bold; font-size: 20px;"> <c:set
 									var="money" value="${PurchaserPhVO_list.price }" /> <fmt:formatNumber
 									value="${money }" type="number" />원 <br></span>
-						</div>
-						<div style="width: 320px; align-self: flex-end;">
+						
+						<div style="align-self: flex-end;">
 							<span style="margin: 0;" class="like_view"><i
 								class="far fa-comments" style="color: skyblue;"></i>
 								${PurchaserPhVO_list.likecnt } </span> <span style="margin: 0;"
 								class="like_view"><i class="far fa-heart"
 								style="color: red;"></i> ${PurchaserPhVO_list.viewcnt } </span> <br>
 						</div>
+						</div>
+						
 					</div>
 					<br>
-
+					
+			
+				
+				
 
 				</c:forEach>
-				<button class="nonebtn" id="reviewBtn" style="width: 160px;"
+				</div>
+					<div id="nonexistent" style="display: none;"></div>
+			<!-- 	<button class="nonebtn" id="reviewBtn" style="width: 160px;"
 					onclick="reviewWriting()">구매 후기남기기</button>
-			</div>
+			</div> -->
 		</main>
 	</div>
 
@@ -169,10 +173,16 @@
 
 var radio_btn = document.getElementsByName("radio_btn");
 var radio_btn_check = 0;
-
+const nonexistent1 = document.getElementById("nonexistent");
 if (radio_btn.length == 0) {
+	console.log(radio_btn.length);
+	/* nonexistent1.style.display = 'block'; */
+	nonexistent1.innerText = '구매하신 상품이 존재하지 않습니다.';
 	document.getElementById("reviewBtn").style.display = 'none';
+
 }
+
+
 
 function oneCheck(element) {
 	radio_btn.forEach((cd) => {

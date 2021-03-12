@@ -24,14 +24,67 @@ SELECT usernick from sh_userInfo
 			FROM
 			 sh_item
 			WHERE
-			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick}
+			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick} order by refreshtime asc
 		)
 	WHERE
-		rn > (#{pagenum} -1) * #{amount} order by refreshtime asc
+		rn > (#{pagenum} -1) * #{amount} 
 		]]>
 </select>
 
 
+<select id="searchUserItemList" resultType="com.kgitbank.model.ShItemVO">
+	<![CDATA[
+			SELECT * FROM
+		(SELECT
+			rownum rn, itemID, iImagePath, userNick,
+			address, manner, iTitle, iCategory,
+			(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime, iContent, price, 
+			chatCnt, likeCnt, viewCnt, iState,
+			iReservationState
+			FROM
+			 sh_item
+			WHERE
+			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick} 
+			 	and ititle LIKE '%' || #{psearch, jdbcType=VARCHAR} || '%')  
+	WHERE
+		rn > (#{pagenum} -1) * #{amount}
+		]]>
+</select>
+ 
+<select id="searchCount" resultType="int">
+		select count(*)
+		from
+		sh_item WHERE usernick = #{usernick} and  ititle LIKE  '%' || #{psearch} || '%'
+</select>
+
+
+
+<select id="selectStateCategory" resultType="com.kgitbank.model.ShItemVO">
+	<![CDATA[
+			SELECT * FROM
+		(SELECT
+			rownum rn, itemID, iImagePath, userNick,
+			address, manner, iTitle, iCategory,
+			(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
+     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
+     + EXTRACT(MINUTE FROM systimestamp - tm) *60
+     + EXTRACT(SECOND FROM systimestamp - tm) AS second
+  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime, iContent, price, 
+			chatCnt, likeCnt, viewCnt, iState,
+			iReservationState
+			FROM
+			 sh_item
+			WHERE
+			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick}  and iState = '#{istate}') 
+			 	
+	WHERE
+		rn > (#{pagenum} -1) * #{amount}
+		]]>
+</select>
 
 
 
@@ -43,7 +96,7 @@ SELECT
      + EXTRACT(MINUTE FROM systimestamp - tm) *60
      + EXTRACT(SECOND FROM systimestamp - tm) AS second
   FROM (SELECT TO_TIMESTAMP(usercreatedate, 'yy/mm/dd hh24:mi:ss') tm FROM dual)) as usercreatedate
-		from sh_userinfo where usernick = #{usernick}
+		from sh_userinfo where usernick = #{usernick} 
 		]]>	
 </select>
 
@@ -74,7 +127,7 @@ SELECT itemID, iImagePath, Purchaser,
      + EXTRACT(SECOND FROM systimestamp - tm) AS second
   FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
   		 price, chatCnt, likeCnt, viewCnt 
-	   from purchasedetails where purchaser = #{purchaser} order by refreshtime asc
+	   from purchasedetails where purchaser = #{purchaser} 
 ]]>	
 </select>
 
@@ -88,7 +141,7 @@ SELECT itemID, iImagePath, Purchaser,
      + EXTRACT(SECOND FROM systimestamp - tm) AS second
   FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
   		 price, chatCnt, likeCnt, viewCnt 
-	   from purchasedetails where usernick = #{usernick} order by refreshtime asc
+	   from purchasedetails where usernick = #{usernick} 
 ]]>	
 </select>
 
@@ -132,9 +185,9 @@ UPDATE sh_item SET iReservationState = #{iReservationState} where ititle = #{iti
 UPDATE sh_item SET refreshtime = sysdate where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
 </update>
 
-<update id="productDelete">
+<delete id="productDelete">
 DELETE from sh_item  where ititle = #{ititle} AND usernick = #{usernick} AND istate = #{istate} AND itemid = #{itemid}
-</update>
+</delete>
 
 
 

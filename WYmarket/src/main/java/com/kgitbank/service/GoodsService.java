@@ -47,5 +47,10 @@ public class GoodsService implements GoodsServiceImpl{
 			String icategory, String icontent, Integer price, String iimagepath) { 
 		return goods_mapper.createGoods(goods, user, ititle, icategory, icontent, price, iimagepath); }
 
+	@Override
+	public void goodsDelete(int itemid) {
+		goods_mapper.goodsDelete(itemid);
+	}
+
 
 }

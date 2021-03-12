@@ -36,7 +36,7 @@
 				style="display: none;">
 				
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; font-size: 40px; padding-left: 40px;"
+			style="padding: 20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-size: 40px; font-size: 40px; padding-left: 40px;"
 			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>숨김 상품</header>
 		<main>
 		<div id="mainDiv">								
@@ -72,7 +72,7 @@
 				
 			
 				<div id = "nonexistent" style="display: none;"></div>				
-				
+				<div style="height: 676px; overflow: auto;" >
 			<c:forEach var="userItem_list" items="${itemvo }">
 				
 				<c:if test="${userItem_list.istate eq 'Hidden'}">
@@ -89,7 +89,7 @@
 									<br>
 								</c:if>
 		
-								<span style="font-weight: bold; font-size: 27px;">
+								<span style="font-weight: bold; font-size: 25px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden ;font-family: 'Sunflower', sans-serif; ">
 									${userItem_list.ititle } </span> <br> <input type="checkbox"
 									 name="ititle"
 									value="${userItem_list.ititle }" style="display: none;"
@@ -174,6 +174,7 @@
 					</c:if>
 					<!-- 판매중 내역 end -->
 				</c:forEach>
+				</div>
 			<br>
 			<button onclick="hiddenCancellations()" id="HiddenCancellation" class = "nonebtn">숨기기
 				취소</button>

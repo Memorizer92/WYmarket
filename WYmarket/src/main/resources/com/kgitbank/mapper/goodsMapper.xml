@@ -76,7 +76,9 @@
 		where itemid = ${itemid}
 	</update>
 
-
+<delete id="goodsDelete">
+	delete from sh_item where itemid = #{itemid}
+</delete>
 
 
 </mapper>

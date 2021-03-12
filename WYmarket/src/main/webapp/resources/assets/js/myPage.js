@@ -9,18 +9,11 @@ const commentsAtag = document.getElementById("commentsA");
 const favoritesAtag = document.getElementById("favoritesA");
 const reviewsAtag = document.getElementById("reviewsA");
 
-
+console.log(products.value);
 
 if (products.value == 'products') {
 	productsAtag.style.borderBottom = 'solid 1px white';
-	commentsAtag.style.borderBottom = 'solid 1px black';
-	favoritesAtag.style.borderBottom = 'solid 1px black';
-	reviewsAtag.style.borderBottom = 'solid 1px black';
-
-	productsAtag.style.borderTop = 'solid 1px black';
-	productsAtag.style.borderRight = 'solid 1px black';
-	productsAtag.style.backgroundColor = 'white';
-	productsAtag.style.color = 'black';
+	console.log("야");
 } else if (comments.value == 'comments') {
 	productsAtag.style.borderBottom = 'solid 1px black';
 	commentsAtag.style.borderBottom = 'solid 1px white';

@@ -53,13 +53,16 @@
 					<div class="hOrrVQ">
 						<i class="far fa-eye-slash" style="width: 28px; height: 16px;"></i>
 
-						<div>
+						<div style="    text-align-last: center;
+    width: 83px;">
 							최근 본 상품이 <br>없습니다.
 						</div>
 					</div>
 				</div>
 				<div class="fydKsO">
-					<button class="hwmeKQ">TOP</button>
+					<button class="hwmeKQ"
+						style="display: flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; height: 40px; width: 100%; font-weight: 600; font-size: 13px; color: rgb(102, 102, 102);">
+						TOP</button>
 				</div>
 			</div>
 		</div>
@@ -89,17 +92,9 @@
 						<div class="hJeYQQ">
 							<div class="dvwUHI">
 
-								<div class="hxmbLs">${usernick }
-									Store
-									<button class="kQfCqL" style="margin: 26px;"
-										onclick="modifyStore()">상점명 수정</button>
-								</div>
+								<div class="hxmbLs">${usernick }님Store</div>
 
-								<div
-									style="padding: 1px; display: none; display: flex;  height: 42px; width: 256px; padding: 7px 0; border-radius: 5px;">
-									<input id="storeNick" type="text" value=${usernick } />
-									<button class="storecheck">확인</button>
-								</div>
+
 							</div>
 							<div class="eyASDB">
 								<div class="jwtFDB">
@@ -162,21 +157,25 @@
 							<a href="<%=application.getContextPath()%>/mypage/products"
 								class="eTKvNd" id="productsA">상품 <span class="hfhszj">${shitemCount }</span></a>
 							<a href="<%=application.getContextPath()%>/mypage/comments"
-								class="eTKvNd" id="commentsA">상점문의 <span class="hfhszj">0</span></a>
-							<a href="<%=application.getContextPath()%>/mypage/favorites"
-								class="eTKvNd" id="favoritesA">찜 <span class="hfhszj">0</span></a>
-							<a href="<%=application.getContextPath()%>/mypage/reviews"
-								class="eTKvNd" id="reviewsA">상점후기 <span class="hfhszj">0</span></a>
+								class="eTKvNd" id="commentsA" style="pointer-events: none;">상점문의
+								<span class="hfhszj">0</span>
+							</a> <a href="<%=application.getContextPath()%>/mypage/favorites"
+								class="eTKvNd" id="favoritesA" style="pointer-events: none;">찜
+								<span class="hfhszj">0</span>
+							</a> <a href="<%=application.getContextPath()%>/mypage/reviews"
+								class="eTKvNd" id="reviewsA" style="pointer-events: none;">상점후기
+								<span class="hfhszj">0</span>
+							</a>
 						</div>
 					</div>
-					<div class="jLofof">
+					<div class="jLofof" style="padding-bottom: 52px;">
 						<div class=" eXbIiL" id="products">
 							<div class="cqysTx">
 								<div>
 									상품 <span class="kGPYka">${shitemCount }</span>
 								</div>
 							</div>
-							<div>
+							<div style="overflow: auto; width: 100%; height: 664px;">
 								<c:choose>
 
 									<c:when test="${shitemCount eq 0}">
@@ -192,20 +191,23 @@
 														<div class="jJGnAY">
 															<div class="cFzedp">
 																<a
-																	href="<%=application.getContextPath()%>/goods/view?n=${shitem_List.itemid}">
+																	href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}">
 																	<img alt=""
 																	src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
 																	style="width: 100%; height: 194px;">
 																</a>
 															</div>
 															<div class="jFyxuP">
-																<div class="dPZorb">${shitem_List.ititle }
+
+																<div class="dPZorb">
 																	<c:if
 																		test="${shitem_List.ireservationstate eq 'Yreservation'}">
 																		<span style="font-weight: bold; color: darkorange;">[
 																			예약중 ]</span>
-																		<br>
+
 																	</c:if>
+																	${shitem_List.ititle }
+
 																</div>
 																<div class="clniGs">
 																	<div class="hxBDFe">
@@ -297,11 +299,11 @@
 									</c:when>
 								</c:choose>
 
-								<div class="ePdYoP"></div>
+
 
 							</div>
 						</div>
-						<div>
+						<%-- 	<div>
 							<c:url var="previousHref"
 								value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }" />
 							<c:url var="nextHref"
@@ -312,7 +314,7 @@
 							<c:url var="oneback"
 								value="./myPage?pagenum=${page.currPage - 1}&amount=${page.amount }&usernick=${usernick }" />
 							<nav aria-label="...">
-								<ul class="pagination" style="display: flex; list-style: none;">
+								<ul class="pagination" style="display: flex; list-style: none; padding: 9px;">
 
 									<li
 										class="page-item<c:if test="${not page.previous }"> disabled</c:if>">
@@ -348,7 +350,7 @@
 									</li>
 								</ul>
 							</nav>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 
@@ -365,16 +367,16 @@
 		</footer>
 	</div>
 
-	<input type="text" name="products" id="products1" value="${products }"
+	<input type="text" name="products" id="products1" value="${products } "
 		style="" />
 	<input type="text" name="comments" id="comments" value="${comments }"
-		style="" />
+		style="display: none;" />
 	<input type="text" name="favorites" id="favorites"
-		value="${favorites }" style="" />
+		value="${favorites }" style="display: none;" />
 	<input type="text" name="reviews" id="reviews" value="${reviews }"
-		style="" />
+		style="display: none;" />
 	<input type="text" name="usernick" id="usernick" value="${usernick }"
-		style="" />
+		style="display: none;" />
 
 	<script type="text/javascript"
 		src="<%=application.getContextPath()%>/resources/assets/js/myPage.js">
@@ -383,11 +385,12 @@
 	<script type="text/javascript">
 		function modifyStore() {
 			const storeNick = document.getElementById("storeNick");
+			const modifyDiv = document.getElementById("modifyDiv");
 			
 			$(document).ready(function() {				
 				$(".hxmbLs").hide();
 			})
-			storeNick.style.display = 'block';
+			modifyDiv.style.display = 'block';
 		}
 
 		

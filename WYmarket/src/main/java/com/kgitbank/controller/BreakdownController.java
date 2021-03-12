@@ -151,6 +151,7 @@ public class BreakdownController {
 	public String purchase(Model model, HttpSession session) {	
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
+		 model.addAttribute("usernick", userNick);
 		model.addAttribute("PurchaserPhVO", bservice.getPurchaserPhVO(userNick));
 		return "/breakdown/purchasePage";
 	}

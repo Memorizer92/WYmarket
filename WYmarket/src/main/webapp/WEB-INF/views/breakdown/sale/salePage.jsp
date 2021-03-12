@@ -32,12 +32,15 @@
 
 </head>
 <body ondragstart="return false" onselectstart="return false">
-<!--  oncontextmenu="return false" 마우스 우클릭 금지 -->
+	<!--  oncontextmenu="return false" 마우스 우클릭 금지 -->
 
 	<div id="grid_2" class="div">
 		<header
-			style="padding: 20px; text-align: center; font-family: 'Akaya Kanadaka', cursive; font-size: 40px; padding-left: 40px;"
-			class="titlefont"><i class="fas fa-arrow-left cPoint" style="float: left;" onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>판매내역</header>
+			style="padding: 20px; text-align: center; font-family: 'Noto Sans KR', sans-serif; font-size: 40px; padding-left: 40px;"
+			class="titlefont">
+			<i class="fas fa-arrow-left cPoint" style="float: left;"
+				onclick="location.href = '<%=application.getContextPath() %>/mypage/Productmanagement'"></i>판매내역
+		</header>
 		<main>
 			<div id="mainDiv">
 				<ul class="list-inline firstli">
@@ -60,7 +63,8 @@
 							style="box-shadow: 0 0 0 0;">
 							<i class="fas fa-ellipsis-h"></i>
 						</button>
-						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="cursor: pointer;">
+						<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1"
+							style="cursor: pointer;">
 							<li id="productChoice" class="disabled"><div
 									class="dropdown-item" onclick="productChoice()">거래상품 선택</div></li>
 							<li id="ReservationChoise" class="disabled"><div
@@ -77,32 +81,38 @@
 				</div>
 
 				<div id="nonexistent" style="display: none;"></div>
+				<div style="height: 676px; overflow: auto;" >
 				<c:forEach var="userItem_list" items="${itemvo }">
 					<c:if test="${userItem_list.istate eq 'Onsale'}">
 						<!--  판매중 내역 -->
+						
 						<div class="shadow shadow-strong completed"
 							style="padding: 15px 15px; border-radius: 1rem;">
-						
-							
+
+
 							<img alt=""
-								src="${pageContext.request.contextPath}${userItem_list.iimagepath}"
-								style="width: 300px; height: 165px; border: solid 2px #dee2e6; border-radius: 0.5rem;">
+								src="${pageContext.request.contextPath}${userItem_list.iimagepath}">
 
 							<div style="width: 100%;">
 								<c:if
 									test="${userItem_list.ireservationstate eq 'Yreservation'}">
 									<span style="font-weight: bold; color: darkorange;">[
-										예약중 ]</span>										
+										예약중 ]</span>
 									<br>
 								</c:if>
-									<input type="text" name = "ireservationstate" value="${userItem_list.ireservationstate }" style="display: none;"/>
-								
-								<span style="font-weight: bold; font-size: 27px;">
-									${userItem_list.ititle } </span> <br> <input type="checkbox"
-									onclick="openModal(this)" name="ititle"
-									value="${userItem_list.ititle }" style="display: none;"
-									id="titleRadio" /><span> ${userItem_list.address }</span>
-									<br>
+								<input type="text" name="ireservationstate"
+									value="${userItem_list.ireservationstate }"
+									style="display: none;" />
+								<div
+									style="width: 24rem; text-overflow: ellipsis; overflow: hidden;">
+									<span
+										style="font-weight: bold; font-size: 25px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden ;font-family: 'Sunflower', sans-serif; ">
+										${userItem_list.ititle } </span>
+								</div>
+								 <input type="checkbox" onclick="openModal(this)"
+									name="ititle" value="${userItem_list.ititle }"
+									style="display: none;" id="titleRadio" /><span>
+									${userItem_list.address }</span> <br>
 								<c:choose>
 									<c:when
 										test="${userItem_list.refreshTime >= 0 && userItem_list.refreshTime < 60}">
@@ -169,19 +179,23 @@
 									style="font-weight: bold; font-size: 20px;"> <c:set
 										var="money" value="${userItem_list.price }" /> <fmt:formatNumber
 										value="${money }" type="number" />원 <br></span>
+
+								<div style=" align-self: flex-end;">
+									<span style="margin: 0;" class="like_view"><i
+										class="far fa-comments" style="color: skyblue;"></i>
+										${userItem_list.likecnt } </span> <span style="margin: 0;"
+										class="like_view"><i class="far fa-heart"
+										style="color: red;"></i> ${userItem_list.viewcnt } </span> <br>
+								</div>
 							</div>
-							<div style="width: 320px; align-self: flex-end;">
-								<span style="margin: 0;" class="like_view"><i
-									class="far fa-comments" style="color: skyblue;"></i>
-									${userItem_list.likecnt } </span> <span style="margin: 0;"
-									class="like_view"><i class="far fa-heart"
-									style="color: red;"></i> ${userItem_list.viewcnt } </span> <br>
-							</div>
+
 						</div>
+						
 						<br>
 					</c:if>
 					<!-- 판매중 내역 end -->
 				</c:forEach>
+				</div>
 				<br>
 				<div>
 					<button onclick="TransactionCompleted()" style="display: none;"
@@ -197,7 +211,7 @@
 						id="ProductReservationY" value="Yreservation" class="nonebtn">예약중
 						변경</button>
 					<button onclick="ProductDelete()" style="display: none;"
-						id="ProductDelete" class="nonebtn">상품 삭제</button>					
+						id="ProductDelete" class="nonebtn">상품 삭제</button>
 				</div>
 
 				<c:forEach var="userinfo_list" items="${userinfo }">
@@ -368,19 +382,21 @@
           	idradio_btn[i].checked=true;
   var form = document.createElement("form");
   form.setAttribute("method", "post");
-  form.setAttribute("action", "<%=application.getContextPath() %>/param/productDelete/"+ radio_btn[i].value + "/" + idradio_btn[i].value + "/" + istate);  
-  document.body.appendChild(form);  
-  radio_btn_check++; 	    
-  form.submit();
-   alert("정상적으로 해당 상품이 삭제되었습니다.");		
-          }
-      }      
-      if(radio_btn_check==0){
-          alert("상품을 선택해주세요");
-          return;
-      }
-}
-</script>
+  form.setAttribute("action", "<%=application.getContextPath() %>/param/productDelete/"
+									+ radio_btn[i].value + "/"
+									+ idradio_btn[i].value + "/" + istate);
+					document.body.appendChild(form);
+					radio_btn_check++;
+					form.submit();
+					alert("정상적으로 해당 상품이 삭제되었습니다.");
+				}
+			}
+			if (radio_btn_check == 0) {
+				alert("상품을 선택해주세요");
+				return;
+			}
+		}
+	</script>
 
 </body>
 </html>

@@ -17,12 +17,9 @@ import com.kgitbank.model.ShUserInfoVO;
 
 @Service
 public class BreakdownService implements IBreakdownService {
-	
-	
-	
+		
 	String onsale = "Onsale";
-	
-	
+		
 	@Autowired
 	breakdownMapper break_mapper;
 	
@@ -113,6 +110,23 @@ public class BreakdownService implements IBreakdownService {
 	public int updateUserItemNick(String modiyusernick, String usernick) {
 		return break_mapper.updateUserItemNick(modiyusernick, usernick);
 	}
+
+	@Override
+	public List<ShItemVO> searchUserItemList(Pageination paging) {
+		return break_mapper.searchUserItemList(paging);
+	}
+
+	@Override
+	public int searchCount(Pageination paging) {
+		return break_mapper.searchCount(paging);
+	}
+
+	@Override
+	public List<ShItemVO> selectStateCategory(Pageination paging) {
+		return break_mapper.selectStateCategory(paging);
+	}
+
+	
 
 
 	

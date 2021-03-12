@@ -79,12 +79,13 @@ section#content div.refreshtime1 {
 									</a>
 								</div>
 								
-								<div class="ititle"> ${goods.ititle}<c:if
+								<div class="ititle"> <c:if
 									test="${goods.ireservationstate eq 'Yreservation'}">
 									<span style="font-weight: bold; color: darkorange;">[
-										예약중 ]</span>										
-									<br>
-								</c:if></div>
+										예약중 ]</span></c:if>
+										${goods.ititle}		
+									
+								</div>
 								<div class="icategory">${goods.icategory}</div>
 								<div class="price">
 									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" />

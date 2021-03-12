@@ -18,12 +18,15 @@ public interface IBreakdownService {
 	
 	List<ShItemVO> getUserItemList(Pageination paging);
 	
-
+	List<ShItemVO> searchUserItemList(Pageination paging);
+	
+	List<ShItemVO> selectStateCategory(Pageination paging);
 	
 	List<PurchasedetailsVO> getPurchaserPhVO(String usernick);
 	
 	List<PurchasedetailsVO> getSellerPhVO(String usernick);
 	
+	int searchCount(Pageination paging);
 	
 	int completedIstate(String istate, String ititle, String usernick, String itemid);
 	
