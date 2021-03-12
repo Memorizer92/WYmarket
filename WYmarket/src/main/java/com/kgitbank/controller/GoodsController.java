@@ -109,10 +109,10 @@ public class GoodsController {
 	
 	//상품 수정
 	@RequestMapping(value = "/modify2", method = RequestMethod.POST) 
-	public String postGoodsModify(GoodsVO goods, MultipartFile file, HttpServletRequest req)
+	public String postGoodsModify(@ModelAttribute GoodsVO goods, MultipartFile file, HttpServletRequest req)
 			throws Exception {
 		// 새로운 파일이 등록되었는지 확인 
-		if(file.getOriginalFilename() != null && file.getOriginalFilename().equals("")) { 
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") { 
 			// 기존 파일을 삭제 
 			System.out.println(req.getParameter("iimagepath"));
 			System.out.println("ㅎㅎ");
