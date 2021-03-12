@@ -15,7 +15,7 @@
 
 <style>
 section#content ul {
-	margin: 0px 100px 0px 190px;
+	margin: 0px 100px 0px 200px;
 }
 
 section#content ul li {
