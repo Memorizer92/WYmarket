@@ -78,7 +78,7 @@
                            <div class="eVZhRI">
                               <img alt="" src="/wymarket/image/myPage_logo01.png"
                                  class="eDQHHq" style="width: 120px; height: 120px;">
-                              <div class="frZWOr">${usernick }</div>
+                              <div class="frZWOr">${userNick }</div>
                               <div class="jVyPTl">
                                  <a class="hGBbhm" style="text-decoration: none"
                                     href="<%=application.getContextPath()%>/mypage/Productmanagement">내
@@ -92,7 +92,7 @@
                   <div class="hJeYQQ">
                      <div class="dvwUHI">
 
-                        <div class="hxmbLs">${usernick }님Store</div>
+                        <div class="hxmbLs">${userNick }님Store</div>
 
 
                      </div>
@@ -375,7 +375,7 @@
       value="${favorites }" style="display: none;" />
    <input type="text" name="reviews" id="reviews" value="${reviews }"
       style="display: none;" />
-   <input type="text" name="usernick" id="usernick" value="${usernick }"
+   <input type="text" name="usernick" id="usernick" value="${userNick }"
       style="display: none;" />
 
    <script type="text/javascript"

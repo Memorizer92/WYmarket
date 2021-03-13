@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <%@include file="/WEB-INF/views/include/taglib.jspf"%>
 
@@ -8,93 +8,93 @@
 <head>
 <meta charset="UTF-8">
 <link rel="icon"
-	href="<%=application.getContextPath()%>/image/salef.ico">
+   href="<%=application.getContextPath()%>/image/salef.ico">
 <link rel="shortcut icon"
-	href="<%=application.getContextPath()%>/image/salef.ico">
+   href="<%=application.getContextPath()%>/image/salef.ico">
 <title>리스트</title>
 
 <style>
 section#content ul {
-	margin: 0px 100px 0px 200px;
+   margin: 0px 100px 0px 190px;
 }
 
 section#content ul li {
-	display: inline-block;
-	margin: 0px 10px 10px 0px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: silver;
+   display: inline-block;
+   margin: 0px 10px 10px 0px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: silver;
 }
 
 section#content div.iimagepath img {
-	width: 200px;
-	height: 200px;
+   width: 200px;
+   height: 200px;
 }
 
 section#content div.ititle {
-	padding: 10px 0;
-	text-align: center;
-	font-weight: 500;
-	border-top-style: solid;
-	border-top-width: 1px;
-	border-top-color: silver;
+   padding: 10px 0;
+   text-align: center;
+   font-weight: 500;
+   border-top-style: solid;
+   border-top-width: 1px;
+   border-top-color: silver;
 }
 
 section#content div.ititle a {
-	color: #000;
+   color: #000;
 }
 
 section#content div.price {
-	font-weight: bold;
-	padding-left: 15px;
-	font-size: 16px
+   font-weight: bold;
+   padding-left: 15px;
+   font-size: 16px
 }
 
 section#content div.refreshtime1 {
-	text-align: right;
-	padding: 0px 15px 10px 0px;
-	color: silver;
-	font-size: 13px
+   text-align: right;
+   padding: 0px 15px 10px 0px;
+   color: silver;
+   font-size: 13px
 }
-@media screen and (max-width: 760px) {
-	.head2{justify-content: center;}
-}
+
 </style>
 
 </head>
 <body>
-	<div id="root">
+   <div id="root">
 
-		<section id="container">
-			<div id="container_box">
+      <section id="container">
+         <div id="container_box">
 
-				<section id="content">
-					<ul>
-						<c:forEach items="${goods}" var="goods">
-				
-							<li>
-								<div class="iimagepath">
-									<a href="goods/view2?n=${goods.itemid}"> 
-									<img
-										 src="${pageContext.request.contextPath}${goods.iimagepath}">
+            <section id="content">
+               <ul>
+                  <c:forEach items="${goods}" var="goods">
+                  <c:if test="${goods.istate eq 'Onsale'}">
+                  
+                  
+                     <li>
+                        <div class="iimagepath">
+                           <a href="goods/view2?n=${goods.itemid}"> 
+                           <img
+                               src="${pageContext.request.contextPath}${goods.iimagepath}">
 
-									</a>
-								</div>
-								
-								<div class="ititle"> <c:if
-									test="${goods.ireservationstate eq 'Yreservation'}">
-									<span style="font-weight: bold; color: darkorange;">[
-										예약중 ]</span></c:if>
-										${goods.ititle}		
-									
-								</div>
-								<div class="icategory">${goods.icategory}</div>
-								<div class="price">
-									<fmt:formatNumber value="${goods.price}" pattern="###,###,###" />
-									원
-								</div>
-								<div class="refreshtime1"> 
-									<c:choose>
+                           </a>
+                        </div>
+                        
+                        <div class="ititle"> <c:if
+                           test="${goods.ireservationstate eq 'Yreservation'}">
+                           <span style="font-weight: bold; color: darkorange;">[
+                              예약중 ]</span></c:if>
+                              ${goods.ititle}      
+                           
+                        </div>
+                        <div class="icategory">${goods.icategory}</div>
+                        <div class="price">
+                           <fmt:formatNumber value="${goods.price}" pattern="###,###,###" />
+                           원
+                        </div>
+                        <div class="refreshtime1"> 
+                           <c:choose>
                            <c:when
                               test="${goods.refreshtime >= 0 && goods.refreshtime < 60}">
                               <span>${goods.refreshtime}초 전</span>
@@ -154,23 +154,24 @@ section#content div.refreshtime1 {
                               <br>
                            </c:when>
                         </c:choose>
-								</div>
-							</li>
-						</c:forEach>
-					</ul>
-					<c:set var="list" value="${goods}" />
-					<c:if test="${empty goods}">
-						<div style="text-align: center; height: 300px">
-							<div style="margin-top: 10%">검색 결과가 없습니다.</div>
-						</div>
-					</c:if>
-				</section>
+                        </div>
+                     </li>
+                        </c:if>
+                  </c:forEach>
+               </ul>
+               <c:set var="list" value="${goods}" />
+               <c:if test="${empty goods}">
+                  <div style="text-align: center; height: 300px">
+                     <div style="margin-top: 10%">검색 결과가 없습니다.</div>
+                  </div>
+               </c:if>
+            </section>
 
 
-			</div>
-		</section>
+         </div>
+      </section>
 
-	</div>
+   </div>
 
 </body>
 </html>

@@ -401,8 +401,8 @@ tbody>tr>th {
 										data-btn-type="unban">정지 해제</button>
 								</th>
 								<th scope="col">
-									<button class="btn btn-primary" name="btn"
-										onclick="toMyPage('${user.userNick }')">마이 페이지</button>
+									<%-- <button class="btn btn-primary" name="btn"
+										onclick="toMyPage('${user.userNick }')">마이 페이지</button> --%>
 								</th>
 							</tr>
 						</c:forEach>

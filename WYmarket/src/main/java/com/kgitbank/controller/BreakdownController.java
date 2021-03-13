@@ -41,15 +41,8 @@ public class BreakdownController {
 	public String test01(Model model, HttpSession session, Pageination paging, String myNick) {
 		
 		UserInfo user = (UserInfo) session.getAttribute("user");
-		String userNick = null;
-		if (user != null) {
-			userNick = user.getUserNick();
-		} else {
-			if(session.getAttribute("Admin") == null) {
-				return "redirect:/login";
-			}
-			userNick = myNick;
-		}
+		String userNick = user.getUserNick();
+	
 		model.addAttribute("userNick", userNick);
 		model.addAttribute("userTime", bservice.getShuserInfoCdate(userNick));
 		model.addAttribute("shitemCount", bservice.shitemVOCount(userNick)); // 판매 등록된 상품 갯수

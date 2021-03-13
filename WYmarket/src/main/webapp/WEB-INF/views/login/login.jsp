@@ -468,7 +468,7 @@ function onlyNumber(){
 					ajaxSmsReqCnt();
 					setTimeout(function() {
 						console.log("여기" + document.getElementById("smsReqCnt").value);
-						if (document.getElementById("smsReqCnt").value >= 2) {
+						if (document.getElementById("smsReqCnt").value >= 3) {
 							ajaxExceedTime();
 							var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 							myModal.show()
