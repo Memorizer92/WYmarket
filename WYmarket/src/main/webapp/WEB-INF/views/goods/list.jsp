@@ -69,7 +69,9 @@ section#content div.refreshtime1 {
 				<section id="content">
 					<ul>
 						<c:forEach items="${goods}" var="goods">
-				
+						<c:if test="${goods.istate eq 'Onsale'}">
+						
+						
 							<li>
 								<div class="iimagepath">
 									<a href="goods/view2?n=${goods.itemid}"> 
@@ -154,6 +156,7 @@ section#content div.refreshtime1 {
                         </c:choose>
 								</div>
 							</li>
+								</c:if>
 						</c:forEach>
 					</ul>
 					<c:set var="list" value="${goods}" />

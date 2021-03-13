@@ -39,6 +39,9 @@ public class BreakdownController {
 		
 	@GetMapping("/myPage")
 	public String test01(Model model, HttpSession session, Pageination paging) {
+		
+		
+		
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();
 		model.addAttribute("usernick", userNick);

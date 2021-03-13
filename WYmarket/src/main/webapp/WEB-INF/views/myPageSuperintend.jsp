@@ -279,7 +279,7 @@
 
 </head>
 <body>
-
+	
 	<div id="root">
 		<header id="header">
 			<div id="header_box" style="    padding-bottom: 30px;">
@@ -287,9 +287,10 @@
 			</div>
 		</header>
 		<div class="gPdUna">
+	
 			<div class="mainBar">
 				<nav class="productBarMain">
-
+				
 					<div class="productBar productBarAfter">
 						<button class="breakdown"
 							onclick="location.href ='<%=application.getContextPath()%>/goods/register2'">상품등록</button>
@@ -371,8 +372,10 @@
 						
 						
 						
+						
 							<c:forEach var="shitem_List" items="${pageList }">							
 								<tr>
+							
 									<td><a
 										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}"><img
 											src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
@@ -406,6 +409,7 @@
 											</div>
 										</div>
 									</td>
+									
 									<td><a style="text-decoration: none ;    color: black;"
 										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}" >${shitem_List.ititle }</a></td>
 									<td><c:set var="money" value="${shitem_List.price }" /> <fmt:formatNumber
