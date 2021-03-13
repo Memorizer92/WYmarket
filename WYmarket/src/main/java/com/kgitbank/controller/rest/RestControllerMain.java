@@ -51,15 +51,10 @@ public class RestControllerMain implements Serializable {
 
 	private int result = 0;
 
-	private int smsCnt = 0;
-
-	private int smsLeftCnt = 3;
-
 	private boolean withFlag = false;
 
-
 	CertificationService certificationService;
-	
+
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -109,136 +104,69 @@ public class RestControllerMain implements Serializable {
 			e.printStackTrace();
 		}
 
-		String numStr = "";
-
-		smsLeftCnt--;
-		session.setAttribute("smsLeftCnt", smsLeftCnt);
-		if (smsLeftCnt == 0) {
-			smsLeftCnt = 3;
-		}
-
 		if (wyMarketService.getIpCnt(ip) == 0) {
 			int insertIp = wyMarketService.insertIp(ip);
-			Random rand = new Random();
-
-			smsCnt = 1;
-			session.setAttribute("smsCnt", smsCnt);
-
-			for (int i = 0; i < 4; i++) {
-				String ran = Integer.toString(rand.nextInt(10));
-				numStr += ran;
-			}
-
-			System.out.println("수신자 번호 : " + phoneNumber);
-			System.out.println("인증번호 : " + numStr);
-			model.addAttribute("smscodes", numStr);
-			model.addAttribute("phonenumber", phoneNumber);
-			//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
-			String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-					+ phoneNumber.substring(7);
-
-			int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
-
-			if (result == 0) {
-				result = wyMarketService.selectphonenumber(dashPhoneNumber);
-			}
-
-			this.result = result;
-
-			String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
 
 		} else {
-			smsCnt = wyMarketService.getSmsCnt(ip);
-			session.setAttribute("smsCnt", smsCnt);
-			System.out.println("smsCnt : " + smsCnt);
-			if (smsCnt >= 3) {
+			int updateIpCnt = wyMarketService.updateIpCnt(ip);
+		}
 
-				userIp.setSmsExceedDate(new Date());
+		if (wyMarketService.getSmsCnt(ip) >= 4) {
 
-				Date getSmsExceedDate = wyMarketService.getSmsExceedDate(ip);
+			userIp.setSmsExceedDate(new Date());
 
-				Calendar getToday = Calendar.getInstance();
-				getToday.setTime(userIp.getSmsExceedDate()); // 현재 날짜
+			Date getSmsExceedDate = wyMarketService.getSmsExceedDate(ip);
 
-				Calendar cmpDate = Calendar.getInstance();
-				System.out.println(cmpDate + "/" + getSmsExceedDate);
-				cmpDate.setTime(wyMarketService.getSmsExceedDate(ip)); // 특정 일자
+			Calendar getToday = Calendar.getInstance();
+			getToday.setTime(userIp.getSmsExceedDate()); // 현재 날짜
 
-				long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
-				long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
+			Calendar cmpDate = Calendar.getInstance();
+			System.out.println(cmpDate + "/" + getSmsExceedDate);
+			cmpDate.setTime(wyMarketService.getSmsExceedDate(ip)); // 특정 일자
 
-				System.out.println(diffSec + "초 차이");
-				System.out.println(diffDays + "일 차이");
+			long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+			long diffDays = diffSec / (24 * 60 * 60); // 일자수 차이
 
-				session.setAttribute("exceedTime", diffSec);
+			System.out.println(diffSec + "초 차이");
+			System.out.println(diffDays + "일 차이");
 
-				if (diffSec >= 60) {
-					int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
-					smsCnt = 1;
-					session.setAttribute("smsCnt", smsCnt);
-					Random rand = new Random();
+			session.setAttribute("exceedTime", diffSec);
+			
+			if(diffSec > 300) {
+				int exceedUpdate = wyMarketService.updateSmsExceedDate(ip);
 
-					for (int i = 0; i < 4; i++) {
-						String ran = Integer.toString(rand.nextInt(10));
-						numStr += ran;
-					}
-
-					System.out.println("수신자 번호 : " + phoneNumber);
-					System.out.println("인증번호 : " + numStr);
-					model.addAttribute("smscodes", numStr);
-					model.addAttribute("phonenumber", phoneNumber);
-					//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
-					String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-							+ phoneNumber.substring(7);
-
-					int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
-
-					if (result == 0) {
-						result = wyMarketService.selectphonenumber(dashPhoneNumber);
-					}
-
-					this.result = result;
-
-					String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
-
-				}
-
-			} else {
-				int updateIpCnt = wyMarketService.updateIpCnt(ip);
-				if (wyMarketService.getSmsCnt(ip) == 3) {
-					wyMarketService.insertSmsExceedDate(ip);
-				}
-
-				session.setAttribute("smsCnt", wyMarketService.getSmsCnt(ip));
-				Random rand = new Random();
-
-				for (int i = 0; i < 4; i++) {
-					String ran = Integer.toString(rand.nextInt(10));
-					numStr += ran;
-				}
-
-				System.out.println("수신자 번호 : " + phoneNumber);
-				System.out.println("인증번호 : " + numStr);
-				model.addAttribute("smscodes", numStr);
-				model.addAttribute("phonenumber", phoneNumber);
-				//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
-				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-						+ phoneNumber.substring(7);
-
-				int result = wyMarketService.getAdminPhCount(dashPhoneNumber);
+				String dashPhoneNumber = getPhoneNumberMethod(phoneNumber);
+				String numStr = getSmsMethod();
+				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+				result = wyMarketService.getAdminPhCount(dashPhoneNumber);
 
 				if (result == 0) {
 					result = wyMarketService.selectphonenumber(dashPhoneNumber);
 				}
 
-				this.result = result;
-
-				String userNick = wyMarketService.getUserNickByPh(dashPhoneNumber);
-
+				return numStr;
 			}
+			
+			return "4";
+		} else {
+
+			if (wyMarketService.getSmsCnt(ip) == 3) {
+				wyMarketService.insertSmsExceedDate(ip);
+			}
+
+			String dashPhoneNumber = getPhoneNumberMethod(phoneNumber);
+			String numStr = getSmsMethod();
+			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+			result = wyMarketService.getAdminPhCount(dashPhoneNumber);
+
+			if (result == 0) {
+				result = wyMarketService.selectphonenumber(dashPhoneNumber);
+			}
+
+			return numStr;
 		}
 
-		return numStr;
+		
 	}
 
 	@PostMapping(value = { "/getph/{sms}" }, produces = "text/html; charset=UTF-8")
@@ -247,33 +175,16 @@ public class RestControllerMain implements Serializable {
 		return phoneNumber;
 	}
 
-	@PostMapping(value = { "/smsReqCnt" }, produces = "text/html; charset=UTF-8")
-	public String SmsReqCnt(Model model) {
 
-		System.out.println("인증횟수 : " + smsCnt);
-		String check = String.valueOf(smsCnt);
-
-		return check;
-	}
 
 	// 3회 초과했을 때 남은 시간 반환
 	@PostMapping(value = { "/exceedTime" }, produces = "text/html; charset=UTF-8")
 	public String exceedTime(Model model, HttpSession session) {
 
-		long time = (long) session.getAttribute("exceedTime");
+		long time = 300 - (long) session.getAttribute("exceedTime");
 		String timeStr = String.valueOf(time);
 
 		return timeStr;
-	}
-
-	@PostMapping(value = { "/smsCntInc" }, produces = "text/html; charset=UTF-8")
-	public String smsCntInc(Model model) {
-
-		smsCnt += 1;
-		System.out.println("인증횟수는 몇일까 : " + smsCnt);
-		String check = String.valueOf(smsCnt);
-
-		return check;
 	}
 
 	@PostMapping(value = { "/toNick" }, produces = "text/html; charset=UTF-8")
@@ -565,8 +476,7 @@ public class RestControllerMain implements Serializable {
 
 		return "" + session.getAttribute("penaltyTimeKakao");
 	}
-	
-	
+
 	@GetMapping("/admin/dayCheck/{year}/{month}")
 	public String adminDayCheck(@PathVariable("year") int year, @PathVariable("month") int month, HttpSession session,
 			HttpServletRequest req, Model model, Pagination page) {
@@ -578,4 +488,29 @@ public class RestControllerMain implements Serializable {
 		return "" + new DateCalc(year, month).getDay() + "";
 	}
 
+	public static String getPhoneNumberMethod(String phoneNumber) {
+		
+		System.out.println("수신자 번호 : " + phoneNumber);
+
+		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
+				+ phoneNumber.substring(7);
+		
+		return dashPhoneNumber;
+	}
+	
+	public static String getSmsMethod() {
+
+		Random rand = new Random();
+
+		String numStr = "";
+		
+		for (int i = 0; i < 4; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			numStr += ran;
+		}
+		System.out.println("인증번호 : " + numStr);
+		
+		return numStr;
+	}
+	
 }
