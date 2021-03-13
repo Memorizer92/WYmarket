@@ -130,14 +130,14 @@ div.sc-iBfVdv.gaaKji{
     justify-content: space-between;
 }
 div.sc-iBfVdv.gaaKji > * {
-    flex: 1 1 0%;
+    margin-top: 10px;
     font-weight: 600;
     margin-right: 10px;
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     height: 56px;
-    font-size: 18px;
+    font-size: 15px;
     -webkit-box-align: center;
     align-items: center;
 }
@@ -159,7 +159,22 @@ div.sc-goFBvh.dkfMql{
     margin: 40px 0px;
     line-height: 1.5;
 }
-
+button.btn.btn-warning{
+	width:30%;
+	float: left;
+    border: none;
+    background: orange;
+    color: white;
+    margin-left: 90px;
+}
+button.btn.btn-default{
+	width:30%;
+	float: left;
+    border: none;
+    background: gray; 
+    color: white;
+    margin-right: 100px;
+}
 
 
 

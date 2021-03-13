@@ -223,9 +223,9 @@ form>* {
 										data-btn-type="unban" name="btn">정지 해제</button>
 								</th>
 								<th scope="col">
-									<button class="btn btn-primary"
+						<%-- 			<button class="btn btn-primary"
 										onclick="toMyPage('${user.userNick}')" name="btn">마이
-										페이지</button>
+										페이지</button> --%>
 								</th>
 							</tr>
 						</c:forEach>

@@ -212,6 +212,22 @@ a {
 	border-bottom: 2px solid rgb(244, 244, 250);
 	padding: 6px;
 }
+  #kakaoLogout {
+/* 	text-decoration: none;
+	text-align: center;
+	padding-top: 14px; */
+	 
+	color: #3A1D1D;
+	border-radius: 5px;
+	font-weight: bold;
+/* 	display: block;
+	margin-left: auto;
+	margin-right: 5%;
+	width: 20%;
+	margin-top: 25px;
+	height: 50px; */
+	cursor: pointer;
+}
 </style>
 <script>
 function check(){
@@ -242,11 +258,14 @@ function check(){
 				<i class="fas fa-bars fontsize big"></i><br>카테고리
 			</button>
 			<div class="dropdown-content">
-				<a href="/wymarket/main?category=여성의류">여성의류</a> <a
-					href="/wymarket/main?category=패션잡화">패션잡화</a><a
-					href="/wymarket/main?category=남성의류">남성의류</a> <a
-					href="/wymarket/main?category=디지털/가전">디지털/가전</a> <a
-					href="/wymarket/main?category=도서/티켓/취미/애완">도서/티켓/취미/애완</a>
+					<a href="/wymarket/main?category=여성의류">여성의류</a> 
+				<a href="/wymarket/main?category=패션잡화">패션잡화</a>
+				<a href="/wymarket/main?category=뷰티/미용">뷰티/미용</a> 
+				<a href="/wymarket/main?category=남성의류">남성의류</a>
+				<a href="/wymarket/main?category=생활/식품">생활/식품</a>
+				<a href="/wymarket/main?category=디지털/가전">디지털/가전</a>
+				<a href="/wymarket/main?category=스포츠/레저">스포츠/레저</a>  
+				<a href="/wymarket/main?category=도서/티켓/취미/애완">도서/티켓/취미/애완</a>
 			</div>
 		</div>
 

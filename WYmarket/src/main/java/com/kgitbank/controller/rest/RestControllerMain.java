@@ -57,6 +57,9 @@ public class RestControllerMain implements Serializable {
 
 	private boolean withFlag = false;
 
+
+	CertificationService certificationService;
+	
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -130,7 +133,7 @@ public class RestControllerMain implements Serializable {
 			System.out.println("인증번호 : " + numStr);
 			model.addAttribute("smscodes", numStr);
 			model.addAttribute("phonenumber", phoneNumber);
-			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+			//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 			String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 					+ phoneNumber.substring(7);
 
@@ -184,7 +187,7 @@ public class RestControllerMain implements Serializable {
 					System.out.println("인증번호 : " + numStr);
 					model.addAttribute("smscodes", numStr);
 					model.addAttribute("phonenumber", phoneNumber);
-					// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+					//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 					String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 							+ phoneNumber.substring(7);
 
@@ -218,7 +221,7 @@ public class RestControllerMain implements Serializable {
 				System.out.println("인증번호 : " + numStr);
 				model.addAttribute("smscodes", numStr);
 				model.addAttribute("phonenumber", phoneNumber);
-				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+				//certificationService.certifiedPhoneNumber(phoneNumber,numStr);
 				String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
 						+ phoneNumber.substring(7);
 

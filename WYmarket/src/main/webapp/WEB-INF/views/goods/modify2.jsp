@@ -11,6 +11,15 @@
  <link rel="stylesheet"
 	href="<%=application.getContextPath()%>/resources/assets/css/register.css">
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 function inputCheck() {
     var iimagepath = document.form.iimagepath.value;
@@ -61,7 +70,7 @@ function inputCheck() {
 </script>
 
 
-<title>상품등록</title>
+<title>상품수정</title>
 </head>
 <body>
 	<div id="root">
@@ -71,7 +80,7 @@ function inputCheck() {
 			</div>
 		</header>
 		<section class="container">
-			<h2>상품 등록</h2>
+			<h2>상품 수정</h2>
 			<form action="./modify2" role="form" method="POST" name="form"
 				 autocomplete="off"  enctype="multipart/form-data">
 				<input type="hidden" name="itemid" value="${goods.itemid}" />
@@ -88,6 +97,7 @@ function inputCheck() {
 								<li draggable="false" class="sc-bn a52" id="sc-bn a52">
 									<div class="select_img" id="select_img">
 										<img src="${pageContext.request.contextPath}${goods.iimagepath }" />
+										
 										<input type="hidden" name="iimagepath" 
 										value="${goods.iimagepath }" />
 									</div>
@@ -121,8 +131,11 @@ function inputCheck() {
 								<option selected>${goods.icategory}</option>
 								<option>여성의류</option>
 								<option>패션잡화</option>
+								<option>뷰티/미용</option>
 								<option>남성의류</option>
+								<option>생활/식품</option>
 								<option>디지털/가전</option>
+								<option>스포츠/레저</option>
 								<option>도서/티켓/취미/애완</option>
 							</select>
 						</div>
@@ -141,7 +154,7 @@ function inputCheck() {
 					</li>
 					<li class="sc-ve a2">
 						<div class="sc-Ff a33">
-							<input type="button" id="update_Btn" value="완료" onclick="inputCheck()" />
+							<input class="btn btn-primary" type="button" id="update_Btn" value="완료" onclick="inputCheck()" />
 							<button type="button" id="back_Btn" class="btn btn-warning">취소</button>
 							<script>
 								$("#back_Btn").click(function(){

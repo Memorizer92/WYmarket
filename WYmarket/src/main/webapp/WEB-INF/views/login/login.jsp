@@ -152,7 +152,7 @@ function onlyNumber(){
 				aria-describedby="basic-addon1" placeholder="휴대폰 번호를 입력해주세요"
 				maxlength="11" onkeypress="onlyNumber();"
 				style="ime-mode: disabled;" id="phonenumber"
-				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" autocomplete="off">
 
 			<button class="btn btn-primary" type="submit" id="checkphone">인증문자
 				받기</button>
@@ -160,7 +160,7 @@ function onlyNumber(){
 			<input type="text" class="form-control" aria-label="smsCode"
 				aria-describedby="basic-addon1" placeholder="인증 번호를 입력해주세요"
 				maxlength="4" onkeypress="onlyNumber();" style="ime-mode: disabled;"
-				id="sms" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+				id="sms" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" autocomplete="off">
 
 			<p id="time"></p>
 
@@ -221,7 +221,7 @@ function onlyNumber(){
 						<span class="input-group-text" id="addon-wrapping">닉네임</span> <input
 							type="text" class="form-control" placeholder="닉네임을 입력하세요"
 							aria-label="Username" aria-describedby="addon-wrapping"
-							id="nickname" name="nick_name">
+							id="nickname" name="nick_name" autocomplete="off">
 					</div>
 					<p id="nick2Char">닉네임은 두 글자 이상이어야 합니다.</p>
 					<p id="nickOverrap">이미 사용중인 닉네임입니다.</p>
@@ -467,6 +467,7 @@ function onlyNumber(){
 					} else{
 					ajaxSmsReqCnt();
 					setTimeout(function() {
+						console.log("여기" + document.getElementById("smsReqCnt").value);
 						if (document.getElementById("smsReqCnt").value >= 3) {
 							ajaxExceedTime();
 							var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
@@ -600,11 +601,11 @@ function onlyNumber(){
 	};
 
 
-	var timeLimit2 = 70 - document.getElementById('time2').value;
+	var timeLimit2 = 60 - document.getElementById('time2').value;
 	var cnt = 0;
 	var time = 1000;
 	function startTime2() {
-		timeLimit2 = 70 - document.getElementById('time2').value;
+		timeLimit2 = 60 - document.getElementById('time2').value;
 		cnt++;
 		if (cnt > 1) {
 			time *= 1000;
@@ -625,6 +626,7 @@ function onlyNumber(){
 
 
 			if (timeLimit2 == 0) {
+				document.getElementById("smsReqCnt").value = 0;
 				clearInterval(x);
 			}
 		}, time);
