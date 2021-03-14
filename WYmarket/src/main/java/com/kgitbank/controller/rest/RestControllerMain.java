@@ -53,8 +53,6 @@ public class RestControllerMain implements Serializable {
 
 	private boolean withFlag = false;
 
-	CertificationService certificationService;
-
 	// 위도 경도를 주소로 변환하고 DB에 저장하고 다시 메인페이지로 이동
 	@GetMapping(value = { "/wymarket/address/{lat}/{lon:.+}" }, produces = "text/html; charset=UTF-8")
 	public String gpsGet(@PathVariable("lat") double lat, @PathVariable("lon") double lon, Model model,
@@ -137,7 +135,7 @@ public class RestControllerMain implements Serializable {
 
 				String dashPhoneNumber = getPhoneNumberMethod(phoneNumber);
 				String numStr = getSmsMethod();
-				// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+				// CertificationService.certifiedPhoneNumber(phoneNumber,numStr);
 				result = wyMarketService.getAdminPhCount(dashPhoneNumber);
 
 				if (result == 0) {
@@ -156,7 +154,7 @@ public class RestControllerMain implements Serializable {
 
 			String dashPhoneNumber = getPhoneNumberMethod(phoneNumber);
 			String numStr = getSmsMethod();
-			// certificationService.certifiedPhoneNumber(phoneNumber,numStr);
+			//CertificationService.certifiedPhoneNumber(phoneNumber,numStr);
 			result = wyMarketService.getAdminPhCount(dashPhoneNumber);
 
 			if (result == 0) {
@@ -218,7 +216,6 @@ public class RestControllerMain implements Serializable {
 		userInfo.setPhoneNumber(dashPhoneNumber);
 
 		int result = wyMarketService.insertUserPhNk(userInfo);
-		System.out.println(result);
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 		// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
@@ -238,8 +235,7 @@ public class RestControllerMain implements Serializable {
 
 		userInfo.setUserID(wyMarketService.selectIdByUserNick(userInfo.getUserNick()));
 
-		session.setAttribute("user", userInfo); // 중요, 가변하는 닉네임에 VO 담음
-		System.out.println(session.getAttribute("user"));
+		session.setAttribute("user", userInfo); // 중요, 닉네임에 VO 담음
 
 		return null;
 	}
@@ -273,7 +269,7 @@ public class RestControllerMain implements Serializable {
 			// 일자별 접속자 수 알기 위한 쿼리 (하루 동안 동일한 접속자 중복 수 제거)
 			Date now = new Date();
 			Date userAccessDate = wyMarketService.selectUserAccessDate(info.getUserNick());
-			System.out.println("현재 날짜 " + format.format(now));
+			
 			if (wyMarketService.selectUserAccessCount(info.getUserNick()) >= 1) {
 				if (!format.format(now).equals(format.format(userAccessDate))) {
 					wyMarketService.insertUserAccessDate(info.getUserNick());
@@ -290,7 +286,6 @@ public class RestControllerMain implements Serializable {
 
 			session.setAttribute("user", info);
 
-			System.out.println(session.getAttribute("user"));
 		}
 
 		return String.valueOf(wyMarketService.getAdminPhCount(dashPhoneNumber));
@@ -492,8 +487,8 @@ public class RestControllerMain implements Serializable {
 		
 		System.out.println("수신자 번호 : " + phoneNumber);
 
-		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-"
-				+ phoneNumber.substring(7);
+		String dashPhoneNumber = phoneNumber.substring(0, 3) + "-" 
+		+ phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
 		
 		return dashPhoneNumber;
 	}

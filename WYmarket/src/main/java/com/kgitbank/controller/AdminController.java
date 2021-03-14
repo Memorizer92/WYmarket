@@ -131,16 +131,16 @@ public class AdminController implements Serializable {
 		int userCountTotal = wyMarketService.selectUserCountTotal();
 		session.setAttribute("userCountTotal", userCountTotal);
 
-			dateCalc = new DateCalc();
+		dateCalc = new DateCalc();
 
-			// 현재 연도
-			session.setAttribute("currentYear", dateCalc.getYear());
+		// 현재 연도
+		session.setAttribute("currentYear", dateCalc.getYear());
 
-			String year = (String) session.getAttribute("ys");
-			String month = (String) session.getAttribute("ms");
-			String day = (String) session.getAttribute("ds");
-			
-		if(session.getAttribute("accessFlag") == "1") {
+		String year = (String) session.getAttribute("ys");
+		String month = (String) session.getAttribute("ms");
+		String day = (String) session.getAttribute("ds");
+
+		if (session.getAttribute("accessFlag") == "1") {
 
 			System.out.println(year + "/" + month + "/" + day);
 
@@ -154,8 +154,8 @@ public class AdminController implements Serializable {
 			session.setAttribute("selectedYear", year);
 			session.setAttribute("selectedMonth", month);
 			session.setAttribute("selectedDay", day);
-		} else if( session.getAttribute("accessFlag") == "2") {
-			
+		} else if (session.getAttribute("accessFlag") == "2") {
+
 			System.out.println(year + "/" + month + "/" + day);
 
 			dateCalc = new DateCalc(year, month, day);
@@ -172,9 +172,7 @@ public class AdminController implements Serializable {
 			session.setAttribute("selectedDay", day);
 		}
 
-		
-		// 카테고리를 뭘 눌렀냐에 따라 검색
-		// 검색 카테고리 선택에 따라 해당 쿼리 실행 (10줄씩 자른) 그리고 그것을 jsp 테이블에 표현 ("users")
+		// 가입자 수 보기
 		if (session.getAttribute("signupFlag") != null) {
 			pagination.setSearch((String) session.getAttribute("dateTransfer"));
 			pagination.setTotal(wyMarketService.selectSignupCountByDate((String) session.getAttribute("dateTransfer")));
@@ -187,7 +185,9 @@ public class AdminController implements Serializable {
 				pagination.setTotal(wyMarketService.selectUserCount());
 				model.addAttribute("users", wyMarketService.selectUserList(pagination));
 				session.setAttribute("accessCount", pagination.getTotal());
-			} else {
+			}
+			// 접속자 수 보기
+			else {
 				pagination.setSearch((String) session.getAttribute("dateTransfer"));
 				System.out.println("session" + session.getAttribute("dateTransfer"));
 				int cnt = wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer"));
