@@ -1,6 +1,3 @@
-
-
-
 function banUnban(btn, userNick, id) {
 	const prefix = "/wymarket";
 
@@ -18,4 +15,12 @@ function banUnban(btn, userNick, id) {
 	xhttp.open('GET', uri, true);
 
 	xhttp.send();
+}
+
+function searchAll() {
+	var form = document.createElement("form");
+	form.setAttribute("method", "get");
+	form.setAttribute("action", "/wymarket/admin/usercount/all");
+	document.body.appendChild(form);
+	form.submit();
 }

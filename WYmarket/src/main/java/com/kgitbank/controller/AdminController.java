@@ -57,11 +57,6 @@ public class AdminController implements Serializable {
 			categorySearch = (String) session.getAttribute("searchSession");
 		}
 
-		System.out.println("list : " + list);
-		System.out.println("search : " + search);
-		System.out.println("category : " + category);
-		System.out.println("categorySearch : " + categorySearch);
-
 		// select tag 및 input 유지
 		model.addAttribute("searchs", search);
 		pagination.setSearch(categorySearch);
@@ -86,8 +81,6 @@ public class AdminController implements Serializable {
 			model.addAttribute("users", selectUserByAddress);
 		}
 
-		System.out.println("users 객체 : " + model.getAttribute("users"));
-
 		model.addAttribute("rowCount", pagination.getTotal());
 
 		PageService pageService;
@@ -98,8 +91,6 @@ public class AdminController implements Serializable {
 
 		model.addAttribute("pageService", pageService);
 
-		System.out.println("관리자페이지 세션에 든 값 : " + session.getAttribute("Admin"));
-
 		model.addAttribute("inquiryCount", wyMarketService.selectInquiryCountTotal());
 
 		return "/admin/admin";
@@ -107,7 +98,6 @@ public class AdminController implements Serializable {
 
 	@GetMapping("/admin/all")
 	public String adminSearchAll(HttpSession session, Model model) {
-		System.out.println("여기 오나");
 		session.removeAttribute("listSession");
 		session.removeAttribute("searchSession");
 		model.addAttribute("lists", "");
@@ -120,6 +110,10 @@ public class AdminController implements Serializable {
 
 	@GetMapping("/admin/usercount")
 	public String adminUserCount(HttpSession session, HttpServletRequest req, Pagination pagination, Model model) {
+		session.removeAttribute("selectedYear");
+		session.removeAttribute("selectedMonth");
+		session.removeAttribute("selectedDay");
+		
 		session.removeAttribute("listSession");
 		session.removeAttribute("searchSession");
 		model.addAttribute("lists", "");
@@ -142,8 +136,6 @@ public class AdminController implements Serializable {
 
 		if (session.getAttribute("accessFlag") == "1") {
 
-			System.out.println(year + "/" + month + "/" + day);
-
 			dateCalc = new DateCalc(year, month, day);
 
 			int accessCount = 0;
@@ -155,8 +147,6 @@ public class AdminController implements Serializable {
 			session.setAttribute("selectedMonth", month);
 			session.setAttribute("selectedDay", day);
 		} else if (session.getAttribute("accessFlag") == "2") {
-
-			System.out.println(year + "/" + month + "/" + day);
 
 			dateCalc = new DateCalc(year, month, day);
 
@@ -189,12 +179,10 @@ public class AdminController implements Serializable {
 			// 접속자 수 보기
 			else {
 				pagination.setSearch((String) session.getAttribute("dateTransfer"));
-				System.out.println("session" + session.getAttribute("dateTransfer"));
 				int cnt = wyMarketService.selectAccessCountByDate((String) session.getAttribute("dateTransfer"));
 				pagination.setTotal(cnt);
-				System.out.println("cnt" + cnt);
 				List<UserInfo> selectUserByDate = wyMarketService.selectUserByAccessDate(pagination);
-				System.out.println("select" + selectUserByDate);
+				System.out.println(selectUserByDate);
 				model.addAttribute("users", selectUserByDate);
 			}
 		}
@@ -212,10 +200,20 @@ public class AdminController implements Serializable {
 		return "/admin/usercount";
 	}
 
+	
+	@GetMapping("/admin/usercount/first")
+	public String adminUserCountFirst(HttpSession session, Model model) {
+		session.removeAttribute("accessFlag");
+		session.removeAttribute("dateTransfer");
+		
+		return "redirect:/admin/usercount";
+	}
+	
 	@GetMapping("/admin/usercount/all")
 	public String adminUserCountSearchAll(HttpSession session, Model model) {
+		session.removeAttribute("accessFlag");
 		session.removeAttribute("dateTransfer");
-
+		
 		return "redirect:/admin/usercount";
 	}
 

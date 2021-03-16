@@ -54,40 +54,38 @@
 
 	<select id="selectUserById"
 		resultType="com.kgitbank.model.UserInfo">
-		<![CDATA[ 
-			 SELECT * FROM 
-	 		(SELECT rownum rn, userID, phoneNumber, 
-			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
-			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount }  and userId = #{search, jdbcType=NUMERIC}) 
-			WHERE rn > (#{pageNum } - 1) * #{amount }
-			ORDER BY userId 
-		]]>
+		SELECT * FROM sh_userInfo WHERE userID = #{search,
+		jdbcType=NUMERIC} ORDER
+		BY userID
+		OFFSET (#{pageNum}
+		- 1) *
+		#{amount}
+		ROWS FETCH FIRST #{amount}
+		ROWS ONLY
 	</select>
 	<select id="selectUserByNick"
 		resultType="com.kgitbank.model.UserInfo">
-		<![CDATA[ 
-			 SELECT * FROM 
-	 		(SELECT rownum rn, userID, phoneNumber, 
-			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
-			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount } and userNick LIKE '%' || #{search, jdbcType=VARCHAR} || '%' ) 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId 
-		]]>
-
+		SELECT * FROM sh_userInfo WHERE userNick LIKE '%' ||
+		#{search, jdbcType=VARCHAR} || '%' ORDER
+		BY userID
+		OFFSET (#{pageNum}
+		-
+		1) *
+		#{amount}
+		ROWS FETCH FIRST #{amount}
+		ROWS ONLY
 	</select>
 	<select id="selectUserByAddress"
 		resultType="com.kgitbank.model.UserInfo">
-		<![CDATA[ 
-			 SELECT * FROM 
-	 		(SELECT rownum rn, userID, phoneNumber, 
-			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
-			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount } and address LIKE '%' || #{search, jdbcType=VARCHAR} || '%') 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId
-		]]>
+		SELECT * FROM sh_userInfo WHERE address LIKE '%' ||
+		#{search, jdbcType=VARCHAR} || '%' ORDER
+		BY userID
+		OFFSET (#{pageNum}
+		-
+		1) *
+		#{amount}
+		ROWS FETCH FIRST #{amount}
+		ROWS ONLY
 	</select>
 
 	<insert id="insertUserAccessDate">
@@ -125,19 +123,6 @@
 		sh_userAccessDate WHERE accessDate LIKE #{totalDate} || '%'
 	</select>
 
-	<select id="selectUserByAccessDate"
-		resultType="com.kgitbank.model.UserInfo">
-		<![CDATA[ 
-			 SELECT * FROM 
-	 		(SELECT rownum rn, userID, phoneNumber, 
-			kakaoMail, a.userNick, latitude, longitude, address, manner, userCreateDate, 
-			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo a, sh_userAccessDate b 
-			WHERE rownum <= #{pageNum } * #{amount } and a.userNick = b.usernick and b.accessDate LIKE #{search} || '%') 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userId
-		]]>
-	</select>
-
 	<select id="selectUserCountTotal" resultType="Integer">
 		select total from
 		sh_userCountTotal
@@ -150,7 +135,7 @@
 
 	<select id="selectUserCountId" resultType="Integer">
 		select count(*) from
-		sh_userInfo WHERE userId LIKE '%' || #{search} || '%'
+		sh_userInfo WHERE userId = #{search}
 	</select>
 
 	<select id="selectUserCountNick" resultType="Integer">
@@ -166,14 +151,11 @@
 
 	<select id="selectUserList"
 		resultType="com.kgitbank.model.UserInfo">
-	 <![CDATA[ 
-	 	SELECT * FROM 
-	 	(SELECT rownum rn, userID, phoneNumber, 
-		kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
-		buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-		WHERE rownum <= #{pageNum} * #{amount}) 
-		WHERE rn > (#{pageNum} - 1) * #{amount} ORDER BY userId 
-		]]>
+		SELECT * FROM sh_userInfo ORDER BY userID
+		OFFSET (#{pageNum}
+		- 1) *
+		#{amount}
+		ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
 
 
@@ -266,15 +248,11 @@
 
 	<select id="selectUserBySignupDate"
 		resultType="com.kgitbank.model.UserInfo">
-		<![CDATA[ 
-			 SELECT * FROM 
-	 		(SELECT rownum rn, userID, phoneNumber, 
-			kakaoMail, userNick, latitude, longitude, address, manner, userCreateDate, 
-			buyItemCnt, saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo 
-			WHERE rownum <= #{pageNum } * #{amount } and userCreateDate LIKE #{search} || '%') 
-			WHERE rn > (#{pageNum } - 1) * #{amount } 	
-			ORDER BY userCreateDate
-		]]>
+		SELECT * FROM sh_userInfo WHERE userCreateDate LIKE
+		#{search} || '%' ORDER BY userCreateDate
+		OFFSET (#{pageNum} - 1) *
+		#{amount}
+		ROWS FETCH FIRST #{amount} ROWS ONLY
 	</select>
 
 	<select id="selectIdByUserNick" resultType="Integer">
@@ -469,35 +447,51 @@
 
 	<select id="selectItemByUserNick"
 		resultType="com.kgitbank.model.GoodsVO">
-		select itemid, iimagepath, usernick, 
-	 	address, manner, ititle,
+		select itemid, iimagepath, usernick,
+		address, manner,
+		ititle,
 		icategory, icontent,
-		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
-     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
-     + EXTRACT(MINUTE FROM systimestamp - tm) *60
-     + EXTRACT(SECOND FROM systimestamp - tm) AS second
-  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+		(SELECT EXTRACT(DAY FROM
+		systimestamp - tm)
+		*24*60*60
+		+ EXTRACT(HOUR FROM systimestamp - tm) *60*60
+		+ EXTRACT(MINUTE
+		FROM systimestamp - tm) *60
+		+ EXTRACT(SECOND FROM systimestamp - tm) AS
+		second
+		FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff')
+		tm FROM
+		dual)) as refreshtime,
 		price, chatcnt, likecnt,
-		viewcnt, istate, ireservationstate
+		viewcnt, istate,
+		ireservationstate
 		from sh_item where userNick = #{userNick} ORDER BY
 		refreshtime desc
 	</select>
 
 	<select id="selectItemByUserNickSearch"
 		resultType="com.kgitbank.model.GoodsVO">
-		select 
-		itemid, iimagepath, usernick, 
-	 	address, manner, ititle,
+		select
+		itemid, iimagepath, usernick,
+		address, manner, ititle,
 		icategory, icontent,
-		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
-     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
-     + EXTRACT(MINUTE FROM systimestamp - tm) *60
-     + EXTRACT(SECOND FROM systimestamp - tm) AS second
-  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+		(SELECT EXTRACT(DAY FROM
+		systimestamp - tm)
+		*24*60*60
+		+ EXTRACT(HOUR FROM systimestamp - tm) *60*60
+		+ EXTRACT(MINUTE
+		FROM systimestamp - tm) *60
+		+ EXTRACT(SECOND FROM systimestamp - tm) AS
+		second
+		FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff')
+		tm FROM
+		dual)) as refreshtime,
 		price, chatcnt, likecnt,
-		viewcnt, istate, ireservationstate
- from sh_item where userNick = #{userNick} and
-		UPPER(ititle) LIKE UPPER('%' ||
+		viewcnt, istate,
+		ireservationstate
+		from sh_item where userNick = #{userNick} and
+		UPPER(ititle) LIKE UPPER('%'
+		||
 		#{search} || '%') ORDER BY
 		refreshtime
 		desc
@@ -505,16 +499,24 @@
 
 	<select id="selectItemByUserNickCategory"
 		resultType="com.kgitbank.model.GoodsVO">
-		select itemid, iimagepath, usernick, 
-	 	address, manner, ititle,
+		select itemid, iimagepath, usernick,
+		address, manner,
+		ititle,
 		icategory, icontent,
-		(SELECT EXTRACT(DAY    FROM systimestamp - tm) *24*60*60
-     + EXTRACT(HOUR   FROM systimestamp - tm) *60*60
-     + EXTRACT(MINUTE FROM systimestamp - tm) *60
-     + EXTRACT(SECOND FROM systimestamp - tm) AS second
-  FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff') tm FROM dual)) as refreshtime,
+		(SELECT EXTRACT(DAY FROM
+		systimestamp - tm)
+		*24*60*60
+		+ EXTRACT(HOUR FROM systimestamp - tm) *60*60
+		+ EXTRACT(MINUTE
+		FROM systimestamp - tm) *60
+		+ EXTRACT(SECOND FROM systimestamp - tm) AS
+		second
+		FROM (SELECT TO_TIMESTAMP(refreshtime, 'yy/mm/dd hh24:mi:ss.ff')
+		tm FROM
+		dual)) as refreshtime,
 		price, chatcnt, likecnt,
-		viewcnt, istate, ireservationstate
+		viewcnt, istate,
+		ireservationstate
 		from sh_item where userNick = #{userNick} and
 		icategory LIKE ('%' ||
 		#{icategory} || '%')
@@ -619,6 +621,21 @@
 		FROM
 		withdrawal WHERE kakaoMail = #{kakaoMail}
 	</select>
+
+	<select id="selectUserByAccessDate"
+		resultType="com.kgitbank.model.UserInfo">
+		SELECT accessID, phoneNumber,
+		kakaoMail, a.userNick,
+		latitude, longitude, address, manner, accessDate,
+		buyItemCnt,
+		saleItemCnt, reviewCnt, keyWord, ban FROM sh_userInfo a,
+		sh_userAccessDate b WHERE a.userNick = b.usernick and b.accessDate
+		LIKE #{search} || '%' ORDER BY accessDate
+		OFFSET (#{pageNum} - 1) *
+		#{amount} ROWS FETCH FIRST #{amount} ROWS ONLY
+	</select>
+
+
 
 </mapper>
 

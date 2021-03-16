@@ -14,7 +14,7 @@ function ajaxLogOut() {
 	xhttp.open('GET', uri, true);
 
 	xhttp.send();
-	
+
 
 }
 
@@ -48,15 +48,19 @@ function banUnban(btn, userNick, id) {
 }
 
 
-function blockNull(){
+function blockNull() {
 	const search = document.getElementById('search');
-	if(document.getElementById('selectID').value == "검색분류"){
+	const selectID = document.getElementById('selectID');
+	if (selectID.value == "userId" && isNaN(search.value)) {
+		alert('숫자만 입력해주세요.');
+	}
+	else if (selectID.value == "검색분류") {
 		alert('검색분류를 설정해주세요.');
 	}
-	else if(search.value == ""){
+	else if (search.value == "") {
 		alert('검색어를 입력해주세요.');
-	} else{
-		document.getElementById(document.getElementById('selectID').getAttribute('form')).submit();
+	} else {
+		document.getElementById(selectID.getAttribute('form')).submit();
 	}
 }
 

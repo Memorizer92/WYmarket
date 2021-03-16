@@ -527,7 +527,7 @@ tbody>tr>th {
 					onclick="location.href='<%=application.getContextPath()%>/board/withdrawalList';">탈퇴
 					회원 보기</button>
 				<button type="button" class="btn btn-primary" id='accessbtn'
-					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">회원
+					onclick="location.href='<%=application.getContextPath()%>/admin/usercount/first';">회원
 					접속 정보 보기</button>
 				<button type="button" class="btn btn-primary" id='adminBtn'
 					onclick="location.href='<%=application.getContextPath()%>/board/list';">공지사항
