@@ -88,6 +88,7 @@ public class LoginFormController {
 	// 로그인
 	@GetMapping("/login")
 	public String loginPage(Model model, HttpSession session) {
+		
 		if (ch == 0) {
 			chattingService.resetCountAll();// 카운트db 초기화
 			ch++;

@@ -11,6 +11,9 @@ import lombok.Data;
 public class UserInfo implements Serializable{
 	
 	private Integer userID;
+	// userAccessDate 테이블꺼
+	private Integer accessID;
+	
 	private String phoneNumber;
 	private String kakaoMail;
 	private String userNick;
@@ -20,6 +23,10 @@ public class UserInfo implements Serializable{
 	private Integer manner;
 	@DateTimeFormat(pattern = "yy/mm/dd")
 	private Date userCreateDate;
+	// userAccessDate 테이블꺼
+	@DateTimeFormat(pattern = "yy/mm/dd")
+	private Date accessDate;
+	
 	private Integer buyItemCnt;
 	private Integer saleItemCnt;
 	private Integer reviewCnt;

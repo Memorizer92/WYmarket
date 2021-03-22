@@ -511,15 +511,11 @@ tbody>tr>th {
 
 			<div class="container" id='adminMemo'>
 				<div class="container" id='memoP'>
-					<%-- <img src="/wymarket/image/carrotcharacter.png" alt="" id='img2' />
-					<p id='memoNick'>${Admin.adminNick }</p> --%>
+	
 					<button type="button" class="btn btn-primary" id='memoBtn'
 						onclick="ajaxSaveMemo()">
 						<i class="far fa-edit"></i>
 					</button>
-					<c:if test="${Admin.adminGrade eq '정'}">
-
-					</c:if>
 				</div>
 				<p>
 					<span id='memo' class="textarea" role="textbox"
@@ -531,7 +527,7 @@ tbody>tr>th {
 					onclick="location.href='<%=application.getContextPath()%>/board/withdrawalList';">탈퇴
 					회원 보기</button>
 				<button type="button" class="btn btn-primary" id='accessbtn'
-					onclick="location.href='<%=application.getContextPath()%>/admin/usercount';">회원
+					onclick="location.href='<%=application.getContextPath()%>/admin/usercount/first';">회원
 					접속 정보 보기</button>
 				<button type="button" class="btn btn-primary" id='adminBtn'
 					onclick="location.href='<%=application.getContextPath()%>/board/list';">공지사항

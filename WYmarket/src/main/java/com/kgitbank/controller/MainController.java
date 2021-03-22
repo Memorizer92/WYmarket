@@ -68,8 +68,6 @@ public class MainController {
 			}
 		}
 
-		// 6km 이내인 상품들 따로 DB 테이블 관리를 위해 해당 테이블 내용 삭제
-		// wyMarketService.deleteSearchInDistance();
 		List<GoodsVO> distance6km = new ArrayList<GoodsVO>();
 		// 거리 이내의 상품 띄우는 리스트
 		for (String userNick : userNickList6km) {
@@ -77,11 +75,6 @@ public class MainController {
 			for (GoodsVO item : items) {
 				distance6km.add(item);
 			}
-			// List<GoodsVO> goodsVO = gservice.getGoodsList(userNick);
-			// for (GoodsVO goods : goodsVO) {
-			// 6km 이내 상품들을 DB에 하나씩 insert
-			// wyMarketService.insertSearchInDistance(goods);
-			// }
 		} 
 		
 		// 날짜 정렬

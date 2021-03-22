@@ -108,12 +108,12 @@
 			<beans:bean
 				class="com.kgitbank.interceptor.UserInterceptor" />
 		</interceptor>
-		<interceptor>
+<!-- 		<interceptor>
 			<mapping path="/admin" />
 			<mapping path="/admin/**" />
 			<beans:bean
 				class="com.kgitbank.interceptor.AdminInterceptor" />
-		</interceptor>
+		</interceptor> -->
 		<interceptor>
 			<mapping path="/login" />
 			<mapping path="/auth/kakao/login" />
