@@ -38,7 +38,9 @@ public class BreakdownController {
 	BreakdownService bservice;
 
 	@GetMapping("/myPage")
+
 	public String test01(Model model, HttpSession session, Pageination paging, String myNick) {
+
 		
 		UserInfo user = (UserInfo) session.getAttribute("user");
 		String userNick = user.getUserNick();

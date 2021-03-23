@@ -174,7 +174,9 @@ form>* {
 				<table class="table table-responsive table-striped">
 					<thead>
 						<tr>
-							<th scope="col">회원 번호</th>
+
+							<th scope="col"><c:if test="${accessFlag eq '1' }">접속 번호</c:if>
+								<c:if test="${accessFlag ne '1' }">회원 번호</c:if></th>
 							<th scope="col">전화 번호</th>
 							<th scope="col">카카오 이메일</th>
 							<th scope="col">닉네임</th>
@@ -182,7 +184,8 @@ form>* {
 							<th scope="col">경도</th>
 							<th scope="col">주소</th>
 							<th scope="col">매너온도</th>
-							<th scope="col">생성일</th>
+							<th scope="col"><c:if test="${accessFlag eq '1' }">접속일</c:if>
+								<c:if test="${accessFlag ne '1' }">생성일</c:if></th>
 							<th scope="col">구매완료 횟수</th>
 							<th scope="col">판매완료 횟수</th>
 							<th scope="col">받은 리뷰 수</th>
@@ -197,7 +200,8 @@ form>* {
 						<c:forEach var="user" items="${users}">
 							<c:set var="i" value="${i+1}" />
 							<tr>
-								<th scope="col">${user.userID }</th>
+								<th scope="col"><c:if test="${accessFlag eq '1' }">${user.accessID }</c:if>
+									<c:if test="${accessFlag ne '1' }">${user.userID }</c:if></th>
 								<th scope="col">${user.phoneNumber}</th>
 								<th scope="col">${user.kakaoMail}</th>
 								<th scope="col">${user.userNick}</th>
@@ -205,8 +209,12 @@ form>* {
 								<th scope="col">${user.longitude}</th>
 								<th scope="col">${user.address}</th>
 								<th scope="col">${user.manner}</th>
-								<th scope="col"><fmt:formatDate
-										value="${user.userCreateDate}" pattern="yy/MM/dd" /></th>
+								<th scope="col"><c:if test="${accessFlag eq '1' }">
+										<fmt:formatDate value="${user.accessDate}" pattern="yy/MM/dd" />
+									</c:if> <c:if test="${accessFlag ne '1' }">
+										<fmt:formatDate value="${user.userCreateDate}"
+											pattern="yy/MM/dd" />
+									</c:if></th>
 								<th scope="col">${user.buyItemCnt}</th>
 								<th scope="col">${user.saleItemCnt}</th>
 								<th scope="col">${user.reviewCnt}</th>
@@ -223,7 +231,7 @@ form>* {
 										data-btn-type="unban" name="btn">정지 해제</button>
 								</th>
 								<th scope="col">
-						<%-- 			<button class="btn btn-primary"
+									<%-- 			<button class="btn btn-primary"
 										onclick="toMyPage('${user.userNick}')" name="btn">마이
 										페이지</button> --%>
 								</th>
@@ -422,13 +430,6 @@ form>* {
 		console.log('2번')
 		monthChange(2);
 		
-		function searchAll() {
-			var form = document.createElement("form");
-			form.setAttribute("method", "get");
-			form.setAttribute("action", "/wymarket/admin/usercount/all");
-			document.body.appendChild(form);
-			form.submit();
-		}
 
 	function userSignUpCount(){
 		if(yearCon.value == '연도 선택'){
@@ -494,11 +495,7 @@ form>* {
 		dayCon.value = '일 선택';
 
 	} 
-	
-	<%session.removeAttribute("selectedYear");
-session.removeAttribute("selectedMonth");
-session.removeAttribute("selectedDay");
-session.removeAttribute("dateTransfer");%>
+
 	</script>
 
 

@@ -109,14 +109,18 @@ public class MyPageController {
 		String search = request.getParameter("psearch");
 		
 
-		if(search == null || search.equals("")) {
+		if(search == null || search.equals("")) {		
 		model.addAttribute("pageList", bservice.getUserItemList(paging));			
 		model.addAttribute("page", paging.getPageData(10, bservice.getCount(userNick)));		
+		log.fatal("이프");
 		return "/myPageSuperintend";
 		
 		}else {
 			model.addAttribute("pageList", bservice.searchUserItemList(paging));			
 			model.addAttribute("page", paging.getPageData(10, bservice.searchCount(paging)));
+			log.fatal("엘스");
+			
+			
 			return "/myPageSuperintend";			
 		}
 	}

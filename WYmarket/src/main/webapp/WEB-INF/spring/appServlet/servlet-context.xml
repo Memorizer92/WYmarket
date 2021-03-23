@@ -65,7 +65,7 @@
 	<beans:bean class="java.lang.String" id="uploadPath">
 		<beans:constructor-arg
 
-			value="C:\Users\Hyun\Desktop\JAVA SW DEVELOPER OCTOBER HYUN\gitWYmarket\WYmarket\WYmarket\src\main\webapp\resources" />
+			value="C:\Users\seunghwan\Downloads\eclipse\TeamProject\WYmarket\WYmarket\src\main\webapp\resources" />
 
 
 	</beans:bean>
@@ -108,12 +108,12 @@
 			<beans:bean
 				class="com.kgitbank.interceptor.UserInterceptor" />
 		</interceptor>
-		<interceptor>
+<!-- 		<interceptor>
 			<mapping path="/admin" />
 			<mapping path="/admin/**" />
 			<beans:bean
 				class="com.kgitbank.interceptor.AdminInterceptor" />
-		</interceptor>
+		</interceptor> -->
 		<interceptor>
 			<mapping path="/login" />
 			<mapping path="/auth/kakao/login" />

@@ -152,7 +152,8 @@ function onlyNumber(){
 				aria-describedby="basic-addon1" placeholder="휴대폰 번호를 입력해주세요"
 				maxlength="11" onkeypress="onlyNumber();"
 				style="ime-mode: disabled;" id="phonenumber"
-				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" autocomplete="off">
+				onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+				autocomplete="off">
 
 			<button class="btn btn-primary" type="submit" id="checkphone">인증문자
 				받기</button>
@@ -160,7 +161,8 @@ function onlyNumber(){
 			<input type="text" class="form-control" aria-label="smsCode"
 				aria-describedby="basic-addon1" placeholder="인증 번호를 입력해주세요"
 				maxlength="4" onkeypress="onlyNumber();" style="ime-mode: disabled;"
-				id="sms" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" autocomplete="off">
+				id="sms" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+				autocomplete="off">
 
 			<p id="time"></p>
 
@@ -425,13 +427,6 @@ function onlyNumber(){
 		}
 	}
 
-	
-	/* 	if(window.performance.navigation.type == 1 && (timeLimit <= 29)){
-			if(timeLimit != 0){
-				document.getElementById("smsReqCnt").value += 1;
-			}
-		} */
-	console.log('${kakaoWithdrawal}');
 		 if ("${kakaoWithdrawal}" == 1) {
 			kakaoModal();
 			var myModal = new bootstrap.Modal(document.getElementById('withdrawnKakao'));
@@ -465,10 +460,8 @@ function onlyNumber(){
 						var myModal = new bootstrap.Modal(document.getElementById('withdrawnID'));
 						myModal.show()
 					} else{
-					ajaxSmsReqCnt();
 					setTimeout(function() {
-						console.log("여기" + document.getElementById("smsReqCnt").value);
-						if (document.getElementById("smsReqCnt").value >= 3) {
+						if (document.getElementById("getsmscode").value == 4) {
 							ajaxExceedTime();
 							var myModal = new bootstrap.Modal(document.getElementById('cntExceed'));
 							myModal.show()
@@ -601,11 +594,10 @@ function onlyNumber(){
 	};
 
 
-	var timeLimit2 = 60 - document.getElementById('time2').value;
 	var cnt = 0;
 	var time = 1000;
 	function startTime2() {
-		timeLimit2 = 60 - document.getElementById('time2').value;
+		timeLimit2 = document.getElementById('time2').value;
 		cnt++;
 		if (cnt > 1) {
 			time *= 1000;
@@ -613,11 +605,14 @@ function onlyNumber(){
 		var x = setInterval(function() {
 
 			timeLimit2--;
+			
+			var min = parseInt(timeLimit2 / 60);
+			var sec = timeLimit2 % 60;
+			
 			if (timeLimit2 < 60) {
 				document.getElementById("time2").innerHTML = timeLimit2;
 			} else {
-				var min = (timeLimit2 / 60).toFixed(0);
-				var sec = timeLimit2 % 60;
+
 				if (sec < 10) {
 					sec = '0' + sec;
 				}
@@ -626,7 +621,6 @@ function onlyNumber(){
 
 
 			if (timeLimit2 == 0) {
-				document.getElementById("smsReqCnt").value = 0;
 				clearInterval(x);
 			}
 		}, time);

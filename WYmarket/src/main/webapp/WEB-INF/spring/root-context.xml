@@ -13,10 +13,24 @@
 		<property name="dataSourceClassName"
 			value="oracle.jdbc.pool.OracleDataSource" /> 
 		<property name="dataSourceProperties">
+<<<<<<< HEAD
+			<props>
+				<prop key="user">hr</prop>
+=======
+			<!-- <props>
+				<prop key="user">c##wymarket</prop>
+>>>>>>> branch 'Develop' of https://github.com/Memorizer92/WYmarket.git
+				<prop key="password">1234</prop>
+<<<<<<< HEAD
+				<prop key="url">jdbc:oracle:thin:@locahost:1521/XEPDB1</prop>
+=======
+				<prop key="url">jdbc:oracle:thin:@61.77.190.253:1521/xe</prop>
+			</props> -->
 			<props>
 				<prop key="user">hr</prop>
 				<prop key="password">1234</prop>
-				<prop key="url">jdbc:oracle:thin:@locahost:1521/XEPDB1</prop>
+				<prop key="url">jdbc:oracle:thin:@localhost/XEPDB1</prop>
+>>>>>>> branch 'Develop' of https://github.com/Memorizer92/WYmarket.git
 			</props>
 		</property>
 	</bean>

@@ -100,7 +100,6 @@ function ajaxToNick() {
 	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
 		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
 			document.getElementById("getConfirm").value = `${this.responseText}`;
-			console.log(document.getElementById("getConfirm").value);
 		}
 	}
 
@@ -157,48 +156,7 @@ function ajaxNickUpdate() {
 	xhttp.send(JSON.stringify(data));
 }
 
-function ajaxSmsReqCnt() {
-	const prefix = "/wymarket/smsReqCnt";
 
-	let uri = prefix;
-
-	xhttp = new XMLHttpRequest();
-
-	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
-		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
-			document.getElementById("smsReqCnt").value = `${this.responseText}`;
-			console.log(document.getElementById("smsReqCnt").value);
-			if (timeLimit2 <= 0) {
-				document.getElementById("smsReqCnt").value = 0;
-			}
-			console.log(document.getElementById("smsReqCnt").value);
-		}
-	}
-
-	xhttp.open('POST', uri, true);
-
-	xhttp.send(); //2
-}
-
-
-function smsCntInc() {
-	const prefix = "/wymarket/smsCntInc";
-
-	let uri = prefix;
-
-	xhttp = new XMLHttpRequest();
-
-	xhttp.onreadystatechange = function() { // onreadystatechange = readystate이 변할 때 작동함
-		if (this.status == 200 && this.readyState == XMLHttpRequest.DONE) { //4
-			document.getElementById("smsReqCnt").value = `${this.responseText}`;
-			console.log(document.getElementById("smsReqCnt").value);
-		}
-	}
-
-	xhttp.open('POST', uri, true);
-
-	xhttp.send(); //2
-}
 
 function ajaxToMain() {
 	var data = {
