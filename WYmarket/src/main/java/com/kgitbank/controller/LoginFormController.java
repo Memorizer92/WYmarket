@@ -176,9 +176,6 @@ public class LoginFormController {
 	// 로그인
 	@GetMapping(value = "/auth/kakao/login")
 	public String kakaoLogin(String code, Model model, HttpSession session) {
-		System.out.println("카카오 로그인" + model.getAttribute("lat"));
-		System.out.println("카카오 로그인" + model.getAttribute("lon"));
-		System.out.println("카카오 로그인" + model.getAttribute("address"));
 
 		// post방식으로 key=value 데이터를 요청(카카오쪽으로)
 
@@ -249,18 +246,13 @@ public class LoginFormController {
 
 		mail = kakaoprofile.getKakao_account().getEmail();
 
-		String userNick = wyMarketService.getUserNickByMail(mail);
-		System.out.println("카카오 닉 : " + userNick);
+		String userNick = wyMarketService.getUserNickByMail(mail); 
 
-		int result = service.selectKakaoMail(mail);
-		System.out.println("가입 유무 : " + result);
+		int result = service.selectKakaoMail(mail); 
 
 		model.addAttribute("confirm", result);
 
-		// User 오브젝트 : username, password, email
-		System.out.println("카카오 아이디(번호): " + kakaoprofile.getId());
-		System.out.println("이름 : " + kakaoprofile.getKakao_account().getProfile().getNickname());
-		System.out.println("카카오 이메일: " + mail);
+		// User 오브젝트 : username, password, email 
 
 		if (userNick != null) {
 			UserInfo userInfo = (UserInfo) wyMarketService.selectUserInfoByMail(mail);
