@@ -195,14 +195,6 @@
 
 .dhPrXG table tbody>tr {
 	border-bottom: 1px solid rgb(220, 219, 228);
-	
-}
-.dhPrXG table tbody>tr > td{
-	text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-        padding: 0 3px 0 18px;
-	
 }
 
 .dhPrXG table tr>td:first-child {
@@ -215,12 +207,10 @@
 
 .dhPrXG table tr>:nth-child(3) {
 	width: 21rem;
-	text-align-last: center;
 }
 
 .dhPrXG table tr>:nth-child(4) {
 	width: 6.5rem;
-	text-align: revert;
 }
 
 .dhPrXG table tr>:nth-child(5) {
@@ -229,11 +219,10 @@
 
 .dhPrXG table tr>:nth-child(6) {
 	width: 9.5rem;
-	text-align-last: center;
 }
 
 .dhPrXG table tr>td:last-child {
-	
+	display: flex;
 	flex-direction: column;
 	-webkit-box-align: center;
 	align-items: center;
@@ -258,7 +247,6 @@
 	position: relative;
 	overflow: hidden;
 	box-sizing: border-box;
-	text-align: center;
 }
 
 .sing {
@@ -279,18 +267,17 @@
 
 </head>
 <body>
-	
+
 	<div id="root">
 		<header id="header">
-			<div id="header_box" style="    padding-bottom: 30px;">
+			<div id="header_box">
 				<%@ include file="include/header.jsp"%>
 			</div>
-		</header>
+		</header>	
 		<div class="gPdUna">
-	
 			<div class="mainBar">
 				<nav class="productBarMain">
-				
+
 					<div class="productBar productBarAfter">
 						<button class="breakdown"
 							onclick="location.href ='<%=application.getContextPath()%>/goods/register2'">상품등록</button>
@@ -312,70 +299,61 @@
 			<div class="eXqDQY">
 				<main class="dhPrXG">
 					<header class="dzcnmr">
-						<form action="<%=application.getContextPath()%>/mypage/Productmanagement" class="frGPEd" id ="pufrom">
-							<input type="text" id = "pusearch" name = "psearch"
-								placeholder="상품명을 입력해주세요." style=" height: 100%;
-    width: 100%;
-    padding: 0px 68px 0px 1rem;
-    border: 1px solid rgb(195, 194, 204);
-    border-radius: 2px;     background-color: #fbb4132b;" />
-								
-							<button class="fQvnGB" id ="selectID1" form="pufrom" onclick="pucheck()" value="확인" style="    background-color: #ffbf0042;"></button>
+						<form action="<%=application.getContextPath() %>/mypage/Productmanagement" class="frGPEd">
+							<input type="text" name = "psearch" placeholder="상품명을 입력해주세요."/>
+							<button  class="fQvnGB"></button>
 						</form>
 						<div class="jAXfuM">
 							<div class="cont">
-							<%-- 	<div class="eAMYPo">
+								<div class="eAMYPo">
 									<select class="hwfws3" name="pageOpenCount"
 										onchange="if(this.value) location.href=(this.value);">
-										<option selected disabled="disabled">목록보기</option>
-										<option value="<%=application.getContextPath()%>/mypage/Productmanagement">전체 보기</option>
+										<option selected disabled="disabled">목록 수</option>
 										<option
-											value="./Productmanagement?pagenum=1&amount=5&usernick=${user.userNick }">5개씩</option>
+											value="./Productmanagement?pagenum=1&amount=2&usernick=${user.userNick }">10개씩</option>
 										<option
-											value="./Productmanagement?pagenum=1&amount=10&usernick=${user.userNick }">10개씩</option>
+											value="./Productmanagement?pagenum=1&amount=3&usernick=${user.userNick }">20개씩</option>
 										<option
-											value="./Productmanagement?pagenum=1&amount=20&usernick=${user.userNick }">20개씩</option>
+											value="./Productmanagement?pagenum=1&amount=4&usernick=${user.userNick }">50개씩</option>
 									</select>
-								</div> --%>
+								</div>
 							</div>
 						</div>
 						<div class="jAXfuM">
 							<div class="cont">
-								<!-- <div class="eAMYPo">
-									<select class="hwfws3" id = "sele" name="pageOpenCount" onchange="chageLangSelect()">
+								<div class="eAMYPo">
+									<select class="hwfws3" name="pageOpenCount"
+										onchange="if(this.value) location.href=(this.value);">
 										<option selected disabled="disabled">원래 판매상태에 따른 페이지</option>
-										<option onclick="saleState()">판매상태</option>
-										<option>거래완료</option>
-										<option>숨김</option>
-									</select>
-								</div> -->
+										<option
+											value="<%=application.getContextPath()%>/param/sale">10개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=20&usernick=${user.userNick }">20개씩</option>
+										<option
+											value="./Productmanagement?pagenum=1&amount=50&usernick=${user.userNick }">50개씩</option>
+									</select>										
+								</div>
 							</div>
 						</div>
 					</header>
 
-				<div style="overflow: auto; height: 500px;">
-					<table style="margin: 0;">
+
+					<table>
 						<thead>
 							<tr>
-								<th style="    position: relative;
-    right: -49px;">사진</th>
-								<th style="     position: relative;
-    right: -34px;">판매상태</th>
+								<th>사진</th>
+								<th>판매상태</th>
 								<th>상품명</th>
 								<th>가격</th>
 								<th>찜/댓글</th>
-								<th>최근 수정일</th>								
+								<th>최근 수정일</th>
+								<th>기능</th>
 							</tr>
-							
 						</thead>
 						<tbody>
-						
-						
-						
-						
-							<c:forEach var="shitem_List" items="${pageList }">							
+								
+							<c:forEach var="shitem_List" items="${pageList }">
 								<tr>
-							
 									<td><a
 										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}"><img
 											src="${pageContext.request.contextPath}${shitem_List.iimagepath}"
@@ -386,11 +364,11 @@
 												<div class="hwfss">
 
 													<c:choose>
-														<c:when test="${shitem_List.istate eq 'Onsale' and shitem_List.ireservationstate eq 'Nreservation'}">
+														<c:when test="${shitem_List.istate eq 'Onsale' }">
 															<div class="sing">판매중</div>
 														</c:when>
-																											
-														<c:when test="${shitem_List.istate eq 'Onsale' and shitem_List.ireservationstate eq 'Yreservation' }">
+
+														<c:when test="${shitem_List.istate eq 'Yreservation' }">
 															<div class="sing">예약중</div>
 														</c:when>
 
@@ -409,9 +387,8 @@
 											</div>
 										</div>
 									</td>
-									
-									<td><a style="text-decoration: none ;    color: black;"
-										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}" >${shitem_List.ititle }</a></td>
+									<td><a style="text-decoration: none;"
+										href="<%=application.getContextPath()%>/goods/view2?n=${shitem_List.itemid}">${shitem_List.ititle }</a></td>
 									<td><c:set var="money" value="${shitem_List.price }" /> <fmt:formatNumber
 											value="${money }" type="number" /> 원</td>
 									<td>${shitem_List.likecnt}/${shitem_List.viewcnt}</td>
@@ -448,17 +425,18 @@
 												<br>
 											</c:when>
 										</c:choose></td>
-								
+									<td>기능</td>
 								</tr>
-								
 							</c:forEach>
 						</tbody>
 					</table>
-					</div>
-					<c:if test="${empty itemvo }">
-						<div class="iOnkn">상품 목록이 존재하지 않습니다.</div>
-					</c:if>
-					<%-- <div>
+					<c:choose>
+					<c:when test="${empty itemvo }">
+					<div class="iOnkn">상품 목록이 존재하지 않습니다.</div>
+					</c:when>
+					<c:otherwise>
+						 
+					<div>
 						<c:url var="previousHref"
 							value="./Productmanagement?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${user.userNick }" />
 						<c:url var="nextHref"
@@ -486,7 +464,7 @@
 
 								<c:forEach var="i" begin="${page.startPage }"
 									end="${page.endPage }">
-									<li 
+									<li
 										class="page-item<c:if test="${page.currPage eq i }"> active</c:if>"
 										aria-current="page"><a class="page-link"
 										href="./Productmanagement?pagenum=${i }&amount=${page.amount }&usernick=${user.userNick }">${i }</a>
@@ -506,37 +484,20 @@
 								</li>
 							</ul>
 						</nav>
-					</div> --%>
+					</div>
+					</c:otherwise>
+					</c:choose>
+
 				</main>
 			</div>
 		</div>
-
 		<footer id="footer">
 			<div id="footer_box">
 				<%@ include file="include/footer.jsp"%>
 			</div>
 		</footer>
 	</div>
-<script type="text/javascript">
 
-function chageLangSelect() {
-	var langSelect = document.getElementById("sele");
-    var selectValue = langSelect.options[langSelect.selectedIndex].value;
- 	
-
-}
-
-function pucheck(){
-	const pusearch = document.getElementById('pusearch');
-	 if(pusearch.value == ""){
-		alert('검색어를 입력해주세요.');	
-		return false;
-	}else{
-		document.getElementById(document.getElementById('selectID1').getAttribute('form')).submit();
-	}
-}
-
-</script>
 
 </body>
 </html>

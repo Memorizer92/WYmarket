@@ -175,7 +175,7 @@
                            상품 <span class="kGPYka">${shitemCount }</span>
                         </div>
                      </div>
-                     <div style="overflow: auto; width: 100%; height: 664px;">
+                     <div style="width: 100%;">
                         <c:choose>
 
                            <c:when test="${shitemCount eq 0}">
@@ -303,7 +303,9 @@
 
                      </div>
                   </div>
-                  <%--    <div>
+                
+                 
+                      <div>
                      <c:url var="previousHref"
                         value="./myPage?pagenum=${page.startPage - page.size}&amount=${page.amount }&usernick=${usernick }" />
                      <c:url var="nextHref"
@@ -350,7 +352,8 @@
                            </li>
                         </ul>
                      </nav>
-                  </div> --%>
+                  </div> 
+                 
                </div>
             </div>
 

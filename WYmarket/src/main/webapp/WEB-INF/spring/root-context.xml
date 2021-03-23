@@ -13,10 +13,15 @@
 		<property name="dataSourceClassName"
 			value="oracle.jdbc.pool.OracleDataSource" /> 
 		<property name="dataSourceProperties">
-			<props>
+			<!-- <props>
 				<prop key="user">c##wymarket</prop>
 				<prop key="password">1234</prop>
 				<prop key="url">jdbc:oracle:thin:@61.77.190.253:1521/xe</prop>
+			</props> -->
+			<props>
+				<prop key="user">hr</prop>
+				<prop key="password">1234</prop>
+				<prop key="url">jdbc:oracle:thin:@localhost/XEPDB1</prop>
 			</props>
 		</property>
 	</bean>

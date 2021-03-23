@@ -46,7 +46,7 @@ $('.carousel').carousel({
 	justify-content: flex-end;
 } */
 #myCarousel{
-	width:73%;
+	width: 1200px;
 	margin:0 auto; 
 	margin-bottom: 40px;
 }

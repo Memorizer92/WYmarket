@@ -24,10 +24,10 @@ SELECT usernick from sh_userInfo
 			FROM
 			 sh_item
 			WHERE
-			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick} order by refreshtime asc
+			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick}
 		)
 	WHERE
-		rn > (#{pagenum} -1) * #{amount} 
+		rn > (#{pagenum} -1) * #{amount} order by refreshtime asc
 		]]>
 </select>
 
@@ -51,7 +51,7 @@ SELECT usernick from sh_userInfo
 			 	rownum <= #{pagenum} * #{amount}  and  usernick = #{usernick} 
 			 	and ititle LIKE '%' || #{psearch, jdbcType=VARCHAR} || '%')  
 	WHERE
-		rn > (#{pagenum} -1) * #{amount}
+		rn > (#{pagenum} -1) * #{amount} order by refreshtime asc
 		]]>
 </select>
  
