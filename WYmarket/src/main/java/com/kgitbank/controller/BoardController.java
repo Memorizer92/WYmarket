@@ -31,7 +31,7 @@ public class BoardController {
 	@Autowired
 	private UserService service;
 
-	// 계정 탈퇴 사유 조회
+	// 계정 탈퇴 ,사유 조회
 	@RequestMapping("withdrawalList")
 	public String withdrawalList(Model model, HttpSession session) {
 		if (session.getAttribute("user") == null && session.getAttribute("Admin") == null) {

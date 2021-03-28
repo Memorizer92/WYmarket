@@ -285,9 +285,7 @@ public class LoginFormController {
 			return "redirect:/main";
 		} else {
 			return "kakaousernick";
-		}
-
-		// 가입유무 : 0이면 메모님이 만든 첫login페이지로 이동하고 닉네임설정모달띄우기 페이지 연결
+		} 
 	}
 
 	@PostMapping(value = "auth/kakao/kakaonick", consumes = "application/json", produces = "text/html; charset=UTF-8")
